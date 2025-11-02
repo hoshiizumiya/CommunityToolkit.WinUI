@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+	<metadata>
+		<id>XamlToolkit.WinUI.Helpers.Native</id>
+		<version>0.1.0-alpha</version>
+		<title>XamlToolkit.WinUI.Helpers.Native</title>
+		<authors>lgztx96</authors>
+		<owners>lgztx96</owners>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<license type="expression">MIT</license>
+		<projectUrl>https://github.com/lgztx96/CommunityToolkit.WinUI</projectUrl>
+		<repository type="git" url="https://github.com/lgztx96/CommunityToolkit.WinUI.git"/>
+		<description>WinUI Community Toolkit (C++ Port).</description>
+		<releaseNotes>Initial release.</releaseNotes>
+		<tags>Windows Community Toolkit WCT WinUI WinRT WindowsAppSDK WASDK WinAppSDK Xaml CPP Native</tags>
+		<readme>Readme.md</readme>
+		<dependencies>
+			<dependency id="Microsoft.WindowsAppSDK" version="1.7.251014001" />
+			<dependency id="XamlToolkit.WinUI.Native" version="0.1.0-alpha" />
+		</dependencies>
+	</metadata>
+
+	<files>
+		<file src="README.md" target="Readme.md" />
+
+		<file target="build\native\XamlToolkit.WinUI.Helpers.Native.targets"                          src="XamlToolkit.WinUI.Helpers.Native.targets" />
+		<file target="build\net8.0-windows10.0.26100.0\XamlToolkit.WinUI.Helpers.Native.targets"      src="XamlToolkit.WinUI.Helpers.Managed.targets" />
+
+		<file target="lib\native\XamlToolkit.WinUI.Helpers.winmd"                              src="..\x64\Release\XamlToolkit.WinUI.Helpers\XamlToolkit.WinUI.Helpers.winmd" />
+		<file target="lib\uap10.0\XamlToolkit.WinUI.Helpers.winmd"                              src="..\x64\Release\XamlToolkit.WinUI.Helpers\XamlToolkit.WinUI.Helpers.winmd" />
+
+		<file target="runtimes\win-x86\native\XamlToolkit.WinUI.Helpers.dll"                   src="..\Release\XamlToolkit.WinUI.Helpers\XamlToolkit.WinUI.Helpers.dll" />
+		<file target="runtimes\win-x64\native\XamlToolkit.WinUI.Helpers.dll"                   src="..\x64\Release\XamlToolkit.WinUI.Helpers\XamlToolkit.WinUI.Helpers.dll" />
+		<file target="runtimes\win-arm64\native\XamlToolkit.WinUI.Helpers.dll"                 src="..\arm64\Release\XamlToolkit.WinUI.Helpers\XamlToolkit.WinUI.Helpers.dll" />
+
+		<file target="lib\net8.0-windows10.0.26100.0\XamlToolkit.WinUI.Helpers.Interop.dll" src="..\dotnet\XamlToolkit.WinUI.Helpers\bin\Release\net8.0-windows10.0.26100.0\XamlToolkit.WinUI.Helpers.Interop.dll" />
+	</files>
+</package>

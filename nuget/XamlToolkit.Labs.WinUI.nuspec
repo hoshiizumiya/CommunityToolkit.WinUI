@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+	<metadata>
+		<id>XamlToolkit.Labs.WinUI.Native</id>
+		<version>0.1.0-alpha</version>
+		<title>XamlToolkit.Labs.WinUI.Native</title>
+		<authors>lgztx96</authors>
+		<owners>lgztx96</owners>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<license type="expression">MIT</license>
+		<projectUrl>https://github.com/lgztx96/CommunityToolkit.WinUI</projectUrl>
+		<repository type="git" url="https://github.com/lgztx96/CommunityToolkit.WinUI.git"/>
+		<description>WinUI Community Toolkit (C++ Port).</description>
+		<releaseNotes>Initial release.</releaseNotes>
+		<tags>Windows Community Toolkit WCT WinUI WinRT WindowsAppSDK WASDK WinAppSDK Xaml CPP Native</tags>
+		<readme>Readme.md</readme>
+		<dependencies>
+			<dependency id="Microsoft.WindowsAppSDK" version="1.7.251014001" />
+			<dependency id="XamlToolkit.WinUI.Native" version="0.1.0-alpha" />
+			<dependency id="XamlToolkit.WinUI.Controls.Native" version="0.1.0-alpha" />
+			<dependency id="XamlToolkit.WinUI.Helpers.Native" version="0.1.0-alpha" />
+		</dependencies>
+	</metadata>
+
+	<files>
+		<file src="README.md" target="Readme.md" />
+
+		<file target="build\native\XamlToolkit.Labs.WinUI.Native.targets"                          src="XamlToolkit.Labs.WinUI.Native.targets" />
+		<file target="build\net8.0-windows10.0.26100.0\XamlToolkit.Labs.WinUI.Native.targets"      src="XamlToolkit.Labs.WinUI.Managed.targets" />
+
+		<file target="lib\native\XamlToolkit.Labs.WinUI.winmd"                              src="..\x64\Release\XamlToolkit.Labs.WinUI\XamlToolkit.Labs.WinUI.winmd" />
+		<file target="lib\native\XamlToolkit.Labs.WinUI.pri"                              src="..\x64\Release\XamlToolkit.Labs.WinUI\XamlToolkit.Labs.WinUI.pri" />
+
+		<file target="lib\uap10.0\XamlToolkit.Labs.WinUI.winmd"                              src="..\x64\Release\XamlToolkit.Labs.WinUI\XamlToolkit.Labs.WinUI.winmd" />
+		
+		<file target="runtimes\win-x86\native\XamlToolkit.Labs.WinUI.dll"                   src="..\Release\XamlToolkit.Labs.WinUI\XamlToolkit.Labs.WinUI.dll" />
+		<file target="runtimes\win-x64\native\XamlToolkit.Labs.WinUI.dll"                   src="..\x64\Release\XamlToolkit.Labs.WinUI\XamlToolkit.Labs.WinUI.dll" />
+		<file target="runtimes\win-arm64\native\XamlToolkit.Labs.WinUI.dll"                 src="..\arm64\Release\XamlToolkit.Labs.WinUI\XamlToolkit.Labs.WinUI.dll" />
+
+		<file target="lib\net8.0-windows10.0.26100.0\XamlToolkit.Labs.WinUI.Interop.dll" src="..\dotnet\XamlToolkit.Labs.WinUI\bin\Release\net8.0-windows10.0.26100.0\XamlToolkit.Labs.WinUI.Interop.dll" />
+		<file target="lib\net8.0-windows10.0.26100.0\XamlToolkit.Labs.WinUI.Interop.pri" src="..\dotnet\XamlToolkit.Labs.WinUI\bin\Release\net8.0-windows10.0.26100.0\XamlToolkit.Labs.WinUI.pri" />
+	</files>
+</package>
