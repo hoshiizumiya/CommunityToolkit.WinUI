@@ -118,5 +118,18 @@ Since vcpkg does not support configuring UTF-16 character set for md4c, the proj
 
 ## Usage
 
-- Download the **release package**.  
-- For your project, add a reference to the provided **.winmd** file. Visual Studio will automatically reference the required libraries.
+### NuGet
+
+Add nuget packages to your project.	
+
+Add an XML namespace like this in your XAML
+
+```bash
+xmlns:ui="using:XamlToolkit.WinUI.Controls"
+xmlns:controls="using:XamlToolkit.WinUI.Controls"
+xmlns:labs="using:XamlToolkit.Labs.WinUI"
+xmlns:media="using:XamlToolkit.WinUI.Media"
+```
+
+![Sample](docs/images/Sample.png)
+
