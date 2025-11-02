@@ -19,6 +19,12 @@ You can install the C++ WinUI Community Toolkit packages via NuGet:
 | XamlToolkit.Labs.WinUI.Native | [![NuGet](https://img.shields.io/nuget/v/XamlToolkit.Labs.WinUI.Native.svg)](https://www.nuget.org/packages/XamlToolkit.Labs.WinUI.Native/) |
 | XamlToolkit.WinUI.Controls.Native | [![NuGet](https://img.shields.io/nuget/v/XamlToolkit.WinUI.Controls.Native.svg)](https://www.nuget.org/packages/XamlToolkit.WinUI.Controls.Native/) |
 
+**Note:** When using the C# version, make sure to set the `<TargetFramework>` to:
+
+```xml
+<TargetFramework>net8.0-windows10.0.26100.0</TargetFramework>
+```
+
 ## Controls
 
 ### MarkdownTextBlock
