@@ -6,6 +6,19 @@ The goal is to allow seamless usage of these controls in WinUI 3 / C++ projects.
 
 ---
 
+## NuGet Packages
+
+You can install the C++ WinUI Community Toolkit packages via NuGet:
+
+| Package | NuGet |
+|---------|-------|
+| XamlToolkit.WinUI.Native | [![NuGet](https://img.shields.io/nuget/v/XamlToolkit.WinUI.Native.svg)](https://www.nuget.org/packages/XamlToolkit.WinUI.Native/) |
+| XamlToolkit.WinUI.Helpers.Native | [![NuGet](https://img.shields.io/nuget/v/XamlToolkit.WinUI.Helpers.Native.svg)](https://www.nuget.org/packages/XamlToolkit.WinUI.Helpers.Native/) |
+| XamlToolkit.WinUI.Converters.Native | [![NuGet](https://img.shields.io/nuget/v/XamlToolkit.WinUI.Converters.Native.svg)](https://www.nuget.org/packages/XamlToolkit.WinUI.Converters.Native/) |
+| XamlToolkit.WinUI.Media.Native | [![NuGet](https://img.shields.io/nuget/v/XamlToolkit.WinUI.Media.Native.svg)](https://www.nuget.org/packages/XamlToolkit.WinUI.Media.Native/) |
+| XamlToolkit.Labs.WinUI.Native | [![NuGet](https://img.shields.io/nuget/v/XamlToolkit.Labs.WinUI.Native.svg)](https://www.nuget.org/packages/XamlToolkit.Labs.WinUI.Native/) |
+| XamlToolkit.WinUI.Controls.Native | [![NuGet](https://img.shields.io/nuget/v/XamlToolkit.WinUI.Controls.Native.svg)](https://www.nuget.org/packages/XamlToolkit.WinUI.Controls.Native/) |
+
 ## Controls
 
 ### MarkdownTextBlock
