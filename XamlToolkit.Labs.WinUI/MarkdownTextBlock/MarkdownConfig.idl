@@ -1,0 +1,27 @@
+﻿import "MarkdownTextBlock/MarkdownThemes.idl";
+
+namespace XamlToolkit.Labs.WinUI
+{
+    interface IImageProvider
+    {
+        Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.Image> GetImage(String url);
+        Boolean ShouldUseThisProvider(String url);
+    }
+
+    interface ISVGRenderer
+    {
+        Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.Image> SvgToImage(String svgString);
+    }
+
+    [default_interface]
+    runtimeclass MarkdownConfig 
+    {
+        MarkdownConfig();
+        String BaseUrl{ get; set; };
+        IImageProvider ImageProvider{ get; set; };
+        ISVGRenderer SVGRenderer{ get; set; };
+        MarkdownThemes Themes{ get; set; };
+
+        static MarkdownConfig Default();
+    }
+}

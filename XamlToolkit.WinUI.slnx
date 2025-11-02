@@ -1,0 +1,73 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="ARM64" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Docs/">
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/Docs/Images/">
+    <File Path="docs/images/AttachedCardShadow.png" />
+    <File Path="docs/images/ColorPicker.png" />
+    <File Path="docs/images/ConstrainedBox.png" />
+    <File Path="docs/images/DockPanel.png" />
+    <File Path="docs/images/GridSplitter.png" />
+    <File Path="docs/images/HeaderedContentControl.png" />
+    <File Path="docs/images/ImageCropper.png" />
+    <File Path="docs/images/LayoutTransformControl.png" />
+    <File Path="docs/images/MarkdownTextBlock.webp" />
+    <File Path="docs/images/Marquee.webp" />
+    <File Path="docs/images/MetadataControl.png" />
+    <File Path="docs/images/OpacityMaskView.png" />
+    <File Path="docs/images/RadialGauge.png" />
+    <File Path="docs/images/RangeSelector.png" />
+    <File Path="docs/images/Segmented.png" />
+    <File Path="docs/images/SettingsCard.png" />
+    <File Path="docs/images/Shimmer.webp" />
+    <File Path="docs/images/StaggeredLayout.png" />
+    <File Path="docs/images/SwitchPresenter.png" />
+    <File Path="docs/images/TabbedCommandBar.png" />
+    <File Path="docs/images/TokenizingTextBox.png" />
+    <File Path="docs/images/TokenView.png" />
+    <File Path="docs/images/UniformGrid.png" />
+    <File Path="docs/images/WrapPanel.png" />
+  </Folder>
+  <Folder Name="/DotNet/">
+    <Project Path="dotnet/XamlToolkit.Labs.WinUI/XamlToolkit.Labs.WinUI.Interop.csproj" />
+    <Project Path="dotnet/XamlToolkit.WinUI.Controls/XamlToolkit.WinUI.Controls.Interop.csproj" />
+    <Project Path="dotnet/XamlToolkit.WinUI.Converters/XamlToolkit.WinUI.Converters.Interop.csproj" />
+    <Project Path="dotnet/XamlToolkit.WinUI.Helpers/XamlToolkit.WinUI.Helpers.Interop.csproj" />
+    <Project Path="dotnet/XamlToolkit.WinUI.Media/XamlToolkit.WinUI.Media.Interop.csproj" />
+    <Project Path="dotnet/XamlToolkit.WinUI/XamlToolkit.WinUI.Interop.csproj" />
+  </Folder>
+  <Folder Name="/NuGet/">
+    <File Path="nuget/README.md" />
+    <File Path="nuget/XamlToolkit.Labs.WinUI.Managed.targets" />
+    <File Path="nuget/XamlToolkit.Labs.WinUI.Native.targets" />
+    <File Path="nuget/XamlToolkit.Labs.WinUI.nuspec" />
+    <File Path="nuget/XamlToolkit.WinUI.Controls.Managed.targets" />
+    <File Path="nuget/XamlToolkit.WinUI.Controls.Native.targets" />
+    <File Path="nuget/XamlToolkit.WinUI.Controls.nuspec" />
+    <File Path="nuget/XamlToolkit.WinUI.Converters.Managed.targets" />
+    <File Path="nuget/XamlToolkit.WinUI.Converters.Native.targets" />
+    <File Path="nuget/XamlToolkit.WinUI.Converters.nuspec" />
+    <File Path="nuget/XamlToolkit.WinUI.Helpers.Managed.targets" />
+    <File Path="nuget/XamlToolkit.WinUI.Helpers.Native.targets" />
+    <File Path="nuget/XamlToolkit.WinUI.Helpers.nuspec" />
+    <File Path="nuget/XamlToolkit.WinUI.Managed.targets" />
+    <File Path="nuget/XamlToolkit.WinUI.Media.Managed.targets" />
+    <File Path="nuget/XamlToolkit.WinUI.Media.Native.targets" />
+    <File Path="nuget/XamlToolkit.WinUI.Media.nuspec" />
+    <File Path="nuget/XamlToolkit.WinUI.Native.targets" />
+    <File Path="nuget/XamlToolkit.WinUI.nuspec" />
+  </Folder>
+  <Project Path="XamlToolkit.Labs.WinUI/XamlToolkit.Labs.WinUI.vcxproj" Id="8dbdb115-b325-4d42-aecf-50cbf8b7ab3e" />
+  <Project Path="XamlToolkit.WinUI.Controls/XamlToolkit.WinUI.Controls.vcxproj" Id="ef5f53e1-2ddb-4936-a78f-517fc8be74ff" />
+  <Project Path="XamlToolkit.WinUI.Converters/XamlToolkit.WinUI.Converters.vcxproj" Id="5f5234f5-2630-47bf-94c7-b2c14301e00e" />
+  <Project Path="XamlToolkit.WinUI.Helpers/XamlToolkit.WinUI.Helpers.vcxproj" Id="f8087280-d16f-4d9d-9e17-58aac733d56d" />
+  <Project Path="XamlToolkit.WinUI.Media/XamlToolkit.WinUI.Media.vcxproj" Id="a8fa1b9a-b83c-408a-8132-c1576b9fcbd5" />
+  <Project Path="XamlToolkit.WinUI/XamlToolkit.WinUI.vcxproj" Id="17c20e50-8d62-4fc3-8feb-b64b03a893be" />
+</Solution>

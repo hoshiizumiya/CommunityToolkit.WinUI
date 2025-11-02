@@ -95,7 +95,7 @@ The goal is to allow seamless usage of these controls in WinUI 3 / C++ projects.
 ## Build Steps
 
 - Requires **Visual Studio 2022** or later for compilation.  
-- To build `CommunityToolkit.Labs.WinUI`, you need to install **tree-sitter** via vcpkg:
+- To build `XamlToolkit.Labs.WinUI`, you need to install **tree-sitter** via vcpkg:
 
 ```powershell
 vcpkg install tree-sitter:x64-windows-static

@@ -1,4 +1,5 @@
-﻿name: Build CommunityToolkit.WinUI
+﻿
+name: Build XamlToolkit.WinUI
 
 on:
   release:
@@ -13,11 +14,11 @@ jobs:
 
     strategy:
       matrix:
-        arch: [ x64, arm64 ]
+        arch: [ x86, x64, arm64 ]
 
     env:
       VCPKG_DEFAULT_TRIPLET: ${{ matrix.arch }}-windows-static
-      SOLUTION_FILE: CommunityToolkit.WinUI.slnx
+      SOLUTION_FILE: XamlToolkit.WinUI.slnx
 
     steps:
       - name: Checkout source
@@ -59,9 +60,15 @@ jobs:
           /m
 
       - name: Package artifacts
+        shell: pwsh
         run: |
           mkdir package
-          Compress-Archive -Path "${{ matrix.arch }}/Release/*" -DestinationPath "package/CommunityToolkit.WinUI-${{ matrix.arch }}.zip"
+          if ("${{ matrix.arch }}" -eq "x86") {
+            $outputPath = "Release"
+          } else {
+            $outputPath = "${{ matrix.arch }}\Release"
+          }
+          Compress-Archive -Path "$outputPath\*" -DestinationPath "package/XamlToolkit.WinUI-${{ matrix.arch }}.zip"
 
       - name: Upload artifacts to GitHub Release
         uses: softprops/action-gh-release@v2

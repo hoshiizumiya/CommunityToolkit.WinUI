@@ -1,0 +1,8 @@
+namespace XamlToolkit.WinUI.Controls
+{
+    [default_interface]
+    runtimeclass StyleExtensionResourceDictionary : Microsoft.UI.Xaml.ResourceDictionary
+    {
+        StyleExtensionResourceDictionary();
+    }
+}

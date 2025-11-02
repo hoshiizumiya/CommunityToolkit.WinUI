@@ -1,0 +1,139 @@
+
+namespace XamlToolkit.WinUI
+{
+    static runtimeclass UIElementExtensions
+    {
+        static Microsoft.UI.Xaml.DependencyProperty ClipToBoundsProperty{ get; };
+
+        static Boolean GetClipToBounds(Microsoft.UI.Xaml.UIElement element);
+
+        static void SetClipToBounds(Microsoft.UI.Xaml.UIElement element, Boolean value);
+
+        static Windows.Foundation.Point CoordinatesFrom(Microsoft.UI.Xaml.UIElement target, Microsoft.UI.Xaml.UIElement parent);
+
+        static Windows.Foundation.Point CoordinatesTo(Microsoft.UI.Xaml.UIElement parent, Microsoft.UI.Xaml.UIElement target);
+    }
+
+    interface IAlphaMaskProvider
+    {
+        Boolean WaitUntilLoaded { get; };
+
+        Microsoft.UI.Composition.CompositionBrush GetAlphaMask();
+    }
+
+    runtimeclass AttachedShadowElementContext
+    {
+        AttachedShadowElementContext();
+
+        AttachedShadowElementContext(AttachedShadowBase parent, Microsoft.UI.Xaml.FrameworkElement element);
+
+        AttachedShadowBase Parent{ get; };
+
+        Microsoft.UI.Xaml.FrameworkElement Element{ get; };
+
+        Microsoft.UI.Composition.Visual ElementVisual{ get; };
+
+        Microsoft.UI.Composition.Compositor Compositor{ get; };
+
+        Microsoft.UI.Composition.SpriteVisual SpriteVisual{ get; };
+
+        Microsoft.UI.Composition.DropShadow Shadow{ get; };
+
+        Boolean IsInitialized();
+
+        Object GetResource(String key);
+
+        Object AddResource(String key, Object value);
+
+        void RemoveAndDisposeResource(String key);
+
+        void ClearAndDisposeResources();
+
+        void DisconnectFromElement();
+    }
+
+    interface IAttachedShadow
+    {
+        Double BlurRadius;
+
+        Double Opacity;
+
+        String Offset;
+
+        Windows.UI.Color Color;
+
+        AttachedShadowElementContext GetElementContext(Microsoft.UI.Xaml.FrameworkElement element);
+
+        Windows.Foundation.Collections.IIterable<AttachedShadowElementContext> EnumerateElementContexts();
+    }
+
+    unsealed runtimeclass AttachedShadowBase : Microsoft.UI.Xaml.DependencyObject, IAttachedShadow
+    {
+        AttachedShadowBase();
+        
+        static Microsoft.UI.Xaml.DependencyProperty BlurRadiusProperty{ get; };
+
+        static Microsoft.UI.Xaml.DependencyProperty ColorProperty{ get; };
+
+        static Microsoft.UI.Xaml.DependencyProperty OffsetProperty{ get; };
+
+        static Microsoft.UI.Xaml.DependencyProperty OpacityProperty{ get; };
+
+        void ConnectElement(Microsoft.UI.Xaml.FrameworkElement element);
+
+        void DisconnectElement(Microsoft.UI.Xaml.FrameworkElement element);
+
+        static void OnDependencyPropertyChanged(Object sender, Microsoft.UI.Xaml.DependencyPropertyChangedEventArgs args);
+
+        overridable void OnElementContextInitialized(AttachedShadowElementContext context);
+
+        overridable void OnElementContextUninitialized(AttachedShadowElementContext context);
+
+        overridable Boolean SupportsOnSizeChangedEvent();
+
+        void UpdateShadowMask(AttachedShadowElementContext context);
+
+        void UpdateShadowClip(AttachedShadowElementContext context);
+
+        overridable Microsoft.UI.Composition.CompositionBrush GetShadowMask(XamlToolkit.WinUI.AttachedShadowElementContext context);
+
+        overridable Microsoft.UI.Composition.CompositionClip GetShadowClip(XamlToolkit.WinUI.AttachedShadowElementContext context);
+
+        overridable void SetElementChildVisual(AttachedShadowElementContext context);
+
+        overridable void OnPropertyChanged(AttachedShadowElementContext context, Microsoft.UI.Xaml.DependencyProperty property, Object oldValue, Object newValue);
+
+        overridable void OnSizeChanged(AttachedShadowElementContext context, Windows.Foundation.Size newSize, Windows.Foundation.Size previousSize);
+    }
+
+    static runtimeclass Effects
+    {
+        static AttachedShadowBase GetShadow(Microsoft.UI.Xaml.FrameworkElement obj);
+
+        static void SetShadow(Microsoft.UI.Xaml.FrameworkElement obj, AttachedShadowBase value);
+
+        static Microsoft.UI.Xaml.DependencyProperty ShadowProperty{ get; };
+    }
+
+    struct HslColor
+    {
+        Double H;
+
+        Double S;
+
+        Double L;
+
+        Double A;
+    };
+
+    struct HsvColor
+    {
+        Double H;
+
+        Double S;
+
+        Double V;
+
+        Double A;
+    };
+}

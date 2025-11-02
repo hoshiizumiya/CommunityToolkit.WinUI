@@ -1,0 +1,17 @@
+namespace XamlToolkit.WinUI.Controls
+{
+    [bindable]
+    [default_interface]
+	runtimeclass MetadataItem
+	{
+		MetadataItem();
+
+		String Label;
+
+		String AccessibleLabel;
+
+		Microsoft.UI.Xaml.Input.ICommand Command;
+
+		Object CommandParameter;
+	};
+}
