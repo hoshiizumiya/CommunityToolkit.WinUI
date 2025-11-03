@@ -8,7 +8,7 @@ The goal is to allow seamless usage of these controls in WinUI 3 / C++ projects.
 
 ## NuGet Packages
 
-You can install the C++ WinUI Community Toolkit packages via NuGet:
+You can install the C++ WinUI Community Toolkit packages via NuGet (it also supports .NET):
 
 | Package | NuGet |
 |---------|-------|
@@ -131,8 +131,9 @@ Add nuget packages to your project.
 Add an XML namespace like this in your XAML
 
 ```bash
-xmlns:ui="using:XamlToolkit.WinUI.Controls"
+xmlns:ui="using:XamlToolkit.WinUI"
 xmlns:controls="using:XamlToolkit.WinUI.Controls"
+xmlns:convertors="using:XamlToolkit.WinUI.Convertors"
 xmlns:labs="using:XamlToolkit.Labs.WinUI"
 xmlns:media="using:XamlToolkit.WinUI.Media"
 ```
