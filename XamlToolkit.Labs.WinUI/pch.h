@@ -31,3 +31,6 @@
 #include "Shimmer\Shimmer.h"
 #include "TokenView\TokenView.h"
 #include "TokenView\TokenItem.h"
+#include "Ribbon\Ribbon.h"
+#include "Ribbon\RibbonGroup.h"
+#include "Ribbon\RibbonCollapsibleGroup.h"

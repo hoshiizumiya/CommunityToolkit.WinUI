@@ -1,7 +1,5 @@
 #pragma once
 #include <winrt/Windows.Foundation.Metadata.h>
-#include <winrt/Windows.UI.Xaml.h>
-
 
 namespace winrt::XamlToolkit::Labs::WinUI::implementation
 {

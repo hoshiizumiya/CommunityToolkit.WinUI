@@ -255,6 +255,26 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Ribbon\DoubleVector.h">
+      <DependentUpon>Ribbon\DoubleVector.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Ribbon\Ribbon.h">
+      <DependentUpon>Ribbon\Ribbon.cpp</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Ribbon\RibbonCollapsibleGroup.h">
+      <DependentUpon>Ribbon\RibbonCollapsibleGroup.cpp</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Ribbon\RibbonGroup.h">
+      <DependentUpon>Ribbon\RibbonGroup.cpp</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Ribbon\RibbonPanel.h">
+      <DependentUpon>Ribbon\RibbonPanel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Shimmer\Shimmer.h">
       <DependentUpon>Shimmer\Shimmer.cpp</DependentUpon>
       <SubType>Code</SubType>
@@ -385,6 +405,23 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="Ribbon\DoubleVector.cpp">
+      <DependentUpon>Ribbon\DoubleVector.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Ribbon\Ribbon.cpp">
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Ribbon\RibbonCollapsibleGroup.cpp">
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Ribbon\RibbonGroup.cpp">
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Ribbon\RibbonPanel.cpp">
+      <DependentUpon>Ribbon\RibbonPanel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Shimmer\Shimmer.cpp">
       <SubType>Code</SubType>
     </ClCompile>
@@ -432,6 +469,24 @@
       <DependentUpon>OpacityMaskView\OpacityMaskView.cpp</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="Ribbon\DoubleVector.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Ribbon\Ribbon.idl">
+      <DependentUpon>Ribbon\Ribbon.cpp</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="Ribbon\RibbonCollapsibleGroup.idl">
+      <DependentUpon>Ribbon\RibbonCollapsibleGroup.cpp</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="Ribbon\RibbonGroup.idl">
+      <DependentUpon>Ribbon\RibbonGroup.cpp</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="Ribbon\RibbonPanel.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="Shimmer\Shimmer.idl">
       <DependentUpon>Shimmer\Shimmer.cpp</DependentUpon>
       <SubType>Code</SubType>
@@ -452,6 +507,7 @@
     <Page Include="MarkdownTextBlock\MarkdownTextBlock.xaml" />
     <Page Include="Marquee\Marquee.xaml" />
     <Page Include="OpacityMaskView\OpacityMaskView.xaml" />
+    <Page Include="Ribbon\RibbonStyle.xaml" />
     <Page Include="Shimmer\Shimmer.xaml" />
     <Page Include="Themes\Generic.xaml" />
     <Page Include="TokenView\TokenItem.xaml" />

@@ -1,0 +1,17 @@
+namespace XamlToolkit.Labs.WinUI
+{
+    [default_interface]
+    [contentproperty("Content")]
+    unsealed runtimeclass RibbonGroup : Microsoft.UI.Xaml.Controls.Control
+    {
+        RibbonGroup();
+
+        static Microsoft.UI.Xaml.DependencyProperty ContentProperty{ get; };
+
+        Microsoft.UI.Xaml.UIElement Content;
+
+	    static Microsoft.UI.Xaml.DependencyProperty LabelProperty{ get; };
+
+        String Label;
+    }
+}

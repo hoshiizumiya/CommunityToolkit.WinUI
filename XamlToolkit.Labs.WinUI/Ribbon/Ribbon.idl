@@ -1,0 +1,15 @@
+namespace XamlToolkit.Labs.WinUI
+{
+	[default_interface]
+	[contentproperty("Items")]
+	runtimeclass Ribbon : Microsoft.UI.Xaml.Controls.Control
+	{
+		Ribbon();
+
+		static Microsoft.UI.Xaml.DependencyProperty ScrollStepProperty{ get; };
+
+		Double ScrollStep;
+
+		Windows.Foundation.Collections.IVector<Microsoft.UI.Xaml.UIElement> Items{ get; };
+	}
+}

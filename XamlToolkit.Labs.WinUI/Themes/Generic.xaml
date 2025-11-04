@@ -10,5 +10,6 @@
         <ResourceDictionary Source="ms-appx:///XamlToolkit.Labs.WinUI/Shimmer/Shimmer.xaml" />
         <ResourceDictionary Source="ms-appx:///XamlToolkit.Labs.WinUI/TokenView/TokenView.xaml" />
         <ResourceDictionary Source="ms-appx:///XamlToolkit.Labs.WinUI/TokenView/TokenItem.xaml" />
+        <ResourceDictionary Source="ms-appx:///XamlToolkit.Labs.WinUI/Ribbon/RibbonStyle.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

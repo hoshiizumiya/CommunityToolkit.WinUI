@@ -60,6 +60,9 @@
     <Filter Include="Controls\TokenView">
       <UniqueIdentifier>{62cb0688-e3f5-4b12-bbb4-8a204cdc4302}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Controls\Ribbon">
+      <UniqueIdentifier>{78144e16-b901-422e-bfde-777818ea3e75}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -147,6 +150,15 @@
     </ClCompile>
     <ClCompile Include="TokenView\TokenView.Selection.cpp">
       <Filter>Controls\TokenView</Filter>
+    </ClCompile>
+    <ClCompile Include="Ribbon\Ribbon.cpp">
+      <Filter>Controls\Ribbon</Filter>
+    </ClCompile>
+    <ClCompile Include="Ribbon\RibbonGroup.cpp">
+      <Filter>Controls\Ribbon</Filter>
+    </ClCompile>
+    <ClCompile Include="Ribbon\RibbonCollapsibleGroup.cpp">
+      <Filter>Controls\Ribbon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -276,6 +288,12 @@
     <Midl Include="TokenView\TokenItemRemovingEventArgs.idl">
       <Filter>Controls\TokenView</Filter>
     </Midl>
+    <Midl Include="Ribbon\RibbonPanel.idl">
+      <Filter>Controls\Ribbon</Filter>
+    </Midl>
+    <Midl Include="Ribbon\DoubleVector.idl">
+      <Filter>Controls\Ribbon</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <None Include="XamlToolkit.Labs.WinUI.def" />
@@ -320,6 +338,9 @@
     </Page>
     <Page Include="TokenView\TokenView.xaml">
       <Filter>Controls\TokenView</Filter>
+    </Page>
+    <Page Include="Ribbon\RibbonStyle.xaml">
+      <Filter>Controls\Ribbon</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>

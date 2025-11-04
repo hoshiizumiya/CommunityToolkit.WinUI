@@ -7,9 +7,6 @@
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
-
 namespace winrt::XamlToolkit::Labs::WinUI::implementation
 {
 	Marquee::Marquee() : _marqueeContainer(nullptr), _segment1(nullptr), _segment2(nullptr), _marqueeTransform(nullptr), _marqueeStoryboard(nullptr), _isActive(false)

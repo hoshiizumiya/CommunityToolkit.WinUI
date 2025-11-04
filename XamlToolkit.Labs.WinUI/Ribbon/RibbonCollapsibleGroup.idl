@@ -1,0 +1,29 @@
+import "Ribbon/DoubleVector.idl";
+import "Ribbon/RibbonGroup.idl";
+
+namespace XamlToolkit.Labs.WinUI
+{
+    [default_interface]
+    runtimeclass RibbonCollapsibleGroup : RibbonGroup
+    {
+        RibbonCollapsibleGroup();
+
+        Microsoft.UI.Xaml.Controls.IconSource IconSource;
+        static Microsoft.UI.Xaml.DependencyProperty IconSourceProperty{ get; };
+
+        Microsoft.UI.Xaml.Visibility State;
+        static Microsoft.UI.Xaml.DependencyProperty StateProperty{ get; };
+
+        Boolean AutoCloseFlyout;
+        static Microsoft.UI.Xaml.DependencyProperty AutoCloseFlyoutProperty{ get; };
+
+        Int32 Priority;
+        static Microsoft.UI.Xaml.DependencyProperty PriorityProperty{ get; };
+
+        String CollapsedAccessKey;
+        static Microsoft.UI.Xaml.DependencyProperty CollapsedAccessKeyProperty{ get; };
+
+        DoubleVector RequestedWidths;
+        static Microsoft.UI.Xaml.DependencyProperty RequestedWidthsProperty{ get; };
+    }
+}

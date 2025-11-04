@@ -10,9 +10,6 @@ using namespace Microsoft::UI::Xaml::Controls;
 using namespace Microsoft::UI::Composition;
 using namespace Microsoft::UI::Xaml::Hosting;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
-
 namespace winrt::XamlToolkit::Labs::WinUI::implementation
 {
     OpacityMaskView::OpacityMaskView()
