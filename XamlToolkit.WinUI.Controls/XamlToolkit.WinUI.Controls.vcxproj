@@ -236,6 +236,31 @@
       <DependentUpon>RangeSelector\RangeSelector.cpp</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="RichSuggestBox\RichSuggestBox.h">
+      <DependentUpon>RichSuggestBox\RichSuggestBox.cpp</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="RichSuggestBox\RichSuggestQuery.h" />
+    <ClInclude Include="RichSuggestBox\RichSuggestToken.h">
+      <DependentUpon>RichSuggestBox\RichSuggestToken.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="RichSuggestBox\RichSuggestTokenPointerOverEventArgs.h">
+      <DependentUpon>RichSuggestBox\RichSuggestTokenPointerOverEventArgs.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="RichSuggestBox\RichSuggestTokenSelectedEventArgs.h">
+      <DependentUpon>RichSuggestBox\RichSuggestTokenSelectedEventArgs.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="RichSuggestBox\SuggestionChosenEventArgs.h">
+      <DependentUpon>RichSuggestBox\SuggestionChosenEventArgs.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="RichSuggestBox\SuggestionRequestedEventArgs.h">
+      <DependentUpon>RichSuggestBox\SuggestionRequestedEventArgs.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Segmented\EqualPanel.h">
       <DependentUpon>Segmented\EqualPanel.cpp</DependentUpon>
       <SubType>Code</SubType>
@@ -439,6 +464,32 @@
     <ClCompile Include="RangeSelector\RangeSelector.Input.Drag.cpp" />
     <ClCompile Include="RangeSelector\RangeSelector.Input.Key.cpp" />
     <ClCompile Include="RangeSelector\RangeSelector.Input.Pointer.cpp" />
+    <ClCompile Include="RichSuggestBox\RichSuggestBox.cpp">
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="RichSuggestBox\RichSuggestBox.Document.cpp" />
+    <ClCompile Include="RichSuggestBox\RichSuggestBox.Helpers.cpp" />
+    <ClCompile Include="RichSuggestBox\RichSuggestBox.Suggestion.cpp" />
+    <ClCompile Include="RichSuggestBox\RichSuggestToken.cpp">
+      <DependentUpon>RichSuggestBox\RichSuggestToken.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="RichSuggestBox\RichSuggestTokenPointerOverEventArgs.cpp">
+      <DependentUpon>RichSuggestBox\RichSuggestTokenPointerOverEventArgs.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="RichSuggestBox\RichSuggestTokenSelectedEventArgs.cpp">
+      <DependentUpon>RichSuggestBox\RichSuggestTokenSelectedEventArgs.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="RichSuggestBox\SuggestionChosenEventArgs.cpp">
+      <DependentUpon>RichSuggestBox\SuggestionChosenEventArgs.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="RichSuggestBox\SuggestionRequestedEventArgs.cpp">
+      <DependentUpon>RichSuggestBox\SuggestionRequestedEventArgs.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Segmented\EqualPanel.cpp">
       <SubType>Code</SubType>
     </ClCompile>
@@ -618,6 +669,25 @@
       <DependentUpon>RangeSelector\RangeSelector.cpp</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="RichSuggestBox\RichSuggestBox.idl">
+      <DependentUpon>RichSuggestBox\RichSuggestBox.cpp</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="RichSuggestBox\RichSuggestToken.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="RichSuggestBox\RichSuggestTokenPointerOverEventArgs.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="RichSuggestBox\RichSuggestTokenSelectedEventArgs.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="RichSuggestBox\SuggestionChosenEventArgs.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="RichSuggestBox\SuggestionRequestedEventArgs.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="Segmented\EqualPanel.idl">
       <DependentUpon>Segmented\EqualPanel.cpp</DependentUpon>
       <SubType>Code</SubType>
@@ -721,6 +791,7 @@
     <Page Include="MetadataControl\MetadataControl.xaml" />
     <Page Include="RadialGauge\RadialGauge.xaml" />
     <Page Include="RangeSelector\RangeSelector.xaml" />
+    <Page Include="RichSuggestBox\RichSuggestBox.xaml" />
     <Page Include="Segmented\Segmented.xaml" />
     <Page Include="Segmented\SegmentedItem.xaml" />
     <Page Include="SettingsControls\SettingsCard\SettingsCard.xaml" />

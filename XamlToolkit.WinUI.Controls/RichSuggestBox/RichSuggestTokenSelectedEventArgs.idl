@@ -1,0 +1,15 @@
+import "RichSuggestBox/RichSuggestToken.idl";
+
+namespace XamlToolkit.WinUI.Controls
+{
+    runtimeclass RichSuggestTokenSelectedEventArgs 
+    {
+        RichSuggestTokenSelectedEventArgs();
+
+        RichSuggestTokenSelectedEventArgs(RichSuggestToken token, Microsoft.UI.Text.ITextRange range);
+
+        RichSuggestToken Token;
+
+        Microsoft.UI.Text.ITextRange Range;
+    }
+}

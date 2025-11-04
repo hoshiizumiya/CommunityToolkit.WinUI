@@ -1,0 +1,32 @@
+﻿#pragma once
+
+#include "SuggestionChosenEventArgs.g.h"
+#include <wil/wistd_type_traits.h>
+#include <wil/cppwinrt_authoring.h>
+
+namespace winrt::XamlToolkit::WinUI::Controls::implementation
+{
+	struct SuggestionChosenEventArgs : SuggestionChosenEventArgsT<SuggestionChosenEventArgs>
+	{
+		SuggestionChosenEventArgs() = default;
+
+		wil::single_threaded_rw_property<winrt::hstring> QueryText;
+
+		wil::single_threaded_rw_property<winrt::hstring> Prefix;
+
+		wil::single_threaded_rw_property<winrt::hstring> DisplayText;
+
+		wil::single_threaded_rw_property<IInspectable> SelectedItem{ nullptr };
+
+		wil::single_threaded_rw_property<winrt::guid> Id;
+
+		wil::single_threaded_rw_property<ITextCharacterFormat> Format;
+	};
+}
+
+namespace winrt::XamlToolkit::WinUI::Controls::factory_implementation
+{
+	struct SuggestionChosenEventArgs : SuggestionChosenEventArgsT<SuggestionChosenEventArgs, implementation::SuggestionChosenEventArgs>
+	{
+	};
+}

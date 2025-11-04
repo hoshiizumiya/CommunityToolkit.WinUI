@@ -1,0 +1,17 @@
+import "RichSuggestBox/RichSuggestToken.idl";
+
+namespace XamlToolkit.WinUI.Controls
+{
+    runtimeclass RichSuggestTokenPointerOverEventArgs 
+    {
+        RichSuggestTokenPointerOverEventArgs();
+
+        RichSuggestTokenPointerOverEventArgs(RichSuggestToken token, Microsoft.UI.Text.ITextRange range, Microsoft.UI.Input.PointerPoint currentPoint);
+
+        RichSuggestToken Token;
+
+        Microsoft.UI.Text.ITextRange Range;
+
+        Microsoft.UI.Input.PointerPoint CurrentPoint;
+    }
+}

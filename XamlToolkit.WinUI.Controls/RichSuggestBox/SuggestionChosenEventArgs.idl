@@ -1,0 +1,20 @@
+namespace XamlToolkit.WinUI.Controls
+{
+    runtimeclass SuggestionChosenEventArgs 
+    {
+        SuggestionChosenEventArgs();
+
+        String QueryText{ get; };
+
+        String Prefix{ get; };
+
+        String  DisplayText{ get; set; };
+
+        Object SelectedItem{ get; };
+
+        Guid Id{ get; };
+
+
+        Microsoft.UI.Text.ITextCharacterFormat Format;
+    }
+}

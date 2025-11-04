@@ -89,6 +89,9 @@
     <Filter Include="ConstrainedBox">
       <UniqueIdentifier>{53ed97fb-3694-463f-9987-f0f4e24a89d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RichSuggestBox">
+      <UniqueIdentifier>{05629f99-91d2-4311-914a-377bdcb6929b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -234,6 +237,18 @@
     <ClCompile Include="HeaderedControls\HeaderedTreeView\HeaderedTreeView.cpp">
       <Filter>HeaderedControls</Filter>
     </ClCompile>
+    <ClCompile Include="RichSuggestBox\RichSuggestBox.Document.cpp">
+      <Filter>RichSuggestBox</Filter>
+    </ClCompile>
+    <ClCompile Include="RichSuggestBox\RichSuggestBox.Suggestion.cpp">
+      <Filter>RichSuggestBox</Filter>
+    </ClCompile>
+    <ClCompile Include="RichSuggestBox\RichSuggestBox.Helpers.cpp">
+      <Filter>RichSuggestBox</Filter>
+    </ClCompile>
+    <ClCompile Include="RichSuggestBox\RichSuggestBox.cpp">
+      <Filter>RichSuggestBox</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -308,6 +323,9 @@
     </ClInclude>
     <ClInclude Include="TokenizingTextBox\StringExtensions.h">
       <Filter>TokenizingTextBox</Filter>
+    </ClInclude>
+    <ClInclude Include="RichSuggestBox\RichSuggestQuery.h">
+      <Filter>RichSuggestBox</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -407,6 +425,21 @@
     <Midl Include="ConstrainedBox\AspectRatio.idl">
       <Filter>ConstrainedBox</Filter>
     </Midl>
+    <Midl Include="RichSuggestBox\SuggestionChosenEventArgs.idl">
+      <Filter>RichSuggestBox</Filter>
+    </Midl>
+    <Midl Include="RichSuggestBox\RichSuggestTokenSelectedEventArgs.idl">
+      <Filter>RichSuggestBox</Filter>
+    </Midl>
+    <Midl Include="RichSuggestBox\RichSuggestTokenPointerOverEventArgs.idl">
+      <Filter>RichSuggestBox</Filter>
+    </Midl>
+    <Midl Include="RichSuggestBox\SuggestionRequestedEventArgs.idl">
+      <Filter>RichSuggestBox</Filter>
+    </Midl>
+    <Midl Include="RichSuggestBox\RichSuggestToken.idl">
+      <Filter>RichSuggestBox</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <None Include="XamlToolkit.WinUI.Controls.def" />
@@ -484,6 +517,9 @@
     </Page>
     <Page Include="HeaderedControls\HeaderedTreeView\HeaderedTreeView.xaml">
       <Filter>HeaderedControls</Filter>
+    </Page>
+    <Page Include="RichSuggestBox\RichSuggestBox.xaml">
+      <Filter>RichSuggestBox</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>

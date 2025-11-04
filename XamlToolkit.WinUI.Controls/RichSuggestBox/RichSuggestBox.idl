@@ -1,0 +1,93 @@
+import "RichSuggestBox/RichSuggestToken.idl";
+import "RichSuggestBox/SuggestionRequestedEventArgs.idl";
+import "RichSuggestBox/SuggestionChosenEventArgs.idl";
+import "RichSuggestBox/RichSuggestTokenSelectedEventArgs.idl";
+import "RichSuggestBox/RichSuggestTokenPointerOverEventArgs.idl";
+
+namespace XamlToolkit.WinUI.Controls
+{
+	enum SuggestionPopupPlacementMode
+	{
+		Floating,
+		Attached
+	};
+
+	[default_interface]
+	runtimeclass RichSuggestBox : Microsoft.UI.Xaml.Controls.ItemsControl
+	{
+		RichSuggestBox();
+
+		String PlaceholderText;
+		static Microsoft.UI.Xaml.DependencyProperty PlaceholderTextProperty { get; };
+
+		Microsoft.UI.Xaml.Style RichEditBoxStyle;
+		static Microsoft.UI.Xaml.DependencyProperty RichEditBoxStyleProperty{ get; };
+
+		Object Header;
+		static Microsoft.UI.Xaml.DependencyProperty HeaderProperty{ get; };
+
+		Microsoft.UI.Xaml.DataTemplate HeaderTemplate;
+		static Microsoft.UI.Xaml.DependencyProperty HeaderTemplateProperty{ get; };
+
+		Object Description;
+		static Microsoft.UI.Xaml.DependencyProperty DescriptionProperty{ get; };
+
+		SuggestionPopupPlacementMode PopupPlacement;
+		static Microsoft.UI.Xaml.DependencyProperty PopupPlacementProperty{ get; };
+
+		Microsoft.UI.Xaml.CornerRadius PopupCornerRadius;
+		static Microsoft.UI.Xaml.DependencyProperty PopupCornerRadiusProperty{ get; };
+
+		Object PopupHeader;
+		static Microsoft.UI.Xaml.DependencyProperty PopupHeaderProperty{ get; };
+
+		Microsoft.UI.Xaml.DataTemplate PopupHeaderTemplate;
+		static Microsoft.UI.Xaml.DependencyProperty PopupHeaderTemplateProperty{ get; };
+
+		Object PopupFooter;
+		static Microsoft.UI.Xaml.DependencyProperty PopupFooterProperty{ get; };
+
+		Microsoft.UI.Xaml.DataTemplate PopupFooterTemplate;
+		static Microsoft.UI.Xaml.DependencyProperty PopupFooterTemplateProperty{ get; };
+
+		Microsoft.UI.Xaml.Media.SolidColorBrush TokenBackground;
+		static Microsoft.UI.Xaml.DependencyProperty TokenBackgroundProperty{ get; };
+
+		Microsoft.UI.Xaml.Media.SolidColorBrush TokenForeground;
+		static Microsoft.UI.Xaml.DependencyProperty TokenForegroundProperty{ get; };
+
+		String Prefixes;
+		static Microsoft.UI.Xaml.DependencyProperty PrefixesProperty{ get; };
+
+		Microsoft.UI.Xaml.Controls.RichEditClipboardFormat ClipboardPasteFormat;
+		static Microsoft.UI.Xaml.DependencyProperty ClipboardPasteFormatProperty{ get; };
+
+		Microsoft.UI.Xaml.Controls.RichEditClipboardFormat ClipboardCopyFormat;
+		static Microsoft.UI.Xaml.DependencyProperty ClipboardCopyFormatProperty{ get; };
+
+		Microsoft.UI.Xaml.Controls.DisabledFormattingAccelerators DisabledFormattingAccelerators;
+		static Microsoft.UI.Xaml.DependencyProperty DisabledFormattingAcceleratorsProperty{ get; };
+
+		Microsoft.UI.Text.RichEditTextDocument TextDocument{ get; };
+
+		Double HorizontalOffset{ get; };
+
+		Double VerticalOffset{ get; };
+
+		Windows.Foundation.Collections.IObservableVector<RichSuggestToken> Tokens{ get; };
+
+		event Windows.Foundation.TypedEventHandler<RichSuggestBox, SuggestionRequestedEventArgs> SuggestionRequested;
+
+		event Windows.Foundation.TypedEventHandler<RichSuggestBox, SuggestionChosenEventArgs> SuggestionChosen;
+
+		event Windows.Foundation.TypedEventHandler<RichSuggestBox, RichSuggestTokenSelectedEventArgs> TokenSelected;
+
+		event Windows.Foundation.TypedEventHandler<RichSuggestBox, RichSuggestTokenPointerOverEventArgs> TokenPointerOver;
+
+		event Windows.Foundation.TypedEventHandler<RichSuggestBox, Microsoft.UI.Xaml.RoutedEventArgs> TextChanged;
+
+		event Windows.Foundation.TypedEventHandler<RichSuggestBox, Microsoft.UI.Xaml.RoutedEventArgs> SelectionChanged;
+
+		event Windows.Foundation.TypedEventHandler<RichSuggestBox, Microsoft.UI.Xaml.Controls.TextControlPasteEventArgs> Paste;
+	}
+}

@@ -1,0 +1,26 @@
+namespace XamlToolkit.WinUI.Controls
+{
+    [default_interface]
+	runtimeclass RichSuggestToken : Microsoft.UI.Xaml.Data.INotifyPropertyChanged, Windows.Foundation.IStringable
+    {
+        RichSuggestToken();
+
+		Guid Id{ get; };
+
+		String DisplayText{ get; };
+
+		Object Item;
+
+		Int32 RangeStart{ get; };
+
+		Int32 RangeEnd{ get; };
+
+		Int32 Position{ get; };
+
+		Boolean Active;
+
+		RichSuggestToken(Guid id, String displayText);
+
+		void UpdateTextRange(Microsoft.UI.Text.ITextRange range);
+    }
+}

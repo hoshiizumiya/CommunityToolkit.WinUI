@@ -1,0 +1,14 @@
+namespace XamlToolkit.WinUI.Controls
+{
+    [default_interface]
+    runtimeclass SuggestionRequestedEventArgs 
+    {
+        SuggestionRequestedEventArgs();
+
+        String Prefix;
+
+        String QueryText;
+
+        Boolean Cancel{ get; };
+    }
+}

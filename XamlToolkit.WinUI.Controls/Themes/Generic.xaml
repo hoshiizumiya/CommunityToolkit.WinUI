@@ -23,5 +23,6 @@
         <ResourceDictionary Source="ms-appx:///XamlToolkit.WinUI.Controls/HeaderedControls/HeaderedContentControl/HeaderedContentControl.xaml" />
         <ResourceDictionary Source="ms-appx:///XamlToolkit.WinUI.Controls/HeaderedControls/HeaderedItemsControl/HeaderedItemsControl.xaml" />
         <ResourceDictionary Source="ms-appx:///XamlToolkit.WinUI.Controls/HeaderedControls/HeaderedTreeView/HeaderedTreeView.xaml" />
+        <ResourceDictionary Source="ms-appx:///XamlToolkit.WinUI.Controls/HeaderedControls/RichSuggestBox/RichSuggestBox.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
