@@ -43,7 +43,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 
                 // Calculate if this item is in our current viewport
                 Rect rect(item.Left(), item.Top(), item.Width(), item.Height());
-                RectHelper::Intersect(rect, realizationRect);
+                rect = RectHelper::Intersect(rect, realizationRect);
 
                 // Check if we're in view now so we can compare to if we were last time.
                 bool nowInView = rect.Width > 0 || rect.Height > 0;
