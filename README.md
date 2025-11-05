@@ -39,6 +39,9 @@ You can install the C++ WinUI Community Toolkit packages via NuGet (it also supp
 ### OpacityMaskView
 ![OpacityMaskView](docs/images/OpacityMaskView.png)
 
+### Ribbon
+![Ribbon](docs/images/Ribbon.png)
+
 ### Shimmer
 ![Shimmer](docs/images/Shimmer.webp)
 
