@@ -54,7 +54,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		auto columnHeights = std::make_unique_for_overwrite<double[]>(numColumns);
 		auto itemsPerColumn = std::make_unique_for_overwrite<double[]>(numColumns);
 		auto columnHeightsSpan = std::span{ columnHeights.get(), static_cast<size_t>(numColumns) };
-		for (int i = 0; i < children.Size(); i++)
+		for (int i = 0; i < static_cast<int>(children.Size()); i++)
 		{
 			auto columnIndex = GetColumnIndex(columnHeightsSpan);
 
@@ -102,7 +102,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		auto rowSpacing = RowSpacing();
 		auto children = Children();
 		auto columnHeightsSpan = std::span{ columnHeights.get(), static_cast<size_t>(numColumns) };
-		for (int i = 0; i < children.Size(); i++)
+		for (int i = 0; i < static_cast<int>(children.Size()); i++)
 		{
 			auto columnIndex = GetColumnIndex(columnHeightsSpan);
 
@@ -124,7 +124,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		return base_type::ArrangeOverride(finalSize);
 	}
 
-	void StaggeredPanel::OnDesiredColumnWidthChanged(DependencyObject const& d, DependencyPropertyChangedEventArgs const& e)
+	void StaggeredPanel::OnDesiredColumnWidthChanged(DependencyObject const& d, [[maybe_unused]] DependencyPropertyChangedEventArgs const& e)
 	{
 		if (auto panel = d.try_as<class_type>())
 		{
@@ -132,7 +132,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		}
 	}
 
-	void StaggeredPanel::OnPaddingChanged(DependencyObject const& d, DependencyPropertyChangedEventArgs const& e)
+	void StaggeredPanel::OnPaddingChanged(DependencyObject const& d, [[maybe_unused]] DependencyPropertyChangedEventArgs const& e)
 	{
 		if (auto panel = d.try_as<class_type>())
 		{

@@ -4,5 +4,17 @@ namespace XamlToolkit.WinUI.Controls
 	runtimeclass StaggeredPanel : Microsoft.UI.Xaml.Controls.Panel
     {
         StaggeredPanel();
+
+        Double DesiredColumnWidth;
+        static Microsoft.UI.Xaml.DependencyProperty DesiredColumnWidthProperty{ get; };
+
+        Microsoft.UI.Xaml.Thickness Padding;
+        static Microsoft.UI.Xaml.DependencyProperty PaddingProperty{ get; };
+
+        Double ColumnSpacing;
+        static Microsoft.UI.Xaml.DependencyProperty ColumnSpacingProperty{ get; };
+
+        Double RowSpacing;
+        static Microsoft.UI.Xaml.DependencyProperty RowSpacingProperty{ get; };
     }
 }

@@ -24,28 +24,28 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
 		Size ArrangeOverride(Size finalSize);
 
-		static inline const DependencyProperty DesiredColumnWidthProperty =
+		static inline const wil::single_threaded_property<DependencyProperty> DesiredColumnWidthProperty =
 			DependencyProperty::Register(
 				L"DesiredColumnWidth",
 				winrt::xaml_typename<double>(),
 				winrt::xaml_typename<class_type>(),
 				PropertyMetadata{ winrt::box_value(250.0), &StaggeredPanel::OnDesiredColumnWidthChanged });
 
-		static inline const DependencyProperty PaddingProperty =
+		static inline const wil::single_threaded_property<DependencyProperty> PaddingProperty =
 			DependencyProperty::Register(
 				L"Padding",
 				winrt::xaml_typename<Thickness>(),
 				winrt::xaml_typename<class_type>(),
 				PropertyMetadata{ winrt::box_value(Thickness{ 0, 0, 0, 0 }), &StaggeredPanel::OnPaddingChanged });
 
-		static inline const DependencyProperty ColumnSpacingProperty =
+		static inline const wil::single_threaded_property<DependencyProperty> ColumnSpacingProperty =
 			DependencyProperty::Register(
 				L"ColumnSpacing",
 				winrt::xaml_typename<double>(),
 				winrt::xaml_typename<class_type>(),
 				PropertyMetadata{ winrt::box_value(0.0), &StaggeredPanel::OnPaddingChanged });
 
-		static inline const DependencyProperty RowSpacingProperty =
+		static inline const wil::single_threaded_property<DependencyProperty> RowSpacingProperty =
 			DependencyProperty::Register(
 				L"RowSpacing",
 				winrt::xaml_typename<double>(),
