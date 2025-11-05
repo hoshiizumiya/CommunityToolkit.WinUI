@@ -535,7 +535,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 	private:
 		void RadialGauge_Unloaded(IInspectable const& sender, RoutedEventArgs const& e);
 
-		void ThemeListener_ThemeChanged(struct ThemeListener const& sender, IInspectable const& e);
+		void ThemeListener_ThemeChanged(struct ThemeListener const& sender);
 
 		void RadialGauge_IsEnabledChanged(IInspectable const& sender, DependencyPropertyChangedEventArgs const& e);
 

@@ -67,7 +67,7 @@ namespace winrt::XamlToolkit::WinUI::Helpers::implementation
             CurrentTheme = Application::Current().RequestedTheme();
         }
 
-        ThemeChanged.invoke(*this, nullptr);
+        _themeChanged(*this);
     }
 
     winrt::hstring ThemeListener::CurrentThemeName()
@@ -81,5 +81,15 @@ namespace winrt::XamlToolkit::WinUI::Helpers::implementation
         default:
             throw winrt::hresult_invalid_argument(L"Unknown ApplicationTheme value");
         }
+    }
+
+    winrt::event_token ThemeListener::ThemeChanged(ThemeChangedHandler const& handler)
+    {
+        return _themeChanged.add(handler);
+    }
+
+    void ThemeListener::ThemeChanged(winrt::event_token const& token) noexcept
+    {
+        _themeChanged.remove(token);
     }
 }

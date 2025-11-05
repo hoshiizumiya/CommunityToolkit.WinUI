@@ -21,7 +21,11 @@ namespace winrt::XamlToolkit::WinUI::Helpers::implementation
 
 		wil::single_threaded_rw_property<struct DispatcherQueue> DispatcherQueue{ nullptr };
 
-		wil::typed_event<class_type, IInspectable> ThemeChanged;
+		winrt::event<ThemeChangedHandler> _themeChanged;
+
+		winrt::event_token ThemeChanged(ThemeChangedHandler const& handler);
+
+		void ThemeChanged(winrt::event_token const& token) noexcept;
 
 		ThemeListener() : ThemeListener(nullptr) {};
 

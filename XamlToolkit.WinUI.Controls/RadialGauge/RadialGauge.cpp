@@ -60,7 +60,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		base_type::OnApplyTemplate();
 	}
 
-	void RadialGauge::ThemeListener_ThemeChanged([[maybe_unused]] struct ThemeListener const& sender, [[maybe_unused]] IInspectable const& e)
+	void RadialGauge::ThemeListener_ThemeChanged([[maybe_unused]] struct ThemeListener const& sender)
 	{
 		OnColorsChanged();
 	}
