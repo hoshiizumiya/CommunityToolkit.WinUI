@@ -19,8 +19,7 @@ using namespace winrt::Windows::Media::MediaProperties;
 
 namespace winrt::XamlToolkit::WinUI::Helpers::implementation
 {
-	IAsyncOperation<Collections::IVectorView<MediaFrameSourceGroup>>
-		CameraHelper::GetFrameSourceGroupsAsync()
+	IAsyncOperation<IVectorView<MediaFrameSourceGroup>> CameraHelper::GetFrameSourceGroupsAsync()
 	{
 		if (!_frameSourceGroups)
 		{
@@ -114,11 +113,11 @@ namespace winrt::XamlToolkit::WinUI::Helpers::implementation
 			else
 			{
 				// Verify selected group is part of existing FrameSourceGroups
-				for (auto const& g : _frameSourceGroups)
+				for (auto const& group : _frameSourceGroups)
 				{
-					if (g.Id() == _group.Id())
+					if (group.Id() == _group.Id())
 					{
-						_group = g;
+						_group = group;
 						break;
 					}
 				}
@@ -160,6 +159,7 @@ namespace winrt::XamlToolkit::WinUI::Helpers::implementation
 
 		if (result != CameraHelperResult::Success)
 		{
+			cleanup.reset();
 			co_await CleanUpAsync();
 		}
 
@@ -186,11 +186,12 @@ namespace winrt::XamlToolkit::WinUI::Helpers::implementation
 
 			for (auto const& kvp : _mediaCapture.FrameSources())
 			{
-				auto const& src = kvp.Value();
-				if (src.Info().MediaStreamType() == MediaStreamType::VideoPreview &&
-					src.Info().SourceKind() == MediaFrameSourceKind::Color)
+				auto const& value = kvp.Value();
+				auto const& info = value.Info();
+				if (info.MediaStreamType() == MediaStreamType::VideoPreview &&
+					info.SourceKind() == MediaFrameSourceKind::Color)
 				{
-					_previewFrameSource = src;
+					_previewFrameSource = value;
 					break;
 				}
 			}
@@ -199,11 +200,12 @@ namespace winrt::XamlToolkit::WinUI::Helpers::implementation
 			{
 				for (auto const& kvp : _mediaCapture.FrameSources())
 				{
-					auto const& src = kvp.Value();
-					if (src.Info().MediaStreamType() == MediaStreamType::VideoRecord &&
-						src.Info().SourceKind() == MediaFrameSourceKind::Color)
+					auto const& value = kvp.Value();
+					auto const& info = value.Info();
+					if (info.MediaStreamType() == MediaStreamType::VideoRecord &&
+						info.SourceKind() == MediaFrameSourceKind::Color)
 					{
-						_previewFrameSource = src;
+						_previewFrameSource = value;
 						break;
 					}
 				}
@@ -216,22 +218,30 @@ namespace winrt::XamlToolkit::WinUI::Helpers::implementation
 
 			std::vector<MediaFrameFormat> formats;
 
+			auto compare_ignore_case = [](std::wstring_view lhs, std::wstring_view rhs) 
+			{
+				return std::ranges::equal(lhs, rhs, [](wchar_t c1, wchar_t c2) { return std::tolower(c1) == std::tolower(c2); });
+			};
+
 			for (auto const& fmt : _previewFrameSource.SupportedFormats())
 			{
 				double fps = static_cast<double>(fmt.FrameRate().Numerator()) / fmt.FrameRate().Denominator();
+				auto subtype = fmt.Subtype();
 				if (fps >= 15 &&
-					(fmt.Subtype() == MediaEncodingSubtypes::Nv12() ||
-						fmt.Subtype() == MediaEncodingSubtypes::Bgra8() ||
-						fmt.Subtype() == MediaEncodingSubtypes::Yuy2() ||
-						fmt.Subtype() == MediaEncodingSubtypes::Rgb32()))
+					(compare_ignore_case(subtype, MediaEncodingSubtypes::Nv12()) ||
+					 compare_ignore_case(subtype, MediaEncodingSubtypes::Bgra8()) ||
+					 compare_ignore_case(subtype, MediaEncodingSubtypes::Yuy2()) ||
+					 compare_ignore_case(subtype, MediaEncodingSubtypes::Rgb32())))
 				{
 					formats.emplace_back(fmt);
 				}
 			}
 
 			if (formats.empty())
+			{
 				co_return CameraHelperResult::NoCompatibleFrameFormatAvailable;
-
+			}
+				
 			std::sort(formats.begin(), formats.end(), [](auto const& a, auto const& b)
 				{ return a.VideoFormat().Width() * a.VideoFormat().Height() <
 				b.VideoFormat().Width() * b.VideoFormat().Height(); });

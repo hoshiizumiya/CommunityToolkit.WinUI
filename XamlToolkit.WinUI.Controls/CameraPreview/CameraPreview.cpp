@@ -36,6 +36,11 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		}
 	}
 
+	CameraPreview::CameraPreview()
+	{
+		DefaultStyleKey(winrt::box_value(winrt::xaml_typename<class_type>()));
+	}
+
 	void CameraPreview::IsFrameSourceGroupButtonVisibleChanged(DependencyObject const& d, [[maybe_unused]] DependencyPropertyChangedEventArgs const& e)
 	{
 		if (auto control = d.try_as<class_type>())
@@ -71,11 +76,6 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		}
 	}
 
-	CameraPreview::CameraPreview()
-	{
-		DefaultStyleKey(winrt::box_value(winrt::xaml_typename<class_type>()));
-	}
-
 	winrt::fire_and_forget CameraPreview::OnApplyTemplate()
 	{
 		base_type::OnApplyTemplate();
@@ -85,7 +85,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 			_frameSourceGroupButtonClickRevoker.revoke();
 		}
 
-		_mediaPlayerElementControl = GetTemplateChild(Preview_MediaPlayerElementControl).try_as<MediaPlayerElement>();;
+		_mediaPlayerElementControl = GetTemplateChild(Preview_MediaPlayerElementControl).try_as<MediaPlayerElement>();
 		_frameSourceGroupButton = GetTemplateChild(Preview_FrameSourceGroupButton).try_as<Button>();;
 
 		if (_frameSourceGroupButton != nullptr)

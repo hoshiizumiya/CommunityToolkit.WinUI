@@ -16,12 +16,12 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		static constexpr std::wstring_view Preview_MediaPlayerElementControl = L"MediaPlayerElementControl";
 		static constexpr std::wstring_view Preview_FrameSourceGroupButton = L"FrameSourceGroupButton";
 
-		CameraHelper _cameraHelper;
-		MediaPlayer _mediaPlayer;
-		MediaPlayerElement _mediaPlayerElementControl;
-		Button _frameSourceGroupButton;
+		CameraHelper _cameraHelper{ nullptr };
+		MediaPlayer _mediaPlayer{ nullptr };
+		MediaPlayerElement _mediaPlayerElementControl{ nullptr };
+		Button _frameSourceGroupButton{ nullptr };
 
-		IVectorView<MediaFrameSourceGroup> _frameSourceGroups;
+		IVectorView<MediaFrameSourceGroup> _frameSourceGroups{ nullptr };
 
 		ButtonBase::Click_revoker _frameSourceGroupButtonClickRevoker;
 
@@ -57,23 +57,22 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
 		void Stop();
 
-        CameraPreview();
+		CameraPreview();
 
-        winrt::fire_and_forget OnApplyTemplate();
+		winrt::fire_and_forget OnApplyTemplate();
 
 	private:
 		IAsyncAction InitializeAsync();
 
 		IAsyncAction FrameSourceGroupButton_ClickAsync(IInspectable const& sender, RoutedEventArgs const& e);
 
-        void InvokePreviewFailed(winrt::hstring const& error);
+		void InvokePreviewFailed(winrt::hstring const& error);
 
-        void SetMediaPlayerSource();
+		void SetMediaPlayerSource();
 
-        void SetUIControls(CameraHelperResult result);
+		void SetUIControls(CameraHelperResult result);
 
-        void SetFrameSourceGroupButtonVisibility();
-        
+		void SetFrameSourceGroupButtonVisibility();
 	};
 }
 
