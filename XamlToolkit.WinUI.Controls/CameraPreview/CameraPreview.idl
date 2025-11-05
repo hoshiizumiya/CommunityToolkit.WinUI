@@ -1,0 +1,24 @@
+import "CameraPreview/PreviewFailedEventArgs.idl";
+
+namespace XamlToolkit.WinUI.Controls
+{
+    [default_interface]
+    runtimeclass CameraPreview : Microsoft.UI.Xaml.Controls.Control
+    {
+        CameraPreview();
+
+        Boolean IsFrameSourceGroupButtonVisible;
+
+        static Microsoft.UI.Xaml.DependencyProperty IsFrameSourceGroupButtonVisibleProperty{ get; };
+
+        XamlToolkit.WinUI.Helpers.CameraHelper CameraHelper{ get; };
+
+        event Windows.Foundation.EventHandler<PreviewFailedEventArgs> PreviewFailed;
+
+        Windows.Foundation.IAsyncAction StartAsync();
+
+        Windows.Foundation.IAsyncAction StartAsync(XamlToolkit.WinUI.Helpers.CameraHelper cameraHelper);
+
+        void Stop();
+    }
+}

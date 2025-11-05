@@ -1,0 +1,9 @@
+namespace XamlToolkit.WinUI.Helpers
+{
+    [default_interface]
+    runtimeclass FrameEventArgs 
+    {
+        FrameEventArgs();
+	    Windows.Media.VideoFrame VideoFrame{ get; };
+    }
+}

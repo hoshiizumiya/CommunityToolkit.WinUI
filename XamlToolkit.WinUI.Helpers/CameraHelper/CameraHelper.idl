@@ -1,0 +1,36 @@
+import "CameraHelper/FrameEventArgs.idl";
+
+namespace XamlToolkit.WinUI.Helpers
+{
+    enum CameraHelperResult
+    {
+        Success,
+        CreateFrameReaderFailed,
+        StartFrameReaderFailed,
+        NoFrameSourceGroupAvailable,
+        NoFrameSourceAvailable,
+        CameraAccessDenied,
+        InitializationFailed_UnknownError,
+        NoCompatibleFrameFormatAvailable
+    };
+
+    [default_interface]
+    runtimeclass CameraHelper : Windows.Foundation.IClosable
+    {
+        CameraHelper();
+
+        static Windows.Foundation.IAsyncOperation<Windows.Foundation.Collections.IVectorView<Windows.Media.Capture.Frames.MediaFrameSourceGroup> > GetFrameSourceGroupsAsync();
+
+        Windows.Media.Capture.Frames.MediaFrameSourceGroup FrameSourceGroup;
+
+        Windows.Foundation.Collections.IVectorView<Windows.Media.Capture.Frames.MediaFrameFormat> FrameFormatsAvailable{ get; };
+
+        Windows.Media.Capture.Frames.MediaFrameSource PreviewFrameSource{ get; };
+
+        event Windows.Foundation.EventHandler<FrameEventArgs> FrameArrived;
+
+        Windows.Foundation.IAsyncOperation<CameraHelperResult> InitializeAndStartCaptureAsync();
+
+        Windows.Foundation.IAsyncAction CleanUpAsync();
+    }
+}

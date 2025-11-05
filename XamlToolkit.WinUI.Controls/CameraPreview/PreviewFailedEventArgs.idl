@@ -1,0 +1,11 @@
+namespace XamlToolkit.WinUI.Controls
+{
+    runtimeclass PreviewFailedEventArgs 
+    {
+        PreviewFailedEventArgs();
+
+        PreviewFailedEventArgs(String error);
+
+        String Error{ get; };
+    }
+}

@@ -134,6 +134,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CameraHelper\CameraHelper.h">
+      <DependentUpon>CameraHelper\CameraHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="CameraHelper\FrameEventArgs.h">
+      <DependentUpon>CameraHelper\FrameEventArgs.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ColorHelper\ColorHelper.h">
       <DependentUpon>ColorHelper\ColorHelper.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -149,6 +157,14 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CameraHelper\CameraHelper.cpp">
+      <DependentUpon>CameraHelper\CameraHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="CameraHelper\FrameEventArgs.cpp">
+      <DependentUpon>CameraHelper\FrameEventArgs.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="ColorHelper\ColorHelper.cpp">
       <DependentUpon>ColorHelper\ColorHelper.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -176,6 +192,12 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
+    <Midl Include="CameraHelper\CameraHelper.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="CameraHelper\FrameEventArgs.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="ColorHelper\ColorHelper.idl">
       <SubType>Designer</SubType>
     </Midl>

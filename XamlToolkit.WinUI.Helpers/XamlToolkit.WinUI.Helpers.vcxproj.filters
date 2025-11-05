@@ -11,6 +11,9 @@
     <Filter Include="ColorHelper">
       <UniqueIdentifier>{e291e06c-6ecb-4374-aac3-31919a745ecf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="CameraHelper">
+      <UniqueIdentifier>{ceff1c39-17d7-4f34-ab66-597cc16d250c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -25,6 +28,12 @@
     </Midl>
     <Midl Include="DesignTimeHelpers.idl" />
     <Midl Include="ThemeListener.idl" />
+    <Midl Include="CameraHelper\CameraHelper.idl">
+      <Filter>CameraHelper</Filter>
+    </Midl>
+    <Midl Include="CameraHelper\FrameEventArgs.idl">
+      <Filter>CameraHelper</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <None Include="XamlToolkit.WinUI.Helpers.def" />
