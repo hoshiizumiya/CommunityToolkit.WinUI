@@ -196,6 +196,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CanvasLayout\CanvasLayout.h">
+      <DependentUpon>CanvasLayout\CanvasLayout.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ControlHelpers.h" />
     <ClInclude Include="MarkdownTextBlock\Extension.h" />
     <ClInclude Include="MarkdownTextBlock\DefaultSVGRenderer.h" />
@@ -293,6 +297,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CanvasLayout\CanvasLayout.cpp">
+      <DependentUpon>CanvasLayout\CanvasLayout.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="MarkdownTextBlock\Extension.cpp" />
     <ClCompile Include="MarkdownTextBlock\Highlight\bash\bash_parser.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
@@ -450,6 +458,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Midl Include="CanvasLayout\CanvasLayout.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="MarkdownTextBlock\LinkClickedEventArgs.idl" />
     <Midl Include="MarkdownTextBlock\MarkdownConfig.idl">
       <SubType>Designer</SubType>

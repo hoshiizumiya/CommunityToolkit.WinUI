@@ -1,0 +1,28 @@
+namespace XamlToolkit.Labs.WinUI
+{
+    interface ICanvasLayoutState
+    {
+        Int32 FirstRealizedIndex;
+
+        Windows.Foundation.Collections.IVector<Windows.Foundation.Rect> LayoutRects;
+    }
+
+    interface ICanvasLayoutItem
+    {
+        Int32 Left;
+
+        Int32 Top;
+
+        Int32 Width;
+
+        Int32 Height;
+
+        Boolean IsInView;
+    }
+
+    [default_interface]
+    runtimeclass CanvasLayout : Microsoft.UI.Xaml.Controls.VirtualizingLayout
+    {
+        CanvasLayout();
+    }
+}

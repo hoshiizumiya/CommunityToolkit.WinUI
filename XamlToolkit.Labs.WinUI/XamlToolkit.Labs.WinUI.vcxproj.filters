@@ -63,6 +63,9 @@
     <Filter Include="Controls\Ribbon">
       <UniqueIdentifier>{78144e16-b901-422e-bfde-777818ea3e75}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Controls\CanvasLayout">
+      <UniqueIdentifier>{0aaea3e6-cbcb-4a8c-b667-a04cdbee12e2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -293,6 +296,9 @@
     </Midl>
     <Midl Include="Ribbon\DoubleVector.idl">
       <Filter>Controls\Ribbon</Filter>
+    </Midl>
+    <Midl Include="CanvasLayout\CanvasLayout.idl">
+      <Filter>Controls\CanvasLayout</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
