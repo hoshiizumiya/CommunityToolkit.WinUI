@@ -307,6 +307,10 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="StaggeredLayout\StaggeredLayoutState.h" />
+    <ClInclude Include="StaggeredPanel\StaggeredPanel.h">
+      <DependentUpon>StaggeredPanel\StaggeredPanel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="SwitchPresenter\Case.h">
       <DependentUpon>SwitchPresenter\Case.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -534,6 +538,10 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="StaggeredLayout\StaggeredLayoutState.cpp" />
+    <ClCompile Include="StaggeredPanel\StaggeredPanel.cpp">
+      <DependentUpon>StaggeredPanel\StaggeredPanel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="SwitchPresenter\Case.cpp">
       <DependentUpon>SwitchPresenter\Case.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -738,6 +746,9 @@
     <Midl Include="StaggeredLayout\StaggeredLayout.idl">
       <DependentUpon>StaggeredLayout\StaggeredLayout.cpp</DependentUpon>
       <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="StaggeredPanel\StaggeredPanel.idl">
+      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="SwitchPresenter\Case.idl">
       <SubType>Designer</SubType>

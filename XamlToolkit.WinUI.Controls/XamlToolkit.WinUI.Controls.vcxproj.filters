@@ -95,6 +95,9 @@
     <Filter Include="CameraPreview">
       <UniqueIdentifier>{f26c1fcf-63f9-4f7b-9281-4175a9155269}</UniqueIdentifier>
     </Filter>
+    <Filter Include="StaggeredPanel">
+      <UniqueIdentifier>{8e8f1622-f403-47a5-ad30-c8d2fdd2ac1c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -448,6 +451,9 @@
     </Midl>
     <Midl Include="CameraPreview\PreviewFailedEventArgs.idl">
       <Filter>CameraPreview</Filter>
+    </Midl>
+    <Midl Include="StaggeredPanel\StaggeredPanel.idl">
+      <Filter>StaggeredPanel</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>

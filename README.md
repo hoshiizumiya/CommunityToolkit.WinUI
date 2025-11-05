@@ -86,7 +86,7 @@ You can install the C++ WinUI Community Toolkit packages via NuGet (it also supp
 ### ContentSizer / GridSplitter / PropertySizer
 ![GridSplitter](docs/images/GridSplitter.png)
 
-### StaggeredLayout
+### StaggeredLayout / StaggeredPanel
 ![StaggeredLayout](docs/images/StaggeredLayout.png)
 
 ### SwitchPresenter
