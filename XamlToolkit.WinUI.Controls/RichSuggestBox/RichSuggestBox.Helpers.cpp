@@ -6,7 +6,7 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::XamlToolkit::WinUI::Controls::implementation
 {
-	bool RichSuggestBox::IsElementOnScreen(FrameworkElement const& element, double offsetX, double offsetY)
+	bool RichSuggestBox::IsElementOnScreen([[maybe_unused]] FrameworkElement const& element, [[maybe_unused]] double offsetX, [[maybe_unused]] double offsetY)
 	{
 		// DisplayInformation only works in UWP. No alternative to get DisplayInformation.ScreenHeightInRawPixels
 		// Or Window position in Window.Current.Bounds
@@ -47,7 +47,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 //#endif
 	}
 
-	bool RichSuggestBox::IsElementInsideWindow(FrameworkElement const& element, double offsetX, double offsetY)
+	bool RichSuggestBox::IsElementInsideWindow([[maybe_unused]] FrameworkElement const& element, [[maybe_unused]] double offsetX, [[maybe_unused]] double offsetY)
 	{
 		// THIS IS NOT SUPPORTED IN WINUI3
 //#if !WINAPPSDK

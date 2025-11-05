@@ -4,7 +4,7 @@
 
 namespace winrt::XamlToolkit::WinUI::Controls::implementation
 {
-    struct SuggestionRequestedEventArgs : SuggestionRequestedEventArgsT<SuggestionRequestedEventArgs>
+	struct SuggestionRequestedEventArgs : SuggestionRequestedEventArgsT<SuggestionRequestedEventArgs>, winrt::deferrable_event_args<SuggestionRequestedEventArgs>
     {
         SuggestionRequestedEventArgs() = default;
 

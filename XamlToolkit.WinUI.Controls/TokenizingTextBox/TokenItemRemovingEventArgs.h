@@ -6,7 +6,7 @@
 
 namespace winrt::XamlToolkit::WinUI::Controls::implementation
 {
-    struct TokenItemRemovingEventArgs : TokenItemRemovingEventArgsT<TokenItemRemovingEventArgs>
+	struct TokenItemRemovingEventArgs : TokenItemRemovingEventArgsT<TokenItemRemovingEventArgs>, winrt::deferrable_event_args<TokenItemRemovingEventArgs>
     {
         TokenItemRemovingEventArgs() = default;
 

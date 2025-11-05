@@ -106,8 +106,8 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		Rect rect;
 		int32_t hit;
 		range.GetRect(PointOptions::None, rect, hit);
-		rect.X += padding.Left - HorizontalOffset();
-		rect.Y += padding.Top - VerticalOffset();
+		rect.X += static_cast<float>(padding.Left - HorizontalOffset());
+		rect.Y += static_cast<float>(padding.Top - VerticalOffset());
 		auto transform = _richEditBox.TransformToVisual(*this);
 		return transform.TransformBounds(rect);
 	}
@@ -172,13 +172,13 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		view->ConditionallyLoadElement(e.NewValue(), PartHeaderContentPresenter);
 	}
 
-	void RichSuggestBox::OnDescriptionChanged(DependencyObject const& d, DependencyPropertyChangedEventArgs const& e)
+	void RichSuggestBox::OnDescriptionChanged(DependencyObject const& d, [[maybe_unused]] DependencyPropertyChangedEventArgs const& e)
 	{
 		auto view = winrt::get_self<RichSuggestBox>(d.as<class_type>())->get_strong();
 		view->ConditionallyLoadElement(e.NewValue(), PartDescriptionPresenter);
 	}
 
-	void RichSuggestBox::OnSuggestionPopupPlacementChanged(DependencyObject const& d, DependencyPropertyChangedEventArgs const& e)
+	void RichSuggestBox::OnSuggestionPopupPlacementChanged(DependencyObject const& d, [[maybe_unused]] DependencyPropertyChangedEventArgs const& e)
 	{
 		auto view = winrt::get_self<RichSuggestBox>(d.as<class_type>())->get_strong();
 		view->UpdatePopupWidth();
@@ -197,17 +197,17 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		}
 	}
 
-	void RichSuggestBox::OnCornerRadiusChanged(DependencyObject const& sender, DependencyProperty const& dp)
+	void RichSuggestBox::OnCornerRadiusChanged([[maybe_unused]] DependencyObject const& sender, [[maybe_unused]] DependencyProperty const& dp)
 	{
 		UpdateCornerRadii();
 	}
 
-	void RichSuggestBox::OnLoaded(IInspectable const& sender, RoutedEventArgs const& e)
+	void RichSuggestBox::OnLoaded([[maybe_unused]] IInspectable const& sender, [[maybe_unused]] RoutedEventArgs const& e)
 	{
 		if (_richEditBox) _scrollViewer = DependencyObjectEx::FindDescendant<ScrollViewer>(_richEditBox);
 	}
 
-	void RichSuggestBox::OnLostFocusEvent(IInspectable const& sender, RoutedEventArgs const& e)
+	void RichSuggestBox::OnLostFocusEvent([[maybe_unused]] IInspectable const& sender, [[maybe_unused]] RoutedEventArgs const& e)
 	{
 		ShowSuggestionsPopup(false);
 	}
@@ -218,7 +218,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		co_await CommitSuggestionAsync(selectedItem);
 	}
 
-	void RichSuggestBox::SuggestionsList_SizeChanged(IInspectable const& sender, SizeChangedEventArgs const& e)
+	void RichSuggestBox::SuggestionsList_SizeChanged([[maybe_unused]] IInspectable const& sender, [[maybe_unused]] SizeChangedEventArgs const& e)
 	{
 		if (_suggestionPopup.IsOpen())
 		{
@@ -226,12 +226,12 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		}
 	}
 
-	void RichSuggestBox::SuggestionList_GotFocus(IInspectable const& sender, RoutedEventArgs const& e)
+	void RichSuggestBox::SuggestionList_GotFocus([[maybe_unused]] IInspectable const& sender, [[maybe_unused]] RoutedEventArgs const& e)
 	{
 		if (_richEditBox) _richEditBox.Focus(FocusState::Programmatic);
 	}
 
-	void RichSuggestBox::RichEditBox_OnPointerMoved(IInspectable const& sender, PointerRoutedEventArgs const& e)
+	void RichSuggestBox::RichEditBox_OnPointerMoved([[maybe_unused]] IInspectable const& sender, PointerRoutedEventArgs const& e)
 	{
 		auto pointer = e.GetCurrentPoint(*this);
 		if (_tokenPointerOver)
@@ -240,7 +240,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		}
 	}
 
-	void RichSuggestBox::RichEditBox_SelectionChanging(RichEditBox const& sender, RichEditBoxSelectionChangingEventArgs const& args)
+	void RichSuggestBox::RichEditBox_SelectionChanging([[maybe_unused]] RichEditBox const& sender, [[maybe_unused]] RichEditBoxSelectionChangingEventArgs const& args)
 	{
 		auto selection = TextDocument().Selection();
 
@@ -277,10 +277,16 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		}
 
 		ITextRange range{ nullptr };
-		co_await RequestSuggestionsAsync(range);
+		std::shared_ptr<RichSuggestQuery> query = _currentQuery;
+		auto action{ RequestSuggestionsAsync(range) };
+		if (query->Task == nullptr) 
+		{
+			query->Task = action;
+		}
+		co_await action;
 	}
 
-	void RichSuggestBox::RichEditBox_OnPointerPressed(IInspectable const& sender, PointerRoutedEventArgs const& e)
+	void RichSuggestBox::RichEditBox_OnPointerPressed([[maybe_unused]] IInspectable const& sender, [[maybe_unused]] PointerRoutedEventArgs const& e)
 	{
 		ShowSuggestionsPopup(false);
 	}
@@ -316,7 +322,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 				break;
 			}
 			args.Handled(true);
-			_suggestionChoice = _suggestionChoice >= itemsList.Size() ? 0 : _suggestionChoice + 1;
+			_suggestionChoice = _suggestionChoice >= static_cast<int>(itemsList.Size()) ? 0 : _suggestionChoice + 1;
 			UpdateSuggestionsListSelectedItem(_suggestionChoice);
 			break;
 
@@ -344,7 +350,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		}
 	}
 
-	void RichSuggestBox::RichEditBox_TextChanging(RichEditBox const& sender, RichEditBoxTextChangingEventArgs const& args)
+	void RichSuggestBox::RichEditBox_TextChanging([[maybe_unused]] RichEditBox const& sender, RichEditBoxTextChangingEventArgs const& args)
 	{
 		if (_ignoreChange || !args.IsContentChanging())
 		{
@@ -357,13 +363,13 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		}
 	}
 
-	void RichSuggestBox::RichEditBox_TextChanged(IInspectable const& sender, RoutedEventArgs const& e)
+	void RichSuggestBox::RichEditBox_TextChanged([[maybe_unused]] IInspectable const& sender, RoutedEventArgs const& e)
 	{
 		UpdateVisibleTokenList();
 		TextChanged.invoke(*this, e);
 	}
 
-	void RichSuggestBox::RichEditBox_TextCompositionStarted(RichEditBox const& sender, TextCompositionStartedEventArgs const& args)
+	void RichSuggestBox::RichEditBox_TextCompositionStarted([[maybe_unused]] RichEditBox const& sender, [[maybe_unused]] TextCompositionStartedEventArgs const& args)
 	{
 		_textCompositionActive = true;
 	}
@@ -371,15 +377,21 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 	winrt::fire_and_forget RichSuggestBox::RichEditBox_TextCompositionChanged(RichEditBox const& sender, TextCompositionChangedEventArgs const& args)
 	{
 		auto range = TextDocument().GetRange(args.StartIndex() == 0 ? 0 : args.StartIndex() - 1, args.StartIndex() + args.Length());
-		co_await RequestSuggestionsAsync(range);
+		std::shared_ptr<RichSuggestQuery> query = _currentQuery;
+		auto action{ RequestSuggestionsAsync(range) };
+		if (query->Task == nullptr)
+		{
+			query->Task = action;
+		}
+		co_await action;
 	}
 
-	void RichSuggestBox::RichEditBox_TextCompositionEnded(RichEditBox const& sender, TextCompositionEndedEventArgs const& args)
+	void RichSuggestBox::RichEditBox_TextCompositionEnded([[maybe_unused]] RichEditBox const& sender, [[maybe_unused]] TextCompositionEndedEventArgs const& args)
 	{
 		_textCompositionActive = false;
 	}
 
-	void RichSuggestBox::RichEditBox_SizeChanged(IInspectable const& sender, SizeChangedEventArgs const& e)
+	void RichSuggestBox::RichEditBox_SizeChanged([[maybe_unused]] IInspectable const& sender, [[maybe_unused]] SizeChangedEventArgs const& e)
 	{
 		UpdatePopupWidth();
 		UpdatePopupOffset();

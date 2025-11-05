@@ -59,4 +59,5 @@
 #include "HeaderedControls\HeaderedItemsControl\HeaderedItemsControl.h"
 #include "HeaderedControls\HeaderedTreeView\HeaderedTreeView.h"
 #include "RichSuggestBox\RichSuggestBox.h"
+#include "CameraPreview\CameraPreview.h"
 

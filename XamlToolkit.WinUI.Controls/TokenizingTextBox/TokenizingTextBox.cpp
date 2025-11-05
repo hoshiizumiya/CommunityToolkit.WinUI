@@ -7,6 +7,8 @@
 #include "TokenizingTextBoxItem.h"
 #include "PretokenStringContainer.h"
 #include "TokenizingTextBoxAutomationPeer.h"
+#include "TokenItemAddingEventArgs.h"
+#include "TokenItemRemovingEventArgs.h"
 #include "../XamlToolkit.WinUI/common.h"
 #include "StringExtensions.h"
 
@@ -429,17 +431,20 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
 		if (auto str = data.try_as<hstring>())
 		{
-			auto tiaea = TokenItemAddingEventArgs(*str);
-			TokenItemAdding.invoke(*this, tiaea);
+			auto tiaea = winrt::make_self<TokenItemAddingEventArgs>(*str);
 
-			if (tiaea.Cancel())
+			TokenItemAdding.invoke(*this, *tiaea);
+
+			co_await tiaea->wait_for_deferrals();
+
+			if (tiaea->Cancel())
 			{
 				co_return;
 			}
 
-			if (tiaea.Item())
+			if (tiaea->Item())
 			{
-				data = tiaea.Item(); // Transformed by event implementor
+				data = tiaea->Item(); // Transformed by event implementor
 			}
 		}
 
@@ -494,10 +499,13 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 			data = ItemFromContainer(item);
 		}
 
-		auto tirea = TokenItemRemovingEventArgs(data, item);
-		TokenItemRemoving.invoke(*this, tirea);
+		auto tirea = winrt::make_self<TokenItemRemovingEventArgs>(data, item);
 
-		if (tirea.Cancel())
+		TokenItemRemoving.invoke(*this, *tirea);
+
+		co_await tirea->wait_for_deferrals();
+
+		if (tirea->Cancel())
 		{
 			co_return false;
 		}

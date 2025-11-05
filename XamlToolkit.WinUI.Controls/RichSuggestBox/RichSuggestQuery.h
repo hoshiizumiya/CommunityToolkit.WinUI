@@ -14,6 +14,6 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
 		Microsoft::UI::Text::ITextRange Range{ nullptr };
 
-		winrt::Windows::Foundation::IAsyncAction CancellationTokenSource{ nullptr };
+		winrt::Windows::Foundation::IAsyncAction Task { nullptr };
 	};
 }

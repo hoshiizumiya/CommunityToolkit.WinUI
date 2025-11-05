@@ -9,6 +9,8 @@ namespace XamlToolkit.WinUI.Controls
 
         String QueryText;
 
+        Windows.Foundation.Deferral GetDeferral();
+
         Boolean Cancel{ get; };
     }
 }

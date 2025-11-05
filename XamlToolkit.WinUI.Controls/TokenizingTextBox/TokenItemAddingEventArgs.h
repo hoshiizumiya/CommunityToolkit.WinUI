@@ -6,7 +6,7 @@
 
 namespace winrt::XamlToolkit::WinUI::Controls::implementation
 {
-    struct TokenItemAddingEventArgs : TokenItemAddingEventArgsT<TokenItemAddingEventArgs>
+	struct TokenItemAddingEventArgs : TokenItemAddingEventArgsT<TokenItemAddingEventArgs>, winrt::deferrable_event_args<TokenItemAddingEventArgs>
     {
         TokenItemAddingEventArgs() = default;
 

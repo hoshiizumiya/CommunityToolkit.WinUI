@@ -11,6 +11,8 @@ namespace XamlToolkit.WinUI.Controls
 
         Object Item;
 
+        Windows.Foundation.Deferral GetDeferral();
+
         Boolean Cancel;
     }
 }

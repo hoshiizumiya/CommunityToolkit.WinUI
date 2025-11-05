@@ -92,6 +92,9 @@
     <Filter Include="RichSuggestBox">
       <UniqueIdentifier>{05629f99-91d2-4311-914a-377bdcb6929b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="CameraPreview">
+      <UniqueIdentifier>{f26c1fcf-63f9-4f7b-9281-4175a9155269}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -248,6 +251,9 @@
     </ClCompile>
     <ClCompile Include="RichSuggestBox\RichSuggestBox.cpp">
       <Filter>RichSuggestBox</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraPreview\CameraPreview.cpp">
+      <Filter>CameraPreview</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -440,6 +446,9 @@
     <Midl Include="RichSuggestBox\RichSuggestToken.idl">
       <Filter>RichSuggestBox</Filter>
     </Midl>
+    <Midl Include="CameraPreview\PreviewFailedEventArgs.idl">
+      <Filter>CameraPreview</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <None Include="XamlToolkit.WinUI.Controls.def" />
@@ -520,6 +529,9 @@
     </Page>
     <Page Include="RichSuggestBox\RichSuggestBox.xaml">
       <Filter>RichSuggestBox</Filter>
+    </Page>
+    <Page Include="CameraPreview\CameraPreview.xaml">
+      <Filter>CameraPreview</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>

@@ -13,6 +13,8 @@ namespace XamlToolkit.WinUI.Controls
 
         TokenizingTextBoxItem Token{ get; };
 
+        Windows.Foundation.Deferral GetDeferral();
+
         Boolean Cancel;
     }
 }

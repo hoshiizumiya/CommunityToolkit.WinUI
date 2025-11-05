@@ -12,7 +12,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
     {
         winrt::hstring prefix;
         winrt::hstring query;
-        const auto& currentQuery = _currentQuery;
+        std::shared_ptr<RichSuggestQuery> currentQuery = _currentQuery;
         auto queryFound = range == nullptr
             ? TryExtractQueryFromSelection(prefix, query, range)
             : TryExtractQueryFromRange(range, prefix, query);
@@ -26,31 +26,29 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
             co_return;
         }
 
-        auto previousTokenSource = currentQuery ? currentQuery->CancellationTokenSource : nullptr;
-        if (previousTokenSource && previousTokenSource.Status() == AsyncStatus::Started)
+        auto previousTokenSource = currentQuery ? currentQuery->Task : nullptr;
+        if (previousTokenSource && previousTokenSource.Status() != AsyncStatus::Completed)
         {
             previousTokenSource.Cancel();
         }
 
         if (queryFound)
         {
-            IAsyncAction tokenSource{};
-			_currentQuery = std::make_unique<RichSuggestQuery>();
+			_currentQuery = std::make_shared<RichSuggestQuery>();
             _currentQuery->Prefix = prefix; 
             _currentQuery->QueryText = query; 
-            _currentQuery->Range = range; 
-            _currentQuery->CancellationTokenSource = tokenSource;
+            _currentQuery->Range = range;
 
-            auto cancellationToken = tokenSource;
-            auto eventArgs = winrt::make<SuggestionRequestedEventArgs>();
-            eventArgs.QueryText(query);
-			eventArgs.Prefix(prefix);
+            auto eventArgs = winrt::make_self<SuggestionRequestedEventArgs>();
+            eventArgs->QueryText(query);
+			eventArgs->Prefix(prefix);
 
             if (_suggestionRequested)
             {
                 try
                 {
-                    _suggestionRequested(*this, eventArgs);
+                    _suggestionRequested(*this, *eventArgs);
+                    co_await eventArgs->wait_for_deferrals();
                 }
                 catch (...)
                 {
@@ -58,13 +56,11 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
                 }
             }
 
-            if (!eventArgs.Cancel())
+            if (!eventArgs->Cancel())
             {
                 _suggestionChoice = 0;
                 ShowSuggestionsPopup(_suggestionsList ? _suggestionsList.Items() && _suggestionsList.Items().Size() > 0 : false);
             }
-
-            tokenSource.Cancel();
         }
         else
         {
@@ -201,8 +197,8 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
         int32_t hit;
         _richEditBox.TextDocument().Selection().GetRect(PointOptions::None, selectionRect, hit);
         Thickness padding = _richEditBox.Padding();
-        selectionRect.X -= HorizontalOffset();
-        selectionRect.Y -= VerticalOffset();
+        selectionRect.X -= static_cast<float>(HorizontalOffset());
+        selectionRect.Y -= static_cast<float>(VerticalOffset());
 
         // Update horizontal offset
         if (PopupPlacement() == SuggestionPopupPlacementMode::Attached)

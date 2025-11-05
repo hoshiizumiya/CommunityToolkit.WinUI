@@ -140,6 +140,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CameraPreview\CameraPreview.h">
+      <DependentUpon>CameraPreview\CameraPreview.cpp</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="CameraPreview\PreviewFailedEventArgs.h">
+      <DependentUpon>CameraPreview\PreviewFailedEventArgs.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ColorPicker\AccentColorConverter.h">
       <DependentUpon>ColorPicker\AccentColorConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -372,6 +380,13 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CameraPreview\CameraPreview.cpp">
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="CameraPreview\PreviewFailedEventArgs.cpp">
+      <DependentUpon>CameraPreview\PreviewFailedEventArgs.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="ColorPicker\AccentColorConverter.cpp">
       <DependentUpon>ColorPicker\AccentColorConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -587,6 +602,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Midl Include="CameraPreview\CameraPreview.idl">
+      <DependentUpon>CameraPreview\CameraPreview.cpp</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="CameraPreview\PreviewFailedEventArgs.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="ColorPicker\AccentColorConverter.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -778,6 +800,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="CameraPreview\CameraPreview.xaml" />
     <Page Include="ColorPicker\ColorPicker.xaml" />
     <Page Include="ColorPicker\ColorPickerButton.xaml" />
     <Page Include="ColorPicker\ColorPickerSlider.xaml" />

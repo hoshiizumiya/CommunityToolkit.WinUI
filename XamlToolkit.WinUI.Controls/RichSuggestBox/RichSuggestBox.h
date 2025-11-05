@@ -41,7 +41,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		bool _ignoreChange;
 		bool _popupOpenDown;
 		bool _textCompositionActive;
-		std::unique_ptr<RichSuggestQuery> _currentQuery;
+		std::shared_ptr<RichSuggestQuery> _currentQuery;
 
 		RichEditBox::SizeChanged_revoker _editBoxSizeChangedRevoker;
 		RichEditBox::TextChanging_revoker _editBoxTextChangingRevoker;
