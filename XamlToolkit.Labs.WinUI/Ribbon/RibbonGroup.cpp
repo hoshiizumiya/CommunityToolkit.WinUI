@@ -13,4 +13,6 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
     {
         DefaultStyleKey(winrt::box_value(winrt::xaml_typename<class_type>()));
     }
+
+    void RibbonGroup::OnApplyTemplate() { base_type::OnApplyTemplate(); }
 }

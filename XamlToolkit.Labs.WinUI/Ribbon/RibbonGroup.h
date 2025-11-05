@@ -10,8 +10,10 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
     {
         RibbonGroup();
 
-        static inline const wil::single_threaded_property<winrt::Microsoft::UI::Xaml::DependencyProperty> ContentProperty =
-            winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+        virtual void OnApplyTemplate();
+
+        static inline const wil::single_threaded_property<DependencyProperty> ContentProperty =
+            DependencyProperty::Register(
                 L"Content",
                 winrt::xaml_typename<winrt::Microsoft::UI::Xaml::UIElement>(),
                 winrt::xaml_typename<class_type>(),
@@ -27,8 +29,8 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
             SetValue(ContentProperty, value);
         }
 
-        static inline const wil::single_threaded_property<winrt::Microsoft::UI::Xaml::DependencyProperty> LabelProperty =
-            winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+        static inline const wil::single_threaded_property<DependencyProperty> LabelProperty =
+            DependencyProperty::Register(
                 L"Label",
                 winrt::xaml_typename<winrt::hstring>(),
                 winrt::xaml_typename<class_type>(),
@@ -36,7 +38,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 
         winrt::hstring Label() const
         {
-            return GetValue(LabelProperty).as<hstring>();
+            return winrt::unbox_value<winrt::hstring>(GetValue(LabelProperty));
         }
 
         void Label(winrt::hstring const& value)

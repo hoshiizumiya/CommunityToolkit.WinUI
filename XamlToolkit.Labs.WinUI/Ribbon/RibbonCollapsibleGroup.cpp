@@ -138,8 +138,6 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 
 	void RibbonCollapsibleGroup::UpdateState()
 	{
-		using namespace winrt::Microsoft::UI::Xaml;
-
 		switch (State())
 		{
 		case Visibility::Visible:
