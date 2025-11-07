@@ -30,7 +30,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 	void RichSuggestBox::ClearUndoRedoSuggestionHistory()
 	{
 		TextDocument().ClearUndoRedoHistory();
-		std::unique_lock<std::mutex> lock(_tokensLock);
+		std::unique_lock<std::recursive_mutex> lock(_tokensLock);
 		{
 			if (_tokens.size() == 0)
 			{
@@ -50,7 +50,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
 	void RichSuggestBox::Clear()
 	{
-		std::unique_lock<std::mutex> lock(_tokensLock);
+		std::unique_lock<std::recursive_mutex> lock(_tokensLock);
 
 		_tokens.clear();
 		_visibleTokens.Clear();
@@ -63,7 +63,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
 	void RichSuggestBox::AddTokens(IIterable<winrt::XamlToolkit::WinUI::Controls::RichSuggestToken> const& tokens)
 	{
-		std::unique_lock<std::mutex> lock(_tokensLock);
+		std::unique_lock<std::recursive_mutex> lock(_tokensLock);
 
 		for (const auto& token : tokens)
 		{
@@ -87,7 +87,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		range = range.GetClone();
 		if (range != nullptr && !range.Link().empty())
 		{
-			std::unique_lock<std::mutex> lock(_tokensLock);
+			std::unique_lock<std::recursive_mutex> lock(_tokensLock);
 			{
 				if (auto iter = _tokens.find(range.Link()); iter != _tokens.end())
 				{
@@ -253,7 +253,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		range.Expand(TextRangeUnit::Link);
 
 		{
-			std::unique_lock<std::mutex> lock(_tokensLock);
+			std::unique_lock<std::recursive_mutex> lock(_tokensLock);
 			if (!_tokens.contains(range.Link()))
 			{
 				return;
@@ -279,7 +279,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		ITextRange range{ nullptr };
 		std::shared_ptr<RichSuggestQuery> query = _currentQuery;
 		auto action{ RequestSuggestionsAsync(range) };
-		if (query->Task == nullptr) 
+		if (query && query->Task == nullptr) 
 		{
 			query->Task = action;
 		}
@@ -358,7 +358,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		}
 
 		{
-			std::unique_lock<std::mutex> lock(_tokensLock);
+			std::unique_lock<std::recursive_mutex> lock(_tokensLock);
 			CreateSingleEdit([this]() { ValidateTokensInDocument(); });
 		}
 	}
@@ -430,7 +430,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 	void RichSuggestBox::UpdateVisibleTokenList()
 	{
 
-		std::unique_lock<std::mutex> lock(_tokensLock);
+		std::unique_lock<std::recursive_mutex> lock(_tokensLock);
 		std::vector<winrt::XamlToolkit::WinUI::Controls::RichSuggestToken> toBeRemoved;
 
 		for (const auto& elem : _visibleTokens)

@@ -89,5 +89,9 @@ namespace XamlToolkit.WinUI.Controls
 		event Windows.Foundation.TypedEventHandler<RichSuggestBox, Microsoft.UI.Xaml.RoutedEventArgs> SelectionChanged;
 
 		event Windows.Foundation.TypedEventHandler<RichSuggestBox, Microsoft.UI.Xaml.Controls.TextControlPasteEventArgs> Paste;
+
+		void ClearUndoRedoSuggestionHistory();
+
+		void Clear();
 	}
 }

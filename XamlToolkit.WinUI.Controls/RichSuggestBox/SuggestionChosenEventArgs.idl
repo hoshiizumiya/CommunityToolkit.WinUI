@@ -14,7 +14,8 @@ namespace XamlToolkit.WinUI.Controls
 
         Guid Id{ get; };
 
-
         Microsoft.UI.Text.ITextCharacterFormat Format;
+
+        Windows.Foundation.Deferral GetDeferral();
     }
 }

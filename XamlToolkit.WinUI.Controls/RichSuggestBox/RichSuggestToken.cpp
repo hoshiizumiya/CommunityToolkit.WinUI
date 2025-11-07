@@ -38,6 +38,6 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
 	winrt::hstring RichSuggestToken::ToString() const
 	{
-		return winrt::format(L"HYPERLINK \"{}\"\u200B{}\u200B", winrt::to_hstring(Id), DisplayText);
+		return winrt::format(L"HYPERLINK \"{}\"\u200B{}\u200B", winrt::to_hstring(Id), DisplayText());
 	}
 }

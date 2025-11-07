@@ -56,8 +56,8 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
         {
             return;
         }
-		auto args = winrt::make<RichSuggestTokenSelectedEventArgs>(token, selection.GetClone());
-        _tokenSelected(*this, args);
+		auto args = winrt::make_self<RichSuggestTokenSelectedEventArgs>(token, selection.GetClone());
+        _tokenSelected(*this, *args);
     }
 
     void RichSuggestBox::InvokeTokenPointerOver(PointerPoint const& pointer)
@@ -108,14 +108,14 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
         // Check for duplicate tokens. This can happen if the user copies and pastes the token multiple times.
         if (token.Active() && token.RangeStart() != range.StartPosition() && token.RangeEnd() != range.EndPosition())
         {
-            winrt::guid guid;
+            winrt::guid guid = GuidHelper::CreateNewGuid();
             if (TryCommitSuggestionIntoDocument(range, token.DisplayText(), guid, CreateTokenFormat(range), false))
             {
                 token = winrt::make<RichSuggestToken>(guid, token.DisplayText());
                 token.Active(true);
                 token.Item(token.Item());
                 token.UpdateTextRange(range);
-                _tokens.emplace(range.Link(), token);
+                _tokens.try_emplace(range.Link(), token);
             }
 
             return;
@@ -233,7 +233,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
         return false;
     }
 
-    ITextCharacterFormat RichSuggestBox::CreateTokenFormat(ITextRange const& range)
+    ITextCharacterFormat RichSuggestBox::CreateTokenFormat(ITextRange const& range) const
     {
         auto format = range.CharacterFormat().GetClone();
         if (auto background = TokenBackground())

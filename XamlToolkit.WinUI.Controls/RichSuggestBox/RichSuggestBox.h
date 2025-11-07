@@ -27,8 +27,8 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		static constexpr std::wstring_view PartHeaderContentPresenter = L"HeaderContentPresenter";
 		static constexpr std::wstring_view PartDescriptionPresenter = L"DescriptionPresenter";
 
-		std::mutex _tokensLock;
-		std::unordered_map<std::wstring_view, winrt::XamlToolkit::WinUI::Controls::RichSuggestToken> _tokens;
+		std::recursive_mutex _tokensLock;
+		std::unordered_map<winrt::hstring, winrt::XamlToolkit::WinUI::Controls::RichSuggestToken> _tokens;
 		winrt::Windows::Foundation::Collections::IObservableVector<winrt::XamlToolkit::WinUI::Controls::RichSuggestToken> _visibleTokens;
 
 		Popup _suggestionPopup{ nullptr };
@@ -473,7 +473,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
 		bool TryExtractQueryFromRange(ITextRange const& range, winrt::hstring& prefix, winrt::hstring& query);
 
-		ITextCharacterFormat CreateTokenFormat(ITextRange const& range);
+		ITextCharacterFormat CreateTokenFormat(ITextRange const& range) const;
 #pragma endregion
 
 #pragma region Suggestion
