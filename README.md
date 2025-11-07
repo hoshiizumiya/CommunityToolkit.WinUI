@@ -77,6 +77,9 @@ You can install the C++ WinUI Community Toolkit packages via NuGet (it also supp
 ### RangeSelector
 ![RangeSelector](docs/images/RangeSelector.png)
 
+### RichSuggestBox
+![RichSuggestBox](docs/images/RichSuggestBox.png)
+
 ### Segmented
 ![Segmented](docs/images/Segmented.png)
 
