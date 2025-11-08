@@ -96,7 +96,10 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 				winrt::xaml_typename<class_type>(),
 				winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr });
 
-		winrt::Microsoft::UI::Xaml::Style AutoSuggestBoxStyle() const { return GetValue(AutoSuggestBoxStyleProperty).try_as<winrt::Microsoft::UI::Xaml::Style>(); }
+		winrt::Microsoft::UI::Xaml::Style AutoSuggestBoxStyle() const 
+		{ 
+			return GetValue(AutoSuggestBoxStyleProperty).try_as<winrt::Microsoft::UI::Xaml::Style>();
+		}
 		void AutoSuggestBoxStyle(winrt::Microsoft::UI::Xaml::Style const& value) const { SetValue(AutoSuggestBoxStyleProperty, value); }
 
 		static inline const wil::single_threaded_property<winrt::Microsoft::UI::Xaml::DependencyProperty> AutoSuggestBoxTextBoxStyleProperty =
@@ -264,11 +267,15 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
 		wil::typed_event<AutoSuggestBox, AutoSuggestBoxQuerySubmittedEventArgs> QuerySubmitted;
 
-		wil::typed_event<Controls::TokenizingTextBox, TokenItemAddingEventArgs> TokenItemAdding;
+		winrt::event_token TokenItemAdding(TypedEventHandler<Controls::TokenizingTextBox, TokenItemAddingEventArgs> const& handler);
+
+		void TokenItemAdding(winrt::event_token const& token) noexcept;
+
+		winrt::event_token TokenItemRemoving(TypedEventHandler<Controls::TokenizingTextBox, TokenItemRemovingEventArgs> const& handler);
+
+		void TokenItemRemoving(winrt::event_token const& token) noexcept;
 
 		wil::typed_event<Controls::TokenizingTextBox, IInspectable> TokenItemAdded;
-
-		wil::typed_event<Controls::TokenizingTextBox, TokenItemRemovingEventArgs> TokenItemRemoving;
 
 		wil::typed_event<Controls::TokenizingTextBox, IInspectable> TokenItemRemoved;
 
@@ -285,6 +292,10 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		IAsyncAction RemoveAllSelectedTokens();
 
 	private:
+		winrt::event<winrt::Windows::Foundation::TypedEventHandler<Controls::TokenizingTextBox, TokenItemAddingEventArgs>> _tokenItemAdding;
+
+		winrt::event<winrt::Windows::Foundation::TypedEventHandler<Controls::TokenizingTextBox, TokenItemRemovingEventArgs>> _tokenItemRemoving;
+
 		IAsyncAction TokenizingTextBox_CharacterReceived(UIElement const& sender, CharacterReceivedRoutedEventArgs const& args);
 
 		IInspectable GetFocusedElement();

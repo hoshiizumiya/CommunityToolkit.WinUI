@@ -429,11 +429,11 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 			co_return;
 		}
 
-		if (auto str = data.try_as<hstring>())
+		if (auto str = data.try_as<hstring>(); str && _tokenItemAdding)
 		{
 			auto tiaea = winrt::make_self<TokenItemAddingEventArgs>(*str);
 
-			TokenItemAdding.invoke(*this, *tiaea);
+			_tokenItemAdding(*this, *tiaea);
 
 			co_await tiaea->wait_for_deferrals();
 
@@ -457,7 +457,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		{
 			// Otherwise, we'll insert before our current box
 			const auto& edit = _currentTextEdit;
-			
+
 			if (uint32_t index; _innerItemsSource.IndexOf(edit, index))
 			{
 				// Insert our new data item at the location of our textbox
@@ -499,19 +499,24 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 			data = ItemFromContainer(item);
 		}
 
-		auto tirea = winrt::make_self<TokenItemRemovingEventArgs>(data, item);
-
-		TokenItemRemoving.invoke(*this, *tirea);
-
-		co_await tirea->wait_for_deferrals();
-
-		if (tirea->Cancel())
+		if (_tokenItemRemoving) 
 		{
-			co_return false;
+			auto tirea = winrt::make_self<TokenItemRemovingEventArgs>(data, item);
+
+			_tokenItemRemoving(*this, *tirea);
+
+			co_await tirea->wait_for_deferrals();
+
+			if (tirea->Cancel())
+			{
+				co_return false;
+			}
 		}
 
 		if (uint32_t index; _innerItemsSource.IndexOf(data, index)) 
+		{
 			_innerItemsSource.RemoveAt(index);
+		}
 
 		TokenItemRemoved.invoke(*this, data);
 
@@ -618,5 +623,25 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 				}
 			}
 		}
+	}
+
+	winrt::event_token TokenizingTextBox::TokenItemAdding(TypedEventHandler<Controls::TokenizingTextBox, TokenItemAddingEventArgs> const& handler)
+	{
+		return _tokenItemAdding.add(handler);
+	}
+
+	void TokenizingTextBox::TokenItemAdding(winrt::event_token const& token) noexcept
+	{
+		_tokenItemAdding.remove(token);
+	}
+
+	winrt::event_token TokenizingTextBox::TokenItemRemoving(TypedEventHandler<Controls::TokenizingTextBox, TokenItemRemovingEventArgs> const& handler)
+	{
+		return _tokenItemRemoving.add(handler);
+	}
+
+	void TokenizingTextBox::TokenItemRemoving(winrt::event_token const& token) noexcept
+	{
+		_tokenItemRemoving.remove(token);
 	}
 }
