@@ -625,7 +625,9 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		}
 	}
 
-	winrt::event_token TokenizingTextBox::TokenItemAdding(TypedEventHandler<Controls::TokenizingTextBox, TokenItemAddingEventArgs> const& handler)
+	winrt::event_token TokenizingTextBox::TokenItemAdding(
+		TypedEventHandler<winrt::XamlToolkit::WinUI::Controls::TokenizingTextBox,
+		winrt::XamlToolkit::WinUI::Controls::TokenItemAddingEventArgs> const& handler)
 	{
 		return _tokenItemAdding.add(handler);
 	}
@@ -635,7 +637,9 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		_tokenItemAdding.remove(token);
 	}
 
-	winrt::event_token TokenizingTextBox::TokenItemRemoving(TypedEventHandler<Controls::TokenizingTextBox, TokenItemRemovingEventArgs> const& handler)
+	winrt::event_token TokenizingTextBox::TokenItemRemoving(
+		TypedEventHandler<winrt::XamlToolkit::WinUI::Controls::TokenizingTextBox,
+		winrt::XamlToolkit::WinUI::Controls::TokenItemRemovingEventArgs> const& handler)
 	{
 		return _tokenItemRemoving.add(handler);
 	}
