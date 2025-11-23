@@ -17,7 +17,7 @@ namespace winrt::XamlToolkit::WinUI::implementation
 		if (!parent) throw winrt::hresult_invalid_argument(L"parent");
 		if (!_element) throw winrt::hresult_invalid_argument(L"element");
 
-		_loadedRevoker = element.Loaded(winrt::auto_revoke, { get_weak(), &AttachedShadowElementContext::OnElementLoaded});
+		_loadedRevoker = element.Loaded(winrt::auto_revoke, { get_weak(), &AttachedShadowElementContext::OnElementLoaded });
 		_unloadedRevoker = element.Unloaded(winrt::auto_revoke, { get_weak(), &AttachedShadowElementContext::OnElementUnloaded });
 		Initialize();
 	}
