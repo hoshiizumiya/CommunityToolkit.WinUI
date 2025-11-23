@@ -10,8 +10,9 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 	{
 		base_type::OnApplyTemplate();
 		_container = GetTemplateChild(MarkdownContainerName).as<Grid>();
-		_container.Children().Clear();
-		_container.Children().Append(_document->RichTextBlock());
+		auto children = _container.Children();
+		children.Clear();
+		children.Append(_document->RichTextBlock());
 		Config(XamlToolkit::Labs::WinUI::MarkdownConfig::Default());
 		Build();
 	}
@@ -35,11 +36,11 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 
 	void MarkdownTextBlock::Build()
 	{
-		if (Config())
+		if (auto config = Config())
 		{
 			if (_renderer == nullptr)
 			{
-				_renderer = std::make_unique<WinUIRenderer>(_document, Config(), *this);
+				_renderer = std::make_unique<WinUIRenderer>(_document, config, *this);
 			}
 
 			ApplyText(Text(), false);
