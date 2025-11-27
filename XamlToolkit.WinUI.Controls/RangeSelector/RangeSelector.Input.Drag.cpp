@@ -1,16 +1,15 @@
 #include "pch.h"
 #include "RangeSelector.h"
 
-using namespace winrt;
-using namespace Microsoft::UI::Xaml;
-
 namespace winrt::XamlToolkit::WinUI::Controls::implementation
 {
     void RangeSelector::MinThumb_DragDelta([[maybe_unused]] IInspectable const& sender, DragDeltaEventArgs const& e)
     {
-        _absolutePosition += e.HorizontalChange();
+        double delta = IsHorizontal() ? e.HorizontalChange() : e.VerticalChange();
 
-        RangeStart(DragThumb(_minThumb, 0, DragWidth(), _absolutePosition));
+        _absolutePosition += delta;
+
+        RangeStart(DragThumb(_minThumb, 0, DragLength(), _absolutePosition));
 
         if (_toolTipText != nullptr)
         {
@@ -20,9 +19,11 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
     void RangeSelector::MaxThumb_DragDelta([[maybe_unused]] IInspectable const& sender, DragDeltaEventArgs const& e)
     {
-        _absolutePosition += e.HorizontalChange();
+        double delta = IsHorizontal() ? e.HorizontalChange() : e.VerticalChange();
 
-        RangeEnd(DragThumb(_maxThumb, 0, DragWidth(), _absolutePosition));
+        _absolutePosition += delta;
+
+        RangeEnd(DragThumb(_maxThumb, 0, DragLength(), _absolutePosition));
 
         if (_toolTipText != nullptr)
         {
@@ -51,20 +52,36 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
     void RangeSelector::Thumb_DragCompleted(IInspectable const& sender, DragCompletedEventArgs const& e)
     {
         OnThumbDragCompleted(e);
-        OnValueChanged(sender == _minThumb ? winrt::make<RangeChangedEventArgs>(_oldValue, RangeStart(), RangeSelectorProperty::MinimumValue) : winrt::make<RangeChangedEventArgs>(_oldValue, RangeEnd(), RangeSelectorProperty::MaximumValue));
+
+        auto args = sender == _minThumb
+            ? winrt::make_self<RangeChangedEventArgs>(_oldValue, RangeStart(), RangeSelectorProperty::MinimumValue)
+            : winrt::make_self<RangeChangedEventArgs>(_oldValue, RangeEnd(), RangeSelectorProperty::MaximumValue);
+
+        OnValueChanged(*args);
+
         SyncThumbs();
 
         if (_toolTip != nullptr)
         {
-            _toolTip.Visibility(Visibility::Collapsed);
+            _toolTip.IsOpen(false);
         }
 
         VisualStateManager::GoToState(*this, NormalState, true);
     }
 
-    double RangeSelector::DragWidth()
+    double RangeSelector::DragLength() const
     {
-        return _containerCanvas.ActualWidth() - _maxThumb.Width();
+        if (!_containerCanvas) return 0.0;
+
+        if (IsHorizontal()) 
+        {
+            return _containerCanvas.ActualWidth() - _minThumb.ActualWidth();
+        }
+            
+        else 
+        {
+            return _containerCanvas.ActualHeight() - _minThumb.ActualHeight();
+        } 
     }
 
     double RangeSelector::DragThumb(Thumb const& thumb, double min, double max, double nextPos)
@@ -72,40 +89,40 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
         nextPos = std::max<double>(min, nextPos);
         nextPos = std::min<double>(max, nextPos);
 
-        Canvas::SetLeft(thumb, nextPos);
-
-        if (_toolTip != nullptr && thumb != nullptr)
+        if (IsHorizontal())
         {
-            auto thumbCenter = nextPos + (thumb.Width() / 2);
-            _toolTip.Measure(Size(std::numeric_limits<float>::infinity(), std::numeric_limits<float>::infinity()));
-            auto ttWidth = _toolTip.ActualWidth() / 2;
-
-            Canvas::SetLeft(_toolTip, thumbCenter - ttWidth);
+            Canvas::SetLeft(thumb, nextPos);
+        }
+        else
+        {
+            Canvas::SetTop(thumb, nextPos);
         }
 
-        return Minimum() + ((nextPos / DragWidth()) * (Maximum() - Minimum()));
+        double percent = IsHorizontal() ? (nextPos / DragLength()) : (1.0 - nextPos / DragLength());
+
+        return Minimum() + percent * (Maximum() - Minimum());
     }
 
     void RangeSelector::Thumb_DragStarted(Thumb const& thumb)
     {
-        auto useMin = thumb == _minThumb;
+        auto useMin = (thumb == _minThumb);
         auto otherThumb = useMin ? _maxThumb : _minThumb;
 
-        _absolutePosition = Canvas::GetLeft(thumb);
+        _absolutePosition = IsHorizontal() ? Canvas::GetLeft(thumb) : Canvas::GetTop(thumb);
+
         Canvas::SetZIndex(thumb, 10);
         Canvas::SetZIndex(otherThumb, 0);
-        _oldValue = RangeStart();
 
-        if (_toolTip != nullptr)
+        if (_toolTip)
         {
-            _toolTip.Visibility(Visibility::Visible);
-            auto thumbCenter = _absolutePosition + (thumb.Width() / 2);
-            _toolTip.Measure(Size(std::numeric_limits<float>::infinity(), std::numeric_limits<float>::infinity()));
-            auto ttWidth = _toolTip.ActualWidth() / 2;
-            Canvas::SetLeft(_toolTip, thumbCenter - ttWidth);
+            _toolTip.PlacementTarget(thumb);
+            _toolTip.IsOpen(true);
 
-            if (_toolTipText != nullptr)
+
+            if (_toolTipText)
+            {
                 UpdateToolTipText(*this, _toolTipText, useMin ? RangeStart() : RangeEnd());
+            }
         }
 
         VisualStateManager::GoToState(*this, useMin ? MinPressedState : MaxPressedState, true);

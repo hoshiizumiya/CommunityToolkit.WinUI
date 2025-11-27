@@ -1,9 +1,6 @@
 #include "pch.h"
 #include "RangeSelector.h"
 
-using namespace winrt;
-using namespace Microsoft::UI::Xaml;
-
 namespace winrt::XamlToolkit::WinUI::Controls::implementation
 {
     void RangeSelector::ContainerCanvas_PointerEntered([[maybe_unused]] IInspectable const& sender, [[maybe_unused]] PointerRoutedEventArgs const& e)
@@ -13,18 +10,21 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
     void RangeSelector::ContainerCanvas_PointerExited([[maybe_unused]] IInspectable const& sender, PointerRoutedEventArgs const& e)
     {
-        auto position = e.GetCurrentPoint(_containerCanvas).Position().X;
-        auto normalizedPosition = ((position / DragWidth()) * (Maximum() - Minimum())) + Minimum();
+        double position = GetPointerAxisPosition(e);
+        double percent = IsHorizontal() ? (position / DragLength()) : (1.0 - position / DragLength());
+        double normalizedPosition = Minimum() + percent * (Maximum() - Minimum());
 
         if (_pointerManipulatingMin)
         {
             _pointerManipulatingMin = false;
-            OnValueChanged(winrt::make<RangeChangedEventArgs>(RangeStart(), normalizedPosition, RangeSelectorProperty::MinimumValue));
+            auto args = winrt::make_self<RangeChangedEventArgs>(RangeStart(), normalizedPosition, RangeSelectorProperty::MinimumValue);
+            OnValueChanged(*args);
         }
         else if (_pointerManipulatingMax)
         {
             _pointerManipulatingMax = false;
-            OnValueChanged(winrt::make<RangeChangedEventArgs>(RangeEnd(), normalizedPosition, RangeSelectorProperty::MaximumValue));
+            auto args = winrt::make_self<RangeChangedEventArgs>(RangeEnd(), normalizedPosition, RangeSelectorProperty::MaximumValue);
+            OnValueChanged(*args);
         }
 
         if (_containerCanvas != nullptr)
@@ -34,7 +34,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
         if (_toolTip != nullptr)
         {
-            _toolTip.Visibility(Visibility::Collapsed);
+            _toolTip.IsOpen(false);
         }
 
         VisualStateManager::GoToState(*this, NormalState, false);
@@ -42,18 +42,21 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
     void RangeSelector::ContainerCanvas_PointerReleased([[maybe_unused]] IInspectable const& sender, PointerRoutedEventArgs const& e)
     {
-        auto position = e.GetCurrentPoint(_containerCanvas).Position().X;
-        auto normalizedPosition = ((position / DragWidth()) * (Maximum() - Minimum())) + Minimum();
+        double position = GetPointerAxisPosition(e);
+        double percent = IsHorizontal() ? (position / DragLength()) : (1.0 - position / DragLength());
+        double normalizedPosition = Minimum() + percent * (Maximum() - Minimum());
 
         if (_pointerManipulatingMin)
         {
             _pointerManipulatingMin = false;
-            OnValueChanged(winrt::make<RangeChangedEventArgs>(RangeStart(), normalizedPosition, RangeSelectorProperty::MinimumValue));
+            auto args = winrt::make_self<RangeChangedEventArgs>(RangeStart(), normalizedPosition, RangeSelectorProperty::MinimumValue);
+            OnValueChanged(*args);
         }
         else if (_pointerManipulatingMax)
         {
             _pointerManipulatingMax = false;
-            OnValueChanged(winrt::make<RangeChangedEventArgs>(RangeEnd(), normalizedPosition, RangeSelectorProperty::MaximumValue));
+            auto args = winrt::make_self<RangeChangedEventArgs>(RangeEnd(), normalizedPosition, RangeSelectorProperty::MaximumValue);
+            OnValueChanged(*args);
         }
 
         if (_containerCanvas != nullptr)
@@ -65,18 +68,17 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
         if (_toolTip != nullptr)
         {
-            _toolTip.Visibility(Visibility::Collapsed);
+            _toolTip.IsOpen(false);
         }
     }
 
     void RangeSelector::ContainerCanvas_PointerMoved([[maybe_unused]] IInspectable const& sender, PointerRoutedEventArgs const& e)
     {
-        auto position = e.GetCurrentPoint(_containerCanvas).Position().X;
-        // auto normalizedPosition = ((position / DragWidth()) * (Maximum() - Minimum())) + Minimum();
+        double position = GetPointerAxisPosition(e);
 
         if (_pointerManipulatingMin)
         {
-            RangeStart(DragThumb(_minThumb, 0, DragWidth(), position));
+            RangeStart(DragThumb(_minThumb, 0, DragLength(), position));
             if (_toolTipText != nullptr)
             {
                 UpdateToolTipText(*this, _toolTipText, RangeStart());
@@ -86,7 +88,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
         {
             if (_toolTipText != nullptr)
             {
-                RangeEnd(DragThumb(_maxThumb, 0, DragWidth(), position));
+                RangeEnd(DragThumb(_maxThumb, 0, DragLength(), position));
                 UpdateToolTipText(*this, _toolTipText, RangeEnd());
             }
         }
@@ -94,12 +96,14 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
     void RangeSelector::ContainerCanvas_PointerPressed([[maybe_unused]] IInspectable const& sender, PointerRoutedEventArgs const& e)
     {
-        auto position = e.GetCurrentPoint(_containerCanvas).Position().X;
-        auto normalizedPosition = position * std::abs(Maximum() - Minimum()) / DragWidth();
+        double position = GetPointerAxisPosition(e);
+        double percent = IsHorizontal() ? (position / DragLength()) : (1.0 - position / DragLength());
+        double normalizedPosition = Minimum() + percent * (Maximum() - Minimum());
+
         double upperValueDiff = std::abs(RangeEnd() - normalizedPosition);
         double lowerValueDiff = std::abs(RangeStart() - normalizedPosition);
 
-        if (upperValueDiff < lowerValueDiff)
+        if (upperValueDiff < lowerValueDiff /*|| std::abs(upperValueDiff - lowerValueDiff) < 1e-6*/)
         {
             RangeEnd(normalizedPosition);
             _pointerManipulatingMax = true;

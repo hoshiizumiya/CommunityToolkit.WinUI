@@ -1,9 +1,6 @@
 #include "pch.h"
 #include "RangeSelector.h"
 
-using namespace winrt;
-using namespace Microsoft::UI::Xaml;
-
 namespace winrt::XamlToolkit::WinUI::Controls::implementation
 {
 	winrt::event_token RangeSelector::ThumbDragStarted(winrt::Microsoft::UI::Xaml::Controls::Primitives::DragStartedEventHandler const& handler)

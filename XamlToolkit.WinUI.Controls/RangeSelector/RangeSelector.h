@@ -17,6 +17,8 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		static constexpr std::wstring_view DisabledState = L"Disabled";
 		static constexpr std::wstring_view MinPressedState = L"MinPressed";
 		static constexpr std::wstring_view MaxPressedState = L"MaxPressed";
+		static constexpr std::wstring_view HorizontalState = L"Horizontal";
+		static constexpr std::wstring_view VerticalState = L"Vertical";
 
 		static constexpr double Epsilon = 0.01;
 		static constexpr double DefaultMinimum = 0.0;
@@ -30,14 +32,14 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		Thumb _minThumb{ nullptr };
 		Thumb _maxThumb{ nullptr };
 		Canvas _containerCanvas{ nullptr };
-		double _oldValue;
-		bool _valuesAssigned;
-		bool _minSet;
-		bool _maxSet;
-		bool _pointerManipulatingMin;
-		bool _pointerManipulatingMax;
-		double _absolutePosition;
-		Grid _toolTip{ nullptr };
+		double _oldValue{ 0.0 };
+		bool _valuesAssigned{ false };
+		bool _minSet{ false };
+		bool _maxSet{ false };
+		bool _pointerManipulatingMin{ false };
+		bool _pointerManipulatingMax{ false };
+		double _absolutePosition{ 0.0 };
+		Popup _toolTip{ nullptr };
 		TextBlock _toolTipText{ nullptr };
 
 		winrt::event_token _isEnabledChanged;
@@ -76,7 +78,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		void ThumbDragStarted(winrt::event_token const& token) noexcept;
 
 		winrt::event_token ThumbDragCompleted(winrt::Microsoft::UI::Xaml::Controls::Primitives::DragCompletedEventHandler const& handler);
-		
+
 		void ThumbDragCompleted(winrt::event_token const& token) noexcept;
 
 		virtual void OnThumbDragStarted(DragStartedEventArgs const& e);
@@ -93,13 +95,14 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
 		static void RangeMaxChangedCallback(DependencyObject const& d, DependencyPropertyChangedEventArgs const& e);
 
+		static void OrientationChangedCallback(DependencyObject const& d, DependencyPropertyChangedEventArgs const& e);
+
 		static inline const wil::single_threaded_property<winrt::Microsoft::UI::Xaml::DependencyProperty> MinimumProperty =
 			winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 				L"Minimum",
 				winrt::xaml_typename<double>(),
 				winrt::xaml_typename<class_type>(),
-				winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(DefaultMinimum), winrt::Microsoft::UI::Xaml::PropertyChangedCallback{ &RangeSelector::MinimumChangedCallback } }
-			);
+				winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(DefaultMinimum), &RangeSelector::MinimumChangedCallback });
 
 		double Minimum() const
 		{
@@ -116,8 +119,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 				L"Maximum",
 				winrt::xaml_typename<double>(),
 				winrt::xaml_typename<class_type>(),
-				winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(DefaultMaximum), winrt::Microsoft::UI::Xaml::PropertyChangedCallback{ &RangeSelector::MaximumChangedCallback } }
-			);
+				winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(DefaultMaximum), &RangeSelector::MaximumChangedCallback });
 
 		double Maximum() const
 		{
@@ -134,8 +136,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 				L"RangeStart",
 				winrt::xaml_typename<double>(),
 				winrt::xaml_typename<class_type>(),
-				winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(DefaultMinimum), winrt::Microsoft::UI::Xaml::PropertyChangedCallback{ &RangeSelector::RangeMinChangedCallback } }
-			);
+				winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(DefaultMinimum), &RangeSelector::RangeMinChangedCallback });
 
 		double RangeStart() const
 		{
@@ -152,8 +153,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 				L"RangeEnd",
 				winrt::xaml_typename<double>(),
 				winrt::xaml_typename<class_type>(),
-				winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(DefaultMaximum), winrt::Microsoft::UI::Xaml::PropertyChangedCallback{ &RangeSelector::RangeMaxChangedCallback } }
-			);
+				winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(DefaultMaximum), &RangeSelector::RangeMaxChangedCallback });
 
 		double RangeEnd() const
 		{
@@ -181,6 +181,27 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		void StepFrequency(double const& value) const
 		{
 			SetValue(StepFrequencyProperty, winrt::box_value(value));
+		}
+
+		static inline const wil::single_threaded_property<winrt::Microsoft::UI::Xaml::DependencyProperty> OrientationProperty =
+			winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+				L"Orientation",
+				winrt::xaml_typename<winrt::Microsoft::UI::Xaml::Controls::Orientation>(),
+				winrt::xaml_typename<class_type>(),
+				winrt::Microsoft::UI::Xaml::PropertyMetadata
+				{
+					winrt::box_value(winrt::Microsoft::UI::Xaml::Controls::Orientation::Horizontal),
+					&RangeSelector::OrientationChangedCallback
+				});
+
+		winrt::Microsoft::UI::Xaml::Controls::Orientation Orientation() const
+		{
+			return winrt::unbox_value<winrt::Microsoft::UI::Xaml::Controls::Orientation>(GetValue(OrientationProperty));
+		}
+
+		void Orientation(winrt::Microsoft::UI::Xaml::Controls::Orientation const& value) const
+		{
+			SetValue(OrientationProperty, winrt::box_value(value));
 		}
 
 	private:
@@ -233,7 +254,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
 		void Thumb_DragCompleted(IInspectable const& sender, DragCompletedEventArgs const& e);
 
-		double DragWidth();
+		double DragLength() const;
 
 		double DragThumb(Thumb const& thumb, double min, double max, double nextPos);
 
@@ -241,6 +262,12 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 #pragma endregion
 
 		void Debounce();
+
+		bool IsHorizontal() const;
+
+		double GetPointerAxisPosition(PointerRoutedEventArgs const& e) const;
+
+		void UpdateToolTipPlacement();
 	};
 }
 

@@ -4,9 +4,6 @@
 #include "RangeSelector.g.cpp"
 #endif
 
-using namespace winrt;
-using namespace Microsoft::UI::Xaml;
-
 namespace winrt::XamlToolkit::WinUI::Controls::implementation
 {
 	RangeSelector::RangeSelector()
@@ -52,7 +49,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		_minThumb = GetTemplateChild(L"MinThumb").try_as<Thumb>();
 		_maxThumb = GetTemplateChild(L"MaxThumb").try_as<Thumb>();
 		_containerCanvas = GetTemplateChild(L"ContainerCanvas").try_as<Canvas>();
-		_toolTip = GetTemplateChild(L"ToolTip").try_as<Grid>();
+		_toolTip = GetTemplateChild(L"ToolTip").try_as<Popup>();
 		_toolTipText = GetTemplateChild(L"ToolTipText").try_as<TextBlock>();
 
 		if (_minThumb != nullptr)
@@ -83,14 +80,21 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 			_canvasPointerExitedToken = _containerCanvas.PointerExited({ this, &RangeSelector::ContainerCanvas_PointerExited });
 		}
 
+		if (_toolTip != nullptr)
+		{
+			if (auto child = _toolTip.Child().try_as<UIElement>()) 
+			{
+				child.Translation(winrt::Windows::Foundation::Numerics::float3{ 0, 0, 32 });
+			}
+
+			UpdateToolTipPlacement();
+		}
+
 		VisualStateManager::GoToState(*this, IsEnabled() ? NormalState : DisabledState, false);
 
-		_isEnabledChanged = IsEnabledChanged({ this, &RangeSelector::RangeSelector_IsEnabledChanged });
+		VisualStateManager::GoToState(*this, IsHorizontal() ? HorizontalState : VerticalState, true);
 
-		// Measure our min/max text longest value so we can avoid the length of the scrolling reason shifting in size during use.
-		TextBlock tb;
-		tb.Text(winrt::format(L"{}", Maximum()));
-		tb.Measure(Size(std::numeric_limits<float>::infinity(), std::numeric_limits<float>::infinity()));
+		_isEnabledChanged = IsEnabledChanged({ this, &RangeSelector::RangeSelector_IsEnabledChanged });
 
 		base_type::OnApplyTemplate();
 	}
@@ -110,50 +114,55 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
 	void RangeSelector::VerifyValues() const
 	{
-		if (Minimum() > Maximum())
+		auto minimum = Minimum();
+		auto maximum = Maximum();
+		auto rangeStart = RangeStart();
+		auto rangeEnd = RangeEnd();
+
+		if (minimum > maximum)
 		{
-			Minimum(Maximum());
-			Maximum(Maximum());
+			Minimum(maximum);
+			Maximum(maximum);
 		}
 
-		if (Minimum() == Maximum())
+		if (minimum == maximum)
 		{
-			Maximum(Maximum() + Epsilon);
+			Maximum(maximum + Epsilon);
 		}
 
 		if (!_maxSet)
 		{
-			RangeEnd(Maximum());
+			RangeEnd(maximum);
 		}
 
 		if (!_minSet)
 		{
-			RangeStart(Minimum());
+			RangeStart(minimum);
 		}
 
-		if (RangeStart() < Minimum())
+		if (rangeStart < minimum)
 		{
-			RangeStart(Minimum());
+			RangeStart(minimum);
 		}
 
-		if (RangeEnd() < Minimum())
+		if (rangeEnd < minimum)
 		{
-			RangeEnd(Minimum());
+			RangeEnd(minimum);
 		}
 
-		if (RangeStart() > Maximum())
+		if (rangeStart > maximum)
 		{
-			RangeStart(Maximum());
+			RangeStart(maximum);
 		}
 
-		if (RangeEnd() > Maximum())
+		if (rangeEnd > maximum)
 		{
-			RangeEnd(Maximum());
+			RangeEnd(maximum);
 		}
 
-		if (RangeEnd() < RangeStart())
+		if (rangeEnd < rangeStart)
 		{
-			RangeStart(RangeEnd());
+			RangeStart(rangeEnd);
 		}
 	}
 
@@ -169,15 +178,19 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
 	double RangeSelector::MoveToStepFrequency(double rangeValue) const
 	{
-		double newValue = Minimum() + (((int)std::round((rangeValue - Minimum()) / StepFrequency())) * StepFrequency());
+		auto minimum = Minimum();
+		auto maximum = Maximum();
+		auto stepFrequency = StepFrequency();
 
-		if (newValue < Minimum())
+		double newValue = minimum + ((static_cast<int>(std::round((rangeValue - minimum) / stepFrequency))) * stepFrequency);
+
+		if (newValue < minimum)
 		{
-			return Minimum();
+			return minimum;
 		}
-		else if (newValue > Maximum() || Maximum() - newValue < StepFrequency())
+		else if (newValue > maximum || maximum - newValue < stepFrequency)
 		{
-			return Maximum();
+			return maximum;
 		}
 		else
 		{
@@ -192,23 +205,54 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 			return;
 		}
 
-		auto relativeLeft = ((RangeStart() - Minimum()) / (Maximum() - Minimum())) * DragWidth();
-		auto relativeRight = ((RangeEnd() - Minimum()) / (Maximum() - Minimum())) * DragWidth();
+		auto minimum = Minimum();
+		auto maximum = Maximum();
+		auto dragLength = DragLength();
+		auto rangeStart = RangeStart();
+		auto rangeEnd = RangeEnd();
 
-		Canvas::SetLeft(_minThumb, relativeLeft);
-		Canvas::SetLeft(_maxThumb, relativeRight);
+		double relativeStart, relativeEnd;
+
+		if (IsHorizontal())
+		{
+			relativeStart = ((rangeStart - minimum) / (maximum - minimum)) * dragLength;
+			relativeEnd = ((rangeEnd - minimum) / (maximum - minimum)) * dragLength;
+		}
+		else
+		{
+			relativeStart = (1.0 - (rangeStart - minimum) / (maximum - minimum)) * dragLength;
+			relativeEnd = (1.0 - (rangeEnd - minimum) / (maximum - minimum)) * dragLength;
+		}
+
+		if (IsHorizontal())
+		{
+			Canvas::SetLeft(_minThumb, relativeStart);
+			Canvas::SetLeft(_maxThumb, relativeEnd);
+		}
+		else
+		{
+			Canvas::SetTop(_minThumb, relativeStart);
+			Canvas::SetTop(_maxThumb, relativeEnd);
+		}
 
 		if (fromMinKeyDown || fromMaxKeyDown)
 		{
-			DragThumb(
-				fromMinKeyDown ? _minThumb : _maxThumb,
-				fromMinKeyDown ? 0 : Canvas::GetLeft(_minThumb),
-				fromMinKeyDown ? Canvas::GetLeft(_maxThumb) : DragWidth(),
-				fromMinKeyDown ? relativeLeft : relativeRight);
-			if (_toolTipText != nullptr)
+			const auto& activeThumb = fromMinKeyDown ? _minThumb : _maxThumb;
+			double initialPos = fromMinKeyDown ? relativeStart : relativeEnd;
+
+			double otherPos = IsHorizontal()
+				? (fromMinKeyDown ? Canvas::GetLeft(_maxThumb) : Canvas::GetLeft(_minThumb))
+				: (fromMinKeyDown ? Canvas::GetTop(_maxThumb) : Canvas::GetTop(_minThumb));
+
+			double dragMin = fromMinKeyDown ? 0.0 : otherPos;
+			double dragMax = fromMinKeyDown ? otherPos : dragLength;
+
+			DragThumb(activeThumb, dragMin, dragMax, initialPos);
+
+			if (_toolTipText) 
 			{
-				UpdateToolTipText(*this, _toolTipText, fromMinKeyDown ? RangeStart() : RangeEnd());
-			}
+				UpdateToolTipText(*this, _toolTipText, fromMinKeyDown ? rangeStart : rangeEnd);
+			}	
 		}
 
 		SyncActiveRectangle();
@@ -231,10 +275,23 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 			return;
 		}
 
-		auto relativeLeft = Canvas::GetLeft(_minThumb);
-		Canvas::SetLeft(_activeRectangle, relativeLeft);
-		Canvas::SetTop(_activeRectangle, (_containerCanvas.ActualHeight() - _activeRectangle.ActualHeight()) / 2);
-		_activeRectangle.Width(std::max<double>(0, Canvas::GetLeft(_maxThumb) - Canvas::GetLeft(_minThumb)));
+		if (IsHorizontal())
+		{
+			auto minLeft = Canvas::GetLeft(_minThumb);
+			auto maxLeft = Canvas::GetLeft(_maxThumb);
+
+			Canvas::SetLeft(_activeRectangle, minLeft);
+			Canvas::SetTop(_activeRectangle, (_containerCanvas.ActualHeight() - _activeRectangle.ActualHeight()) / 2);
+
+			_activeRectangle.Width(std::max<double>(0.0, maxLeft - minLeft));
+		}
+		else {
+			auto minTop = Canvas::GetTop(_minThumb);
+			auto maxTop = Canvas::GetTop(_maxThumb);
+			Canvas::SetTop(_activeRectangle, maxTop);
+			Canvas::SetLeft(_activeRectangle, (_containerCanvas.ActualWidth() - _activeRectangle.ActualWidth()) / 2);
+			_activeRectangle.Height(std::max<double>(0.0, minTop - maxTop));
+		}
 	}
 
 	void RangeSelector::RangeSelector_IsEnabledChanged([[maybe_unused]] IInspectable const& sender, [[maybe_unused]] DependencyPropertyChangedEventArgs const& e)
@@ -404,5 +461,52 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		}
 
 		rangeSelector->SyncThumbs();
+	}
+
+	void RangeSelector::OrientationChangedCallback(DependencyObject const& d, DependencyPropertyChangedEventArgs const& e)
+	{
+		if (auto control = d.try_as<class_type>())
+		{
+			auto newValue = winrt::unbox_value<winrt::Microsoft::UI::Xaml::Controls::Orientation>(e.NewValue());
+
+			bool isHorizontal = newValue == winrt::Microsoft::UI::Xaml::Controls::Orientation::Horizontal;
+
+			winrt::Microsoft::UI::Xaml::VisualStateManager::GoToState(control, isHorizontal ? HorizontalState : VerticalState, false);
+
+			auto rangeSelector = winrt::get_self<RangeSelector>(control);
+
+			rangeSelector->UpdateToolTipPlacement();
+
+			rangeSelector->SyncThumbs();
+		}
+	}
+
+	bool RangeSelector::IsHorizontal() const 
+	{ 
+		return Orientation() == winrt::Microsoft::UI::Xaml::Controls::Orientation::Horizontal;
+	}
+
+	double RangeSelector::GetPointerAxisPosition(PointerRoutedEventArgs const& e) const
+	{
+		auto point = e.GetCurrentPoint(_containerCanvas).Position();
+		return IsHorizontal() ? point.X : point.Y;
+	}
+
+	void RangeSelector::UpdateToolTipPlacement()
+	{
+		if (!_toolTip) return;
+
+		if (IsHorizontal())
+		{
+			_toolTip.DesiredPlacement(PopupPlacementMode::Top);
+			_toolTip.VerticalOffset(-20);
+			_toolTip.HorizontalOffset(0);
+		}
+		else
+		{
+			_toolTip.DesiredPlacement(PopupPlacementMode::Left);
+			_toolTip.HorizontalOffset(-20);
+			_toolTip.VerticalOffset(0);
+		}
 	}
 }

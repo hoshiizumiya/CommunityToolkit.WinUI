@@ -23,6 +23,8 @@ namespace XamlToolkit.WinUI.Controls
 
         Microsoft.UI.Xaml.DependencyProperty StepFrequencyProperty{ get; };
 
+        Microsoft.UI.Xaml.DependencyProperty OrientationProperty{ get; };
+
         Double Minimum;
 
         Double Maximum;
@@ -32,5 +34,7 @@ namespace XamlToolkit.WinUI.Controls
         Double RangeEnd;
 
         Double StepFrequency;
+
+        Microsoft.UI.Xaml.Controls.Orientation Orientation;
     }
 }

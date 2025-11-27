@@ -23,33 +23,35 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
             {
                 timer.Tick(*timerTickToken);
                 timer.Stop();
-                _toolTip.Visibility(Visibility::Collapsed);
+                _toolTip.IsOpen(false);
             }
         }});
 
         keyDebounceTimer.Start();
     }
 
-    void RangeSelector::MinThumb_KeyDown([[maybe_unused]] [[maybe_unused]] IInspectable const& sender, KeyRoutedEventArgs const& e)
+    void RangeSelector::MinThumb_KeyDown([[maybe_unused]] IInspectable const& sender, KeyRoutedEventArgs const& e)
     {
         switch (e.Key())
         {
         case VirtualKey::Left:
+        case VirtualKey::Down:
             RangeStart(RangeStart() - StepFrequency());
             SyncThumbs(true);
             if (_toolTip != nullptr)
             {
-                _toolTip.Visibility(Visibility::Visible);
+                _toolTip.IsOpen(false);
             }
 
             e.Handled(true);
             break;
         case VirtualKey::Right:
+        case VirtualKey::Up:
             RangeStart(RangeStart() + StepFrequency());
             SyncThumbs(true);
             if (_toolTip != nullptr)
             {
-                _toolTip.Visibility(Visibility::Visible);
+                _toolTip.IsOpen(false);
             }
 
             e.Handled(true);
@@ -62,21 +64,23 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
         switch (e.Key())
         {
         case VirtualKey::Left:
+        case VirtualKey::Down:
             RangeEnd(RangeEnd() - StepFrequency());
             SyncThumbs(true);
             if (_toolTip != nullptr)
             {
-                _toolTip.Visibility(Visibility::Visible);
+                _toolTip.IsOpen(false);
             }
 
             e.Handled(true);
             break;
         case VirtualKey::Right:
+        case VirtualKey::Up:
             RangeEnd(RangeEnd() + StepFrequency());
             SyncThumbs(true);
             if (_toolTip != nullptr)
             {
-                _toolTip.Visibility(Visibility::Visible);
+                _toolTip.IsOpen(false);
             }
 
             e.Handled(true);
@@ -90,6 +94,8 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
         {
         case VirtualKey::Left:
         case VirtualKey::Right:
+        case VirtualKey::Up:
+        case VirtualKey::Down:
             if (_toolTip != nullptr)
             {
                 Debounce();
