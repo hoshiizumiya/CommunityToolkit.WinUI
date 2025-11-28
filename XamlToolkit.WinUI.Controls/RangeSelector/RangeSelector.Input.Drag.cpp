@@ -106,12 +106,14 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
     void RangeSelector::Thumb_DragStarted(Thumb const& thumb)
     {
         auto useMin = (thumb == _minThumb);
-        auto otherThumb = useMin ? _maxThumb : _minThumb;
+        const auto& otherThumb = useMin ? _maxThumb : _minThumb;
 
         _absolutePosition = IsHorizontal() ? Canvas::GetLeft(thumb) : Canvas::GetTop(thumb);
 
         Canvas::SetZIndex(thumb, 10);
         Canvas::SetZIndex(otherThumb, 0);
+
+        _oldValue = useMin ? RangeStart() : RangeEnd();
 
         if (_toolTip)
         {
@@ -121,7 +123,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
             if (_toolTipText)
             {
-                UpdateToolTipText(*this, _toolTipText, useMin ? RangeStart() : RangeEnd());
+                UpdateToolTipText(*this, _toolTipText, _oldValue);
             }
         }
 
