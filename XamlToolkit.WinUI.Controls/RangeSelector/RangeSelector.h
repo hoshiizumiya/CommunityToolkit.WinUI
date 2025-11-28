@@ -42,26 +42,26 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		Popup _toolTip{ nullptr };
 		TextBlock _toolTipText{ nullptr };
 
-		winrt::event_token _isEnabledChanged;
+		winrt::Microsoft::UI::Xaml::Controls::Control::IsEnabledChanged_revoker _isEnabledChangedRevoker;
 
-		winrt::event_token _minThumbDragCompletedToken;
-		winrt::event_token _minThumbDragDeltaToken;
-		winrt::event_token _minThumbDragStartedToken;
-		winrt::event_token _minThumbKeyDownToken;
-		winrt::event_token _minThumbKeyUpToken;
+		winrt::Microsoft::UI::Xaml::Controls::Primitives::Thumb::DragCompleted_revoker _minThumbDragCompletedRevoker;
+		winrt::Microsoft::UI::Xaml::Controls::Primitives::Thumb::DragDelta_revoker _minThumbDragDeltaRevoker;
+		winrt::Microsoft::UI::Xaml::Controls::Primitives::Thumb::DragStarted_revoker _minThumbDragStartedRevoker;
+		winrt::Microsoft::UI::Xaml::UIElement::KeyDown_revoker _minThumbKeyDownRevoker;
+		winrt::Microsoft::UI::Xaml::UIElement::KeyUp_revoker _minThumbKeyUpRevoker;
 
-		winrt::event_token _maxThumbDragCompletedToken;
-		winrt::event_token _maxThumbDragDeltaToken;
-		winrt::event_token _maxThumbDragStartedToken;
-		winrt::event_token _maxThumbKeyDownToken;
-		winrt::event_token _maxThumbKeyUpToken;
+		winrt::Microsoft::UI::Xaml::Controls::Primitives::Thumb::DragCompleted_revoker _maxThumbDragCompletedRevoker;
+		winrt::Microsoft::UI::Xaml::Controls::Primitives::Thumb::DragDelta_revoker _maxThumbDragDeltaRevoker;
+		winrt::Microsoft::UI::Xaml::Controls::Primitives::Thumb::DragStarted_revoker _maxThumbDragStartedRevoker;
+		winrt::Microsoft::UI::Xaml::UIElement::KeyDown_revoker _maxThumbKeyDownRevoker;
+		winrt::Microsoft::UI::Xaml::UIElement::KeyUp_revoker _maxThumbKeyUpRevoker;
 
-		winrt::event_token _canvasSizeChangedToken;
-		winrt::event_token _canvasPointerEnteredToken;
-		winrt::event_token _canvasPointerPressedToken;
-		winrt::event_token _canvasPointerMovedToken;
-		winrt::event_token _canvasPointerReleasedToken;
-		winrt::event_token _canvasPointerExitedToken;
+		winrt::Microsoft::UI::Xaml::FrameworkElement::SizeChanged_revoker _canvasSizeChangedRevoker;
+		winrt::Microsoft::UI::Xaml::UIElement::PointerEntered_revoker _canvasPointerEnteredRevoker;
+		winrt::Microsoft::UI::Xaml::UIElement::PointerPressed_revoker _canvasPointerPressedRevoker;
+		winrt::Microsoft::UI::Xaml::UIElement::PointerMoved_revoker _canvasPointerMovedRevoker;
+		winrt::Microsoft::UI::Xaml::UIElement::PointerReleased_revoker _canvasPointerReleasedRevoker;
+		winrt::Microsoft::UI::Xaml::UIElement::PointerExited_revoker _canvasPointerExitedRevoker;
 
 		winrt::event<winrt::Microsoft::UI::Xaml::Controls::Primitives::DragStartedEventHandler> _thumbDragStarted;
 		winrt::event<winrt::Microsoft::UI::Xaml::Controls::Primitives::DragCompletedEventHandler> _thumbDragCompleted;

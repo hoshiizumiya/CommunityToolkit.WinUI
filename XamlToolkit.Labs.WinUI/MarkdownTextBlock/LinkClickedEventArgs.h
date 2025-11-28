@@ -10,9 +10,9 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
     {
         LinkClickedEventArgs() : Uri(nullptr), Handled(false) {}
 
-        LinkClickedEventArgs(Windows::Foundation::Uri const& uri) : Uri(uri), Handled(false) {}
+        LinkClickedEventArgs(winrt::Windows::Foundation::Uri const& uri) : Uri(uri), Handled(false) {}
 
-        wil::single_threaded_property<Windows::Foundation::Uri> Uri;
+        wil::single_threaded_property<winrt::Windows::Foundation::Uri> Uri;
 
         wil::single_threaded_rw_property<bool> Handled;
     };

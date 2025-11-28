@@ -9,19 +9,20 @@ namespace winrt::XamlToolkit::WinUI::implementation
 	AttachedShadowElementContext::AttachedShadowElementContext() : _isConnected(false), _element{ nullptr } {}
 
 	AttachedShadowElementContext::AttachedShadowElementContext(XamlToolkit::WinUI::AttachedShadowBase const& parent, FrameworkElement const& element)
-		: _isConnected(false), _element{ element }
+		: _isConnected(false), _element{ nullptr }
 	{
-		_isConnected = true;
-		Parent = parent;
-
 		if (!parent) throw winrt::hresult_invalid_argument(L"parent");
-		if (!_element) throw winrt::hresult_invalid_argument(L"element");
+		if (!element) throw winrt::hresult_invalid_argument(L"element");
+
+		Parent = parent;
+		_element = element;
+
+		_isConnected = true;
 
 		_loadedRevoker = element.Loaded(winrt::auto_revoke, { get_weak(), &AttachedShadowElementContext::OnElementLoaded });
 		_unloadedRevoker = element.Unloaded(winrt::auto_revoke, { get_weak(), &AttachedShadowElementContext::OnElementUnloaded });
 		Initialize();
 	}
-
 
 	void AttachedShadowElementContext::DisconnectFromElement()
 	{

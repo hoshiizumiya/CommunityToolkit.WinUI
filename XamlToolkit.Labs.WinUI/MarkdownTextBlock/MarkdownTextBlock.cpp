@@ -36,7 +36,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 
 	void MarkdownTextBlock::Build()
 	{
-		if (auto config = Config())
+		if (const auto config = Config())
 		{
 			if (_renderer == nullptr)
 			{
@@ -49,8 +49,8 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 
 	bool MarkdownTextBlock::RaiseLinkClickedEvent(winrt::Windows::Foundation::Uri const& uri)
 	{
-		auto args = winrt::make<LinkClickedEventArgs>(uri);
-		OnLinkClicked.invoke(*this, args);
-		return args.Handled();
+		auto args = winrt::make_self<LinkClickedEventArgs>(uri);
+		OnLinkClicked.invoke(*this, *args);
+		return args->Handled();
 	}
 }
