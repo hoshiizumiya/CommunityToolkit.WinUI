@@ -43,7 +43,9 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
     void RangeSelector::ContainerCanvas_PointerReleased([[maybe_unused]] IInspectable const& sender, PointerRoutedEventArgs const& e)
     {
         double position = GetPointerAxisPosition(e);
-        double percent = IsHorizontal() ? (position / DragLength()) : (1.0 - position / DragLength());
+        double dragLength = DragLength();
+        position = std::clamp(position, 0.0, dragLength);
+        double percent = IsHorizontal() ? (position / dragLength) : (1.0 - position / dragLength);
         double normalizedPosition = Minimum() + percent * (Maximum() - Minimum());
 
         if (_pointerManipulatingMin)
@@ -97,13 +99,15 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
     void RangeSelector::ContainerCanvas_PointerPressed([[maybe_unused]] IInspectable const& sender, PointerRoutedEventArgs const& e)
     {
         double position = GetPointerAxisPosition(e);
-        double percent = IsHorizontal() ? (position / DragLength()) : (1.0 - position / DragLength());
+        double dragLength = DragLength();
+        position = std::clamp(position, 0.0, dragLength);
+        double percent = IsHorizontal() ? (position / dragLength) : (1.0 - position / dragLength);
         double normalizedPosition = Minimum() + percent * (Maximum() - Minimum());
 
         double upperValueDiff = std::abs(RangeEnd() - normalizedPosition);
         double lowerValueDiff = std::abs(RangeStart() - normalizedPosition);
 
-        if (upperValueDiff < lowerValueDiff /*|| std::abs(upperValueDiff - lowerValueDiff) < 1e-6*/)
+        if (upperValueDiff < lowerValueDiff)
         {
             RangeEnd(normalizedPosition);
             _pointerManipulatingMax = true;
