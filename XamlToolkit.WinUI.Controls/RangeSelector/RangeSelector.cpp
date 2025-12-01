@@ -75,7 +75,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 			_canvasPointerPressedRevoker = _containerCanvas.PointerPressed(winrt::auto_revoke, { this, &RangeSelector::ContainerCanvas_PointerPressed });
 			_canvasPointerMovedRevoker = _containerCanvas.PointerMoved(winrt::auto_revoke, { this, &RangeSelector::ContainerCanvas_PointerMoved });
 			_canvasPointerReleasedRevoker = _containerCanvas.PointerReleased(winrt::auto_revoke, { this, &RangeSelector::ContainerCanvas_PointerReleased });
-			_canvasPointerExitedRevoker = _containerCanvas.PointerExited(winrt::auto_revoke, { this, &RangeSelector::ContainerCanvas_PointerExited });
+			//_canvasPointerExitedRevoker = _containerCanvas.PointerExited(winrt::auto_revoke, { this, &RangeSelector::ContainerCanvas_PointerExited });
 		}
 
 		if (_toolTip != nullptr)
