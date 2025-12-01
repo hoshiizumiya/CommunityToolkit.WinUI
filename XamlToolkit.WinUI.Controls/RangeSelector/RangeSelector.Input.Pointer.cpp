@@ -44,7 +44,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
     {
         double position = GetPointerAxisPosition(e);
         double dragLength = DragLength();
-        position = std::clamp(position, 0.0, dragLength);
+        position = std::clamp(std::max<double>(0.0, position), 0.0, std::max<double>(0.0, dragLength));
         double percent = IsHorizontal() ? (position / dragLength) : (1.0 - position / dragLength);
         double normalizedPosition = Minimum() + percent * (Maximum() - Minimum());
 
@@ -100,7 +100,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
     {
         double position = GetPointerAxisPosition(e);
         double dragLength = DragLength();
-        position = std::clamp(position, 0.0, dragLength);
+        position = std::clamp(std::max<double>(0.0, position), 0.0, std::max<double>(0.0, dragLength));
         double percent = IsHorizontal() ? (position / dragLength) : (1.0 - position / dragLength);
         double normalizedPosition = Minimum() + percent * (Maximum() - Minimum());
 
