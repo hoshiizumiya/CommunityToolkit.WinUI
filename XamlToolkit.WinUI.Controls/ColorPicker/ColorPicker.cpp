@@ -84,6 +84,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
 		HexInputTextBox = GetTemplateChild(L"HexInputTextBox").try_as<TextBox>();
 		ColorModeComboBox = GetTemplateChild(L"ColorModeComboBox").try_as<ComboBox>();
+		PaletteColorsView = GetTemplateChild(L"PaletteColorsView").try_as<ListViewBase>();
 
 		Channel1NumberBox = GetTemplateChild(L"Channel1NumberBox").try_as<NumberBox>();
 		Channel2NumberBox = GetTemplateChild(L"Channel2NumberBox").try_as<NumberBox>();
@@ -183,6 +184,12 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 			{ 
 				_colorModeComboBoxSelectionChangedRevoker = ColorModeComboBox.SelectionChanged(
 					winrt::auto_revoke, { this, &ColorPicker::ColorModeComboBox_SelectionChanged });
+			}
+
+			if (PaletteColorsView)
+			{
+				_colorsViewSelectionChangedRevoker = PaletteColorsView.SelectionChanged(
+					winrt::auto_revoke, { this, &ColorPicker::PaletteColorsView_SelectionChanged });
 			}
 
 			if (Channel1NumberBox) 
@@ -1353,6 +1360,17 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
 		UpdateColorControlValues();
 		UpdateChannelSliderBackgrounds();
+	}
+
+	void ColorPicker::PaletteColorsView_SelectionChanged(IInspectable const& sender, [[maybe_unused]] SelectionChangedEventArgs const& e)
+	{
+		if (auto listViewBase = sender.try_as<ListViewBase>())
+		{
+			if (auto selectedColor = listViewBase.SelectedValue().try_as<winrt::Windows::UI::Color>())
+			{
+				Color(*selectedColor);
+			}
+		}
 	}
 
 	/// <summary>

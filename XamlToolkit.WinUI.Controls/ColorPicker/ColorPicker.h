@@ -46,11 +46,13 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		Primitives::ColorPickerSlider ColorSpectrumThirdDimensionSlider{ nullptr };
 		TextBox           HexInputTextBox{ nullptr };
 		ComboBox          ColorModeComboBox{ nullptr };
+		ListViewBase      PaletteColorsView{ nullptr };
 
 		NumberBox         Channel1NumberBox{ nullptr };
 		NumberBox         Channel2NumberBox{ nullptr };
 		NumberBox         Channel3NumberBox{ nullptr };
 		NumberBox         AlphaChannelNumberBox{ nullptr };
+
 		Primitives::ColorPickerSlider Channel1Slider{ nullptr };
 		Primitives::ColorPickerSlider Channel2Slider{ nullptr };
 		Primitives::ColorPickerSlider Channel3Slider{ nullptr };
@@ -73,6 +75,8 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		winrt::Windows::Foundation::Collections::IObservableVector<winrt::Windows::UI::Color>::VectorChanged_revoker _vectorChangedRevoker;
 
 		Selector::SelectionChanged_revoker _colorPanelSelectorSelectionChangedRevoker;
+
+		Selector::SelectionChanged_revoker _colorsViewSelectionChangedRevoker;
 
 		ColorSpectrum::ColorChanged_revoker _colorSpectrumColorChangedRevoker;
 		Control::GotFocus_revoker _colorSpectrumGotFocusRevoker;
@@ -381,6 +385,12 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		/// This will convert between RGB and HSV.
 		/// </summary>
 		void ColorModeComboBox_SelectionChanged(IInspectable const& sender, SelectionChangedEventArgs const& e);
+
+		/// <summary>
+		/// Event handler for when a color is selected from the palette.
+		/// This will update the current color.
+		/// </summary>
+		void PaletteColorsView_SelectionChanged(IInspectable const& sender, SelectionChangedEventArgs const& e);
 
 		/// <summary>
 		/// Event handler for when the color previewer requests a new color.

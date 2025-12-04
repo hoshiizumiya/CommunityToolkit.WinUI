@@ -146,11 +146,11 @@
                                 </controls:Case>
                                 <controls:Case Value="PaletteItem">
                                     <Grid HorizontalAlignment="Stretch">
-                                        <GridView 
+                                        <GridView
+                                            x:Name="PaletteColorsView"
                                             Margin="0"
                                             Padding="0"
                                             ItemsSource="{TemplateBinding CustomPaletteColors}"
-                                            SelectedValue="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Color, Converter={StaticResource NullToTransparentConverter}, Mode=TwoWay}"
                                             SelectionMode="Single"
                                             Tag="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Color, Mode=OneWay}">
                                             <!--
@@ -219,7 +219,6 @@
                                             <ComboBoxItem>RGB</ComboBoxItem>
                                             <ComboBoxItem>HSV</ComboBoxItem>
                                         </ComboBox>
-
 
                                         <!--  Name must NOT match what is in ColorPicker 'HexTextBox'  -->
                                         <TextBox
