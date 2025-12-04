@@ -27,11 +27,6 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
             OnValueChanged(*args);
         }
 
-        if (_containerCanvas != nullptr)
-        {
-            _containerCanvas.IsHitTestVisible(true);
-        }
-
         if (_toolTip != nullptr)
         {
             _toolTip.IsOpen(false);
@@ -53,17 +48,14 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
             _pointerManipulatingMin = false;
             auto args = winrt::make_self<RangeChangedEventArgs>(RangeStart(), normalizedPosition, RangeSelectorProperty::MinimumValue);
             OnValueChanged(*args);
+			DetachToolTip(_minThumb);
         }
         else if (_pointerManipulatingMax)
         {
             _pointerManipulatingMax = false;
             auto args = winrt::make_self<RangeChangedEventArgs>(RangeEnd(), normalizedPosition, RangeSelectorProperty::MaximumValue);
             OnValueChanged(*args);
-        }
-
-        if (_containerCanvas != nullptr)
-        {
-            _containerCanvas.IsHitTestVisible(true);
+            DetachToolTip(_maxThumb);
         }
 
         SyncThumbs();
@@ -81,9 +73,9 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
         if (_pointerManipulatingMin)
         {
             RangeStart(DragThumb(_minThumb, 0, DragLength(), position));
-            if (_toolTipText != nullptr)
+            if (_toolTip != nullptr)
             {
-                UpdateToolTipText(*this, _toolTipText, RangeStart());
+                UpdateToolTip(_minThumb, RangeStart());
             }
         }
         else if (_pointerManipulatingMax)
@@ -91,7 +83,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
             if (_toolTipText != nullptr)
             {
                 RangeEnd(DragThumb(_maxThumb, 0, DragLength(), position));
-                UpdateToolTipText(*this, _toolTipText, RangeEnd());
+                UpdateToolTip(_maxThumb, RangeEnd());
             }
         }
     }

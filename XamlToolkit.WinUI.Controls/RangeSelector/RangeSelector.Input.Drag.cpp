@@ -11,9 +11,9 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
         RangeStart(DragThumb(_minThumb, 0, DragLength(), _absolutePosition));
 
-        if (_toolTipText != nullptr)
+        if (_toolTip != nullptr)
         {
-            UpdateToolTipText(*this, _toolTipText, RangeStart());
+            UpdateToolTip(_minThumb, RangeStart());
         }
     }
 
@@ -25,9 +25,9 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
         RangeEnd(DragThumb(_maxThumb, 0, DragLength(), _absolutePosition));
 
-        if (_toolTipText != nullptr)
+        if (_toolTip != nullptr)
         {
-            UpdateToolTipText(*this, _toolTipText, RangeEnd());
+			UpdateToolTip(_maxThumb, RangeEnd());
         }
     }
 
@@ -63,7 +63,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
         if (_toolTip != nullptr)
         {
-            _toolTip.IsOpen(false);
+			DetachToolTip(sender.as<Thumb>());
         }
 
         VisualStateManager::GoToState(*this, NormalState, true);
@@ -71,13 +71,10 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
     double RangeSelector::DragLength() const
     {
-        if (!_containerCanvas) return 0.0;
-
         if (IsHorizontal()) 
         {
             return _containerCanvas.ActualWidth() - _minThumb.ActualWidth();
-        }
-            
+        }  
         else 
         {
             return _containerCanvas.ActualHeight() - _minThumb.ActualHeight();
@@ -117,14 +114,8 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
         if (_toolTip)
         {
-            _toolTip.PlacementTarget(thumb);
-            _toolTip.IsOpen(true);
-
-
-            if (_toolTipText)
-            {
-                UpdateToolTipText(*this, _toolTipText, _oldValue);
-            }
+			AttachToolTip(thumb);
+            UpdateToolTip(thumb, _oldValue);
         }
 
         VisualStateManager::GoToState(*this, useMin ? MinPressedState : MaxPressedState, true);

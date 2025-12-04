@@ -47,8 +47,6 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		_minThumb = GetTemplateChild(L"MinThumb").try_as<Thumb>();
 		_maxThumb = GetTemplateChild(L"MaxThumb").try_as<Thumb>();
 		_containerCanvas = GetTemplateChild(L"ContainerCanvas").try_as<Canvas>();
-		_toolTip = GetTemplateChild(L"ToolTip").try_as<Popup>();
-		_toolTipText = GetTemplateChild(L"ToolTipText").try_as<TextBlock>();
 
 		if (_minThumb != nullptr)
 		{
@@ -78,31 +76,20 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 			//_canvasPointerExitedRevoker = _containerCanvas.PointerExited(winrt::auto_revoke, { this, &RangeSelector::ContainerCanvas_PointerExited });
 		}
 
-		if (_toolTip != nullptr)
-		{
-			if (auto child = _toolTip.Child().try_as<UIElement>()) 
-			{
-				child.Translation(winrt::Windows::Foundation::Numerics::float3{ 0, 0, 32 });
-			}
-
-			UpdateToolTipPlacement();
-		}
-
 		VisualStateManager::GoToState(*this, IsEnabled() ? NormalState : DisabledState, false);
 
 		VisualStateManager::GoToState(*this, IsHorizontal() ? HorizontalState : VerticalState, true);
 
 		_isEnabledChangedRevoker = IsEnabledChanged(winrt::auto_revoke, { this, &RangeSelector::RangeSelector_IsEnabledChanged });
 
-		base_type::OnApplyTemplate();
-	}
-
-	void RangeSelector::UpdateToolTipText([[maybe_unused]] class_type const& rangeSelector, TextBlock const& toolTip, double newValue)
-	{
-		if (toolTip != nullptr)
+		if (_toolTip == nullptr)
 		{
-			toolTip.Text(winrt::format(L"{:.2f}", newValue));
+			_toolTip = ToolTip();
+			_toolTipText = TextBlock();
+			_toolTip.Content(_toolTipText);
 		}
+		
+		base_type::OnApplyTemplate();
 	}
 
 	void RangeSelector::ContainerCanvas_SizeChanged([[maybe_unused]] IInspectable const& sender, [[maybe_unused]] SizeChangedEventArgs const& e)
@@ -246,11 +233,6 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 			double dragMax = fromMinKeyDown ? otherPos : dragLength;
 
 			DragThumb(activeThumb, dragMin, dragMax, initialPos);
-
-			if (_toolTipText) 
-			{
-				UpdateToolTipText(*this, _toolTipText, fromMinKeyDown ? rangeStart : rangeEnd);
-			}	
 		}
 
 		SyncActiveRectangle();
@@ -473,8 +455,6 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
 			auto rangeSelector = winrt::get_self<RangeSelector>(control);
 
-			rangeSelector->UpdateToolTipPlacement();
-
 			rangeSelector->SyncThumbs();
 		}
 	}
@@ -490,21 +470,48 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		return IsHorizontal() ? point.X : point.Y;
 	}
 
-	void RangeSelector::UpdateToolTipPlacement()
+	void RangeSelector::AttachToolTip(Thumb const& thumb)
 	{
-		if (!_toolTip) return;
-
-		if (IsHorizontal())
+		if (_toolTip != nullptr) 
 		{
-			_toolTip.DesiredPlacement(PopupPlacementMode::Top);
-			_toolTip.VerticalOffset(-20);
-			_toolTip.HorizontalOffset(0);
+			ToolTipService::SetToolTip(thumb, _toolTip);
+			auto placement = IsHorizontal() ? PlacementMode::Top : PlacementMode::Left;
+			ToolTipService::SetPlacement(thumb, placement);
+			
+			_toolTip.IsOpen(true);
+		}
+	}
+
+	void RangeSelector::DetachToolTip(Thumb const& thumb) 
+	{
+		if (_toolTip != nullptr)
+		{
+			_toolTip.IsOpen(false);
+			ToolTipService::SetToolTip(thumb, nullptr);
+		}
+	}
+
+	void RangeSelector::UpdateToolTip(Thumb const& thumb, double newValue)
+	{
+		_toolTipText.Text(winrt::format(L"{:.2f}", newValue));
+
+		_toolTip.Measure(Size{ std::numeric_limits<float>::infinity(), std::numeric_limits<float>::infinity() });
+		auto desiredSize = _toolTip.DesiredSize();
+
+		auto isHorizontal = IsHorizontal();
+		double position = isHorizontal 
+			? Canvas::GetLeft(thumb) + (thumb.ActualWidth() / 2.0)
+			: Canvas::GetTop(thumb) + (thumb.ActualHeight() / 2.0);
+
+		if (isHorizontal)
+		{
+			_toolTip.HorizontalOffset(position - desiredSize.Width / 2.0);
+			_toolTip.VerticalOffset(DefaultMouseOffset);
 		}
 		else
 		{
-			_toolTip.DesiredPlacement(PopupPlacementMode::Left);
-			_toolTip.HorizontalOffset(-20);
-			_toolTip.VerticalOffset(0);
+			_toolTip.HorizontalOffset(DefaultMouseOffset);
+			_toolTip.VerticalOffset(position - desiredSize.Height / 2.0);
 		}
 	}
 }

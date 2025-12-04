@@ -20,6 +20,10 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		static constexpr std::wstring_view HorizontalState = L"Horizontal";
 		static constexpr std::wstring_view VerticalState = L"Vertical";
 
+		//static constexpr int32_t DefaultKeyBoardOffset = 12;   // Default offset for automatic tooltips opened by keyboard.
+		static constexpr int32_t DefaultMouseOffset = 20;        // Default offset for automatic tooltips opened by mouse.
+		//static constexpr int32_t DefaultTouchOffset = 44;      // Default offset for automatic tooltips opened by touch.
+
 		static constexpr double Epsilon = 0.01;
 		static constexpr double DefaultMinimum = 0.0;
 		static constexpr double DefaultMaximum = 10.0;
@@ -39,7 +43,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		bool _pointerManipulatingMin{ false };
 		bool _pointerManipulatingMax{ false };
 		double _absolutePosition{ 0.0 };
-		Popup _toolTip{ nullptr };
+		ToolTip _toolTip{ nullptr };
 		TextBlock _toolTipText{ nullptr };
 
 		winrt::Microsoft::UI::Xaml::Controls::Control::IsEnabledChanged_revoker _isEnabledChangedRevoker;
@@ -205,8 +209,6 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		}
 
 	private:
-		static void UpdateToolTipText(class_type const& rangeSelector, TextBlock const& toolTip, double newValue);
-
 		void ContainerCanvas_SizeChanged(IInspectable const& sender, SizeChangedEventArgs const& e);
 
 		void VerifyValues() const;
@@ -267,7 +269,11 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
 		double GetPointerAxisPosition(PointerRoutedEventArgs const& e) const;
 
-		void UpdateToolTipPlacement();
+		void UpdateToolTip(Thumb const& thumb, double newValue);
+
+		void AttachToolTip(Thumb const& thumb);
+
+		void DetachToolTip(Thumb const& thumb);
 	};
 }
 
