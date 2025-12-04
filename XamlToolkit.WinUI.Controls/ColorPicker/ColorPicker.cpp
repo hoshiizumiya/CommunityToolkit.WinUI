@@ -350,6 +350,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 			_hexInputTextBoxKeyDownRevoker.revoke();
 			_hexInputTextBoxLostFocusRevoker.revoke();
 			_colorModeComboBoxSelectionChangedRevoker.revoke();
+			_colorsViewSelectionChangedRevoker.revoke();
 
 			_channel1NumberBoxValueChangedRevoker.revoke();
 			_channel2NumberBoxValueChangedRevoker.revoke();
