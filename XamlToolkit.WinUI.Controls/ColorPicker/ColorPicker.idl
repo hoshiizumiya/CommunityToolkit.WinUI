@@ -1,34 +1,54 @@
 ﻿
 namespace XamlToolkit.WinUI.Controls
 {
-    enum ColorChannel
-    {
-        Alpha,
-        Channel1,
-        Channel2,
-        Channel3
-    };
+	enum ColorChannel
+	{
+		Alpha,
+		Channel1,
+		Channel2,
+		Channel3
+	};
 
-    enum ColorRepresentation
-    {
-        Hsva,
-        Rgba
-    };
+	enum ColorRepresentation
+	{
+		Hsva,
+		Rgba
+	};
 
-    interface IColorPalette
-    {
-        Int32 ColorCount { get; };
+	interface IColorPalette
+	{
+		Int32 ColorCount { get; };
 
-        Int32 ShadeCount{ get; };
+		Int32 ShadeCount{ get; };
 
-        Windows.UI.Color GetColor(Int32 colorIndex, Int32 shadeIndex);
-    };
+		Windows.UI.Color GetColor(Int32 colorIndex, Int32 shadeIndex);
+	};
 
-    [default_interface]
-    runtimeclass ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
-    {
-        ColorPicker();
+	[default_interface]
+	runtimeclass ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
+	{
+		ColorPicker();
 
-        Windows.UI.Color CheckerBackgroundColor;
-    }
+		Windows.UI.Color CheckerBackgroundColor;
+
+		Windows.Foundation.Collections.IObservableVector<Windows.UI.Color> CustomPaletteColors{ get; };
+
+		Int32 CustomPaletteColumnCount;
+
+		IColorPalette CustomPalette;
+
+		Boolean IsColorPaletteVisible;
+
+		Boolean ShowAccentColors;
+
+		static Microsoft.UI.Xaml.DependencyProperty CustomPaletteColorsProperty{ get; };
+
+		static Microsoft.UI.Xaml.DependencyProperty CustomPaletteColumnCountProperty{ get; };
+
+		static Microsoft.UI.Xaml.DependencyProperty CustomPaletteProperty{ get; };
+
+		static Microsoft.UI.Xaml.DependencyProperty IsColorPaletteVisibleProperty{ get; };
+
+		static Microsoft.UI.Xaml.DependencyProperty ShowAccentColorsProperty{ get; };
+	}
 }

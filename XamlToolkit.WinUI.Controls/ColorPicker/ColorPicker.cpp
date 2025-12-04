@@ -24,7 +24,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		// Setup collections
 		auto collection = winrt::single_threaded_observable_vector<winrt::Windows::UI::Color>();
 		SetValue(CustomPaletteColorsProperty, collection);
-		_collectionChangedToken = CustomPaletteColors().VectorChanged({ this, &ColorPicker::CustomPaletteColors_CollectionChanged });
+		_vectorChangedRevoker = CustomPaletteColors().VectorChanged(winrt::auto_revoke, { this, &ColorPicker::CustomPaletteColors_CollectionChanged });
 
 		Loaded({ this, &ColorPicker::ColorPickerButton_Loaded });
 
@@ -45,7 +45,6 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 	ColorPicker::~ColorPicker()
 	{
 		StopDispatcherQueueTimer();
-		CustomPaletteColors().VectorChanged(_collectionChangedToken);
 	}
 
 	/***************************************************************************************
@@ -156,104 +155,230 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 			// Add all events
 			if (ColorPanelSelector)
 			{
-				_colorPanelSelectorToken = ColorPanelSelector.SelectionChanged(
-					{ this, &ColorPicker::ColorPanelSelector_SelectionChanged });
+				_colorPanelSelectorSelectionChangedRevoker = ColorPanelSelector.SelectionChanged(
+					winrt::auto_revoke, { this, &ColorPicker::ColorPanelSelector_SelectionChanged });
 			}
 
-			if (ColorSpectrumControl) { _colorSpectrumColorChangedToken = ColorSpectrumControl.ColorChanged({ this, &ColorPicker::ColorSpectrum_ColorChanged }); }
-			if (ColorSpectrumControl) { _colorSpectrumGotFocusToken = ColorSpectrumControl.GotFocus({ this, &ColorPicker::ColorSpectrum_GotFocus }); }
-			if (HexInputTextBox) { _hexInputTextBoxKeyDownToken = HexInputTextBox.KeyDown({ this, &ColorPicker::HexInputTextBox_KeyDown }); }
-			if (HexInputTextBox) { _hexInputTextBoxLostFocusToken = HexInputTextBox.LostFocus({ this, &ColorPicker::HexInputTextBox_LostFocus }); }
-			if (ColorModeComboBox) { _colorModeComboBoxToken = ColorModeComboBox.SelectionChanged({ this, &ColorPicker::ColorModeComboBox_SelectionChanged }); }
-
-			if (Channel1NumberBox) {
-				_channel1NumberBoxToken = Channel1NumberBox.ValueChanged({ this, &ColorPicker::ChannelNumberBox_ValueChanged
-					});
+			if (ColorSpectrumControl) 
+			{ 
+				_colorSpectrumColorChangedRevoker = ColorSpectrumControl.ColorChanged(winrt::auto_revoke, { this, &ColorPicker::ColorSpectrum_ColorChanged });
 			}
-			if (Channel2NumberBox) { _channel2NumberBoxToken = Channel2NumberBox.ValueChanged({ this, &ColorPicker::ChannelNumberBox_ValueChanged }); }
-			if (Channel3NumberBox) { _channel3NumberBoxToken = Channel3NumberBox.ValueChanged({ this, &ColorPicker::ChannelNumberBox_ValueChanged }); }
-			if (AlphaChannelNumberBox) { _alphaChannelNumberBoxToken = AlphaChannelNumberBox.ValueChanged({ this, &ColorPicker::ChannelNumberBox_ValueChanged }); }
 
-			if (Channel1Slider) { _channel1SliderToken = Channel1Slider.ValueChanged({ this, &ColorPicker::ChannelSlider_ValueChanged }); }
-			if (Channel2Slider) { _channel2SliderToken = Channel2Slider.ValueChanged({ this, &ColorPicker::ChannelSlider_ValueChanged }); }
-			if (Channel3Slider) { _channel3SliderToken = Channel3Slider.ValueChanged({ this, &ColorPicker::ChannelSlider_ValueChanged }); }
-			if (AlphaChannelSlider) { _alphaChannelSliderToken = AlphaChannelSlider.ValueChanged({ this, &ColorPicker::ChannelSlider_ValueChanged }); }
-			if (ColorSpectrumAlphaSlider) { _colorSpectrumAlphaSliderToken = ColorSpectrumAlphaSlider.ValueChanged({ this, &ColorPicker::ChannelSlider_ValueChanged }); }
-			if (ColorSpectrumThirdDimensionSlider) { _colorSpectrumThirdDimensionSliderToken = ColorSpectrumThirdDimensionSlider.ValueChanged({ this, &ColorPicker::ChannelSlider_ValueChanged }); }
+			if (ColorSpectrumControl)
+			{ 
+				_colorSpectrumGotFocusRevoker = ColorSpectrumControl.GotFocus(winrt::auto_revoke, { this, &ColorPicker::ColorSpectrum_GotFocus });
+			}
 
-			if (Channel1Slider) { _channel1SliderLoadedToken = Channel1Slider.Loaded({ this, &ColorPicker::ChannelSlider_Loaded }); }
-			if (Channel2Slider) { _channel2SliderLoadedToken = Channel2Slider.Loaded({ this, &ColorPicker::ChannelSlider_Loaded }); }
-			if (Channel3Slider) { _channel3SliderLoadedToken = Channel3Slider.Loaded({ this, &ColorPicker::ChannelSlider_Loaded }); }
-			if (AlphaChannelSlider) { _alphaChannelSliderLoadedToken = AlphaChannelSlider.Loaded({ this, &ColorPicker::ChannelSlider_Loaded }); }
-			if (ColorSpectrumAlphaSlider) { _colorSpectrumAlphaSliderLoadedToken = ColorSpectrumAlphaSlider.Loaded({ this, &ColorPicker::ChannelSlider_Loaded }); }
-			if (ColorSpectrumThirdDimensionSlider) { _colorSpectrumThirdDimensionSliderLoadedToken = ColorSpectrumThirdDimensionSlider.Loaded({ this, &ColorPicker::ChannelSlider_Loaded }); }
+			if (HexInputTextBox) 
+			{ 
+				_hexInputTextBoxKeyDownRevoker = HexInputTextBox.KeyDown(winrt::auto_revoke, { this, &ColorPicker::HexInputTextBox_KeyDown }); 
+			}
 
-			if (ColorPreviewer) { _colorPreviewerToken = ColorPreviewer.ColorChangeRequested({ this, &ColorPicker::ColorPreviewer_ColorChangeRequested }); }
+			if (HexInputTextBox) 
+			{ 
+				_hexInputTextBoxLostFocusRevoker = HexInputTextBox.LostFocus(winrt::auto_revoke, { this, &ColorPicker::HexInputTextBox_LostFocus });
+			}
 
-			if (CheckeredBackground1Border) { _checkeredBackground1BorderLoadedToken = CheckeredBackground1Border.Loaded({ this, &ColorPicker::CheckeredBackgroundBorder_Loaded }); }
-			if (CheckeredBackground2Border) { _checkeredBackground2BorderLoadedToken = CheckeredBackground2Border.Loaded({ this, &ColorPicker::CheckeredBackgroundBorder_Loaded }); }
-			if (CheckeredBackground3Border) { _checkeredBackground3BorderLoadedToken = CheckeredBackground3Border.Loaded({ this, &ColorPicker::CheckeredBackgroundBorder_Loaded }); }
-			if (CheckeredBackground4Border) { _checkeredBackground4BorderLoadedToken = CheckeredBackground4Border.Loaded({ this, &ColorPicker::CheckeredBackgroundBorder_Loaded }); }
-			if (CheckeredBackground5Border) { _checkeredBackground5BorderLoadedToken = CheckeredBackground5Border.Loaded({ this, &ColorPicker::CheckeredBackgroundBorder_Loaded }); }
-			if (CheckeredBackground6Border) { _checkeredBackground6BorderLoadedToken = CheckeredBackground6Border.Loaded({ this, &ColorPicker::CheckeredBackgroundBorder_Loaded }); }
-			if (CheckeredBackground7Border) { _checkeredBackground7BorderLoadedToken = CheckeredBackground7Border.Loaded({ this, &ColorPicker::CheckeredBackgroundBorder_Loaded }); }
-			if (CheckeredBackground8Border) { _checkeredBackground8BorderLoadedToken = CheckeredBackground8Border.Loaded({ this, &ColorPicker::CheckeredBackgroundBorder_Loaded }); }
-			if (CheckeredBackground9Border) { _checkeredBackground9BorderLoadedToken = CheckeredBackground9Border.Loaded({ this, &ColorPicker::CheckeredBackgroundBorder_Loaded }); }
-			if (CheckeredBackground10Border) { _checkeredBackground10BorderLoadedToken = CheckeredBackground10Border.Loaded({ this, &ColorPicker::CheckeredBackgroundBorder_Loaded }); }
+			if (ColorModeComboBox)
+			{ 
+				_colorModeComboBoxSelectionChangedRevoker = ColorModeComboBox.SelectionChanged(
+					winrt::auto_revoke, { this, &ColorPicker::ColorModeComboBox_SelectionChanged });
+			}
+
+			if (Channel1NumberBox) 
+			{
+				_channel1NumberBoxValueChangedRevoker = Channel1NumberBox.ValueChanged(winrt::auto_revoke, { this, &ColorPicker::ChannelNumberBox_ValueChanged });
+			}
+
+			if (Channel2NumberBox) 
+			{ 
+				_channel2NumberBoxValueChangedRevoker = Channel2NumberBox.ValueChanged(winrt::auto_revoke, { this, &ColorPicker::ChannelNumberBox_ValueChanged }); 
+			}
+
+			if (Channel3NumberBox)
+			{ 
+				_channel3NumberBoxValueChangedRevoker = Channel3NumberBox.ValueChanged(winrt::auto_revoke, { this, &ColorPicker::ChannelNumberBox_ValueChanged });
+			}
+
+			if (AlphaChannelNumberBox) 
+			{ 
+				_alphaChannelNumberBoxValueChangedRevoker = AlphaChannelNumberBox.ValueChanged(winrt::auto_revoke, { this, &ColorPicker::ChannelNumberBox_ValueChanged });
+			}
+
+			if (Channel1Slider) 
+			{ 
+				_channel1SliderValueChangedRevoker = Channel1Slider.ValueChanged(winrt::auto_revoke, { this, &ColorPicker::ChannelSlider_ValueChanged });
+			}
+
+			if (Channel2Slider)
+			{ 
+				_channel2SliderValueChangedRevoker = Channel2Slider.ValueChanged(winrt::auto_revoke, { this, &ColorPicker::ChannelSlider_ValueChanged });
+			}
+
+			if (Channel3Slider)
+			{ 
+				_channel3SliderValueChangedRevoker = Channel3Slider.ValueChanged(winrt::auto_revoke, { this, &ColorPicker::ChannelSlider_ValueChanged });
+			}
+
+			if (AlphaChannelSlider)
+			{ 
+				_alphaChannelSliderValueChangedRevoker = AlphaChannelSlider.ValueChanged(winrt::auto_revoke, { this, &ColorPicker::ChannelSlider_ValueChanged });
+			}
+
+			if (ColorSpectrumAlphaSlider) 
+			{ 
+				_colorSpectrumAlphaSliderValueChangedRevoker = ColorSpectrumAlphaSlider.ValueChanged(
+					winrt::auto_revoke, { this, &ColorPicker::ChannelSlider_ValueChanged }); 
+			}
+
+			if (ColorSpectrumThirdDimensionSlider)
+			{ 
+				_colorSpectrumThirdDimensionSliderValueChangedRevoker = ColorSpectrumThirdDimensionSlider.ValueChanged(
+					winrt::auto_revoke, { this, &ColorPicker::ChannelSlider_ValueChanged });
+			}
+
+			if (Channel1Slider)
+			{
+				_channel1SliderLoadedRevoker = Channel1Slider.Loaded(winrt::auto_revoke, { this, &ColorPicker::ChannelSlider_Loaded });
+			}
+
+			if (Channel2Slider) 
+			{ 
+				_channel2SliderLoadedRevoker = Channel2Slider.Loaded(winrt::auto_revoke, { this, &ColorPicker::ChannelSlider_Loaded }); 
+			}
+
+			if (Channel3Slider)
+			{ 
+				_channel3SliderLoadedRevoker = Channel3Slider.Loaded(winrt::auto_revoke, { this, &ColorPicker::ChannelSlider_Loaded });
+			}
+
+			if (AlphaChannelSlider)
+			{ 
+				_alphaChannelSliderLoadedRevoker = AlphaChannelSlider.Loaded(winrt::auto_revoke, { this, &ColorPicker::ChannelSlider_Loaded });
+			}
+
+			if (ColorSpectrumAlphaSlider) 
+			{ 
+				_colorSpectrumAlphaSliderLoadedRevoker = ColorSpectrumAlphaSlider.Loaded(winrt::auto_revoke, { this, &ColorPicker::ChannelSlider_Loaded }); 
+			}
+
+			if (ColorSpectrumThirdDimensionSlider) 
+			{ 
+				_colorSpectrumThirdDimensionSliderLoadedRevoker = ColorSpectrumThirdDimensionSlider.Loaded(
+				winrt::auto_revoke, { this, &ColorPicker::ChannelSlider_Loaded });
+			}
+
+			if (ColorPreviewer) 
+			{ 
+				_colorPreviewerColorChangeRequestedRevoker = ColorPreviewer.ColorChangeRequested(
+				winrt::auto_revoke, { this, &ColorPicker::ColorPreviewer_ColorChangeRequested }); 
+			}
+
+			if (CheckeredBackground1Border) 
+			{ 
+				_checkeredBackground1BorderLoadedRevoker = CheckeredBackground1Border.Loaded(
+					winrt::auto_revoke, { this, &ColorPicker::CheckeredBackgroundBorder_Loaded });
+			}
+
+			if (CheckeredBackground2Border) 
+			{ 
+				_checkeredBackground2BorderLoadedRevoker = CheckeredBackground2Border.Loaded(
+					winrt::auto_revoke, { this, &ColorPicker::CheckeredBackgroundBorder_Loaded });
+			}
+			if (CheckeredBackground3Border) 
+			{ 
+				_checkeredBackground3BorderLoadedRevoker = CheckeredBackground3Border.Loaded(
+					winrt::auto_revoke, { this, &ColorPicker::CheckeredBackgroundBorder_Loaded }); 
+			}
+
+			if (CheckeredBackground4Border)
+			{ 
+				_checkeredBackground4BorderLoadedRevoker = CheckeredBackground4Border.Loaded(
+					winrt::auto_revoke, { this, &ColorPicker::CheckeredBackgroundBorder_Loaded });
+			}
+
+			if (CheckeredBackground5Border) 
+			{
+				_checkeredBackground5BorderLoadedRevoker = CheckeredBackground5Border.Loaded(
+					winrt::auto_revoke, { this, &ColorPicker::CheckeredBackgroundBorder_Loaded });
+			}
+
+			if (CheckeredBackground6Border) 
+			{
+				_checkeredBackground6BorderLoadedRevoker = CheckeredBackground6Border.Loaded(
+					winrt::auto_revoke, { this, &ColorPicker::CheckeredBackgroundBorder_Loaded }); 
+			}
+
+			if (CheckeredBackground7Border) 
+			{ _checkeredBackground7BorderLoadedRevoker = CheckeredBackground7Border.Loaded(
+				winrt::auto_revoke, { this, &ColorPicker::CheckeredBackgroundBorder_Loaded }); 
+			}
+
+			if (CheckeredBackground8Border) 
+			{ 
+				_checkeredBackground8BorderLoadedRevoker = CheckeredBackground8Border.Loaded(
+					winrt::auto_revoke, { this, &ColorPicker::CheckeredBackgroundBorder_Loaded });
+			}
+
+			if (CheckeredBackground9Border) 
+			{ 
+				_checkeredBackground9BorderLoadedRevoker = CheckeredBackground9Border.Loaded(
+					winrt::auto_revoke, { this, &ColorPicker::CheckeredBackgroundBorder_Loaded });
+			}
+
+			if (CheckeredBackground10Border) 
+			{
+				_checkeredBackground10BorderLoadedRevoker = CheckeredBackground10Border.Loaded(
+					winrt::auto_revoke, { this, &ColorPicker::CheckeredBackgroundBorder_Loaded });
+			}
 
 			eventsConnected = true;
 		}
 		else if (connected == false && eventsConnected == true)
 		{
-			// Remove all events
-			if (ColorPanelSelector) { ColorPanelSelector.SelectionChanged(_colorPanelSelectorToken); }
+			_colorPanelSelectorSelectionChangedRevoker.revoke();
 
-			if (ColorSpectrumControl) { ColorSpectrumControl.ColorChanged(_colorSpectrumColorChangedToken); }
-			if (ColorSpectrumControl) { ColorSpectrumControl.GotFocus(_colorSpectrumGotFocusToken); }
-			if (HexInputTextBox) { HexInputTextBox.KeyDown(_hexInputTextBoxKeyDownToken); }
-			if (HexInputTextBox) { HexInputTextBox.LostFocus(_hexInputTextBoxLostFocusToken); }
-			if (ColorModeComboBox) {
-				ColorModeComboBox.SelectionChanged(_colorModeComboBoxToken);
-			}
+			_colorSpectrumColorChangedRevoker.revoke();
+			_colorSpectrumGotFocusRevoker.revoke();
+			_hexInputTextBoxKeyDownRevoker.revoke();
+			_hexInputTextBoxLostFocusRevoker.revoke();
+			_colorModeComboBoxSelectionChangedRevoker.revoke();
 
-			if (Channel1NumberBox) { Channel1NumberBox.ValueChanged(_channel1NumberBoxToken); }
-			if (Channel2NumberBox) { Channel2NumberBox.ValueChanged(_channel2NumberBoxToken); }
-			if (Channel3NumberBox) { Channel3NumberBox.ValueChanged(_channel3NumberBoxToken); }
-			if (AlphaChannelNumberBox) { AlphaChannelNumberBox.ValueChanged(_alphaChannelNumberBoxToken); }
+			_channel1NumberBoxValueChangedRevoker.revoke();
+			_channel2NumberBoxValueChangedRevoker.revoke();
+			_channel3NumberBoxValueChangedRevoker.revoke();
+			_alphaChannelNumberBoxValueChangedRevoker.revoke();
 
-			if (Channel1Slider) { Channel1Slider.ValueChanged(_channel1SliderToken); }
-			if (Channel2Slider) { Channel2Slider.ValueChanged(_channel2SliderToken); }
-			if (Channel3Slider) { Channel3Slider.ValueChanged(_channel3SliderToken); }
-			if (AlphaChannelSlider) { AlphaChannelSlider.ValueChanged(_alphaChannelSliderToken); }
-			if (ColorSpectrumAlphaSlider) { ColorSpectrumAlphaSlider.ValueChanged(_colorSpectrumAlphaSliderToken); }
-			if (ColorSpectrumThirdDimensionSlider) {
-				ColorSpectrumThirdDimensionSlider.ValueChanged(_colorSpectrumThirdDimensionSliderToken);
-			}
+			_channel1SliderValueChangedRevoker.revoke();
+			_channel2SliderValueChangedRevoker.revoke();
+			_channel3SliderValueChangedRevoker.revoke();
+			_alphaChannelSliderValueChangedRevoker.revoke();
+			_colorSpectrumAlphaSliderValueChangedRevoker.revoke();
+			_colorSpectrumThirdDimensionSliderValueChangedRevoker.revoke();
 
-			if (Channel1Slider) { Channel1Slider.Loaded(_channel1SliderLoadedToken); }
-			if (Channel2Slider) { Channel2Slider.Loaded(_channel2SliderLoadedToken); }
-			if (Channel3Slider) { Channel3Slider.Loaded(_channel3SliderLoadedToken); }
-			if (AlphaChannelSlider) { AlphaChannelSlider.Loaded(_alphaChannelSliderLoadedToken); }
-			if (ColorSpectrumAlphaSlider) { ColorSpectrumAlphaSlider.Loaded(_colorSpectrumAlphaSliderLoadedToken); }
-			if (ColorSpectrumThirdDimensionSlider) { ColorSpectrumThirdDimensionSlider.Loaded(_colorSpectrumThirdDimensionSliderLoadedToken); }
+			_channel1SliderLoadedRevoker.revoke();
+			_channel2SliderLoadedRevoker.revoke();
+			_channel3SliderLoadedRevoker.revoke();
+			_alphaChannelSliderLoadedRevoker.revoke();
+			_colorSpectrumAlphaSliderLoadedRevoker.revoke();
+			_colorSpectrumThirdDimensionSliderLoadedRevoker.revoke();
 
-			if (ColorPreviewer) { ColorPreviewer.ColorChangeRequested(_colorPreviewerToken); }
+			_colorPreviewerColorChangeRequestedRevoker.revoke();
 
-			if (CheckeredBackground1Border) { CheckeredBackground1Border.Loaded(_checkeredBackground1BorderLoadedToken); }
-			if (CheckeredBackground2Border) { CheckeredBackground2Border.Loaded(_checkeredBackground2BorderLoadedToken); }
-			if (CheckeredBackground3Border) { CheckeredBackground3Border.Loaded(_checkeredBackground3BorderLoadedToken); }
-			if (CheckeredBackground4Border) { CheckeredBackground4Border.Loaded(_checkeredBackground4BorderLoadedToken); }
-			if (CheckeredBackground5Border) { CheckeredBackground5Border.Loaded(_checkeredBackground5BorderLoadedToken); }
-			if (CheckeredBackground6Border) { CheckeredBackground6Border.Loaded(_checkeredBackground6BorderLoadedToken); }
-			if (CheckeredBackground7Border) { CheckeredBackground7Border.Loaded(_checkeredBackground7BorderLoadedToken); }
-			if (CheckeredBackground8Border) { CheckeredBackground8Border.Loaded(_checkeredBackground8BorderLoadedToken); }
-			if (CheckeredBackground9Border) { CheckeredBackground9Border.Loaded(_checkeredBackground9BorderLoadedToken); }
-			if (CheckeredBackground10Border) { CheckeredBackground10Border.Loaded(_checkeredBackground10BorderLoadedToken); }
+			_checkeredBackground1BorderLoadedRevoker.revoke();
+			_checkeredBackground2BorderLoadedRevoker.revoke();
+			_checkeredBackground3BorderLoadedRevoker.revoke();
+			_checkeredBackground4BorderLoadedRevoker.revoke();
+			_checkeredBackground5BorderLoadedRevoker.revoke();
+			_checkeredBackground6BorderLoadedRevoker.revoke();
+			_checkeredBackground7BorderLoadedRevoker.revoke();
+			_checkeredBackground8BorderLoadedRevoker.revoke();
+			_checkeredBackground9BorderLoadedRevoker.revoke();
+			_checkeredBackground10BorderLoadedRevoker.revoke();
 
 			eventsConnected = false;
 		}
 	}
-
 
 	/// <summary>
 	/// Updates all visual states based on current control properties.

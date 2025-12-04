@@ -43,7 +43,6 @@
             Duration="0:0:0.1" />
     </animations:ImplicitAnimationSet>-->
 
-
     <Style BasedOn="{StaticResource DefaultColorPickerStyle}" TargetType="controls:ColorPicker" />
 
     <Style x:Key="DefaultColorPickerStyle" TargetType="controls:ColorPicker">
@@ -119,7 +118,6 @@
                                             Grid.Column="1"
                                             HorizontalAlignment="Stretch"
                                             VerticalAlignment="Stretch">
-
                                             <winuiprimitives:ColorSpectrum
                                                 x:Name="ColorSpectrumControl"
                                                 Grid.Column="1"
@@ -136,8 +134,6 @@
                                                 MinValue="{TemplateBinding MinValue}"
                                                 Shape="{TemplateBinding ColorSpectrumShape}" />
                                         </Viewbox>
-
-
                                         <primitives:ColorPickerSlider
                                             x:Name="ColorSpectrumAlphaSlider"
                                             Grid.Column="2"
@@ -150,7 +146,7 @@
                                 </controls:Case>
                                 <controls:Case Value="PaletteItem">
                                     <Grid HorizontalAlignment="Stretch">
-                                        <GridView
+                                        <GridView 
                                             Margin="0"
                                             Padding="0"
                                             ItemsSource="{TemplateBinding CustomPaletteColors}"

@@ -4,6 +4,7 @@
 #include <winrt/Windows.UI.h>
 #include <winrt/XamlToolkit.WinUI.Helpers.h>
 #include <winrt/XamlToolkit.WinUI.Controls.Primitives.h>
+#include <winrt/Windows.Foundation.Collections.h>
 #include <wil/wistd_type_traits.h>
 #include <wil/cppwinrt_authoring.h>
 
@@ -16,7 +17,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
 	struct ColorPicker : ColorPickerT<ColorPicker>
 	{
-		wil::single_threaded_rw_property<winrt::Windows::UI::Color> CheckerBackgroundColor = Windows::UI::ColorHelper::FromArgb(0x19, 0x80, 0x80, 0x80); // Overridden later
+		wil::single_threaded_rw_property<winrt::Windows::UI::Color> CheckerBackgroundColor = Microsoft::UI::ColorHelper::FromArgb(0x19, 0x80, 0x80, 0x80); // Overridden later
 	private:
 		/// <summary>
 		/// The period that scheduled color updates will be applied.
@@ -32,10 +33,10 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		bool isInitialized = false;
 
 		// Color information for updates
-		std::optional<HsvColor> savedHsvColor = std::nullopt;
-		std::optional<winrt::Windows::UI::Color> savedHsvColorRgbEquivalent = std::nullopt;
-		std::optional<winrt::Windows::UI::Color> updatedRgbColor = std::nullopt;
-		std::optional<winrt::Microsoft::UI::Dispatching::DispatcherQueueTimer> dispatcherQueueTimer = std::nullopt;
+		std::optional<HsvColor> savedHsvColor;
+		std::optional<winrt::Windows::UI::Color> savedHsvColorRgbEquivalent;
+		std::optional<winrt::Windows::UI::Color> updatedRgbColor;
+		std::optional<winrt::Microsoft::UI::Dispatching::DispatcherQueueTimer> dispatcherQueueTimer;
 
 		Controls::Segmented       ColorPanelSelector{ nullptr };
 		Controls::SwitchPresenter ContentContainer{ nullptr };
@@ -69,49 +70,49 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		Border CheckeredBackground9Border{ nullptr };
 		Border CheckeredBackground10Border{ nullptr };
 
-		winrt::event_token _collectionChangedToken;
+		winrt::Windows::Foundation::Collections::IObservableVector<winrt::Windows::UI::Color>::VectorChanged_revoker _vectorChangedRevoker;
 
-		winrt::event_token _colorPanelSelectorToken;
+		Selector::SelectionChanged_revoker _colorPanelSelectorSelectionChangedRevoker;
 
-		winrt::event_token _colorSpectrumColorChangedToken;
-		winrt::event_token _colorSpectrumGotFocusToken;
+		ColorSpectrum::ColorChanged_revoker _colorSpectrumColorChangedRevoker;
+		Control::GotFocus_revoker _colorSpectrumGotFocusRevoker;
 
-		winrt::event_token _hexInputTextBoxKeyDownToken;
-		winrt::event_token _hexInputTextBoxLostFocusToken;
+		Control::KeyDown_revoker _hexInputTextBoxKeyDownRevoker;
+		Control::LostFocus_revoker _hexInputTextBoxLostFocusRevoker;
 
-		winrt::event_token _colorModeComboBoxToken;
+		Selector::SelectionChanged_revoker _colorModeComboBoxSelectionChangedRevoker;
 
-		winrt::event_token _channel1NumberBoxToken;
-		winrt::event_token _channel2NumberBoxToken;
-		winrt::event_token _channel3NumberBoxToken;
-		winrt::event_token _alphaChannelNumberBoxToken;
+		NumberBox::ValueChanged_revoker _channel1NumberBoxValueChangedRevoker;
+		NumberBox::ValueChanged_revoker _channel2NumberBoxValueChangedRevoker;
+		NumberBox::ValueChanged_revoker _channel3NumberBoxValueChangedRevoker;
+		NumberBox::ValueChanged_revoker _alphaChannelNumberBoxValueChangedRevoker;
 
-		winrt::event_token _channel1SliderToken;
-		winrt::event_token _channel2SliderToken;
-		winrt::event_token _channel3SliderToken;
-		winrt::event_token _alphaChannelSliderToken;
-		winrt::event_token _colorSpectrumAlphaSliderToken;
-		winrt::event_token _colorSpectrumThirdDimensionSliderToken;
+		Slider::ValueChanged_revoker _channel1SliderValueChangedRevoker;
+		Slider::ValueChanged_revoker _channel2SliderValueChangedRevoker;
+		Slider::ValueChanged_revoker _channel3SliderValueChangedRevoker;
+		Slider::ValueChanged_revoker _alphaChannelSliderValueChangedRevoker;
+		Slider::ValueChanged_revoker _colorSpectrumAlphaSliderValueChangedRevoker;
+		Slider::ValueChanged_revoker _colorSpectrumThirdDimensionSliderValueChangedRevoker;
 
-		winrt::event_token _channel1SliderLoadedToken;
-		winrt::event_token _channel2SliderLoadedToken;
-		winrt::event_token _channel3SliderLoadedToken;
-		winrt::event_token _alphaChannelSliderLoadedToken;
-		winrt::event_token _colorSpectrumAlphaSliderLoadedToken;
-		winrt::event_token _colorSpectrumThirdDimensionSliderLoadedToken;
+		FrameworkElement::Loaded_revoker _channel1SliderLoadedRevoker;
+		FrameworkElement::Loaded_revoker _channel2SliderLoadedRevoker;
+		FrameworkElement::Loaded_revoker _channel3SliderLoadedRevoker;
+		FrameworkElement::Loaded_revoker _alphaChannelSliderLoadedRevoker;
+		FrameworkElement::Loaded_revoker _colorSpectrumAlphaSliderLoadedRevoker;
+		FrameworkElement::Loaded_revoker _colorSpectrumThirdDimensionSliderLoadedRevoker;
 
-		winrt::event_token _colorPreviewerToken;
+		Primitives::ColorPreviewer::ColorChangeRequested_revoker _colorPreviewerColorChangeRequestedRevoker;
 
-		winrt::event_token _checkeredBackground1BorderLoadedToken;
-		winrt::event_token _checkeredBackground2BorderLoadedToken;
-		winrt::event_token _checkeredBackground3BorderLoadedToken;
-		winrt::event_token _checkeredBackground4BorderLoadedToken;
-		winrt::event_token _checkeredBackground5BorderLoadedToken;
-		winrt::event_token _checkeredBackground6BorderLoadedToken;
-		winrt::event_token _checkeredBackground7BorderLoadedToken;
-		winrt::event_token _checkeredBackground8BorderLoadedToken;
-		winrt::event_token _checkeredBackground9BorderLoadedToken;
-		winrt::event_token _checkeredBackground10BorderLoadedToken;
+		FrameworkElement::Loaded_revoker _checkeredBackground1BorderLoadedRevoker;
+		FrameworkElement::Loaded_revoker _checkeredBackground2BorderLoadedRevoker;
+		FrameworkElement::Loaded_revoker _checkeredBackground3BorderLoadedRevoker;
+		FrameworkElement::Loaded_revoker _checkeredBackground4BorderLoadedRevoker;
+		FrameworkElement::Loaded_revoker _checkeredBackground5BorderLoadedRevoker;
+		FrameworkElement::Loaded_revoker _checkeredBackground6BorderLoadedRevoker;
+		FrameworkElement::Loaded_revoker _checkeredBackground7BorderLoadedRevoker;
+		FrameworkElement::Loaded_revoker _checkeredBackground8BorderLoadedRevoker;
+		FrameworkElement::Loaded_revoker _checkeredBackground9BorderLoadedRevoker;
+		FrameworkElement::Loaded_revoker _checkeredBackground10BorderLoadedRevoker;
 
 	public:
 
@@ -280,10 +281,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		/// <param name="colorRepresentation">The color representation of the given channel.</param>
 		/// <param name="channel">The specified color channel to modify.</param>
 		/// <param name="newValue">The new color channel value.</param>
-		void SetColorChannel(
-			ColorRepresentation colorRepresentation,
-			ColorChannel channel,
-			double newValue);
+		void SetColorChannel(ColorRepresentation colorRepresentation, ColorChannel channel, double newValue);
 
 		/// <summary>
 		/// Updates all channel slider control backgrounds.
