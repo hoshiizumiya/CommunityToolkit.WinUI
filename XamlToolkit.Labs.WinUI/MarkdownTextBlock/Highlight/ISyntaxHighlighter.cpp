@@ -20,6 +20,8 @@ std::span<const uint8_t> json_highlight_scm();
 
 std::span<const uint8_t> xml_highlight_scm();
 
+std::span<const uint8_t> rust_highlight_scm();
+
 extern "C" const TSLanguage* tree_sitter_c_sharp();
 
 extern "C" const TSLanguage* tree_sitter_cpp();
@@ -30,7 +32,10 @@ extern "C" const TSLanguage* tree_sitter_bash();
 
 extern "C" const TSLanguage* tree_sitter_json();
 
-class TreeSitterHighlighter : public IUtf16SyntaxHighlighter {
+extern "C" const TSLanguage* tree_sitter_rust();
+
+class TreeSitterHighlighter : public IUtf16SyntaxHighlighter
+{
 protected:
 	const TSLanguage* language;
 
@@ -281,55 +286,73 @@ public:
 	};
 };
 
-class CSharpHighlighter : public TreeSitterHighlighter {
+class CSharpHighlighter : public TreeSitterHighlighter 
+{
 public:
-	CSharpHighlighter()
-		: TreeSitterHighlighter(tree_sitter_c_sharp(), csharp_highlight_scm()) {
-	}
+	CSharpHighlighter() : TreeSitterHighlighter(tree_sitter_c_sharp(), csharp_highlight_scm()) { }
 };
 
-class CPlusPlusHighlighter : public TreeSitterHighlighter {
+class CPlusPlusHighlighter : public TreeSitterHighlighter 
+{
 public:
-	CPlusPlusHighlighter()
-		: TreeSitterHighlighter(tree_sitter_cpp(), cpp_highlight_scm()) {
-	}
+	CPlusPlusHighlighter() : TreeSitterHighlighter(tree_sitter_cpp(), cpp_highlight_scm()) { }
 };
 
-class XmlHighlighter : public TreeSitterHighlighter {
+class XmlHighlighter : public TreeSitterHighlighter
+{
 public:
-	XmlHighlighter()
-		: TreeSitterHighlighter(tree_sitter_xml(), xml_highlight_scm()) {
-	}
+	XmlHighlighter() : TreeSitterHighlighter(tree_sitter_xml(), xml_highlight_scm()) { }
 };
 
-class BashHighlighter : public TreeSitterHighlighter {
+class BashHighlighter : public TreeSitterHighlighter
+{
 public:
-	BashHighlighter()
-		: TreeSitterHighlighter(tree_sitter_bash(), bash_highlight_scm()) {
-	}
+	BashHighlighter() : TreeSitterHighlighter(tree_sitter_bash(), bash_highlight_scm()) { }
 };
 
-class JsonHighlighter : public TreeSitterHighlighter {
+class JsonHighlighter : public TreeSitterHighlighter
+{
 public:
-	JsonHighlighter()
-		: TreeSitterHighlighter(tree_sitter_json(), json_highlight_scm()) {
-	}
+	JsonHighlighter() : TreeSitterHighlighter(tree_sitter_json(), json_highlight_scm()) { }
 };
 
-std::unique_ptr<IUtf16SyntaxHighlighter> IUtf16SyntaxHighlighter::Create(std::wstring_view language) {
+class RustHighlighter : public TreeSitterHighlighter
+{
+public:
+	RustHighlighter() : TreeSitterHighlighter(tree_sitter_rust(), rust_highlight_scm()) { }
+};
 
-	if (language == L"csharp" || language == L"c#") return std::make_unique<CSharpHighlighter>();
+std::unique_ptr<IUtf16SyntaxHighlighter> IUtf16SyntaxHighlighter::Create(std::wstring_view language)
+{
+	if (language == L"csharp" || language == L"c#")
+	{
+		return std::make_unique<CSharpHighlighter>();
+	}
 
-	if (language == L"json") return std::make_unique<JsonHighlighter>();
+	if (language == L"json") 
+	{ 
+		return std::make_unique<JsonHighlighter>();
+	}
 
 	if (language == L"xml" || language == L"xaml")
+	{
 		return std::make_unique<XmlHighlighter>();
+	}
 
 	if (language == L"c" || language == L"c++" || language == L"cpp")
+	{
 		return std::make_unique<CPlusPlusHighlighter>();
+	}
 
 	if (language == L"bash" || language == L"shell")
+	{
 		return std::make_unique<BashHighlighter>();
+	}
+
+	if (language == L"rust")
+	{
+		return std::make_unique<RustHighlighter>();
+	}
 
 	return nullptr;
 }

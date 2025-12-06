@@ -29,7 +29,7 @@ You can install the C++ WinUI Community Toolkit packages via NuGet (it also supp
 
 ### MarkdownTextBlock
 
-`MarkdownTextBlock` supports syntax highlighting for **C#, C++, XML, JSON, and Shell**.
+`MarkdownTextBlock` supports syntax highlighting for **C#, C++, XML, JSON, Bash and Rust**.
 
 ![MarkdownTextBlock](docs/images/MarkdownTextBlock.webp)
 
