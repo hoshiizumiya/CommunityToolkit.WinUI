@@ -93,5 +93,13 @@ namespace XamlToolkit.WinUI.Controls
 		void ClearUndoRedoSuggestionHistory();
 
 		void Clear();
+
+		void AddTokens(Windows.Foundation.Collections.IIterable<RichSuggestToken> tokens);
+
+		void Load(String rtf, Windows.Foundation.Collections.IIterable<RichSuggestToken> tokens);
+
+		Boolean TryGetTokenFromRange(Microsoft.UI.Text.ITextRange range, out RichSuggestToken token);
+
+		Windows.Foundation.Rect GetRectFromRange(Microsoft.UI.Text.ITextRange range);
 	}
 }
