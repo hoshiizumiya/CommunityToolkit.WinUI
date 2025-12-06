@@ -2,7 +2,7 @@
 <package>
 	<metadata>
 		<id>XamlToolkit.WinUI.Converters.Native</id>
-		<version>0.1.0-alpha</version>
+		<version>0.2.0-alpha</version>
 		<title>XamlToolkit.WinUI.Converters.Native</title>
 		<authors>lgztx96</authors>
 		<owners>lgztx96</owners>
@@ -26,7 +26,6 @@
 		<file target="build\net8.0-windows10.0.26100.0\XamlToolkit.WinUI.Converters.Native.targets"      src="XamlToolkit.WinUI.Converters.Managed.targets" />
 
 		<file target="lib\native\XamlToolkit.WinUI.Converters.winmd"                              src="..\x64\Release\XamlToolkit.WinUI.Converters\XamlToolkit.WinUI.Converters.winmd" />
-		<file target="lib\uap10.0\XamlToolkit.WinUI.Converters.winmd"                              src="..\x64\Release\XamlToolkit.WinUI.Converters\XamlToolkit.WinUI.Converters.winmd" />
 
 		<file target="runtimes\win-x86\native\XamlToolkit.WinUI.Converters.dll"                   src="..\Release\XamlToolkit.WinUI.Converters\XamlToolkit.WinUI.Converters.dll" />
 		<file target="runtimes\win-x64\native\XamlToolkit.WinUI.Converters.dll"                   src="..\x64\Release\XamlToolkit.WinUI.Converters\XamlToolkit.WinUI.Converters.dll" />

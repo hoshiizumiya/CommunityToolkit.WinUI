@@ -2,7 +2,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
 	<PropertyGroup>
-		<WinUIToolkitWinMDPath>$(MSBuildThisFileDirectory)..\..\lib\uap10.0\XamlToolkit.WinUI.Converters.winmd</WinUIToolkitWinMDPath>
+		<WinUIToolkitWinMDPath>$(MSBuildThisFileDirectory)..\..\lib\native\XamlToolkit.WinUI.Converters.winmd</WinUIToolkitWinMDPath>
 		<WinUIToolkitWinMDImplementationDllName>XamlToolkit.WinUI.Converters.dll</WinUIToolkitWinMDImplementationDllName>
 	</PropertyGroup>
 

@@ -2,7 +2,7 @@
 <package>
 	<metadata>
 		<id>XamlToolkit.Labs.WinUI.Native</id>
-		<version>0.1.0-alpha</version>
+		<version>0.2.0-alpha</version>
 		<title>XamlToolkit.Labs.WinUI.Native</title>
 		<authors>lgztx96</authors>
 		<owners>lgztx96</owners>
@@ -16,9 +16,9 @@
 		<readme>Readme.md</readme>
 		<dependencies>
 			<dependency id="Microsoft.WindowsAppSDK" version="1.7.251014001" />
-			<dependency id="XamlToolkit.WinUI.Native" version="0.1.0-alpha" />
-			<dependency id="XamlToolkit.WinUI.Controls.Native" version="0.1.0-alpha" />
-			<dependency id="XamlToolkit.WinUI.Helpers.Native" version="0.1.0-alpha" />
+			<dependency id="XamlToolkit.WinUI.Native" version="0.2.0-alpha" />
+			<dependency id="XamlToolkit.WinUI.Controls.Native" version="0.2.0-alpha" />
+			<dependency id="XamlToolkit.WinUI.Helpers.Native" version="0.2.0-alpha" />
 		</dependencies>
 	</metadata>
 
@@ -31,8 +31,6 @@
 		<file target="lib\native\XamlToolkit.Labs.WinUI.winmd"                              src="..\x64\Release\XamlToolkit.Labs.WinUI\XamlToolkit.Labs.WinUI.winmd" />
 		<file target="lib\native\XamlToolkit.Labs.WinUI.pri"                              src="..\x64\Release\XamlToolkit.Labs.WinUI\XamlToolkit.Labs.WinUI.pri" />
 
-		<file target="lib\uap10.0\XamlToolkit.Labs.WinUI.winmd"                              src="..\x64\Release\XamlToolkit.Labs.WinUI\XamlToolkit.Labs.WinUI.winmd" />
-		
 		<file target="runtimes\win-x86\native\XamlToolkit.Labs.WinUI.dll"                   src="..\Release\XamlToolkit.Labs.WinUI\XamlToolkit.Labs.WinUI.dll" />
 		<file target="runtimes\win-x64\native\XamlToolkit.Labs.WinUI.dll"                   src="..\x64\Release\XamlToolkit.Labs.WinUI\XamlToolkit.Labs.WinUI.dll" />
 		<file target="runtimes\win-arm64\native\XamlToolkit.Labs.WinUI.dll"                 src="..\arm64\Release\XamlToolkit.Labs.WinUI\XamlToolkit.Labs.WinUI.dll" />

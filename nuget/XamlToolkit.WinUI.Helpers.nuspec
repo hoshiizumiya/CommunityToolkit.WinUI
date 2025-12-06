@@ -2,7 +2,7 @@
 <package>
 	<metadata>
 		<id>XamlToolkit.WinUI.Helpers.Native</id>
-		<version>0.1.0-alpha</version>
+		<version>0.2.0-alpha</version>
 		<title>XamlToolkit.WinUI.Helpers.Native</title>
 		<authors>lgztx96</authors>
 		<owners>lgztx96</owners>
@@ -16,7 +16,7 @@
 		<readme>Readme.md</readme>
 		<dependencies>
 			<dependency id="Microsoft.WindowsAppSDK" version="1.7.251014001" />
-			<dependency id="XamlToolkit.WinUI.Native" version="0.1.0-alpha" />
+			<dependency id="XamlToolkit.WinUI.Native" version="0.2.0-alpha" />
 		</dependencies>
 	</metadata>
 
@@ -27,7 +27,6 @@
 		<file target="build\net8.0-windows10.0.26100.0\XamlToolkit.WinUI.Helpers.Native.targets"      src="XamlToolkit.WinUI.Helpers.Managed.targets" />
 
 		<file target="lib\native\XamlToolkit.WinUI.Helpers.winmd"                              src="..\x64\Release\XamlToolkit.WinUI.Helpers\XamlToolkit.WinUI.Helpers.winmd" />
-		<file target="lib\uap10.0\XamlToolkit.WinUI.Helpers.winmd"                              src="..\x64\Release\XamlToolkit.WinUI.Helpers\XamlToolkit.WinUI.Helpers.winmd" />
 
 		<file target="runtimes\win-x86\native\XamlToolkit.WinUI.Helpers.dll"                   src="..\Release\XamlToolkit.WinUI.Helpers\XamlToolkit.WinUI.Helpers.dll" />
 		<file target="runtimes\win-x64\native\XamlToolkit.WinUI.Helpers.dll"                   src="..\x64\Release\XamlToolkit.WinUI.Helpers\XamlToolkit.WinUI.Helpers.dll" />

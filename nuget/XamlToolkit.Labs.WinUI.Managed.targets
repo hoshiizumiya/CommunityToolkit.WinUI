@@ -2,7 +2,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
 	<PropertyGroup>
-		<WinUIToolkitWinMDPath>$(MSBuildThisFileDirectory)..\..\lib\uap10.0\XamlToolkit.Labs.WinUI.winmd</WinUIToolkitWinMDPath>
+		<WinUIToolkitWinMDPath>$(MSBuildThisFileDirectory)..\..\lib\native\XamlToolkit.Labs.WinUI.winmd</WinUIToolkitWinMDPath>
 		<WinUIToolkitWinMDImplementationDllName>XamlToolkit.Labs.WinUI.dll</WinUIToolkitWinMDImplementationDllName>
 	</PropertyGroup>
 
