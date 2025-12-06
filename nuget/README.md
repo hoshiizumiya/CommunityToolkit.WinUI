@@ -17,15 +17,16 @@ enabling seamless use of these components in **WinUI 3 / C++ projects**.
 ## 🧩 Included Controls
 
 - **MarkdownTextBlock** — syntax highlighting for *C#, C++, XML, JSON, Shell*.  
-- **Marquee**, **OpacityMaskView**, **Shimmer**, **TokenView**  
+- **Marquee**, **OpacityMaskView**, **Shimmer**, **TokenView**,  **Ribbon**
 - **ColorPicker**, **ColorPickerButton**, **DockPanel**, **ImageCropper**  
 - **LayoutTransformControl**, **MetadataControl**  
 - **HeaderedContentControl**, **HeaderedItemsControl**, **HeaderedTreeView**  
 - **ConstrainedBox**, **RadialGauge**, **RangeSelector**, **Segmented**  
 - **SettingsCard**, **SettingsExpander**, **ContentSizer**, **GridSplitter**, **PropertySizer**  
 - **StaggeredLayout**, **SwitchPresenter**, **TabbedCommandBar**  
-- **TokenizingTextBox**, **UniformGrid**, **WrapPanel**  
+- **TokenizingTextBox**, **RichSuggestBox**, **UniformGrid**, **WrapPanel**, **StaggeredPanel** 
 - **AttachedDropShadow**, **AttachedCardShadow**
+- **CameraPreview**
 
 > ⚠️ Note:  
 > `RadialGauge.ValueStringFormat` uses **C++ `std::format` syntax** instead of .NET string format syntax.
