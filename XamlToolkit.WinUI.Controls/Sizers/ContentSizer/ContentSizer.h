@@ -25,27 +25,6 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		static inline const wil::single_threaded_property<DependencyProperty> TargetControlProperty =
 			DependencyProperty::Register(L"TargetControl", winrt::xaml_typename<FrameworkElement>(), winrt::xaml_typename<class_type>(), PropertyMetadata(nullptr));
 
-		template <typename T>
-		static T FindAscendant(DependencyObject element)
-		{
-			while (true)
-			{
-				DependencyObject parent = winrt::Microsoft::UI::Xaml::Media::VisualTreeHelper::GetParent(element);
-
-				if (!parent)
-				{
-					return { nullptr };
-				}
-
-				if (auto result = parent.try_as<T>())
-				{
-					return result;
-				}
-
-				element = parent;
-			}
-		}
-
 		void OnLoaded(RoutedEventArgs const& e);
 
 		void OnDragStarting();

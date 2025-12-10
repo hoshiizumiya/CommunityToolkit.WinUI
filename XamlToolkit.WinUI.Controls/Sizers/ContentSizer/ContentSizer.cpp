@@ -3,6 +3,7 @@
 #if __has_include("ContentSizer.g.cpp")
 #include "ContentSizer.g.cpp"
 #endif
+#include "../XamlToolkit.WinUI/common.h"
 
 namespace winrt::XamlToolkit::WinUI::Controls::implementation
 {
@@ -10,7 +11,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 	{
 		if (TargetControl() == nullptr)
 		{
-			TargetControl(FindAscendant<FrameworkElement>(*this));
+			TargetControl(DependencyObjectEx::FindAscendant<FrameworkElement>(*this));
 		}
 	}
 
