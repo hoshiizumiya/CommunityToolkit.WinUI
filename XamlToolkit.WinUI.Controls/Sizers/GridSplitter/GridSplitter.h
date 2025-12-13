@@ -19,12 +19,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		GridResizeDirection _resizeDirection;
 		GridResizeBehavior _resizeBehavior;
 
-		GridSplitter()
-			: _currentSize(0)
-			, _siblingSize(0)
-			, _resizeDirection(GridResizeDirection::Auto)
-			, _resizeBehavior(GridResizeBehavior::BasedOnAlignment) {
-		}
+		GridSplitter();
 
 		static void OnResizeDirectionPropertyChanged(DependencyObject const& d, DependencyPropertyChangedEventArgs const& e);
 

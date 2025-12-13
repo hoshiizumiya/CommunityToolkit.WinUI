@@ -6,6 +6,11 @@
 
 namespace winrt::XamlToolkit::WinUI::Controls::implementation
 {
+	PropertySizer::PropertySizer() : _currentSize(0.0)
+	{
+		DefaultStyleKey(winrt::box_value(winrt::xaml_typename<class_type>()));
+	}
+
 	void PropertySizer::OnDragStarting()
 	{
 		// We grab the current size of the bound value when we start a drag

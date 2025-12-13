@@ -6,6 +6,15 @@
 
 namespace winrt::XamlToolkit::WinUI::Controls::implementation
 {
+	GridSplitter::GridSplitter()
+		: _currentSize(0)
+		, _siblingSize(0)
+		, _resizeDirection(GridResizeDirection::Auto)
+		, _resizeBehavior(GridResizeBehavior::BasedOnAlignment)
+	{
+		DefaultStyleKey(winrt::box_value(winrt::xaml_typename<class_type>()));
+	}
+
 	void GridSplitter::OnResizeDirectionPropertyChanged(DependencyObject const& d, DependencyPropertyChangedEventArgs const& e)
 	{
 		if (auto splitter = d.try_as<Controls::GridSplitter>()) {

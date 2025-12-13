@@ -7,6 +7,11 @@
 
 namespace winrt::XamlToolkit::WinUI::Controls::implementation
 {
+	ContentSizer::ContentSizer() : _currentSize(0.0)
+	{
+		DefaultStyleKey(winrt::box_value(winrt::xaml_typename<class_type>()));
+	}
+
 	void ContentSizer::OnLoaded([[maybe_unused]] RoutedEventArgs const& e)
 	{
 		if (TargetControl() == nullptr)
