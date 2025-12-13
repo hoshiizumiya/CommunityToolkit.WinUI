@@ -395,7 +395,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 
 		// Clip the marquee within the bounds of the container
 		RectangleGeometry geometry;
-		geometry.Rect(Rect(0, 0, width, height));
+		geometry.Rect(Rect(0, 0, static_cast<float>(width), static_cast<float>(height)));
 		_marqueeContainer.Clip(geometry);
 	}
 

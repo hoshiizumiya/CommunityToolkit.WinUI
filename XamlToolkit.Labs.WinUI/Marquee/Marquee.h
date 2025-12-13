@@ -70,9 +70,9 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 
 		void StopMarquee();
 
-		double AutoPlay()
+		bool AutoPlay()
 		{
-			return winrt::unbox_value<double>(GetValue(AutoPlayProperty()));
+			return winrt::unbox_value<bool>(GetValue(AutoPlayProperty()));
 		}
 
 		void AutoPlay(bool value)
@@ -183,7 +183,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 			DependencyProperty::Register(L"RepeatBehavior", winrt::xaml_typename<winrt::Microsoft::UI::Xaml::Media::Animation::RepeatBehavior>(), winrt::xaml_typename<class_type>(), PropertyMetadata(winrt::box_value(winrt::Microsoft::UI::Xaml::Media::Animation::RepeatBehaviorHelper::FromCount(1)), &Marquee::PropertyChanged));
 
 		static inline const wil::single_threaded_property<DependencyProperty> BehaviorProperty =
-			DependencyProperty::Register(L"Behavior", winrt::xaml_typename<MarqueeBehavior>(), winrt::xaml_typename<class_type>(), PropertyMetadata(winrt::box_value(0), &Marquee::BehaviorPropertyChanged));
+			DependencyProperty::Register(L"Behavior", winrt::xaml_typename<MarqueeBehavior>(), winrt::xaml_typename<class_type>(), PropertyMetadata(winrt::box_value(MarqueeBehavior::Ticker), &Marquee::BehaviorPropertyChanged));
 
 		static inline const wil::single_threaded_property<DependencyProperty> DirectionProperty =
 			DependencyProperty::Register(L"Direction", winrt::xaml_typename<MarqueeDirection>(), winrt::xaml_typename<class_type>(), PropertyMetadata(winrt::box_value(MarqueeDirection::Left), &Marquee::DirectionPropertyChanged));
