@@ -18,20 +18,15 @@ namespace winrt::XamlToolkit::WinUI::Future
 			winrt::apartment_context context;
 
 			winrt::Microsoft::UI::Xaml::FrameworkElement::Loaded_revoker loadedRevoker;
-			
+
 			auto tcs = std::make_shared<winrt::handle>(CreateEventW(nullptr, true, false, nullptr));
 			loadedRevoker = element.Loaded(winrt::auto_revoke, [=](auto&&...)
 				{
 					SetEvent(tcs->get());
 				});
 
-			try {
-				co_await winrt::resume_on_signal(tcs->get());
-			}
-			catch (winrt::hresult_error& e) 
-			{
-				OutputDebugStringW(e.message().c_str());
-			}
+			co_await winrt::resume_on_signal(tcs->get());
+
 			co_await context;
 
 			co_return true;
