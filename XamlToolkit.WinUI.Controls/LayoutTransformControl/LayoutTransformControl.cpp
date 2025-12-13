@@ -428,14 +428,12 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
 	void LayoutTransformControl::UnsubscribeFromTransformPropertyChanges(winrt::Microsoft::UI::Xaml::Media::Transform const& transform)
 	{
-		const auto& propertyChangeEventSources =
-			_transformPropertyChangeEventSources[transform];
+		//const auto& propertyChangeEventSources = _transformPropertyChangeEventSources[transform];
 
-		for (auto& propertyChangeEventSource : propertyChangeEventSources)
-		{
-			propertyChangeEventSource->ValueChanged.clear(); // -= OnTransformPropertyChanged;
-			propertyChangeEventSource->Unregister();
-		}
+		//for (auto& propertyChangeEventSource : propertyChangeEventSources)
+		//{
+		//	propertyChangeEventSource->unsubscribe();
+		//}
 
 		_transformPropertyChangeEventSources.erase(transform);
 	}
@@ -452,45 +450,45 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 			return;
 		}
 
-		auto propertyChangeEventSources = std::vector<std::unique_ptr<event_source>>();
+		auto propertyChangeEventSources = std::vector<std::unique_ptr<event_source_registration>>();
 		_transformPropertyChangeEventSources.emplace(transform, std::move(propertyChangeEventSources));
 
 		if (auto rotateTransform = transform.try_as<RotateTransform>())
 		{
-			auto anglePropertyChangeEventSource = std::make_unique<event_source>(rotateTransform, RotateTransform::AngleProperty());
-			anglePropertyChangeEventSource->ValueChanged.add({ get_weak(), &LayoutTransformControl::OnTransformPropertyChanged });
+			auto anglePropertyChangeEventSource = std::make_unique<event_source_registration>(rotateTransform, RotateTransform::AngleProperty());
+			anglePropertyChangeEventSource->subscribe({ get_weak(), &LayoutTransformControl::OnTransformPropertyChanged });
 			propertyChangeEventSources.emplace_back(std::move(anglePropertyChangeEventSource));
 			return;
 		}
 
 		if (auto scaleTransform = transform.try_as<ScaleTransform>())
 		{
-			auto scaleXPropertyChangeEventSource = std::make_unique<event_source>(scaleTransform, ScaleTransform::ScaleXProperty());
-			scaleXPropertyChangeEventSource->ValueChanged.add({ get_weak(), &LayoutTransformControl::OnTransformPropertyChanged });
+			auto scaleXPropertyChangeEventSource = std::make_unique<event_source_registration>(scaleTransform, ScaleTransform::ScaleXProperty());
+			scaleXPropertyChangeEventSource->subscribe({ get_weak(), &LayoutTransformControl::OnTransformPropertyChanged });
 			propertyChangeEventSources.emplace_back(std::move(scaleXPropertyChangeEventSource));
 
-			auto scaleYPropertyChangeEventSource = std::make_unique<event_source>(scaleTransform, ScaleTransform::ScaleYProperty());
-			scaleYPropertyChangeEventSource->ValueChanged.add({ get_weak(), &LayoutTransformControl::OnTransformPropertyChanged });
+			auto scaleYPropertyChangeEventSource = std::make_unique<event_source_registration>(scaleTransform, ScaleTransform::ScaleYProperty());
+			scaleYPropertyChangeEventSource->subscribe({ get_weak(), &LayoutTransformControl::OnTransformPropertyChanged });
 			propertyChangeEventSources.emplace_back(std::move(scaleYPropertyChangeEventSource));
 			return;
 		}
 
 		if (auto skewTransform = transform.try_as<SkewTransform>())
 		{
-			auto angleXPropertyChangeEventSource = std::make_unique<event_source>(skewTransform, SkewTransform::AngleXProperty());
-			angleXPropertyChangeEventSource->ValueChanged.add({ get_weak(), &LayoutTransformControl::OnTransformPropertyChanged });
+			auto angleXPropertyChangeEventSource = std::make_unique<event_source_registration>(skewTransform, SkewTransform::AngleXProperty());
+			angleXPropertyChangeEventSource->subscribe({ get_weak(), &LayoutTransformControl::OnTransformPropertyChanged });
 			propertyChangeEventSources.emplace_back(std::move(angleXPropertyChangeEventSource));
 
-			auto angleYPropertyChangeEventSource = std::make_unique<event_source>(skewTransform, SkewTransform::AngleYProperty());
-			angleYPropertyChangeEventSource->ValueChanged.add({ get_weak(), &LayoutTransformControl::OnTransformPropertyChanged });
+			auto angleYPropertyChangeEventSource = std::make_unique<event_source_registration>(skewTransform, SkewTransform::AngleYProperty());
+			angleYPropertyChangeEventSource->subscribe({ get_weak(), &LayoutTransformControl::OnTransformPropertyChanged });
 			propertyChangeEventSources.emplace_back(std::move(angleYPropertyChangeEventSource));
 			return;
 		}
 
 		if (auto matrixTransform = transform.try_as<MatrixTransform>())
 		{
-			auto matrixPropertyChangeEventSource = std::make_unique<event_source>(matrixTransform, MatrixTransform::MatrixProperty());
-			matrixPropertyChangeEventSource->ValueChanged.add({ get_weak(), &LayoutTransformControl::OnTransformPropertyChanged });
+			auto matrixPropertyChangeEventSource = std::make_unique<event_source_registration>(matrixTransform, MatrixTransform::MatrixProperty());
+			matrixPropertyChangeEventSource->subscribe({ get_weak(), &LayoutTransformControl::OnTransformPropertyChanged });
 			propertyChangeEventSources.emplace_back(std::move(matrixPropertyChangeEventSource));
 		}
 	}

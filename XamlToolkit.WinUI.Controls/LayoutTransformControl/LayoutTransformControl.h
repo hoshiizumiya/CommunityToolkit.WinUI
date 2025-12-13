@@ -10,6 +10,42 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 	using namespace winrt::Windows::Foundation;
 	using event_source = winrt::XamlToolkit::WinUI::Controls::PropertyChangeEventSource<double>;
 
+	struct event_source_registration
+	{
+	private:
+		event_source event_source;
+		std::optional<winrt::event_token> token;
+	public:
+		event_source_registration(const event_source_registration&) = delete;
+		event_source_registration& operator=(const event_source_registration&) = delete;
+		event_source_registration(const event_source_registration&&) = delete;
+		event_source_registration& operator=(const event_source_registration&&) = delete;
+
+		event_source_registration(
+			winrt::Microsoft::UI::Xaml::DependencyObject const& source,
+			winrt::Microsoft::UI::Xaml::DependencyProperty const& property) : event_source(source, property) { }
+
+		void subscribe(winrt::Windows::Foundation::EventHandler<double> const& handler)
+		{
+			unsubscribe();
+			token = event_source.ValueChanged(handler);
+		}
+
+		void unsubscribe()
+		{
+			if (token)
+			{
+				event_source.ValueChanged(*token);
+				token.reset();
+			}
+		}
+
+		~event_source_registration()
+		{
+			unsubscribe();
+		}
+	};
+
 	struct LayoutTransformControl : LayoutTransformControlT<LayoutTransformControl>
 	{
 		LayoutTransformControl();
@@ -87,12 +123,12 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 				winrt::unbox_value<FrameworkElement>(e.NewValue()));
 		}
 		/// <summary>
-	/// Gets or sets the single child of the LayoutTransformControl.
-	/// </summary>
-	/// <remarks>
-	/// Corresponds to WPF's Decorator.Child
-	/// property.
-	/// </remarks>
+		/// Gets or sets the single child of the LayoutTransformControl.
+		/// </summary>
+		/// <remarks>
+		/// Corresponds to WPF's Decorator.Child
+		/// property.
+		/// </remarks>
 		FrameworkElement Child() { return winrt::unbox_value<FrameworkElement>(GetValue(ChildProperty)); }
 		void Child(winrt::Windows::Foundation::IInspectable const& value) { return SetValue(ChildProperty, value); }
 
@@ -165,10 +201,10 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		}
 
 		/// <summary>
-	/// Processes the transform when the transform is changed.
-	/// </summary>
-	/// <param name="oldValue">The old transform</param>
-	/// <param name="newValue">The transform to process.</param>
+		/// Processes the transform when the transform is changed.
+		/// </summary>
+		/// <param name="oldValue">The old transform</param>
+		/// <param name="newValue">The transform to process.</param>
 		void OnTransformChanged(winrt::Microsoft::UI::Xaml::Media::Transform const& oldValue, winrt::Microsoft::UI::Xaml::Media::Transform const& newValue);
 
 		void UnsubscribeFromTransformPropertyChanges(winrt::Microsoft::UI::Xaml::Media::Transform const& transform);
@@ -195,7 +231,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		/// </summary>
 		std::unordered_map<
 			winrt::Microsoft::UI::Xaml::Media::Transform,
-			std::vector<std::unique_ptr<event_source>>>
+			std::vector<std::unique_ptr<event_source_registration>>>
 			_transformPropertyChangeEventSources;
 
 		/// <summary>
@@ -216,7 +252,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		/// <summary>
 		/// Actual DesiredSize of Child element.
 		/// </summary>
-		Size _childActualSize { 0, 0 };
+		Size _childActualSize{ 0, 0 };
 	};
 }
 
