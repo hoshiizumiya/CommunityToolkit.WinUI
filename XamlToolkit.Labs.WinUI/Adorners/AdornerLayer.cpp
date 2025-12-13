@@ -1,0 +1,231 @@
+﻿#include "pch.h"
+#include "AdornerLayer.h"
+#if __has_include("AdornerLayer.g.cpp")
+#include "AdornerLayer.g.cpp"
+#endif
+#include <winrt/XamlToolkit.Labs.WinUI.h>
+#include "../XamlToolkit.WinUI/common.h"
+#include "Adorner.h"
+#include "Helpers/FrameworkElementExtensions.WaitUntilLoaded.h"
+
+namespace winrt::XamlToolkit::Labs::WinUI::implementation
+{
+	const wil::single_threaded_property<winrt::Microsoft::UI::Xaml::DependencyProperty> AdornerLayer::XamlProperty =
+		winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
+			L"Xaml",
+			winrt::xaml_typename<winrt::Microsoft::UI::Xaml::UIElement>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr, &AdornerLayer::OnXamlPropertyChanged });
+
+	AdornerLayer::AdornerLayer()
+	{
+		SizeChanged({ this, &AdornerLayer::AdornerLayer_SizeChanged });
+	}
+
+	void AdornerLayer::AdornerLayer_SizeChanged([[maybe_unused]] winrt::Windows::Foundation::IInspectable const& sender, [[maybe_unused]] SizeChangedEventArgs const& e)
+	{
+		for (auto adornerXaml : Children())
+		{
+			if (auto adorner = adornerXaml.try_as<winrt::XamlToolkit::Labs::WinUI::Adorner>())
+			{
+				auto adornerImpl = winrt::get_self<Adorner>(adorner);
+				// Notify each adorner that our general layout has updated.
+				adornerImpl->OnLayoutUpdated(nullptr, nullptr);
+			}
+		}
+	}
+
+	winrt::Windows::Foundation::IAsyncAction AdornerLayer::OnXamlPropertyChanged(DependencyObject const& dependencyObject, DependencyPropertyChangedEventArgs const& args)
+	{
+		if (auto fe = dependencyObject.try_as<FrameworkElement>())
+		{
+			if (!fe.IsLoaded() || fe.Parent() == nullptr)
+			{
+				auto loadedToken = std::make_shared<winrt::event_token>();
+				*loadedToken = fe.Loaded([=](auto& s, auto& e)
+					{
+						s.template as<FrameworkElement>().Loaded(*loadedToken);
+						XamlPropertyFrameworkElement_Loaded(s, e);
+					});
+			}
+			else if (auto adorner = args.NewValue().try_as<UIElement>())
+			{
+				if (auto layer = co_await GetAdornerLayerAsync(fe))
+				{
+					AttachAdorner(layer, fe, adorner);
+				}
+			}
+			else if (args.NewValue() == nullptr)
+			{
+				if (auto oldAdorner = args.OldValue().try_as<UIElement>())
+				{
+					if (auto layer = co_await GetAdornerLayerAsync(fe))
+					{
+						RemoveAdorner(layer, oldAdorner);
+					}
+				}
+			}
+		}
+	}
+
+	winrt::Windows::Foundation::IAsyncAction AdornerLayer::XamlPropertyFrameworkElement_Loaded(winrt::Windows::Foundation::IInspectable const& sender, RoutedEventArgs const& e)
+	{
+		if (auto fe = sender.try_as<FrameworkElement>())
+		{
+			if (auto layer = co_await GetAdornerLayerAsync(fe))
+			{
+				auto adorner = GetXaml(fe);
+
+				if (adorner == nullptr) co_return;
+
+				AttachAdorner(layer, fe, adorner);
+			}
+		}
+	}
+
+	winrt::Windows::Foundation::IAsyncOperation<winrt::XamlToolkit::Labs::WinUI::AdornerLayer> AdornerLayer::GetAdornerLayerAsync(FrameworkElement const& adornedElement)
+	{
+		// 1. Find Adorner Layer for element or top-most element
+		FrameworkElement lastElement{ nullptr };
+
+		auto adornerLayerOrTopMostElement = winrt::XamlToolkit::WinUI::DependencyObjectEx::FindAscendant<FrameworkElement>(adornedElement, [&](auto&& element) -> bool
+			{
+				lastElement = element; // TODO: should this be after our if, does it matter?
+
+				if (element.template try_as<winrt::XamlToolkit::Labs::WinUI::AdornerDecorator>())
+				{
+					return true;
+				}
+				else if (element.template try_as<winrt::XamlToolkit::Labs::WinUI::AdornerLayer>())
+				{
+					return true;
+				}
+				else if (element.template try_as<ScrollViewer>())
+				{
+					return true;
+				}
+				// TODO: Need to figure out porting new DO toolkit helpers to Uno, only needed for custom adorner layer placement...
+				/*else
+				{
+					// TODO: Use BreadthFirst Search w/ Depth Limited?
+					auto child = element.FindFirstLevelDescendants<AdornerLayer>();
+
+					if (child != null)
+					{
+						lastElement = child;
+						return true;
+					}
+				}*/
+
+				return false;
+			});
+		
+		if (adornerLayerOrTopMostElement == nullptr)
+			adornerLayerOrTopMostElement = lastElement;
+
+		// Check cases where we may have found a child that we want to use instead of the element returned by search.
+		if (lastElement.try_as<winrt::XamlToolkit::Labs::WinUI::AdornerLayer>() || lastElement.try_as<winrt::XamlToolkit::Labs::WinUI::AdornerDecorator>())
+		{
+			adornerLayerOrTopMostElement = lastElement;
+		}
+
+		if (auto decorator = adornerLayerOrTopMostElement.try_as<winrt::XamlToolkit::Labs::WinUI::AdornerDecorator>())
+		{
+			co_await winrt::XamlToolkit::WinUI::Future::FrameworkElementExtensions::WaitUntilLoadedAsync(decorator);
+
+			co_return decorator.AdornerLayer();
+		}
+		else if (auto layer = adornerLayerOrTopMostElement.try_as<winrt::XamlToolkit::Labs::WinUI::AdornerLayer>())
+		{
+			co_await winrt::XamlToolkit::WinUI::Future::FrameworkElementExtensions::WaitUntilLoadedAsync(layer);
+
+			// If we just have an adorner layer now, we're done!
+			co_return layer;
+		}
+		else
+		{
+			// TODO: Windows.UI.Xaml.Internal.RootScrollViewer is a maybe different and what was causing issues before I looked for ScrollViewers along the way?
+			// It's an internal unexposed type, so maybe it inherits from ScrollViewer? Not sure yet, but might need to detect and
+			// do something different here?
+
+			// ScrollViewers need AdornerLayers so they can provide adorners that scroll with the adorned elements (as it worked in WPF).
+			// Note: ScrollViewers and the Window were the main AdornerLayer integration points in WPF.
+			if (auto scroller = adornerLayerOrTopMostElement.try_as<ScrollViewer>())
+			{
+				auto content = scroller.Content().try_as<FrameworkElement>();
+				// Extra code for RootScrollViewer TODO: Can we detect this better?
+				if (scroller.Parent() == nullptr)
+				{
+					//// XamlMarkupHelper.UnloadObject doesn't work here (throws an invalid value exception) does content need a name?
+					// TODO: Figure out this scenario?
+					throw winrt::hresult_not_implemented(L"RootScrollViewer attachment isn't supported, add a AdornerDecorator or ScrollViewer manually to the top-level of your application.");
+				}
+
+				scroller.Content(nullptr);
+
+				auto layerContainer = winrt::make<AdornerDecorator>();
+				layerContainer.Child(content);
+
+				scroller.Content(layerContainer);
+
+				co_await winrt::XamlToolkit::WinUI::Future::FrameworkElementExtensions::WaitUntilLoadedAsync(layerContainer);
+
+				co_return layerContainer.AdornerLayer();
+			}
+			// Grid seems like the easiest place for us to inject AdornerLayers automatically at the top-level (if needed) - not sure how common this will be?
+			else if (auto grid = adornerLayerOrTopMostElement.try_as<Grid>())
+			{
+				// TODO: Not sure how we want to handle AdornerDecorator in this scenario...
+				auto adornerLayer = winrt::make<AdornerLayer>();
+
+				// TODO: Handle if grid row/columns change.
+				Grid::SetRowSpan(adornerLayer, grid.RowDefinitions().Size());
+				Grid::SetColumnSpan(adornerLayer, grid.ColumnDefinitions().Size());
+				grid.Children().Append(adornerLayer);
+
+				co_await winrt::XamlToolkit::WinUI::Future::FrameworkElementExtensions::WaitUntilLoadedAsync(adornerLayer);
+
+				co_return adornerLayer;
+			}
+		}
+
+		co_return nullptr;
+	}
+
+	void AdornerLayer::AttachAdorner(winrt::XamlToolkit::Labs::WinUI::AdornerLayer const& layer, FrameworkElement const& adornedElement, UIElement const& adornerXaml)
+	{
+		auto adorner = adornerXaml.try_as<winrt::XamlToolkit::Labs::WinUI::Adorner>();
+		if (adorner)
+		{
+			// We already have an adorner type, use it directly.
+		}
+		else
+		{
+			adorner = winrt::make<Adorner>();
+			adorner.Content(adornerXaml);
+		}
+
+		// Add adorner XAML content to the Adorner Layer
+		auto adornerImpl = winrt::get_self<Adorner>(adorner);
+		adornerImpl->AdornerLayer(layer);
+		adornerImpl->AdornedElement(adornedElement);
+
+		layer.Children().Append(adorner);
+	}
+
+	void AdornerLayer::RemoveAdorner(winrt::XamlToolkit::Labs::WinUI::AdornerLayer const& layer, UIElement const& adornerXaml)
+	{
+		if (auto adorner = XamlToolkit::WinUI::DependencyObjectEx::FindAscendantOrSelf<winrt::XamlToolkit::Labs::WinUI::Adorner>(adornerXaml))
+		{
+			auto adornerImpl = winrt::get_self<Adorner>(adorner);
+			adornerImpl->AdornedElement(nullptr);
+			adornerImpl->AdornerLayer(nullptr);
+
+			auto children = layer.Children();
+			if (uint32_t index; children.IndexOf(adorner, index)) 
+				children.RemoveAt(index);
+
+			VisualTreeHelper::DisconnectChildrenRecursive(adorner);
+		}
+	}
+}

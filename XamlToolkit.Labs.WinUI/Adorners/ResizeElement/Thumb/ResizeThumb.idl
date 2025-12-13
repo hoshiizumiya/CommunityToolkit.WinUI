@@ -1,0 +1,52 @@
+namespace XamlToolkit.Labs.WinUI
+{
+    enum ResizeDirection
+    {
+        None,
+        Top,
+        Bottom,
+        Left,
+        Right,
+        TopLeft,
+        TopRight,
+        BottomLeft,
+        BottomRight,
+    };
+
+    enum ResizePositionMode
+    {
+        Canvas,
+        MarginTopLeft,
+    };
+
+    interface ITargetControlResizedEventArgs
+    {
+        Double NewLeft{ get; };
+        Double NewTop{ get; };
+        Double NewWidth{ get; };
+        Double NewHeight{ get; };
+    }
+
+    [default_interface]
+    runtimeclass ResizeThumb : Microsoft.UI.Xaml.Controls.Control
+    {
+        ResizeThumb();
+
+        ResizeDirection Direction;
+        static Microsoft.UI.Xaml.DependencyProperty DirectionProperty{ get; };
+
+        ResizePositionMode PositionMode;
+        static Microsoft.UI.Xaml.DependencyProperty PositionModeProperty{ get; };
+
+        Microsoft.UI.Input.InputSystemCursorShape Cursor;
+        static Microsoft.UI.Xaml.DependencyProperty CursorProperty{ get; };
+
+        Microsoft.UI.Xaml.FrameworkElement TargetControl;
+        static Microsoft.UI.Xaml.DependencyProperty TargetControlProperty{ get; };
+
+        Double DragIncrement;
+        static Microsoft.UI.Xaml.DependencyProperty DragIncrementProperty{ get; };
+
+        event Windows.Foundation.TypedEventHandler<ResizeThumb, ITargetControlResizedEventArgs> TargetControlResized;
+    }
+}

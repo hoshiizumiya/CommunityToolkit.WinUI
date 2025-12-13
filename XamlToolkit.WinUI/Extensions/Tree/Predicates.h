@@ -82,4 +82,26 @@ namespace winrt::XamlToolkit::WinUI
             return predicate(element, state);
         }
     };
+
+    template <typename T>
+    struct PredicateByFunc<T, void>
+    {
+        /// <summary>
+        /// The predicatee to use to match items.
+        /// </summary>
+    private:
+        const std::function<bool(T)>& predicate;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PredicateByFunc{T}"/> struct.
+        /// </summary>
+        /// <param name="predicate">The predicatee to use to match items.</param>
+    public:
+        PredicateByFunc(const std::function<bool(T)>& predicate) : predicate(predicate) {}
+
+        inline bool operator()(T element)
+        {
+            return predicate(element);
+        }
+    };
 }

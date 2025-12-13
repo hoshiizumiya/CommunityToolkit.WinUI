@@ -196,6 +196,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Adorners\Adorner.h">
+      <DependentUpon>Adorners\Adorner.cpp</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Adorners\AdornerDecorator.h">
+      <DependentUpon>Adorners\AdornerDecorator.cpp</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Adorners\AdornerLayer.h">
+      <DependentUpon>Adorners\AdornerLayer.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Adorners\ResizeElement\ResizeElementAdorner.h">
+      <DependentUpon>Adorners\ResizeElement\ResizeElementAdorner.cpp</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Adorners\ResizeElement\Thumb\ResizeThumb.h">
+      <DependentUpon>Adorners\ResizeElement\Thumb\ResizeThumb.cpp</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Adorners\ResizeElement\Thumb\TargetControlResizedEventArgs.h" />
     <ClInclude Include="CanvasLayout\CanvasLayout.h">
       <DependentUpon>CanvasLayout\CanvasLayout.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -297,6 +318,24 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Adorners\Adorner.cpp">
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Adorners\AdornerDecorator.cpp">
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Adorners\AdornerLayer.cpp">
+      <DependentUpon>Adorners\AdornerLayer.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Adorners\ResizeElement\ResizeElementAdorner.cpp">
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Adorners\ResizeElement\Thumb\ResizeThumb.cpp">
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Adorners\ResizeElement\Thumb\ResizeThumb.Helpers.cpp" />
+    <ClCompile Include="Adorners\ResizeElement\Thumb\ResizeThumb.Properties.cpp" />
     <ClCompile Include="CanvasLayout\CanvasLayout.cpp">
       <DependentUpon>CanvasLayout\CanvasLayout.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -465,6 +504,7 @@
     <ClCompile Include="TokenView\TokenView.Selection.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Adorners\Helpers\FrameworkElementExtensions.WaitUntilLoaded.h" />
     <None Include="MarkdownTextBlock\Highlight\rust\highlights.scm" />
     <None Include="XamlToolkit.Labs.WinUI.def" />
     <None Include="MarkdownTextBlock\Highlight\bash\highlights.scm" />
@@ -476,6 +516,25 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Midl Include="Adorners\Adorner.idl">
+      <DependentUpon>Adorners\Adorner.cpp</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="Adorners\AdornerDecorator.idl">
+      <DependentUpon>Adorners\AdornerDecorator.cpp</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="Adorners\AdornerLayer.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Adorners\ResizeElement\ResizeElementAdorner.idl">
+      <DependentUpon>Adorners\ResizeElement\ResizeElementAdorner.cpp</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="Adorners\ResizeElement\Thumb\ResizeThumb.idl">
+      <DependentUpon>Adorners\ResizeElement\Thumb\ResizeThumb.cpp</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="CanvasLayout\CanvasLayout.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -533,6 +592,10 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Adorners\Adorner.xaml" />
+    <Page Include="Adorners\AdornerDecorator.xaml" />
+    <Page Include="Adorners\ResizeElement\ResizeElementAdorner.xaml" />
+    <Page Include="Adorners\ResizeElement\Thumb\ResizeThumb.xaml" />
     <Page Include="MarkdownTextBlock\MarkdownTextBlock.xaml" />
     <Page Include="Marquee\Marquee.xaml" />
     <Page Include="OpacityMaskView\OpacityMaskView.xaml" />

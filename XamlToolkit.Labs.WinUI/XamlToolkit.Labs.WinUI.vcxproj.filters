@@ -69,6 +69,18 @@
     <Filter Include="Controls\MarkdownTextBlock\Highight\rust">
       <UniqueIdentifier>{3a7a3615-08d1-4ecd-9a19-212ff1c098a1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Controls\Adorners">
+      <UniqueIdentifier>{2a89cc61-1f3f-4524-b18f-1cdc908e7b0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\Adorners\Helpers">
+      <UniqueIdentifier>{6baa9119-43e7-4021-abef-0cedae44ca20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\Adorners\ResizeElement">
+      <UniqueIdentifier>{2adaf538-e91b-4526-acfb-efd1d385edc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\Adorners\ResizeElement\Thumb">
+      <UniqueIdentifier>{9187c797-8e4f-4570-b186-7495088f6c0f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -174,6 +186,24 @@
     </ClCompile>
     <ClCompile Include="MarkdownTextBlock\Highlight\rust\rust_scm.cpp">
       <Filter>Controls\MarkdownTextBlock\Highight\rust</Filter>
+    </ClCompile>
+    <ClCompile Include="Adorners\Adorner.cpp">
+      <Filter>Controls\Adorners</Filter>
+    </ClCompile>
+    <ClCompile Include="Adorners\AdornerDecorator.cpp">
+      <Filter>Controls\Adorners</Filter>
+    </ClCompile>
+    <ClCompile Include="Adorners\ResizeElement\ResizeElementAdorner.cpp">
+      <Filter>Controls\Adorners\ResizeElement</Filter>
+    </ClCompile>
+    <ClCompile Include="Adorners\ResizeElement\Thumb\ResizeThumb.cpp">
+      <Filter>Controls\Adorners\ResizeElement\Thumb</Filter>
+    </ClCompile>
+    <ClCompile Include="Adorners\ResizeElement\Thumb\ResizeThumb.Helpers.cpp">
+      <Filter>Controls\Adorners\ResizeElement\Thumb</Filter>
+    </ClCompile>
+    <ClCompile Include="Adorners\ResizeElement\Thumb\ResizeThumb.Properties.cpp">
+      <Filter>Controls\Adorners\ResizeElement\Thumb</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -283,6 +313,9 @@
     <ClInclude Include="ControlHelpers.h">
       <Filter>Controls</Filter>
     </ClInclude>
+    <ClInclude Include="Adorners\ResizeElement\Thumb\TargetControlResizedEventArgs.h">
+      <Filter>Controls\Adorners\ResizeElement\Thumb</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="MarkdownTextBlock\MarkdownTextBlock.idl">
@@ -312,6 +345,9 @@
     <Midl Include="CanvasLayout\CanvasLayout.idl">
       <Filter>Controls\CanvasLayout</Filter>
     </Midl>
+    <Midl Include="Adorners\AdornerLayer.idl">
+      <Filter>Controls\Adorners</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <None Include="XamlToolkit.Labs.WinUI.def" />
@@ -336,6 +372,9 @@
     </None>
     <None Include="MarkdownTextBlock\Highlight\rust\highlights.scm">
       <Filter>Controls\MarkdownTextBlock\Highight\rust</Filter>
+    </None>
+    <None Include="Adorners\Helpers\FrameworkElementExtensions.WaitUntilLoaded.h">
+      <Filter>Controls\Adorners\Helpers</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -362,6 +401,18 @@
     </Page>
     <Page Include="Ribbon\RibbonStyle.xaml">
       <Filter>Controls\Ribbon</Filter>
+    </Page>
+    <Page Include="Adorners\Adorner.xaml">
+      <Filter>Controls\Adorners</Filter>
+    </Page>
+    <Page Include="Adorners\AdornerDecorator.xaml">
+      <Filter>Controls\Adorners</Filter>
+    </Page>
+    <Page Include="Adorners\ResizeElement\Thumb\ResizeThumb.xaml">
+      <Filter>Controls\Adorners\ResizeElement\Thumb</Filter>
+    </Page>
+    <Page Include="Adorners\ResizeElement\ResizeElementAdorner.xaml">
+      <Filter>Controls\Adorners\ResizeElement</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>

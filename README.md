@@ -27,6 +27,9 @@ You can install the C++ WinUI Community Toolkit packages via NuGet (it also supp
 
 ## Controls
 
+### Adorners
+![Adorners](docs/images/Adorners.png)
+
 ### MarkdownTextBlock
 
 `MarkdownTextBlock` supports syntax highlighting for **C#, C++, XML, JSON, Bash and Rust**.

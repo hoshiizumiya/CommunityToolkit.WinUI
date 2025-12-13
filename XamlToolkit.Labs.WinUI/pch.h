@@ -34,3 +34,8 @@
 #include "Ribbon\Ribbon.h"
 #include "Ribbon\RibbonGroup.h"
 #include "Ribbon\RibbonCollapsibleGroup.h"
+#include "Adorners\AdornerLayer.h"
+#include "Adorners\Adorner.h"
+#include "Adorners\AdornerDecorator.h"
+#include "Adorners\ResizeElement\ResizeElementAdorner.h"
+#include "Adorners\ResizeElement\Thumb\ResizeThumb.h"
