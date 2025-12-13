@@ -24,6 +24,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 		static constexpr auto MarqueeTransformPartName = L"MarqueeTransform";
 
 		static constexpr auto MarqueeActiveState = L"MarqueeActive";
+		static constexpr auto MarqueePausedState = L"MarqueePaused";
 		static constexpr auto MarqueeStoppedState = L"MarqueeStopped";
 
 		static constexpr auto DirectionVisualStateGroupName = L"DirectionStateGroup";
@@ -44,6 +45,10 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 		Storyboard _marqueeStoryboard;
 
 		bool _isActive;
+		bool _isPaused;
+
+		double _stoppedPosition;
+		DependencyProperty _animationProperty;
 
 	private:
 		static std::wstring_view GetVisualStateName(MarqueeDirection direction);
@@ -57,7 +62,23 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 
 		void StartMarquee();
 
+		void RestartMarquee();
+
+		void ResumeMarquee();
+
+		void PauseMarquee();
+
 		void StopMarquee();
+
+		double AutoPlay()
+		{
+			return winrt::unbox_value<double>(GetValue(AutoPlayProperty()));
+		}
+
+		void AutoPlay(bool value)
+		{
+			SetValue(AutoPlayProperty(), winrt::box_value(value));
+		}
 
 		double Speed()
 		{
@@ -100,17 +121,21 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 		}
 
 	private:
-		void StopMarquee(bool initialState);
+		void PlayMarquee(bool fromStart = false);
 
-		bool UpdateAnimation(bool resume = true);
+		void UpdateMarquee(bool onTheFly);
+
+		bool UpdateAnimation(TimeSpan& seekPoint);
 
 		Storyboard CreateMarqueeStoryboardAnimation(double start, double end, TimeSpan duration, std::wstring_view targetProperty);
 
-		static void BehaviorPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e);
+		void ClipMarquee(double width = 0, double height = 0);
 
-		static void DirectionPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e);
+		static void BehaviorPropertyChanged(DependencyObject const& d, DependencyPropertyChangedEventArgs const& e);
 
-		static void PropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e);
+		static void DirectionPropertyChanged(DependencyObject const& d, DependencyPropertyChangedEventArgs const& e);
+
+		static void PropertyChanged(DependencyObject const& d, DependencyPropertyChangedEventArgs const& e);
 
 		bool IsTicker()
 		{
@@ -138,11 +163,18 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 		}
 
 	public:
-		wil::typed_event<class_type, IInspectable> MarqueeBegan;
+		wil::typed_event<class_type, IInspectable> MarqueeStarted;
 
 		wil::typed_event<class_type, IInspectable> MarqueeStopped;
 
+		wil::typed_event<class_type, IInspectable> MarqueeResumed;
+
+		wil::typed_event<class_type, IInspectable> MarqueePaused;
+
 		wil::typed_event<class_type, IInspectable> MarqueeCompleted;
+
+		static inline const wil::single_threaded_property<DependencyProperty> AutoPlayProperty =
+			DependencyProperty::Register(L"AutoPlay", winrt::xaml_typename<bool>(), winrt::xaml_typename<class_type>(), PropertyMetadata(winrt::box_value(false)));
 
 		static inline const wil::single_threaded_property<DependencyProperty> SpeedProperty =
 			DependencyProperty::Register(L"Speed", winrt::xaml_typename<double>(), winrt::xaml_typename<class_type>(), PropertyMetadata(winrt::box_value(32.0), &Marquee::PropertyChanged));
@@ -158,10 +190,11 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 
 	private:
 
-		winrt::event_token _loadedToken;
-		winrt::event_token _unloadedToken;
-		winrt::event_token _containerSizeChangedToken;
-		winrt::event_token _storyBoardCompletedToken;
+		FrameworkElement::Loaded_revoker _loadedRevoker;
+		FrameworkElement::Unloaded_revoker _unloadedRevoker;
+		FrameworkElement::SizeChanged_revoker _containerSizeChangedRevoker;
+		FrameworkElement::SizeChanged_revoker _segmentSizeChangedRevoker;
+		Timeline::Completed_revoker _storyBoardCompletedRevoker;
 
 		void Marquee_Loaded(IInspectable const& sender, RoutedEventArgs const& e);
 

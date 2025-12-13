@@ -15,20 +15,33 @@
         Down,
     };
 
-    [default_interface]
     runtimeclass Marquee : Microsoft.UI.Xaml.Controls.ContentControl
     {
         Marquee();
 
         void StartMarquee();
 
+        void RestartMarquee();
+
+        void ResumeMarquee();
+
+        void PauseMarquee();
+
         void StopMarquee();
 
-        event Windows.Foundation.TypedEventHandler<Marquee, Object> MarqueeBegan;
+        event Windows.Foundation.TypedEventHandler<Marquee, Object> MarqueeStarted;
 
         event Windows.Foundation.TypedEventHandler<Marquee, Object> MarqueeStopped;
 
+        event Windows.Foundation.TypedEventHandler<Marquee, Object> MarqueeResumed;
+
+        event Windows.Foundation.TypedEventHandler<Marquee, Object> MarqueePaused;
+
         event Windows.Foundation.TypedEventHandler<Marquee, Object> MarqueeCompleted;
+
+        Boolean AutoPlay;
+
+        static Microsoft.UI.Xaml.DependencyProperty AutoPlayProperty{ get; };
 
         Double Speed;
 
