@@ -12,8 +12,6 @@ namespace winrt::XamlToolkit::WinUI::Controls
 		winrt::Microsoft::UI::Xaml::DependencyProperty _property;
 		std::optional<int64_t> _registrationToken;
 
-		winrt::event<winrt::Windows::Foundation::EventHandler<TPropertyType>> _valueChanged;
-
 	public:
 		PropertyChangeEventSource(const PropertyChangeEventSource&) = delete;
 		PropertyChangeEventSource& operator=(const PropertyChangeEventSource&) = delete;
@@ -30,19 +28,11 @@ namespace winrt::XamlToolkit::WinUI::Controls
 					winrt::Microsoft::UI::Xaml::DependencyProperty const& dp)
 				{
 					auto value = winrt::unbox_value<TPropertyType>(sender.GetValue(dp));
-					_valueChanged(nullptr, value);
+					ValueChanged.invoke(nullptr, value);
 				});
 		}
 
-		winrt::event_token ValueChanged(winrt::Windows::Foundation::EventHandler<TPropertyType> const& handler)
-		{
-			return _valueChanged.add(handler);
-		}
-
-		void ValueChanged(winrt::event_token token)
-		{
-			_valueChanged.remove(token);
-		}
+		wil::untyped_event<TPropertyType> ValueChanged;
 
 		TPropertyType Value() { return winrt::unbox_value<TPropertyType>(_source.GetValue(_property)); }
 
