@@ -12,6 +12,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 	SegmentedItem::SegmentedItem()
 	{
 		DefaultStyleKey(winrt::box_value(winrt::xaml_typename<class_type>()));
+		RegisterPropertyChangedCallback(UIElement::VisibilityProperty(), { this, &SegmentedItem::OnVisibilityChanged });
 	}
 
 	void SegmentedItem::OnApplyTemplate()
@@ -19,6 +20,19 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		base_type::OnApplyTemplate();
 		OnIconChanged();
 		ContentChanged();
+	}
+
+	void SegmentedItem::OnVisibilityChanged(DependencyObject const& sender, DependencyProperty const& dp)
+	{
+		// If the parent is a Segmented control with an EqualPanel,
+		// we need to invalidate measure to update the layout.
+		if (auto segmented = Parent().try_as<winrt::XamlToolkit::WinUI::Controls::Segmented>())
+		{
+			if (auto panel = segmented.ItemsPanelRoot().try_as<Panel>())
+			{
+				panel.InvalidateMeasure();
+			}
+		}
 	}
 
 	void SegmentedItem::OnContentChanged(IInspectable const& oldContent, IInspectable const& newContent)

@@ -19,6 +19,8 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
 		void OnApplyTemplate();
 
+		void OnVisibilityChanged(DependencyObject const& sender, DependencyProperty const& dp);
+
 		void OnContentChanged(IInspectable const& oldContent, IInspectable const& newContent);
 
 		void ContentChanged();
