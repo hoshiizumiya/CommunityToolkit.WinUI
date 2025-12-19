@@ -88,10 +88,6 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 				{
 					index -= 1;
 				}
-				else
-				{
-					retVal = true;
-				}
 			}
 			else if (direction == MoveDirection::Next)
 			{
