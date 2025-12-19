@@ -103,7 +103,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
                 }
 
                 auto desiredMeasure = UvMeasure(orientation, child.DesiredSize());
-                if ((desiredMeasure.U + position.U + paddingEnd.U) > parentMeasure.U)
+                if ((desiredMeasure.U + position.U + paddingEnd.U) > parentMeasure.U || position.U >= parentMeasure.U)
                 {
                     // next row!
                     position.U = paddingStart.U;
