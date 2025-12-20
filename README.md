@@ -27,7 +27,11 @@ You can install the C++ WinUI Community Toolkit packages via NuGet (it also supp
 
 ## Controls
 
-### Adorners
+### RivePlayer
+![RivePlayer](docs/images/Rive.webp)
+Rive support is available via [`XamlToolkit.WinUI.Rive`](https://github.com/lgztx96/XamlToolkit.WinUI.Rive), an optional sub-project maintained in its own repository. See the repository for details.
+
+### Adorner / ResizeElementAdorner
 ![Adorners](docs/images/Adorners.png)
 
 ### MarkdownTextBlock
