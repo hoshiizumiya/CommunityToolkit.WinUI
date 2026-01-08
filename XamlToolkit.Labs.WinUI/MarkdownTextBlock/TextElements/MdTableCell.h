@@ -53,7 +53,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::TextElements
             return _rowIndex;
         }
 
-        MdTableCell(TextAlignment textAlignment, bool isHeader, int columnIndex, int rowIndex)
+        MdTableCell(TextAlignment textAlignment, bool isHeader, int columnIndex, int rowIndex, MarkdownThemes const& themes)
         {
             _isHeader = isHeader;
             _columnIndex = columnIndex;
@@ -77,7 +77,9 @@ namespace winrt::XamlToolkit::Labs::WinUI::TextElements
                 }
             }());
 
-            _container.Padding(MarkdownConfig().Default().Themes().TableCellPadding());
+            // Use themed table cell padding
+            _container.Padding(themes.TableCellPadding());
+            
             if (_isHeader)
             {
                 _flowDocument.RichTextBlock().FontWeight(winrt::Microsoft::UI::Text::FontWeights::Bold());

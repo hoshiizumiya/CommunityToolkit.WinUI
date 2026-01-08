@@ -76,7 +76,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::TextElements
 				});
 			_flowDoc = std::make_unique<MdFlowDocument>();
 			_inlineUIContainer.Child(_hyperLinkButton);
-			_flowDoc->RichTextBlock().Foreground(MarkdownConfig().Default().Themes().LinkForeground());
+			_flowDoc->RichTextBlock().Foreground(renderer->Config().Themes().LinkForeground());
 			_hyperLinkButton.Content(_flowDoc->RichTextBlock());
 		}
 

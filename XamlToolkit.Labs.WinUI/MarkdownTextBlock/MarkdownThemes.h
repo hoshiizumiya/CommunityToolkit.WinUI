@@ -88,6 +88,8 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 
         wil::single_threaded_rw_property<FontWeight> InlineCodeFontWeight = FontWeights::Normal();
 
+        wil::single_threaded_rw_property<FontWeight> BoldFontWeight = FontWeights::Bold();
+
         // Code block styling
         wil::single_threaded_rw_property<Brush> CodeBlockBackground = Application::Current().Resources().Lookup(box_value(L"ExpanderHeaderBackground")).as<Brush>();
         wil::single_threaded_rw_property<Brush> CodeBlockBorderBrush = SolidColorBrush(Colors::Gray());

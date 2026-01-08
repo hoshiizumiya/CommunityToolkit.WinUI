@@ -77,6 +77,8 @@ namespace XamlToolkit.Labs.WinUI
 
         Windows.UI.Text.FontWeight InlineCodeFontWeight{ get; set; };
 
+        Windows.UI.Text.FontWeight BoldFontWeight{ get; set; };
+
         // Code block styling
         Microsoft.UI.Xaml.Media.Brush CodeBlockBackground{ get; set; };
         Microsoft.UI.Xaml.Media.Brush CodeBlockBorderBrush{ get; set; };

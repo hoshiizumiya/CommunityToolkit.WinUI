@@ -29,6 +29,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::TextElements
 		MdAutolinkInline(std::wstring_view url, std::wstring_view baseUrl, WinUIRenderer* renderer)
 		{
 			_hyperlink.NavigateUri(Extensions::GetUri(url, baseUrl));
+			_hyperlink.Foreground(renderer->Config().Themes().LinkForeground());
 			_hyperlink.Click([markdownWeak{ renderer->MarkdownTextBlock() }](auto& sender, auto&)
 				{
 					if (auto hyperlink = sender.template try_as<Hyperlink>())

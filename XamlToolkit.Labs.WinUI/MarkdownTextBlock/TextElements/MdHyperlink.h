@@ -32,7 +32,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::TextElements
             // _htmlNode = htmlNode;
 
             _hyperlink.NavigateUri(Extensions::GetUri(url, baseUrl));
-            _hyperlink.Foreground(MarkdownConfig::Default().Themes().LinkForeground());
+            _hyperlink.Foreground(renderer->Config().Themes().LinkForeground());
             _hyperlink.Click([markdownWeak{ renderer->MarkdownTextBlock() }](auto& sender, auto&)
                 {
                     if (auto hyperlink = sender.template try_as<Hyperlink>())

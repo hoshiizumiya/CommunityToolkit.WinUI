@@ -30,6 +30,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::TextElements
 		Windows::Foundation::Uri _uri;
 		IImageProvider _imageProvider{ nullptr };
 		ISVGRenderer _svgRenderer{ nullptr };
+		MarkdownThemes _themes{ nullptr };
 		double _precedentWidth;
 		double _precedentHeight;
 		bool _loaded = false;
@@ -45,6 +46,8 @@ namespace winrt::XamlToolkit::Labs::WinUI::TextElements
 		{
 			_imageProvider = config.ImageProvider();
 			_svgRenderer = config.SVGRenderer() ? config.SVGRenderer() : winrt::make<DefaultSVGRenderer>();
+			_themes = config.Themes();
+
 			Init();
 			auto linkInline = uri.AbsoluteUri();
 			auto size = Extensions::GetMarkdownImageSize(linkInline);
@@ -154,17 +157,46 @@ namespace winrt::XamlToolkit::Labs::WinUI::TextElements
 					_image.Height(_precedentHeight);
 				}
 
-				// Apply theme constraints if provided
-				auto themes = MarkdownConfig().Default().Themes();
-				if (themes.ImageMaxWidth() > 0)
+				// Determine the actual image dimensions
+				double actualWidth = _precedentWidth != 0 ? _precedentWidth : _image.Width();
+				double actualHeight = _precedentHeight != 0 ? _precedentHeight : _image.Height();
+
+				// Apply max constraints and calculate the final size
+				// When using Uniform stretch with max constraints, we need to calculate
+				// the actual rendered size to avoid gaps
+				double finalWidth = actualWidth;
+				double finalHeight = actualHeight;
+
+				bool hasMaxWidth = _themes.ImageMaxWidth() > 0;
+				bool hasMaxHeight = _themes.ImageMaxHeight() > 0;
+
+				if (hasMaxWidth || hasMaxHeight)
 				{
-					_image.MaxWidth(themes.ImageMaxWidth());
+					double scaleX = hasMaxWidth && actualWidth > _themes.ImageMaxWidth()
+						? _themes.ImageMaxWidth() / actualWidth
+						: 1.0;
+					double scaleY = hasMaxHeight && actualHeight > _themes.ImageMaxHeight()
+						? _themes.ImageMaxHeight() / actualHeight
+						: 1.0;
+
+					// For Uniform stretch, use the smaller scale to maintain aspect ratio
+					if (_themes.ImageStretch() == Stretch::Uniform || _themes.ImageStretch() == Stretch::UniformToFill)
+					{
+						double uniformScale = std::min(scaleX, scaleY);
+						finalWidth = actualWidth * uniformScale;
+						finalHeight = actualHeight * uniformScale;
+					}
+					else
+					{
+						// For other stretch modes, apply constraints independently
+						finalWidth = actualWidth * scaleX;
+						finalHeight = actualHeight * scaleY;
+					}
 				}
-				if (themes.ImageMaxHeight() > 0)
-				{
-					_image.MaxHeight(themes.ImageMaxHeight());
-				}
-				_image.Stretch(themes.ImageStretch());
+
+				_image.Width(finalWidth);
+				_image.Height(finalHeight);
+				_image.Stretch(_themes.ImageStretch());
 			}
 			catch (const winrt::hresult_error&) {}
 		}

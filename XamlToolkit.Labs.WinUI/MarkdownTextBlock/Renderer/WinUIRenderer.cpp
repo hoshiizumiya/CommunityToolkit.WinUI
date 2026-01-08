@@ -257,7 +257,7 @@ namespace winrt::XamlToolkit::Labs::WinUI
 			}
 
 			bool isHeader = (type == MD_BLOCK_TH);
-			auto cell = std::make_shared<TextElements::MdTableCell>(align, isHeader, renderer->_currentColumn, renderer->_currentRow);
+			auto cell = std::make_shared<TextElements::MdTableCell>(align, isHeader, renderer->_currentColumn, renderer->_currentRow, renderer->Config().Themes());
 
 			renderer->BeginBlock(cell);
 
@@ -355,7 +355,7 @@ namespace winrt::XamlToolkit::Labs::WinUI
 		case MD_SPAN_STRONG:
 		{
 			auto emphasis = std::make_shared<TextElements::MdEmphasisInline>();
-			emphasis->SetBold();
+			emphasis->SetBold(renderer->Config().Themes().BoldFontWeight());
 			renderer->BeginInlineContainer(emphasis);
 			break;
 		}

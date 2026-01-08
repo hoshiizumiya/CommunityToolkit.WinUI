@@ -57,9 +57,9 @@ namespace winrt::XamlToolkit::Labs::WinUI::TextElements
             }
         }
 
-        void SetBold()
+        void SetBold(std::optional<FontWeight> const& fontWeight = std::nullopt)
         {
-            _span.FontWeight(winrt::Microsoft::UI::Text::FontWeights::Bold());
+            _span.FontWeight(fontWeight ? *fontWeight : winrt::Microsoft::UI::Text::FontWeights::Bold());
             _isBold = true;
         }
 
