@@ -79,7 +79,8 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 			else if (e.Key() == VirtualKey::Right)
 				dir = -1;
 		}
-		else 
+
+		if (dir == 0)
 		{
 			switch (e.Key())
 			{
