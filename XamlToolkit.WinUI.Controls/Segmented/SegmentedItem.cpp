@@ -4,11 +4,12 @@
 #include "SegmentedItem.g.cpp"
 #endif
 
-using namespace winrt;
-using namespace Microsoft::UI::Xaml;
-
 namespace winrt::XamlToolkit::WinUI::Controls::implementation
 {
+	IconElement SegmentedItem::Icon() const { return winrt::unbox_value<IconElement>(GetValue(IconProperty)); }
+
+	void SegmentedItem::Icon(IconElement const& value) { SetValue(IconProperty, value); }
+
 	SegmentedItem::SegmentedItem()
 	{
 		DefaultStyleKey(winrt::box_value(winrt::xaml_typename<class_type>()));
@@ -18,8 +19,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 	void SegmentedItem::OnApplyTemplate()
 	{
 		base_type::OnApplyTemplate();
-		OnIconChanged();
-		ContentChanged();
+		UpdateVisualStates();
 	}
 
 	void SegmentedItem::OnVisibilityChanged(DependencyObject const& sender, DependencyProperty const& dp)
@@ -38,38 +38,42 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 	void SegmentedItem::OnContentChanged(IInspectable const& oldContent, IInspectable const& newContent)
 	{
 		base_type::OnContentChanged(oldContent, newContent);
-		ContentChanged();
-	}
-
-	void SegmentedItem::ContentChanged()
-	{
-		if (Content() != nullptr)
-		{
-			VisualStateManager::GoToState(*this, IconLeftState, true);
-		}
-		else
-		{
-			VisualStateManager::GoToState(*this, IconOnlyState, true);
-		}
+		UpdateVisualStates();
 	}
 
 	void SegmentedItem::OnIconPropertyChanged([[maybe_unused]] IconElement const& oldValue, [[maybe_unused]] IconElement const& newValue)
 	{
-		OnIconChanged();
+		UpdateVisualStates();
 	}
 
-	void SegmentedItem::OnIconChanged()
+	void SegmentedItem::UpdateOrientation(Orientation orientation)
 	{
-		if (Icon() != nullptr)
+		_isVertical = orientation == Orientation::Vertical;
+		UpdateVisualStates();
+	}
+
+	void SegmentedItem::UpdateVisualStates()
+	{
+		std::wstring_view contentState;
+
+		const bool iconIsNull = (Icon() == nullptr);
+		const bool contentIsNull = (Content() == nullptr);
+
+		if (!iconIsNull && !contentIsNull)
 		{
-			VisualStateManager::GoToState(*this, IconLeftState, true);
+			contentState = _isVertical ? IconTopState : IconLeftState;
+		}
+		else if (!iconIsNull && contentIsNull)
+		{
+			contentState = IconOnlyState;
 		}
 		else
 		{
-			VisualStateManager::GoToState(*this, ContentOnlyState, true);
+			contentState = ContentOnlyState;
 		}
-	}
 
-	IconElement SegmentedItem::Icon() { return winrt::unbox_value<IconElement>(GetValue(IconProperty)); }
-	void SegmentedItem::Icon(IconElement const& value) { SetValue(IconProperty, value); }
+		// Update visual states
+		VisualStateManager::GoToState(*this, contentState, true);
+		VisualStateManager::GoToState(*this, _isVertical ? VerticalState : HorizontalState, true);
+	}
 }

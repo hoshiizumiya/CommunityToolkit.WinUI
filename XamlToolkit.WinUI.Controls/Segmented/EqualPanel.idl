@@ -1,10 +1,11 @@
 ﻿namespace XamlToolkit.WinUI.Controls
 {
-    [bindable]
-    [default_interface]
     runtimeclass EqualPanel : Microsoft.UI.Xaml.Controls.Panel
     {
         EqualPanel();
+
+        Microsoft.UI.Xaml.Controls.Orientation Orientation;
+        static Microsoft.UI.Xaml.DependencyProperty OrientationProperty{ get; };
 
         Double Spacing;
         static Microsoft.UI.Xaml.DependencyProperty SpacingProperty{ get; };

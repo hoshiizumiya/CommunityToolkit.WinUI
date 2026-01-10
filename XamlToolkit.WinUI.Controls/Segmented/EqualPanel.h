@@ -9,36 +9,93 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 {
     struct EqualPanel : EqualPanelT<EqualPanel>
     {
-        double _maxItemWidth = 0;
-        double _maxItemHeight = 0;
-        int _visibleItemsCount = 0;
+        static const wil::single_threaded_property<winrt::Microsoft::UI::Xaml::DependencyProperty> OrientationProperty;
 
-        double Spacing() { return winrt::unbox_value<double>(GetValue(SpacingProperty)); }
-        void Spacing(double value) { return SetValue(SpacingProperty, winrt::box_value(value)); }
+        winrt::Microsoft::UI::Xaml::Controls::Orientation Orientation() const;
 
-        static void OnSpacingChanged(DependencyObject const& d, DependencyPropertyChangedEventArgs const& e);
+        void Orientation(winrt::Microsoft::UI::Xaml::Controls::Orientation const& value) const;
 
-        /// <summary>
-        /// Identifies the Spacing dependency property.
-        /// </summary>
-        /// <returns>The identifier for the <see cref="Spacing"/> dependency property.</returns>
-        static inline const wil::single_threaded_property<DependencyProperty> SpacingProperty = DependencyProperty::Register(
-            L"Spacing",
-            winrt::xaml_typename<double>(),
-            winrt::xaml_typename<class_type>(),
-            PropertyMetadata(winrt::box_value(0.0), &EqualPanel::OnSpacingChanged));
+        static const wil::single_threaded_property<DependencyProperty> SpacingProperty;
 
-        EqualPanel()
-        {
-            RegisterPropertyChangedCallback(FrameworkElement::HorizontalAlignmentProperty(), 
-                { this, &EqualPanel::OnHorizontalAlignmentChanged });
-        }
+        double Spacing() const;
+
+        void Spacing(double value);
+
+        EqualPanel();
 
         Size MeasureOverride(Size availableSize);
 
         Size ArrangeOverride(Size finalSize);
 
-        void OnHorizontalAlignmentChanged(DependencyObject const& sender, DependencyProperty const& dp);
+        void OnAlignmentChanged(DependencyObject const& sender, DependencyProperty const& dp);
+
+        static void OnEqualPanelPropertyChanged(DependencyObject const& d, DependencyPropertyChangedEventArgs const& e);
+
+    private:
+        struct UVCoord
+        {
+        private:
+            bool _horizontal;
+
+        public:
+            double X;
+            double Y;
+
+            UVCoord(double x, double y, winrt::Microsoft::UI::Xaml::Controls::Orientation orientation)
+                : _horizontal(orientation == Orientation::Horizontal),
+                X(x),
+                Y(y)
+            {
+            }
+
+            UVCoord(const Size& size, winrt::Microsoft::UI::Xaml::Controls::Orientation orientation)
+                : UVCoord(size.Width, size.Height, orientation)
+            {
+            }
+
+            double U() const
+            {
+                return _horizontal ? X : Y;
+            }
+
+            void U(double value)
+            {
+                if (_horizontal)
+                {
+                    X = value;
+                }
+                else
+                {
+                    Y = value;
+                }
+            }
+
+            double V() const
+            {
+                return _horizontal ? Y : X;
+            }
+
+            void V(double value)
+            {
+                if (_horizontal)
+                {
+                    Y = value;
+                }
+                else
+                {
+                    X = value;
+                }
+            }
+
+            winrt::Windows::Foundation::Size Size() const
+            {
+                return winrt::Windows::Foundation::Size(X, Y);
+            }
+        };
+
+        double _maxItemWidth = 0;
+        double _maxItemHeight = 0;
+        int _visibleItemsCount = 0;
     };
 }
 

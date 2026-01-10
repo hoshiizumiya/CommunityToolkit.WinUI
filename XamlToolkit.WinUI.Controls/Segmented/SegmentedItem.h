@@ -12,8 +12,11 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 	struct SegmentedItem : SegmentedItemT<SegmentedItem>
 	{
 		static constexpr auto IconLeftState = L"IconLeft";
+		static constexpr auto IconTopState = L"IconTop";
 		static constexpr auto IconOnlyState = L"IconOnly";
 		static constexpr auto ContentOnlyState = L"ContentOnly";
+		static constexpr auto HorizontalState = L"Horizontal";
+		static constexpr auto VerticalState = L"Vertical";
 
 		SegmentedItem();
 
@@ -27,9 +30,11 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
 		void OnIconPropertyChanged(IconElement const& oldValue, IconElement const& newValue);
 
-		void OnIconChanged();
+		void UpdateOrientation(Orientation orientation);
 
-		IconElement Icon();
+		void UpdateVisualStates();
+
+		IconElement Icon() const;
 
 		void Icon(IconElement const& value);
 
@@ -42,6 +47,9 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 					auto self = winrt::get_self<SegmentedItem>(d.template as<class_type>())->get_strong();
 					self->OnIconPropertyChanged(winrt::unbox_value<IconElement>(e.OldValue()), winrt::unbox_value<IconElement>(e.NewValue()));
 				}));
+
+	private:
+		bool _isVertical = false;
 	};
 }
 

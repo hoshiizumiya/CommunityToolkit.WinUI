@@ -1,8 +1,11 @@
 namespace XamlToolkit.WinUI.Controls
 {
-    [default_interface]
     runtimeclass Segmented : Microsoft.UI.Xaml.Controls.ListViewBase
     {
         Segmented();
+
+        Microsoft.UI.Xaml.Controls.Orientation Orientation;
+
+        static Microsoft.UI.Xaml.DependencyProperty OrientationProperty{ get; };
     }
 }

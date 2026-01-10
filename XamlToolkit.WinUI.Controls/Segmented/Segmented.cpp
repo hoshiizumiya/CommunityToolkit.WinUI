@@ -4,26 +4,55 @@
 #include "Segmented.g.cpp"
 #endif
 
-using namespace winrt;
-using namespace Microsoft::UI::Xaml;
-
 namespace winrt::XamlToolkit::WinUI::Controls::implementation
 {
+	const wil::single_threaded_property<winrt::Microsoft::UI::Xaml::DependencyProperty> Segmented::OrientationProperty =
+		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"Orientation",
+			winrt::xaml_typename<winrt::Microsoft::UI::Xaml::Controls::Orientation>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata
+			{
+				winrt::box_value(winrt::Microsoft::UI::Xaml::Controls::Orientation::Horizontal),
+				&Segmented::OnOrientationChanged
+			});
+
+	winrt::Microsoft::UI::Xaml::Controls::Orientation Segmented::Orientation() const
+	{
+		return winrt::unbox_value<winrt::Microsoft::UI::Xaml::Controls::Orientation>(GetValue(OrientationProperty));
+	}
+
+	void Segmented::Orientation(winrt::Microsoft::UI::Xaml::Controls::Orientation const& value) const
+	{
+		SetValue(OrientationProperty, winrt::box_value(value));
+	}
+
 	Segmented::Segmented()
 	{
 		DefaultStyleKey(winrt::box_value(winrt::xaml_typename<class_type>()));
 
 		RegisterPropertyChangedCallback(Selector::SelectedIndexProperty(), { this, &Segmented::OnSelectedIndexChanged });
+		RegisterPropertyChangedCallback(OrientationProperty(), { this, &Segmented::OnSelectedIndexChanged });
+	}
+
+	void Segmented::PrepareContainerForItemOverride(DependencyObject const& element, IInspectable const& item)
+	{
+		base_type::PrepareContainerForItemOverride(element, item);
+		if (auto segmentedItem = element.try_as<winrt::XamlToolkit::WinUI::Controls::SegmentedItem>())
+		{
+			auto itemImpl = winrt::get_self<winrt::XamlToolkit::WinUI::Controls::implementation::SegmentedItem>(segmentedItem);
+			itemImpl->UpdateOrientation(Orientation());
+		}
 	}
 
 	DependencyObject Segmented::GetContainerForItemOverride()
 	{
-		return winrt::make<XamlToolkit::WinUI::Controls::implementation::SegmentedItem>();
+		return winrt::make<winrt::XamlToolkit::WinUI::Controls::implementation::SegmentedItem>();
 	}
 
 	bool Segmented::IsItemItsOwnContainerOverride(IInspectable const& item)
 	{
-		return static_cast<bool>(item.try_as<XamlToolkit::WinUI::Controls::SegmentedItem>());
+		return static_cast<bool>(item.try_as<winrt::XamlToolkit::WinUI::Controls::SegmentedItem>());
 	}
 
 	void Segmented::OnApplyTemplate()
@@ -39,29 +68,39 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		_previewKeyDownRevoker = PreviewKeyDown(winrt::auto_revoke, { this, &Segmented::Segmented_PreviewKeyDown });
 	}
 
-	void Segmented::PrepareContainerForItemOverride(DependencyObject const& element, IInspectable const& item)
-	{
-		base_type::PrepareContainerForItemOverride(element, item);
-		//if (auto segmentedItem = element.try_as<XamlToolkit::WinUI::Controls::SegmentedItem>())
-		//{
-		//	_loadedEventToken = segmentedItem.Loaded({ this, &Segmented::SegmentedItem_Loaded });
-		//}
-	}
-
 	void Segmented::Segmented_PreviewKeyDown([[maybe_unused]] IInspectable const& sender, KeyRoutedEventArgs const& e)
 	{
-		switch (e.Key())
-		{
-		case VirtualKey::Left: e.Handled(MoveFocus(MoveDirection::Previous)); break;
-		case VirtualKey::Right: e.Handled(MoveFocus(MoveDirection::Next)); break;
-		}
-	}
+		int dir = 0;
 
-	void Segmented::SegmentedItem_Loaded(IInspectable const& sender, [[maybe_unused]] RoutedEventArgs const& e) const
-	{
-		if (auto segmentedItem = sender.try_as<XamlToolkit::WinUI::Controls::SegmentedItem>())
+		if (FlowDirection() == FlowDirection::RightToLeft)
 		{
-			// if (_loadedEventToken) segmentedItem.Loaded(_loadedEventToken);
+			if (e.Key() == VirtualKey::Left)
+				dir = 1;
+			else if (e.Key() == VirtualKey::Right)
+				dir = -1;
+		}
+		else 
+		{
+			switch (e.Key())
+			{
+			case VirtualKey::Left:
+			case VirtualKey::Up:
+				dir = -1;
+				break;
+
+			case VirtualKey::Right:
+			case VirtualKey::Down:
+				dir = 1;
+				break;
+
+			default:
+				std::unreachable();
+			}
+		}
+
+		if (dir != 0)
+		{
+			e.Handled(MoveFocus(dir));
 		}
 	}
 
@@ -70,9 +109,8 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		base_type::OnItemsChanged(e);
 	}
 
-	bool Segmented::MoveFocus(MoveDirection direction)
+	bool Segmented::MoveFocus(int adjustment)
 	{
-		bool retVal = false;
 		auto currentContainerItem = GetCurrentContainerItem();
 
 		if (currentContainerItem != nullptr)
@@ -80,22 +118,9 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 			auto currentItem = ItemFromContainer(currentContainerItem);
 			uint32_t previousIndex;
 			Items().IndexOf(currentItem, previousIndex);
-			auto index = previousIndex;
 
-			if (direction == MoveDirection::Previous)
-			{
-				if (previousIndex > 0)
-				{
-					index -= 1;
-				}
-			}
-			else if (direction == MoveDirection::Next)
-			{
-				if (previousIndex < Items().Size() - 1)
-				{
-					index += 1;
-				}
-			}
+			// Apply the adjustment, with a clamp
+			auto index = std::clamp<int>(previousIndex + adjustment, 0, Items().Size());
 
 			// Only do stuff if the index is actually changing
 			if (index != previousIndex)
@@ -103,23 +128,23 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 				if (auto newItem = ContainerFromIndex(index).try_as<XamlToolkit::WinUI::Controls::SegmentedItem>())
 				{
 					newItem.Focus(FocusState::Keyboard);
-					retVal = true;
+					return true;
 				}
 			}
 		}
 
-		return retVal;
+		return false;
 	}
 
-	XamlToolkit::WinUI::Controls::SegmentedItem Segmented::GetCurrentContainerItem()
+	winrt::XamlToolkit::WinUI::Controls::SegmentedItem Segmented::GetCurrentContainerItem()
 	{
 		if (ControlHelpers::IsXamlRootAvailable() && XamlRoot() != nullptr)
 		{
-			return FocusManager::GetFocusedElement(XamlRoot()).try_as<XamlToolkit::WinUI::Controls::SegmentedItem>();
+			return FocusManager::GetFocusedElement(XamlRoot()).try_as<winrt::XamlToolkit::WinUI::Controls::SegmentedItem>();
 		}
 		else
 		{
-			return FocusManager::GetFocusedElement().try_as<XamlToolkit::WinUI::Controls::SegmentedItem>();
+			return FocusManager::GetFocusedElement().try_as<winrt::XamlToolkit::WinUI::Controls::SegmentedItem>();
 		}
 	}
 
@@ -130,6 +155,19 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		{
 			// We catch the correct SelectedIndex and save it.
 			_internalSelectedIndex = SelectedIndex();
+		}
+	}
+
+	void Segmented::OnOrientationChanged(DependencyObject const& sender, [[maybe_unused]] DependencyPropertyChangedEventArgs const& dp)
+	{
+		auto segmented = sender.as<winrt::XamlToolkit::WinUI::Controls::Segmented>();
+		for (uint32_t i = 0; i < segmented.Items().Size(); i++)
+		{
+			if (auto item = segmented.ContainerFromIndex(i).try_as<winrt::XamlToolkit::WinUI::Controls::SegmentedItem>())
+			{
+				auto itemImpl = winrt::get_self<winrt::XamlToolkit::WinUI::Controls::implementation::SegmentedItem>(item);
+				itemImpl->UpdateOrientation(segmented.Orientation());
+			}
 		}
 	}
 }

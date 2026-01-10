@@ -23,12 +23,15 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
 	struct Segmented : SegmentedT<Segmented>
 	{
-		int _internalSelectedIndex = -1;
-		bool _hasLoaded = false;
-
-		UIElement::PreviewKeyDown_revoker _previewKeyDownRevoker;
-
 		Segmented();
+
+		static const wil::single_threaded_property<winrt::Microsoft::UI::Xaml::DependencyProperty> OrientationProperty;
+
+		winrt::Microsoft::UI::Xaml::Controls::Orientation Orientation() const;
+
+		void Orientation(winrt::Microsoft::UI::Xaml::Controls::Orientation const& value) const;
+
+		void PrepareContainerForItemOverride(DependencyObject const& element, IInspectable const& item);
 
 		DependencyObject GetContainerForItemOverride();
 
@@ -36,11 +39,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
 		void OnApplyTemplate();
 
-		void PrepareContainerForItemOverride(DependencyObject const& element, IInspectable const& item);
-
 		void Segmented_PreviewKeyDown(IInspectable const& sender, KeyRoutedEventArgs const& e);
-
-		void SegmentedItem_Loaded(IInspectable const& sender, RoutedEventArgs const& e) const;
 
 		void OnItemsChanged(IInspectable const& e);
 
@@ -50,17 +49,19 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 			Previous
 		};
 
-		/// <summary>
-		/// Adjust the selected item and range based on keyboard input.
-		/// This is used to override the ListView behaviors for up/down arrow manipulation vs left/right for a horizontal control
-		/// </summary>
-		/// <param name="direction">direction to move the selection</param>
-		/// <returns>True if the focus was moved, false otherwise</returns>
-		bool MoveFocus(MoveDirection direction);
+		bool MoveFocus(int adjustment);
 
 		XamlToolkit::WinUI::Controls::SegmentedItem GetCurrentContainerItem();
 
 		void OnSelectedIndexChanged(DependencyObject const& sender, DependencyProperty const& dp);
+
+		static void OnOrientationChanged(DependencyObject const& sender, DependencyPropertyChangedEventArgs const& dp);
+
+	private:
+		int _internalSelectedIndex = -1;
+		bool _hasLoaded = false;
+
+		UIElement::PreviewKeyDown_revoker _previewKeyDownRevoker;
 	};
 }
 
