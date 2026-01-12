@@ -1,0 +1,10 @@
+import "BoolToObjectConverter.idl";
+
+namespace XamlToolkit.WinUI.Converters
+{
+    [default_interface]
+    runtimeclass BoolToVisibilityConverter : BoolToObjectConverter
+    {
+        BoolToVisibilityConverter();
+    }
+}

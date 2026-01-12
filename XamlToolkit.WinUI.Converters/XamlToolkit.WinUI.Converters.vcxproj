@@ -134,17 +134,35 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BoolToObjectConverter.h">
+      <DependentUpon>BoolToObjectConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="BoolToVisibilityConverter.h">
+      <DependentUpon>BoolToVisibilityConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ColorToDisplayNameConverter.h">
       <DependentUpon>ColorToDisplayNameConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ConverterTools.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BoolToObjectConverter.cpp">
+      <DependentUpon>BoolToObjectConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="BoolToVisibilityConverter.cpp">
+      <DependentUpon>BoolToVisibilityConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="ColorToDisplayNameConverter.cpp">
       <DependentUpon>ColorToDisplayNameConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="ConverterTools.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
@@ -160,6 +178,12 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
+    <Midl Include="BoolToObjectConverter.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="BoolToVisibilityConverter.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="ColorToDisplayNameConverter.idl">
       <SubType>Designer</SubType>
     </Midl>

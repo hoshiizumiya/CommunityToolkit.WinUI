@@ -81,6 +81,9 @@
     <Filter Include="Controls\Adorners\ResizeElement\Thumb">
       <UniqueIdentifier>{9187c797-8e4f-4570-b186-7495088f6c0f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Controls\DataTable">
+      <UniqueIdentifier>{91eba54e-0dbc-46e3-ba96-9df36b9a1cdd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -204,6 +207,9 @@
     </ClCompile>
     <ClCompile Include="Adorners\ResizeElement\Thumb\ResizeThumb.Properties.cpp">
       <Filter>Controls\Adorners\ResizeElement\Thumb</Filter>
+    </ClCompile>
+    <ClCompile Include="DataTable\DataColumn.cpp">
+      <Filter>Controls\DataTable</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -348,6 +354,12 @@
     <Midl Include="Adorners\AdornerLayer.idl">
       <Filter>Controls\Adorners</Filter>
     </Midl>
+    <Midl Include="DataTable\DataTable.idl">
+      <Filter>Controls\DataTable</Filter>
+    </Midl>
+    <Midl Include="DataTable\DataRow.idl">
+      <Filter>Controls\DataTable</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <None Include="XamlToolkit.Labs.WinUI.def" />
@@ -413,6 +425,9 @@
     </Page>
     <Page Include="Adorners\ResizeElement\ResizeElementAdorner.xaml">
       <Filter>Controls\Adorners\ResizeElement</Filter>
+    </Page>
+    <Page Include="DataTable\DataColumn.xaml">
+      <Filter>Controls\DataTable</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>

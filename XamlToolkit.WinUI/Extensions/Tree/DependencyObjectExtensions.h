@@ -48,10 +48,11 @@ namespace winrt::XamlToolkit::WinUI
 		}
 
 		template <typename T>
-		static T FindDescendant(DependencyObject const& element, std::function<bool(T)>& predicate)
+		static T FindDescendant(DependencyObject const& element, const std::function<bool(T)>& predicate)
 			requires winrt::derived_from<T, DependencyObject>
 		{
-			return FindDescendant(element, predicate);
+			PredicateByFunc<T, void> predicateByFunc(predicate);
+			return FindDescendant<T>(element, predicateByFunc);
 		}
 
 		static DependencyObject FindDescendant(DependencyObject const& element, winrt::Windows::UI::Xaml::Interop::TypeName type)

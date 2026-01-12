@@ -1,0 +1,13 @@
+namespace XamlToolkit.Labs.WinUI
+{
+    [bindable]
+    [default_interface]
+	runtimeclass DataTable : Microsoft.UI.Xaml.Controls.Panel
+    {
+        DataTable();
+
+        Double ColumnSpacing;
+
+        static Microsoft.UI.Xaml.DependencyProperty ColumnSpacingProperty{ get; };
+    }
+}

@@ -222,6 +222,18 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="ControlHelpers.h" />
+    <ClInclude Include="DataTable\DataColumn.h">
+      <DependentUpon>DataTable\DataColumn.cpp</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="DataTable\DataRow.h">
+      <DependentUpon>DataTable\DataRow.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="DataTable\DataTable.h">
+      <DependentUpon>DataTable\DataTable.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="MarkdownTextBlock\Extension.h" />
     <ClInclude Include="MarkdownTextBlock\DefaultSVGRenderer.h" />
     <ClInclude Include="MarkdownTextBlock\Highlight\ISyntaxHighlighter.h" />
@@ -338,6 +350,17 @@
     <ClCompile Include="Adorners\ResizeElement\Thumb\ResizeThumb.Properties.cpp" />
     <ClCompile Include="CanvasLayout\CanvasLayout.cpp">
       <DependentUpon>CanvasLayout\CanvasLayout.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="DataTable\DataColumn.cpp">
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="DataTable\DataRow.cpp">
+      <DependentUpon>DataTable\DataRow.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="DataTable\DataTable.cpp">
+      <DependentUpon>DataTable\DataTable.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="MarkdownTextBlock\Extension.cpp" />
@@ -538,6 +561,16 @@
     <Midl Include="CanvasLayout\CanvasLayout.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="DataTable\DataColumn.idl">
+      <DependentUpon>DataTable\DataColumn.cpp</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="DataTable\DataRow.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="DataTable\DataTable.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="MarkdownTextBlock\LinkClickedEventArgs.idl" />
     <Midl Include="MarkdownTextBlock\MarkdownConfig.idl">
       <SubType>Designer</SubType>
@@ -596,6 +629,7 @@
     <Page Include="Adorners\AdornerDecorator.xaml" />
     <Page Include="Adorners\ResizeElement\ResizeElementAdorner.xaml" />
     <Page Include="Adorners\ResizeElement\Thumb\ResizeThumb.xaml" />
+    <Page Include="DataTable\DataColumn.xaml" />
     <Page Include="MarkdownTextBlock\MarkdownTextBlock.xaml" />
     <Page Include="Marquee\Marquee.xaml" />
     <Page Include="OpacityMaskView\OpacityMaskView.xaml" />
@@ -608,6 +642,9 @@
   <ItemGroup>
     <ProjectReference Include="..\XamlToolkit.WinUI.Controls\XamlToolkit.WinUI.Controls.vcxproj">
       <Project>{ef5f53e1-2ddb-4936-a78f-517fc8be74ff}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\XamlToolkit.WinUI.Converters\XamlToolkit.WinUI.Converters.vcxproj">
+      <Project>{5f5234f5-2630-47bf-94c7-b2c14301e00e}</Project>
     </ProjectReference>
     <ProjectReference Include="..\XamlToolkit.WinUI.Helpers\XamlToolkit.WinUI.Helpers.vcxproj">
       <Project>{f8087280-d16f-4d9d-9e17-58aac733d56d}</Project>

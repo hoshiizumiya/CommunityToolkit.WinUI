@@ -39,3 +39,4 @@
 #include "Adorners\AdornerDecorator.h"
 #include "Adorners\ResizeElement\ResizeElementAdorner.h"
 #include "Adorners\ResizeElement\Thumb\ResizeThumb.h"
+#include "DataTable\DataColumn.h"

@@ -1,0 +1,73 @@
+﻿#include "pch.h"
+#include "BoolToObjectConverter.h"
+#if __has_include("BoolToObjectConverter.g.cpp")
+#include "BoolToObjectConverter.g.cpp"
+#endif
+#include "ConverterTools.h"
+
+namespace winrt::XamlToolkit::WinUI::Converters::implementation
+{
+	IInspectable BoolToObjectConverter::TrueValue() const
+	{
+		return GetValue(TrueValueProperty);
+	}
+
+	void BoolToObjectConverter::TrueValue(IInspectable const& value)
+	{
+		SetValue(TrueValueProperty, value);
+	}
+
+	IInspectable BoolToObjectConverter::FalseValue() const
+	{
+		return GetValue(FalseValueProperty);
+	}
+
+	void BoolToObjectConverter::FalseValue(IInspectable const& value)
+	{
+		SetValue(FalseValueProperty, value);
+	}
+
+	const wil::single_threaded_property<DependencyProperty> BoolToObjectConverter::TrueValueProperty = DependencyProperty::Register(
+		L"TrueValue",
+		winrt::xaml_typename<IInspectable>(),
+		winrt::xaml_typename<class_type>(),
+		PropertyMetadata{ nullptr }
+	);
+
+	const wil::single_threaded_property<DependencyProperty> BoolToObjectConverter::FalseValueProperty = DependencyProperty::Register(
+		L"FalseValue",
+		winrt::xaml_typename<IInspectable>(),
+		winrt::xaml_typename<class_type>(),
+		PropertyMetadata{ nullptr }
+	);
+
+	IInspectable BoolToObjectConverter::Convert(IInspectable const& value, [[maybe_unused]] TypeName targetType, [[maybe_unused]] IInspectable const& parameter, [[maybe_unused]] winrt::hstring const& language) const
+	{
+		auto boolValue = unbox_value_or(value, false);
+
+		// Negate if needed
+		if (ConverterTools::TryParseBool(parameter))
+		{
+			boolValue = !boolValue;
+		}
+
+		return ConverterTools::Convert(boolValue ? TrueValue() : FalseValue(), targetType);
+	}
+
+	IInspectable BoolToObjectConverter::ConvertBack([[maybe_unused]] IInspectable const& value, [[maybe_unused]] TypeName targetType, [[maybe_unused]] IInspectable const& parameter, [[maybe_unused]] winrt::hstring const& language) const
+	{
+		TypeName valueType{ winrt::get_class_name(value) };
+		auto converted = ConverterTools::Convert(TrueValue(), valueType);
+
+		auto pv1 = value.try_as<IPropertyValue>();
+		auto pv2 = converted.try_as<IPropertyValue>();
+		auto result = (pv1 == pv2);
+
+		if (ConverterTools::TryParseBool(parameter))
+		{
+			result = !result;
+		}
+
+		return winrt::box_value(result);
+	}
+}

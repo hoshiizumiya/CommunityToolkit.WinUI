@@ -12,12 +12,16 @@
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="ConverterTools.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="ConverterTools.h" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="ColorToDisplayNameConverter.idl" />
+    <Midl Include="BoolToVisibilityConverter.idl" />
+    <Midl Include="BoolToObjectConverter.idl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="XamlToolkit.WinUI.Converters.def" />
