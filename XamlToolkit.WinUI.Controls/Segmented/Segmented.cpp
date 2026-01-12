@@ -124,7 +124,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 			auto index = std::clamp<int>(previousIndex + adjustment, 0, Items().Size());
 
 			// Only do stuff if the index is actually changing
-			if (index != previousIndex)
+			if (index != static_cast<int>(previousIndex))
 			{
 				if (auto newItem = ContainerFromIndex(index).try_as<XamlToolkit::WinUI::Controls::SegmentedItem>())
 				{

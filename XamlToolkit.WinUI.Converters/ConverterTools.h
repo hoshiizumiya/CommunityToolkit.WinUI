@@ -6,7 +6,6 @@ namespace winrt::XamlToolkit::WinUI::Converters::implementation
 	using namespace winrt::Windows::Foundation;
 	using namespace winrt::Windows::UI::Xaml::Interop;
 
-
 	class ConverterTools
 	{
 	public:

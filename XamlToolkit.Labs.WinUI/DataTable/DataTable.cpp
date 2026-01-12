@@ -7,7 +7,6 @@
 
 namespace winrt::XamlToolkit::Labs::WinUI::implementation
 {
-
     bool DataTable::IsAnyColumnAuto()
     {
         auto children = Children();

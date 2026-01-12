@@ -22,7 +22,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		UpdateVisualStates();
 	}
 
-	void SegmentedItem::OnVisibilityChanged(DependencyObject const& sender, DependencyProperty const& dp)
+	void SegmentedItem::OnVisibilityChanged([[maybe_unused]] DependencyObject const& sender, [[maybe_unused]] DependencyProperty const& dp)
 	{
 		// If the parent is a Segmented control with an EqualPanel,
 		// we need to invalidate measure to update the layout.
