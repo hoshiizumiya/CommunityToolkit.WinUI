@@ -35,6 +35,9 @@ Rive support is available via [`XamlToolkit.WinUI.Rive`](https://github.com/lgzt
 ### Adorner / ResizeElementAdorner
 ![Adorners](docs/images/Adorners.png)
 
+### DataTable
+![DataTable](docs/images/DataTable.png)
+
 ### MarkdownTextBlock
 
 `MarkdownTextBlock` supports syntax highlighting for **C#, C++, XML, JSON, Bash and Rust**.
