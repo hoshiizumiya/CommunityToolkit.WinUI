@@ -1,0 +1,13 @@
+import "ColorAnalyzer/ColorSources/ColorSource.idl";
+
+namespace XamlToolkit.Labs.WinUI
+{
+	runtimeclass StreamColorSource : ColorSource
+    {
+        StreamColorSource();
+
+        Windows.Storage.Streams.IRandomAccessStream Source;
+
+        static Microsoft.UI.Xaml.DependencyProperty SourceProperty{ get; };
+    }
+}

@@ -1,0 +1,13 @@
+import "ColorAnalyzer/ColorSources/ColorSource.idl";
+
+namespace XamlToolkit.Labs.WinUI
+{
+    runtimeclass UrlColorSource : ColorSource
+    {
+        UrlColorSource();
+
+        String Source;
+
+		static Microsoft.UI.Xaml.DependencyProperty SourceProperty{ get; };
+    }
+}

@@ -35,6 +35,9 @@ Rive support is available via [`XamlToolkit.WinUI.Rive`](https://github.com/lgzt
 ### Adorner / ResizeElementAdorner
 ![Adorners](docs/images/Adorners.png)
 
+### ColorAnalyzer
+![ColorAnalyzer](docs/images/ColorAnalyzer.png)
+
 ### DataTable
 ![DataTable](docs/images/DataTable.png)
 

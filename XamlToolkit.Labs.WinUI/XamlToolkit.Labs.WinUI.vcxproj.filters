@@ -84,6 +84,21 @@
     <Filter Include="Controls\DataTable">
       <UniqueIdentifier>{91eba54e-0dbc-46e3-ba96-9df36b9a1cdd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Controls\ColorAnalyzer">
+      <UniqueIdentifier>{e72d3352-964f-417f-bea7-b1af28758087}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\ColorAnalyzer\ContrastHelper">
+      <UniqueIdentifier>{3050e2a4-927f-47bc-a45e-601037f7ede6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\ColorAnalyzer\ColorPaletteSampler">
+      <UniqueIdentifier>{32bdd3a3-6df7-4b38-968d-a16ffbbd2ab7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\ColorAnalyzer\ColorSources">
+      <UniqueIdentifier>{35b821a0-6a94-4188-807a-29115ad251dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\ColorAnalyzer\PaletteSelectors">
+      <UniqueIdentifier>{a9ff7377-7a2f-46bd-a233-6ca5a5327dee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -211,6 +226,21 @@
     <ClCompile Include="DataTable\DataColumn.cpp">
       <Filter>Controls\DataTable</Filter>
     </ClCompile>
+    <ClCompile Include="ColorAnalyzer\ColorExtensions.cpp">
+      <Filter>Controls\ColorAnalyzer</Filter>
+    </ClCompile>
+    <ClCompile Include="ColorAnalyzer\ContrastHelper\ContrastHelper.Callbacks.cpp">
+      <Filter>Controls\ColorAnalyzer\ContrastHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="ColorAnalyzer\ContrastHelper\ContrastHelper.Properties.cpp">
+      <Filter>Controls\ColorAnalyzer\ContrastHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="ColorAnalyzer\ColorPaletteSampler\ColorPaletteSampler.Properties.cpp">
+      <Filter>Controls\ColorAnalyzer\ColorPaletteSampler</Filter>
+    </ClCompile>
+    <ClCompile Include="ColorAnalyzer\ColorPaletteSampler\ColorPaletteSampler.KMeans.cpp">
+      <Filter>Controls\ColorAnalyzer\ColorPaletteSampler</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -322,6 +352,15 @@
     <ClInclude Include="Adorners\ResizeElement\Thumb\TargetControlResizedEventArgs.h">
       <Filter>Controls\Adorners\ResizeElement\Thumb</Filter>
     </ClInclude>
+    <ClInclude Include="ColorAnalyzer\ColorExtensions.h">
+      <Filter>Controls\ColorAnalyzer</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorAnalyzer\PaletteSelectors\ColorPaletteSelectorExtensions.h">
+      <Filter>Controls\ColorAnalyzer\PaletteSelectors</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorAnalyzer\ColorPaletteSampler\ColorPaletteSampler.DBScan.h">
+      <Filter>Controls\ColorAnalyzer\ColorPaletteSampler</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="MarkdownTextBlock\MarkdownTextBlock.idl">
@@ -359,6 +398,36 @@
     </Midl>
     <Midl Include="DataTable\DataRow.idl">
       <Filter>Controls\DataTable</Filter>
+    </Midl>
+    <Midl Include="ColorAnalyzer\ContrastHelper\ContrastHelper.idl">
+      <Filter>Controls\ColorAnalyzer\ContrastHelper</Filter>
+    </Midl>
+    <Midl Include="ColorAnalyzer\ColorPaletteSampler\ColorPaletteSampler.idl">
+      <Filter>Controls\ColorAnalyzer\ColorPaletteSampler</Filter>
+    </Midl>
+    <Midl Include="ColorAnalyzer\ColorSources\ColorSource.idl">
+      <Filter>Controls\ColorAnalyzer\ColorSources</Filter>
+    </Midl>
+    <Midl Include="ColorAnalyzer\ColorSources\StreamColorSource.idl">
+      <Filter>Controls\ColorAnalyzer\ColorSources</Filter>
+    </Midl>
+    <Midl Include="ColorAnalyzer\ColorSources\UIColorSource.idl">
+      <Filter>Controls\ColorAnalyzer\ColorSources</Filter>
+    </Midl>
+    <Midl Include="ColorAnalyzer\ColorSources\UrlColorSource.idl">
+      <Filter>Controls\ColorAnalyzer\ColorSources</Filter>
+    </Midl>
+    <Midl Include="ColorAnalyzer\PaletteSelectors\ColorWeightPaletteSelector.idl">
+      <Filter>Controls\ColorAnalyzer\PaletteSelectors</Filter>
+    </Midl>
+    <Midl Include="ColorAnalyzer\PaletteSelectors\BaseColorPaletteSelector.idl">
+      <Filter>Controls\ColorAnalyzer\PaletteSelectors</Filter>
+    </Midl>
+    <Midl Include="ColorAnalyzer\PaletteSelectors\ColorPaletteSelector.idl">
+      <Filter>Controls\ColorAnalyzer\PaletteSelectors</Filter>
+    </Midl>
+    <Midl Include="ColorAnalyzer\PaletteSelectors\AccentColorPaletteSelector.idl">
+      <Filter>Controls\ColorAnalyzer\PaletteSelectors</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>

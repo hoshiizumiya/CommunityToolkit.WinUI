@@ -1,0 +1,24 @@
+import "ColorAnalyzer/ColorSources/ColorSource.idl";
+import "ColorAnalyzer/PaletteSelectors/ColorPaletteSelector.idl";
+
+namespace XamlToolkit.Labs.WinUI
+{
+    [default_interface]
+    [contentproperty("PaletteSelectors")]
+    runtimeclass ColorPaletteSampler : Microsoft.UI.Xaml.DependencyObject
+    {
+        ColorPaletteSampler();
+
+        void UpdatePalette();
+
+		Windows.Foundation.IAsyncAction UpdatePaletteAsync();
+
+        event Windows.Foundation.EventHandler<Object> PaletteUpdated;
+
+        ColorSource Source;
+
+        Windows.Foundation.Collections.IVector<ColorPaletteSelector> PaletteSelectors;
+
+        Windows.Foundation.Collections.IVectorView<PaletteColor> Palette{ get; };
+    }
+}

@@ -221,6 +221,49 @@
       <DependentUpon>CanvasLayout\CanvasLayout.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ColorAnalyzer\ColorExtensions.h" />
+    <ClInclude Include="ColorAnalyzer\ColorPaletteSampler\ColorPaletteSampler.DBScan.h" />
+    <ClInclude Include="ColorAnalyzer\ColorPaletteSampler\ColorPaletteSampler.h">
+      <DependentUpon>ColorAnalyzer\ColorPaletteSampler\ColorPaletteSampler.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="ColorAnalyzer\ColorSources\ColorSource.h">
+      <DependentUpon>ColorAnalyzer\ColorSources\ColorSource.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="ColorAnalyzer\ColorSources\StreamColorSource.h">
+      <DependentUpon>ColorAnalyzer\ColorSources\StreamColorSource.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="ColorAnalyzer\ColorSources\UIColorSource.h">
+      <DependentUpon>ColorAnalyzer\ColorSources\UIColorSource.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="ColorAnalyzer\ColorSources\UrlColorSource.h">
+      <DependentUpon>ColorAnalyzer\ColorSources\UrlColorSource.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="ColorAnalyzer\ContrastHelper\ContrastHelper.h">
+      <DependentUpon>ColorAnalyzer\ContrastHelper\ContrastHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="ColorAnalyzer\PaletteSelectors\AccentColorPaletteSelector.h">
+      <DependentUpon>ColorAnalyzer\PaletteSelectors\AccentColorPaletteSelector.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="ColorAnalyzer\PaletteSelectors\BaseColorPaletteSelector.h">
+      <DependentUpon>ColorAnalyzer\PaletteSelectors\BaseColorPaletteSelector.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="ColorAnalyzer\PaletteSelectors\ColorPaletteSelector.h">
+      <DependentUpon>ColorAnalyzer\PaletteSelectors\ColorPaletteSelector.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="ColorAnalyzer\PaletteSelectors\ColorPaletteSelectorExtensions.h" />
+    <ClInclude Include="ColorAnalyzer\PaletteSelectors\ColorWeightPaletteSelector.h">
+      <DependentUpon>ColorAnalyzer\PaletteSelectors\ColorWeightPaletteSelector.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ControlHelpers.h" />
     <ClInclude Include="DataTable\DataColumn.h">
       <DependentUpon>DataTable\DataColumn.cpp</DependentUpon>
@@ -350,6 +393,51 @@
     <ClCompile Include="Adorners\ResizeElement\Thumb\ResizeThumb.Properties.cpp" />
     <ClCompile Include="CanvasLayout\CanvasLayout.cpp">
       <DependentUpon>CanvasLayout\CanvasLayout.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ColorAnalyzer\ColorExtensions.cpp" />
+    <ClCompile Include="ColorAnalyzer\ColorPaletteSampler\ColorPaletteSampler.cpp">
+      <DependentUpon>ColorAnalyzer\ColorPaletteSampler\ColorPaletteSampler.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ColorAnalyzer\ColorPaletteSampler\ColorPaletteSampler.KMeans.cpp" />
+    <ClCompile Include="ColorAnalyzer\ColorPaletteSampler\ColorPaletteSampler.Properties.cpp" />
+    <ClCompile Include="ColorAnalyzer\ColorSources\ColorSource.cpp">
+      <DependentUpon>ColorAnalyzer\ColorSources\ColorSource.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ColorAnalyzer\ColorSources\StreamColorSource.cpp">
+      <DependentUpon>ColorAnalyzer\ColorSources\StreamColorSource.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ColorAnalyzer\ColorSources\UIColorSource.cpp">
+      <DependentUpon>ColorAnalyzer\ColorSources\UIColorSource.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ColorAnalyzer\ColorSources\UrlColorSource.cpp">
+      <DependentUpon>ColorAnalyzer\ColorSources\UrlColorSource.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ColorAnalyzer\ContrastHelper\ContrastHelper.Callbacks.cpp" />
+    <ClCompile Include="ColorAnalyzer\ContrastHelper\ContrastHelper.cpp">
+      <DependentUpon>ColorAnalyzer\ContrastHelper\ContrastHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ColorAnalyzer\ContrastHelper\ContrastHelper.Properties.cpp" />
+    <ClCompile Include="ColorAnalyzer\PaletteSelectors\AccentColorPaletteSelector.cpp">
+      <DependentUpon>ColorAnalyzer\PaletteSelectors\AccentColorPaletteSelector.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ColorAnalyzer\PaletteSelectors\BaseColorPaletteSelector.cpp">
+      <DependentUpon>ColorAnalyzer\PaletteSelectors\BaseColorPaletteSelector.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ColorAnalyzer\PaletteSelectors\ColorPaletteSelector.cpp">
+      <DependentUpon>ColorAnalyzer\PaletteSelectors\ColorPaletteSelector.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ColorAnalyzer\PaletteSelectors\ColorWeightPaletteSelector.cpp">
+      <DependentUpon>ColorAnalyzer\PaletteSelectors\ColorWeightPaletteSelector.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="DataTable\DataColumn.cpp">
@@ -559,6 +647,36 @@
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="CanvasLayout\CanvasLayout.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ColorAnalyzer\ColorPaletteSampler\ColorPaletteSampler.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ColorAnalyzer\ColorSources\ColorSource.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ColorAnalyzer\ColorSources\StreamColorSource.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ColorAnalyzer\ColorSources\UIColorSource.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ColorAnalyzer\ColorSources\UrlColorSource.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ColorAnalyzer\ContrastHelper\ContrastHelper.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ColorAnalyzer\PaletteSelectors\AccentColorPaletteSelector.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ColorAnalyzer\PaletteSelectors\BaseColorPaletteSelector.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ColorAnalyzer\PaletteSelectors\ColorPaletteSelector.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ColorAnalyzer\PaletteSelectors\ColorWeightPaletteSelector.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="DataTable\DataColumn.idl">

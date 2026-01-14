@@ -1,0 +1,11 @@
+namespace XamlToolkit.Labs.WinUI
+{
+    unsealed runtimeclass ColorSource : Microsoft.UI.Xaml.DependencyObject
+    {
+        ColorSource();
+
+        event Windows.Foundation.EventHandler<Object> SourceUpdated;
+
+        Windows.Foundation.IAsyncOperation<Windows.Storage.Streams.IRandomAccessStream> GetPixelDataAsync(Int32 requestedSamples);
+    }
+}

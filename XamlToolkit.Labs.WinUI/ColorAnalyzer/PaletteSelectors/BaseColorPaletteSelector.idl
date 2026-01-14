@@ -1,0 +1,10 @@
+import "ColorAnalyzer/PaletteSelectors/ColorPaletteSelector.idl";
+
+namespace XamlToolkit.Labs.WinUI
+{
+    [default_interface]
+    runtimeclass BaseColorPaletteSelector : ColorPaletteSelector
+    {
+        BaseColorPaletteSelector();
+    }
+}

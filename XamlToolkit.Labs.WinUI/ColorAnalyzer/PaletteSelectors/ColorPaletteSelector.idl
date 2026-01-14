@@ -1,0 +1,23 @@
+namespace XamlToolkit.Labs.WinUI
+{
+    struct PaletteColor
+    {
+        Windows.UI.Color Color;
+
+        Single Weight;
+    };
+
+    [default_interface]
+    unsealed runtimeclass ColorPaletteSelector : Microsoft.UI.Xaml.DependencyObject
+    {
+        ColorPaletteSelector();
+
+        Windows.Foundation.Collections.IVector<Windows.UI.Color> SelectedColors{ get; };
+        static Microsoft.UI.Xaml.DependencyProperty SelectedColorsProperty{ get; };
+
+		Int32 MinColorCount;
+        static Microsoft.UI.Xaml.DependencyProperty MinColorCountProperty{ get; };
+
+        void SelectColors(Windows.Foundation.Collections.IIterable<PaletteColor> palette);
+    }
+}
