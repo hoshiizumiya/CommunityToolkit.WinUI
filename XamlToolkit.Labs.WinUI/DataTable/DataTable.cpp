@@ -12,7 +12,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
         auto children = Children();
         return std::any_of(children.begin(), children.end(), [](auto&& e)
             {
-                if (auto column = e.try_as<winrt::XamlToolkit::Labs::WinUI::DataColumn>()) {
+                if (auto column = e.template try_as<winrt::XamlToolkit::Labs::WinUI::DataColumn>()) {
                     auto columnImpl = winrt::get_self<winrt::XamlToolkit::Labs::WinUI::implementation::DataColumn>(column);
                     return columnImpl->CurrentWidth().GridUnitType == GridUnitType::Auto;
                 }
@@ -48,8 +48,8 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
         double maxHeight = 0;
 
         auto elements = Children()
-            | std::ranges::views::filter([](auto&& e) { return e.Visibility() == Visibility::Visible && e.try_as<winrt::XamlToolkit::Labs::WinUI::DataColumn>(); })
-            | std::ranges::views::transform([](auto&& e) { return e.as<winrt::XamlToolkit::Labs::WinUI::DataColumn>(); })
+            | std::ranges::views::filter([](auto&& e) { return e.Visibility() == Visibility::Visible && e.template try_as<winrt::XamlToolkit::Labs::WinUI::DataColumn>(); })
+            | std::ranges::views::transform([](auto&& e) { return e.template as<winrt::XamlToolkit::Labs::WinUI::DataColumn>(); })
             | std::ranges::to<std::vector>();
 
         // We only need to measure elements that are visible
@@ -114,8 +114,8 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
         double autoSized = 0;
 
         auto elements = Children()
-            | std::ranges::views::filter([](auto&& e) { return e.Visibility() == Visibility::Visible && e.try_as<winrt::XamlToolkit::Labs::WinUI::DataColumn>(); })
-            | std::ranges::views::transform([](auto&& e) { return e.as<winrt::XamlToolkit::Labs::WinUI::DataColumn>(); });
+            | std::ranges::views::filter([](auto&& e) { return e.Visibility() == Visibility::Visible && e.template try_as<winrt::XamlToolkit::Labs::WinUI::DataColumn>(); })
+            | std::ranges::views::transform([](auto&& e) { return e.template as<winrt::XamlToolkit::Labs::WinUI::DataColumn>(); });
 
         // We only need to measure elements that are visible
         for (const auto& column : elements)

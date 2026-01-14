@@ -26,7 +26,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 		context.LayoutState(nullptr);
 	}
 
-	Size CanvasLayout::MeasureOverride(VirtualizingLayoutContext const& context, Size availableSize)
+	Size CanvasLayout::MeasureOverride(VirtualizingLayoutContext const& context, [[maybe_unused]] Size availableSize)
 	{
         int maxWidth = 0;
         int maxHeight = 0;
@@ -42,7 +42,12 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
                 maxHeight = std::max<int>(item.Top() + item.Height(), maxHeight);
 
                 // Calculate if this item is in our current viewport
-                Rect rect(item.Left(), item.Top(), item.Width(), item.Height());
+                float itemLeft = static_cast<float>(item.Left());
+                float itemTop = static_cast<float>(item.Top());
+                float itemWidth = static_cast<float>(item.Width());
+                float itemHeight = static_cast<float>(item.Height());
+
+                Rect rect(itemLeft, itemTop, itemWidth, itemHeight);
                 rect = RectHelper::Intersect(rect, realizationRect);
 
                 // Check if we're in view now so we can compare to if we were last time.
@@ -52,7 +57,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
                 if (nowInView && !item.IsInView())
                 {
                     auto element = context.GetOrCreateElementAt(i);
-                    element.Measure(Size(item.Width(), item.Height()));
+                    element.Measure(Size(itemWidth, itemHeight));
                 }
                 // If it was visible, but now isn't recycle the container
                 else if (!nowInView && item.IsInView())
@@ -66,7 +71,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
             }
         }
 
-        return Size(maxWidth, maxHeight);
+        return Size(static_cast<float>(maxWidth), static_cast<float>(maxHeight));
 	}
 
 	Size CanvasLayout::ArrangeOverride(VirtualizingLayoutContext const& context, Size finalSize)
@@ -77,7 +82,11 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
             {
                 auto container = context.GetOrCreateElementAt(i);
                 // Is it better to have cached this from above?
-                container.Arrange(Rect(item.Left(), item.Top(), item.Width(), item.Height()));
+                float itemLeft = static_cast<float>(item.Left());
+                float itemTop = static_cast<float>(item.Top());
+                float itemWidth = static_cast<float>(item.Width());
+                float itemHeight = static_cast<float>(item.Height());
+                container.Arrange(Rect(itemLeft, itemTop, itemWidth, itemHeight));
             }
         }
 
