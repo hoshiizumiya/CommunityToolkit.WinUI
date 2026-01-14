@@ -18,6 +18,7 @@ You can install the C++ WinUI Community Toolkit packages via NuGet (it also supp
 | XamlToolkit.WinUI.Media.Native | [![NuGet](https://img.shields.io/nuget/v/XamlToolkit.WinUI.Media.Native.svg)](https://www.nuget.org/packages/XamlToolkit.WinUI.Media.Native/) |
 | XamlToolkit.Labs.WinUI.Native | [![NuGet](https://img.shields.io/nuget/v/XamlToolkit.Labs.WinUI.Native.svg)](https://www.nuget.org/packages/XamlToolkit.Labs.WinUI.Native/) |
 | XamlToolkit.WinUI.Controls.Native | [![NuGet](https://img.shields.io/nuget/v/XamlToolkit.WinUI.Controls.Native.svg)](https://www.nuget.org/packages/XamlToolkit.WinUI.Controls.Native/) |
+| XamlToolkit.WinUI.Rive.Native | [![NuGet](https://img.shields.io/nuget/v/XamlToolkit.WinUI.Rive.Native.svg)](https://www.nuget.org/packages/XamlToolkit.WinUI.Rive.Native/) |
 
 **Note:** When using the C# version, make sure to set the `<TargetFramework>` to:
 
