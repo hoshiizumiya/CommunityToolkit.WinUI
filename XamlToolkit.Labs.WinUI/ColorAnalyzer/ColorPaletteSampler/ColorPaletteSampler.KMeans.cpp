@@ -4,7 +4,7 @@
 
 namespace winrt::XamlToolkit::Labs::WinUI::implementation
 {
-    std::vector<float3> ColorPaletteSampler::KMeansCluster(std::span<float3> points, size_t k, std::vector<int>& counts)
+    std::vector<float3> ColorPaletteSampler::KMeansCluster(std::span<float3> points, int k, std::vector<int>& counts)
     {
         // Track the assigned cluster of each point
         std::vector<int> clusterIds;
@@ -16,7 +16,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
         // Split the points into arbitrary clusters
         Split(k, clusterIds);
 
-        std::span<float3> centroidView{ centroids.get(), k };
+        std::span<float3> centroidView{ centroids.get(), static_cast<size_t>(k) };
         bool converged = false;
         while (!converged)
         {
@@ -100,7 +100,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 
         // Division step in centroid calculation
         for (size_t i = 0; i < centroids.size(); i++)
-            centroids[i] /= counts[i];
+            centroids[i] /= static_cast<float>(counts[i]);
     }
 
     int ColorPaletteSampler::FindNearestClusterIndex(float3 point, std::span<float3> centroids)

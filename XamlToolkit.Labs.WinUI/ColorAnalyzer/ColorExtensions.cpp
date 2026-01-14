@@ -7,7 +7,10 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
     Color ColorExtensions::ToColor(float3 color)
     {
         color *= 255;
-        return ColorHelper::FromArgb(255, (byte)(color.x), (byte)(color.y), (byte)(color.z));
+        return winrt::Microsoft::UI::ColorHelper::FromArgb(255, 
+            static_cast<uint8_t>(color.x),
+            static_cast<uint8_t>(color.y),
+            static_cast<uint8_t>(color.z));
     }
 
     float3 ColorExtensions::ToVector3(Color color)
@@ -92,15 +95,12 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
         auto vectorColors = colors | std::views::transform(ToVector3);
 
         // Isolate rg and yb
-
-        auto rg = vectorColors
-            | std::views::transform([](const float3& x)
+        auto rg = vectorColors | std::views::transform([](const float3& x)
                 {
                     return std::abs(x.x - x.y);
                 });
 
-        auto yb = vectorColors
-            | std::views::transform([](const float3& x)
+        auto yb = vectorColors | std::views::transform([](const float3& x)
                 {
                     return std::abs(0.5f * (x.x + x.y) - x.z);
                 });

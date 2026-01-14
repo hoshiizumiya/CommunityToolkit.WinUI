@@ -18,7 +18,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
         IAsyncAction UpdatePaletteAsync();
 
 #pragma region KMeans
-        std::vector<float3> KMeansCluster(std::span<float3> points, size_t k, std::vector<int>& counts);
+        std::vector<float3> KMeansCluster(std::span<float3> points, int k, std::vector<int>& counts);
 
         void Split(int k, std::vector<int>& clusterIds);
 
@@ -44,12 +44,13 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 
     private:
         IAsyncOperation<winrt::Windows::Foundation::Collections::IVector<float3>> SampleSourcePixelColorsAsync(int sampleCount);
-		winrt::Windows::Foundation::Collections::IVector<PaletteColor> _palette{ nullptr };
-		ColorSource::SourceUpdated_revoker _sourceUpdatedRevoker;
 
         static void OnSourceChanged(
             winrt::Microsoft::UI::Xaml::DependencyObject const& d,
             winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
+
+		winrt::Windows::Foundation::Collections::IVector<PaletteColor> _palette{ nullptr };
+		ColorSource::SourceUpdated_revoker _sourceUpdatedRevoker;
     };
 }
 

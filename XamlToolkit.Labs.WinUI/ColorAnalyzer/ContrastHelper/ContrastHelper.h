@@ -80,16 +80,6 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 
         static void ApplyContrastCheck(DependencyObject const& d);
 
-        /// <summary>
-        /// Finds the <see cref="SolidColorBrush"/> and its associated <see cref="DependencyProperty"/>
-        /// from <paramref name="d"/>..
-        /// </summary>
-        /// <param name="d">The attached <see cref="DependencyObject"/>.</param>
-        /// <param name="dp">
-        /// The <see cref="DependencyProperty"/> associated with the <see cref="SolidColorBrush"/>
-        /// belonging to <paramref name="d"/>.
-        /// </param>
-        /// <returns>The <see cref="SolidColorBrush"/> for <paramref name="d"/>.</returns>
         static SolidColorBrush FindBrush(DependencyObject const& d, DependencyProperty* dp);
 
         static void UpdateContrastedProperties(DependencyObject const& d, winrt::Windows::UI::Color color);

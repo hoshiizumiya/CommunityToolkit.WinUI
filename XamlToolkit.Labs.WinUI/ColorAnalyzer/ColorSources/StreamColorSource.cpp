@@ -36,7 +36,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 
         co_await randomAccessStream.WriteAsync(writer.DetachBuffer());
         randomAccessStream.Seek(0);
-        co_return  randomAccessStream;
+        co_return randomAccessStream;
     }
 
     void StreamColorSource::OnSourceChanged(

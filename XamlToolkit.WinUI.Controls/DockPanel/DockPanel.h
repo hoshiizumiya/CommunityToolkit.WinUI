@@ -1,6 +1,8 @@
 ﻿#pragma once
 
 #include "DockPanel.g.h"
+#include <wil/wistd_type_traits.h>
+#include <wil/cppwinrt_authoring.h>
 
 namespace winrt::XamlToolkit::WinUI::Controls::implementation
 {
