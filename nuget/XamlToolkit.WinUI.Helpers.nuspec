@@ -2,7 +2,7 @@
 <package>
 	<metadata>
 		<id>XamlToolkit.WinUI.Helpers.Native</id>
-		<version>0.2.0-alpha</version>
+		<version>0.3.0-alpha</version>
 		<title>XamlToolkit.WinUI.Helpers.Native</title>
 		<authors>lgztx96</authors>
 		<owners>lgztx96</owners>
@@ -16,7 +16,7 @@
 		<readme>Readme.md</readme>
 		<dependencies>
 			<dependency id="Microsoft.WindowsAppSDK" version="1.7.251014001" />
-			<dependency id="XamlToolkit.WinUI.Native" version="0.2.0-alpha" />
+			<dependency id="XamlToolkit.WinUI.Native" version="0.3.0-alpha" />
 		</dependencies>
 	</metadata>
 

@@ -2,7 +2,7 @@
 <package>
 	<metadata>
 		<id>XamlToolkit.WinUI.Media.Native</id>
-		<version>0.2.0-alpha</version>
+		<version>0.3.0-alpha</version>
 		<title>XamlToolkit.WinUI.Media.Native</title>
 		<authors>lgztx96</authors>
 		<owners>lgztx96</owners>
@@ -17,7 +17,7 @@
 		<dependencies>
 			<dependency id="Microsoft.WindowsAppSDK" version="1.7.251014001" />
 			<dependency id="Microsoft.Graphics.Win2D" version="1.3.2" />
-			<dependency id="XamlToolkit.WinUI.Native" version="0.2.0-alpha" />
+			<dependency id="XamlToolkit.WinUI.Native" version="0.3.0-alpha" />
 		</dependencies>
 	</metadata>
 

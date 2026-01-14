@@ -16,17 +16,19 @@ enabling seamless use of these components in **WinUI 3 / C++ projects**.
 
 ## 🧩 Included Controls
 
-- **MarkdownTextBlock** — syntax highlighting for *C#, C++, XML, JSON, Shell*.  
-- **Marquee**, **OpacityMaskView**, **Shimmer**, **TokenView**,  **Ribbon**
-- **ColorPicker**, **ColorPickerButton**, **DockPanel**, **ImageCropper**  
-- **LayoutTransformControl**, **MetadataControl**  
+- **MarkdownTextBlock** — syntax highlighting for *C#, C++, XML, JSON, Shell*  
+- **Marquee**, **OpacityMaskView**, **Shimmer**, **Adorner**  
+- **AttachedDropShadow**, **AttachedCardShadow**  
+- **ColorPicker**, **ColorPickerButton**, **ColorAnalyzer**  
+- **DockPanel**, **UniformGrid**, **WrapPanel**, **StaggeredPanel**, **StaggeredLayout**, **GridSplitter**  
+- **LayoutTransformControl**, **ContentSizer**, **PropertySizer**, **ConstrainedBox**  
 - **HeaderedContentControl**, **HeaderedItemsControl**, **HeaderedTreeView**  
-- **ConstrainedBox**, **RadialGauge**, **RangeSelector**, **Segmented**  
-- **SettingsCard**, **SettingsExpander**, **ContentSizer**, **GridSplitter**, **PropertySizer**  
-- **StaggeredLayout**, **SwitchPresenter**, **TabbedCommandBar**  
-- **TokenizingTextBox**, **RichSuggestBox**, **UniformGrid**, **WrapPanel**, **StaggeredPanel** 
-- **AttachedDropShadow**, **AttachedCardShadow**
-- **CameraPreview**
+- **TokenView**, **TokenizingTextBox**, **RichSuggestBox**  
+- **Segmented**, **SwitchPresenter**, **RangeSelector**, **RadialGauge**  
+- **SettingsCard**, **SettingsExpander**, **TabbedCommandBar**  
+- **ImageCropper**, **CameraPreview**  
+- **RivePlayer**  
+- **DataTable**, **MetadataControl**
 
 > ⚠️ Note:  
 > `RadialGauge.ValueStringFormat` uses **C++ `std::format` syntax** instead of .NET string format syntax.
