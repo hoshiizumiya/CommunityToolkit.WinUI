@@ -31,7 +31,17 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
         if (Source().empty())
             co_return nullptr;
 
-        auto stream = co_await winrt::Windows::Storage::Streams::RandomAccessStreamReference::CreateFromUri(Uri(Source())).OpenReadAsync();
+		auto uri = winrt::Windows::Foundation::Uri(Source());
+
+        winrt::Windows::Storage::Streams::IRandomAccessStream stream{ nullptr };
+
+        if (uri.SchemeName() == L"file") {
+            auto file = co_await winrt::Windows::Storage::StorageFile::GetFileFromPathAsync(uri.AbsoluteUri());
+            stream = co_await file.OpenAsync(winrt::Windows::Storage::FileAccessMode::Read);
+        }
+        else {
+            stream = co_await winrt::Windows::Storage::Streams::RandomAccessStreamReference::CreateFromUri(uri).OpenReadAsync();
+        }
 
         auto decoder = co_await winrt::Windows::Graphics::Imaging::BitmapDecoder::CreateAsync(stream);
         auto pixelData = co_await decoder.GetPixelDataAsync();
