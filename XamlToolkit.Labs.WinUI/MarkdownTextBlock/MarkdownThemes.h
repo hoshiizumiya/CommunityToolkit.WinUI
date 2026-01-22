@@ -96,8 +96,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
         wil::single_threaded_rw_property<Thickness> CodeBlockPadding = ThicknessHelper::FromUniformLength(8);
         wil::single_threaded_rw_property<Thickness> CodeBlockMargin = Thickness(0, 8, 0, 8);
         wil::single_threaded_rw_property<FontFamily> CodeBlockFontFamily = FontFamily(L"Consolas");
-        wil::single_threaded_rw_property<Brush> CodeBlockForeground =
-            Application::Current().Resources().Lookup(box_value(L"TextFillColorPrimaryBrush")).as<Brush>();
+        wil::single_threaded_rw_property<Brush> CodeBlockForeground = Application::Current().Resources().Lookup(box_value(L"TextFillColorPrimaryBrush")).as<Brush>();
         wil::single_threaded_rw_property<Microsoft::UI::Xaml::CornerRadius> CodeBlockCornerRadius = CornerRadiusHelper::FromUniformRadius(4);
 
         // Horizontal rule
@@ -119,8 +118,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
         wil::single_threaded_rw_property<Brush> QuoteBackground = SolidColorBrush(winrt::Microsoft::UI::Colors::Transparent());
         wil::single_threaded_rw_property<Brush> QuoteBorderBrush = Application::Current().Resources().Lookup(box_value(L"CardStrokeColorDefaultBrush")).as<Brush>();
         wil::single_threaded_rw_property<Thickness> QuoteBorderThickness = Thickness(4, 0, 0, 0);
-        wil::single_threaded_rw_property<Brush> QuoteForeground =
-            Application::Current().Resources().Lookup(box_value(L"TextFillColorPrimaryBrush")).as<Brush>();
+        wil::single_threaded_rw_property<Brush> QuoteForeground = Application::Current().Resources().Lookup(box_value(L"TextFillColorPrimaryBrush")).as<Brush>();
         wil::single_threaded_rw_property<Thickness> QuoteMargin = Thickness(0, 4, 0, 4);
         wil::single_threaded_rw_property<Thickness> QuotePadding = ThicknessHelper::FromUniformLength(4);
         wil::single_threaded_rw_property<Microsoft::UI::Xaml::CornerRadius> QuoteCornerRadius = CornerRadiusHelper::FromUniformRadius(4);

@@ -63,9 +63,9 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 
         static inline const wil::single_threaded_property<DependencyProperty> ConfigProperty = DependencyProperty::Register(
             L"Config",
-            winrt::xaml_typename<XamlToolkit::Labs::WinUI::MarkdownConfig>(),
+            winrt::xaml_typename<winrt::XamlToolkit::Labs::WinUI::MarkdownConfig>(),
             winrt::xaml_typename<class_type>(),
-            PropertyMetadata(nullptr, MarkdownTextBlock::OnConfigChanged));
+            PropertyMetadata::Create([]() { return winrt::XamlToolkit::Labs::WinUI::MarkdownConfig::Default(); }, MarkdownTextBlock::OnConfigChanged));
 
         static inline const wil::single_threaded_property<DependencyProperty> TextProperty = DependencyProperty::Register(
             L"Text",
@@ -79,8 +79,8 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
             winrt::xaml_typename<class_type>(),
             PropertyMetadata(winrt::box_value(true), OnIsTextSelectionEnabledChanged));
 
-        XamlToolkit::Labs::WinUI::MarkdownConfig Config() { return winrt::unbox_value<XamlToolkit::Labs::WinUI::MarkdownConfig>(GetValue(ConfigProperty)); }
-        void Config(XamlToolkit::Labs::WinUI::MarkdownConfig const& value) { SetValue(ConfigProperty, value); }
+        winrt::XamlToolkit::Labs::WinUI::MarkdownConfig Config() { return GetValue(ConfigProperty).try_as<winrt::XamlToolkit::Labs::WinUI::MarkdownConfig>(); }
+        void Config(winrt::XamlToolkit::Labs::WinUI::MarkdownConfig const& value) { SetValue(ConfigProperty, value); }
 
         winrt::hstring Text() { return winrt::unbox_value_or<winrt::hstring>(GetValue(TextProperty), L""); }
         void Text(winrt::hstring const& value) { SetValue(TextProperty, winrt::box_value(value)); }

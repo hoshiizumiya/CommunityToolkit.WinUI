@@ -13,7 +13,6 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 		auto children = _container.Children();
 		children.Clear();
 		children.Append(_document->RichTextBlock());
-		Config(XamlToolkit::Labs::WinUI::MarkdownConfig::Default());
 		Build();
 	}
 
