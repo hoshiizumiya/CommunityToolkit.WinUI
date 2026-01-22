@@ -37,12 +37,12 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		base_type::OnApplyTemplate();
 
 		// Find template parts
-		if (auto panel = GetTemplateChild(L"LayoutRoot").try_as<Panel>())
+		if (auto panel = GetTemplateChild(LayoutRootPartName).try_as<Panel>())
 		{
 			_layoutRoot = panel;
 		}
 
-		if (auto matrixTransform = GetTemplateChild(L"MatrixTransform").try_as<MatrixTransform>())
+		if (auto matrixTransform = GetTemplateChild(MatrixTransformPartName).try_as<MatrixTransform>())
 		{
 			_matrixTransform = matrixTransform;
 		}

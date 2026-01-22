@@ -25,9 +25,9 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		}
 
 		// Get TabbedCommandBarContent first, since setting SelectedItem requires it
-		_tabbedCommandBarContent = GetTemplateChild(L"PART_TabbedCommandBarContent").try_as<ContentControl>();
-		_tabbedCommandBarContentBorder = GetTemplateChild(L"PART_TabbedCommandBarContentBorder").try_as<Border>();
-		_tabChangedStoryboard = GetTemplateChild(L"TabChangedStoryboard").try_as<Storyboard>();
+		_tabbedCommandBarContent = GetTemplateChild(ContentPartName).try_as<ContentControl>();
+		_tabbedCommandBarContentBorder = GetTemplateChild(ContentBorderPartName).try_as<Border>();
+		_tabChangedStoryboard = GetTemplateChild(TabChangedStoryboardPartName).try_as<Storyboard>();
 
 		// TODO: We could maybe optimize and use a lower-level Loaded event for what's hosting the MenuItems
 		// to set SelectedItem, but then we may have to pull in another template part, so think we're OK

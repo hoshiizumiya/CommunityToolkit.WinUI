@@ -19,9 +19,9 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
         XamlToolkit::WinUI::Controls::SizerBase OwningSizer();
 
-        hstring GetClassNameCore();
+        winrt::hstring GetClassNameCore();
 
-        hstring GetNameCore();
+        winrt::hstring GetNameCore();
     };
 }
 

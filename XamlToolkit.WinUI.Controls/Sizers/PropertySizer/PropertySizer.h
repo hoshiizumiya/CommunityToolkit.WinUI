@@ -15,8 +15,6 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
 	struct PropertySizer : PropertySizerT<PropertySizer, implementation::SizerBase>
 	{
-		double _currentSize;
-
 		PropertySizer();
 
 		bool IsDragInverted() { return winrt::unbox_value<double>(GetValue(IsDragInvertedProperty)); }
@@ -50,6 +48,9 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		bool OnDragVertical(double verticalChange);
 
 		bool ApplySizeChange(double newSize);
+
+	private:
+		double _currentSize;
 	};
 }
 

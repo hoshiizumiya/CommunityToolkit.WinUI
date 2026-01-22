@@ -102,7 +102,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 
                     if (colImpl->CurrentWidth().GridUnitType == GridUnitType::Auto)
                     {
-                        Children().GetAt(i).Measure(availableSize);
+                        childElement.Measure(availableSize);
 
                         // For TreeView in the first column, we want the header to expand to encompass
                         // the maximum indentation of the tree.
@@ -116,10 +116,12 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
                             {
                                 _treePadding = parentContainer.Padding().Left;
                                 // We assume our 'DataRow' is in the last child slot of the Grid, need to know how large the other columns are.
-                                for (uint32_t j = 0; j < parentContainer.Children().Size() - 1; j++)
+                                auto children = parentContainer.Children();
+                                uint32_t childSize = children.Size();
+                                for (uint32_t j = 0; j < childSize - 1; j++)
                                 {
                                     // TODO: We may need to get the actual size here later in Arrange?
-                                    _treePadding += parentContainer.Children().GetAt(j).DesiredSize().Width;
+                                    _treePadding += children.GetAt(j).DesiredSize().Width;
                                 }
                             }
                             padding = _treePadding;
@@ -154,12 +156,15 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
             {
                 // TODO: Need to check visibility
                 // Measure all children since we need to determine the row's height at minimum
-                for (uint32_t i = 0; i < Children().Size(); i++)
+                auto children = Children();
+                uint32_t childSize = children.Size();
+                for (uint32_t i = 0; i < childSize; i++)
                 {
-                    auto childElement = Children().GetAt(i);
-                    if (grid.ColumnDefinitions().GetAt(i).Width().GridUnitType == GridUnitType::Pixel)
+                    auto childElement = children.GetAt(i);
+					auto colDef = grid.ColumnDefinitions().GetAt(i);
+                    if (colDef.Width().GridUnitType == GridUnitType::Pixel)
                     {
-                        childElement.Measure(Size(static_cast<float>(grid.ColumnDefinitions().GetAt(i).Width().Value), availableSize.Height));
+                        childElement.Measure(Size(static_cast<float>(colDef.Width().Value), availableSize.Height));
                     }
                     else
                     {
@@ -200,6 +205,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
             int i = 0;
             auto elements = Children()
                 | std::ranges::views::filter([](auto&& e) { return e.Visibility() == Visibility::Visible; });
+
             for (const UIElement& child : elements)
             {
                 if (auto grid = _parentPanel.try_as<Grid>(); grid &&

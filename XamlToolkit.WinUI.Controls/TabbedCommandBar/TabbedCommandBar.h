@@ -9,6 +9,10 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 	struct TabbedCommandBar : TabbedCommandBarT<TabbedCommandBar>
 	{
 	private:
+		static constexpr auto ContentPartName = L"PART_TabbedCommandBarContent";
+		static constexpr auto ContentBorderPartName = L"PART_TabbedCommandBarContentBorder";
+		static constexpr auto TabChangedStoryboardPartName = L"TabChangedStoryboard";
+
 		ContentControl _tabbedCommandBarContent{ nullptr };
 		Border _tabbedCommandBarContentBorder{ nullptr };
 		Storyboard _tabChangedStoryboard{ nullptr };

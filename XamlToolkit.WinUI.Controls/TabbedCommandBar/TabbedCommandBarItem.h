@@ -9,6 +9,9 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 	struct TabbedCommandBarItem : TabbedCommandBarItemT<TabbedCommandBarItem>
 	{
 	private:
+		static constexpr auto PrimaryItemsControlPartName = L"PrimaryItemsControl";
+		static constexpr auto MoreButtonPartName = L"MoreButton";
+
 		ItemsControl _primaryItemsControl{ nullptr };
 		Button _moreButton{ nullptr };
 

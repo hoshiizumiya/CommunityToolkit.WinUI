@@ -6,6 +6,15 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 {
 	struct ResizeElementAdorner : ResizeElementAdornerT<ResizeElementAdorner, implementation::Adorner>
 	{
+		static constexpr std::wstring_view TopThumbPartName = L"TopThumbPart";
+		static constexpr std::wstring_view BottomThumbPartName = L"BottomThumbPart";
+		static constexpr std::wstring_view LeftThumbPartName = L"LeftThumbPart";
+		static constexpr std::wstring_view RightThumbPartName = L"RightThumbPart";
+		static constexpr std::wstring_view TopLeftThumbPartName = L"TopLeftThumbPart";
+		static constexpr std::wstring_view TopRightThumbPartName = L"TopRightThumbPart";
+		static constexpr std::wstring_view BottomLeftThumbPartName = L"BottomLeftThumbPart";
+		static constexpr std::wstring_view BottomRightThumbPartName = L"BottomRightThumbPart";
+
 		ResizeElementAdorner();
 
 		FrameworkElement AdornedElement() const
@@ -34,7 +43,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 		winrt::XamlToolkit::Labs::WinUI::ResizeThumb BottomRightThumbPart{ nullptr };
 
 		UIElement::ManipulationDelta_revoker _manipulationDeltaRevoker;
-		std::array<winrt::event_token, 8> _thumbTokens;
+		std::array<winrt::event_token, 8> _thumbTokens{};
 	};
 }
 

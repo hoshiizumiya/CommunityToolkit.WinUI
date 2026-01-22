@@ -16,7 +16,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 	{
 		base_type::OnApplyTemplate();
 
-		_primaryItemsControl = GetTemplateChild(L"PrimaryItemsControl").try_as<ItemsControl>();
+		_primaryItemsControl = GetTemplateChild(PrimaryItemsControlPartName).try_as<ItemsControl>();
 		if (_primaryItemsControl)
 		{
 			_primaryItemsControl.HorizontalAlignment(CommandAlignment());
@@ -30,7 +30,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 				});
 		}
 
-		_moreButton = GetTemplateChild(L"MoreButton").try_as<Button>();
+		_moreButton = GetTemplateChild(MoreButtonPartName).try_as<Button>();
 		if (_moreButton)
 		{
 			_moreButton.HorizontalAlignment(OverflowButtonAlignment());

@@ -18,14 +18,14 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
     {
         OnDetaching();
 
-        TopThumbPart = GetTemplateChild(L"TopThumbPart").try_as<winrt::XamlToolkit::Labs::WinUI::ResizeThumb>();
-        BottomThumbPart = GetTemplateChild(L"BottomThumbPart").try_as<winrt::XamlToolkit::Labs::WinUI::ResizeThumb>();
-        LeftThumbPart = GetTemplateChild(L"LeftThumbPart").try_as<winrt::XamlToolkit::Labs::WinUI::ResizeThumb>();
-        RightThumbPart = GetTemplateChild(L"RightThumbPart").try_as<winrt::XamlToolkit::Labs::WinUI::ResizeThumb>();
-        TopLeftThumbPart = GetTemplateChild(L"TopLeftThumbPart").try_as<winrt::XamlToolkit::Labs::WinUI::ResizeThumb>();
-        TopRightThumbPart = GetTemplateChild(L"TopRightThumbPart").try_as<winrt::XamlToolkit::Labs::WinUI::ResizeThumb>();
-        BottomLeftThumbPart = GetTemplateChild(L"BottomLeftThumbPart").try_as<winrt::XamlToolkit::Labs::WinUI::ResizeThumb>();
-        BottomRightThumbPart = GetTemplateChild(L"BottomRightThumbPart").try_as<winrt::XamlToolkit::Labs::WinUI::ResizeThumb>();
+        TopThumbPart = GetTemplateChild(TopThumbPartName).try_as<winrt::XamlToolkit::Labs::WinUI::ResizeThumb>();
+        BottomThumbPart = GetTemplateChild(BottomThumbPartName).try_as<winrt::XamlToolkit::Labs::WinUI::ResizeThumb>();
+        LeftThumbPart = GetTemplateChild(LeftThumbPartName).try_as<winrt::XamlToolkit::Labs::WinUI::ResizeThumb>();
+        RightThumbPart = GetTemplateChild(RightThumbPartName).try_as<winrt::XamlToolkit::Labs::WinUI::ResizeThumb>();
+        TopLeftThumbPart = GetTemplateChild(TopLeftThumbPartName).try_as<winrt::XamlToolkit::Labs::WinUI::ResizeThumb>();
+        TopRightThumbPart = GetTemplateChild(TopRightThumbPartName).try_as<winrt::XamlToolkit::Labs::WinUI::ResizeThumb>();
+        BottomLeftThumbPart = GetTemplateChild(BottomLeftThumbPartName).try_as<winrt::XamlToolkit::Labs::WinUI::ResizeThumb>();
+        BottomRightThumbPart = GetTemplateChild(BottomRightThumbPartName).try_as<winrt::XamlToolkit::Labs::WinUI::ResizeThumb>();
 
         // OnApplyTemplate can be called after OnAttached, especially if the Adorner isn't initially visible, so we need to re-apply the TargetControl here.
         if (AdornedElement())

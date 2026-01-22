@@ -43,10 +43,10 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		VerifyValues();
 		_valuesAssigned = true;
 
-		_activeRectangle = GetTemplateChild(L"ActiveRectangle").try_as<Rectangle>();
-		_minThumb = GetTemplateChild(L"MinThumb").try_as<Thumb>();
-		_maxThumb = GetTemplateChild(L"MaxThumb").try_as<Thumb>();
-		_containerCanvas = GetTemplateChild(L"ContainerCanvas").try_as<Canvas>();
+		_activeRectangle = GetTemplateChild(ActiveRectanglePartName).try_as<Rectangle>();
+		_minThumb = GetTemplateChild(MinThumbPartName).try_as<Thumb>();
+		_maxThumb = GetTemplateChild(MaxThumbPartName).try_as<Thumb>();
+		_containerCanvas = GetTemplateChild(ContainerCanvasPartName).try_as<Canvas>();
 
 		if (_minThumb != nullptr)
 		{

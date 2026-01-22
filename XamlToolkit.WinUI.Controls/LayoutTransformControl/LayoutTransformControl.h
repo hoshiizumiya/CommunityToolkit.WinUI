@@ -48,6 +48,9 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
 	struct LayoutTransformControl : LayoutTransformControlT<LayoutTransformControl>
 	{
+		static constexpr auto LayoutRootPartName = L"LayoutRoot";
+		static constexpr auto MatrixTransformPartName = L"MatrixTransform";
+
 		LayoutTransformControl();
 
 		/// <summary>
@@ -139,7 +142,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 			L"Child",
 			winrt::xaml_typename<FrameworkElement>(),
 			winrt::xaml_typename<class_type>(),
-			PropertyMetadata(nullptr, ChildChanged));
+			PropertyMetadata(nullptr, &LayoutTransformControl::ChildChanged));
 
 
 		/// <summary>
@@ -175,7 +178,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 			L"Transform",
 			winrt::xaml_typename<FrameworkElement>(),
 			winrt::xaml_typename<class_type>(),
-			PropertyMetadata(nullptr, TransformChanged));
+			PropertyMetadata(nullptr, &LayoutTransformControl::TransformChanged));
 
 	private:
 

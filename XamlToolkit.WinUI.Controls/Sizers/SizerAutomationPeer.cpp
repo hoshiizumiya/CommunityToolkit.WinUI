@@ -13,12 +13,12 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
         return Owner().try_as<owner_type>();
     }
 
-    hstring SizerAutomationPeer::GetClassNameCore()
+    winrt::hstring SizerAutomationPeer::GetClassNameCore()
     {
         return winrt::get_class_name(OwningSizer());
     }
 
-    hstring SizerAutomationPeer::GetNameCore()
+    winrt::hstring SizerAutomationPeer::GetNameCore()
     {
         hstring name = AutomationProperties::GetName(OwningSizer());
         if (!name.empty())

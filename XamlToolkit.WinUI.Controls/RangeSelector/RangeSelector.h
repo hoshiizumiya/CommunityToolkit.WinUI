@@ -20,6 +20,11 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		static constexpr std::wstring_view HorizontalState = L"Horizontal";
 		static constexpr std::wstring_view VerticalState = L"Vertical";
 
+		static constexpr std::wstring_view MinThumbPartName = L"MinThumb";
+		static constexpr std::wstring_view MaxThumbPartName = L"MaxThumb";
+		static constexpr std::wstring_view ContainerCanvasPartName = L"ContainerCanvas";
+		static constexpr std::wstring_view ActiveRectanglePartName = L"ActiveRectangle";
+
 		//static constexpr int32_t DefaultKeyBoardOffset = 12;   // Default offset for automatic tooltips opened by keyboard.
 		static constexpr int32_t DefaultMouseOffset = 20;        // Default offset for automatic tooltips opened by mouse.
 		//static constexpr int32_t DefaultTouchOffset = 44;      // Default offset for automatic tooltips opened by touch.
