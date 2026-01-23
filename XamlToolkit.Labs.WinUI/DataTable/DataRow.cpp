@@ -76,8 +76,9 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 
         double maxHeight = 0;
 		auto children = Children();
+        uint32_t childCount = children.Size();
 
-        if (children.Size() > 0)
+        if (childCount > 0)
         {
             // If we don't have a grid, just measure first child to get row height and take available space
             if (_parentPanel == nullptr)
@@ -87,13 +88,13 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
             }
             // Handle DataTable Parent
             else if (_parentTable != nullptr
-                && _parentTable.Children().Size() == children.Size())
+                && _parentTable.Children().Size() == childCount)
             {
                 // TODO: Need to check visibility
                 // Measure all children since we need to determine the row's height at minimum
-                for (uint32_t i = 0; i < children.Size(); i++)
+                for (uint32_t i = 0; i < childCount; i++)
                 {
-                    auto childElement = Children().GetAt(i);
+                    auto childElement = children.GetAt(i);
                     auto dataColumn = _parentTable.Children().GetAt(i).try_as<winrt::XamlToolkit::Labs::WinUI::DataColumn>();
 
 					if (dataColumn == nullptr) continue;
@@ -116,12 +117,12 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
                             {
                                 _treePadding = parentContainer.Padding().Left;
                                 // We assume our 'DataRow' is in the last child slot of the Grid, need to know how large the other columns are.
-                                auto children = parentContainer.Children();
-                                uint32_t childSize = children.Size();
-                                for (uint32_t j = 0; j < childSize - 1; j++)
+                                auto containerChildren = parentContainer.Children();
+                                uint32_t containerChildrenCount = containerChildren.Size();
+                                for (int j = 0; j < static_cast<int>(containerChildrenCount) - 1; j++)
                                 {
                                     // TODO: We may need to get the actual size here later in Arrange?
-                                    _treePadding += children.GetAt(j).DesiredSize().Width;
+                                    _treePadding += containerChildren.GetAt(j).DesiredSize().Width;
                                 }
                             }
                             padding = _treePadding;
@@ -151,14 +152,12 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
             }
             // Fallback for Grid Hybrid scenario...
             else if (auto grid = _parentPanel.try_as<Grid>();
-                grid && _parentPanel.Children().Size() == Children().Size()
+                grid && _parentPanel.Children().Size() == childCount
                 && grid.ColumnDefinitions().Size() == Children().Size())
             {
                 // TODO: Need to check visibility
                 // Measure all children since we need to determine the row's height at minimum
-                auto children = Children();
-                uint32_t childSize = children.Size();
-                for (uint32_t i = 0; i < childSize; i++)
+                for (uint32_t i = 0; i < childCount; i++)
                 {
                     auto childElement = children.GetAt(i);
 					auto colDef = grid.ColumnDefinitions().GetAt(i);

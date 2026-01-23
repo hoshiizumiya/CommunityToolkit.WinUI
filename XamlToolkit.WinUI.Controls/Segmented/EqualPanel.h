@@ -89,7 +89,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
             winrt::Windows::Foundation::Size Size() const
             {
-                return winrt::Windows::Foundation::Size(X, Y);
+                return winrt::Windows::Foundation::Size(static_cast<float>(X), static_cast<float>(Y));
             }
         };
 
