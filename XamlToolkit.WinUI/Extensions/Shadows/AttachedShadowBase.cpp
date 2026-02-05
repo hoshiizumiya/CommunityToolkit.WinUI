@@ -100,8 +100,8 @@ namespace winrt::XamlToolkit::WinUI::implementation
 
 	void AttachedShadowBase::OnElementContextUninitialized(XamlToolkit::WinUI::AttachedShadowElementContext const& context)
 	{
-		context.ClearAndDisposeResources();
 		ElementCompositionPreview::SetElementChildVisual(context.Element(), nullptr);
+		context.ClearAndDisposeResources();
 	}
 
 	Windows::Foundation::Collections::IVector<XamlToolkit::WinUI::AttachedShadowElementContext> AttachedShadowBase::EnumerateElementContexts()

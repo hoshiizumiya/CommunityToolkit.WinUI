@@ -70,16 +70,16 @@ namespace winrt::XamlToolkit::WinUI::implementation
 		{
 			IsInitialized(false);
 
-			Parent().as<IAttachedShadowBaseOverrides>().OnElementContextUninitialized(*this);
-			if (SpriteVisual())
-			{
-				SpriteVisual().Shadow(nullptr);
-			}
-
 			if (auto element = Element())
 			{
 				ElementCompositionPreview::SetElementChildVisual(element, nullptr);
 				_sizeChangedRevoker.revoke();
+			}
+
+			Parent().as<IAttachedShadowBaseOverrides>().OnElementContextUninitialized(*this);
+			if (SpriteVisual())
+			{
+				SpriteVisual().Shadow(nullptr);
 			}
 
 			SpriteVisual(nullptr);
