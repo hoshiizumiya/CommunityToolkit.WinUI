@@ -23,8 +23,8 @@ namespace winrt::XamlToolkit::WinUI::Converters::implementation
         IInspectable FalseValue() const;
         void FalseValue(IInspectable const& value);
 
-        static const wil::single_threaded_property<DependencyProperty>  TrueValueProperty;
-        static const wil::single_threaded_property<DependencyProperty>  FalseValueProperty;
+        static const wil::single_threaded_property<DependencyProperty> TrueValueProperty;
+        static const wil::single_threaded_property<DependencyProperty> FalseValueProperty;
 
         IInspectable Convert(IInspectable const& value, TypeName targetType, IInspectable const& parameter, winrt::hstring const& language) const;
 

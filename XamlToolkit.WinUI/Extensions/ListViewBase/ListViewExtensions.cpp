@@ -142,8 +142,19 @@ namespace winrt::XamlToolkit::WinUI::implementation
 				uint32_t index = args.Index();
 				for (uint32_t i = index; i < sender.Size(); i++)
 				{
-					auto itemContainer = listViewBase.ContainerFromIndex(i).try_as<Control>();
-					if (itemContainer != nullptr)
+					// Get item container or element at index
+					winrt::Microsoft::UI::Xaml::Controls::Control itemContainer{ nullptr };
+
+					if (auto container = listViewBase.ContainerFromIndex(i).try_as<Control>())
+					{
+						itemContainer = container;
+					}
+					else if (auto item = listViewBase.Items().GetAt(i).try_as<Control>())
+					{
+						itemContainer = item;
+					}
+
+					if (itemContainer)
 					{
 						SetItemContainerBackground(listViewBase, itemContainer, i);
 					}
@@ -154,23 +165,11 @@ namespace winrt::XamlToolkit::WinUI::implementation
 
 	void ListViewExtensions::SetItemContainerBackground(ListViewBase const& sender, Control const& itemContainer, int itemIndex)
 	{
-		if (itemIndex % 2 == 0)
+		auto brush = itemIndex % 2 == 0 ? GetAlternateColor(sender) : nullptr;
+		itemContainer.Background(brush);
+		if (auto rootBorder = DependencyObjectEx::FindDescendant<Border>(itemContainer))
 		{
-			itemContainer.Background(GetAlternateColor(sender));
-			auto rootBorder = DependencyObjectEx::FindDescendant<Border>(itemContainer);
-			if (rootBorder != nullptr)
-			{
-				rootBorder.Background(GetAlternateColor(sender));
-			}
-		}
-		else
-		{
-			itemContainer.Background(nullptr);
-			auto rootBorder = DependencyObjectEx::FindDescendant<Border>(itemContainer);
-			if (rootBorder != nullptr)
-			{
-				rootBorder.Background(nullptr);
-			}
+			rootBorder.Background(brush);
 		}
 	}
 
