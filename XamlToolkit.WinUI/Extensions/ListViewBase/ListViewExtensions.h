@@ -18,19 +18,19 @@ namespace winrt::XamlToolkit::WinUI::implementation
 				L"ItemContainerStretchDirection",
 				winrt::xaml_typename<ItemContainerStretchDirection>(),
 				winrt::xaml_typename<class_type>(),
-				winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(false), &ListViewExtensions::OnItemContainerStretchDirectionPropertyChanged });
+				winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr, &ListViewExtensions::OnItemContainerStretchDirectionPropertyChanged });
 
-		static ItemContainerStretchDirection GetItemContainerStretchDirection(
+		static std::optional<ItemContainerStretchDirection> GetItemContainerStretchDirection(
 			Microsoft::UI::Xaml::Controls::ListViewBase const& obj)
 		{
-			return obj.GetValue(ItemContainerStretchDirectionProperty()).as<ItemContainerStretchDirection>();
+			return obj.GetValue(ItemContainerStretchDirectionProperty()).try_as<ItemContainerStretchDirection>();
 		}
 
 		static void SetItemContainerStretchDirection(
 			Microsoft::UI::Xaml::Controls::ListViewBase const& obj,
-			ItemContainerStretchDirection const& value)
+			winrt::Windows::Foundation::IReference<ItemContainerStretchDirection> const& value)
 		{
-			obj.SetValue(ItemContainerStretchDirectionProperty(), winrt::box_value(value));
+			obj.SetValue(ItemContainerStretchDirectionProperty(), value);
 		}
 
 		static void DeselectAll(ListViewBase const& list);
@@ -51,7 +51,9 @@ namespace winrt::XamlToolkit::WinUI::implementation
 			FrameworkElement::Unloaded_revoker _unloadedRevoker;
 		};
 
-		static inline std::unordered_map<IObservableVector<IInspectable>, std::unique_ptr<EventContext>> _itemsForList;
+		static inline std::unordered_map<IObservableVector<IInspectable>, std::unique_ptr<EventContext>> _trackedListViews;
+
+		static inline std::unordered_map<ListViewBase, std::unique_ptr<EventContext>> _listViewEventContexts;
 
 	public:
 		static void OnAlternateColorPropertyChanged(DependencyObject const& sender, DependencyPropertyChangedEventArgs const& args);
@@ -100,6 +102,8 @@ namespace winrt::XamlToolkit::WinUI::implementation
 		static void ItemContainerStretchDirectionChanging(ListViewBase const& sender, ContainerContentChangingEventArgs const& args);
 
 		static void OnListViewBaseUnloaded(IInspectable const& sender, RoutedEventArgs const& e);
+
+		static void OnListViewBaseUnloaded_AltRow(IInspectable const& sender, [[maybe_unused]] RoutedEventArgs const& e);
 
 		static void ColorItemsVectorChanged(IObservableVector<IInspectable> const& sender, IVectorChangedEventArgs const& args);
 

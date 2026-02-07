@@ -26,6 +26,8 @@ namespace XamlToolkit.WinUI
 
         static Microsoft.UI.Xaml.DependencyProperty CommandProperty{ get; };
 
+		static Microsoft.UI.Xaml.DependencyProperty ItemContainerStretchDirectionProperty{ get; };
+
         static Microsoft.UI.Xaml.Media.Brush GetAlternateColor(Microsoft.UI.Xaml.Controls.ListViewBase obj);
 
         static void SetAlternateColor(Microsoft.UI.Xaml.Controls.ListViewBase obj, Microsoft.UI.Xaml.Media.Brush value);
@@ -37,6 +39,10 @@ namespace XamlToolkit.WinUI
         static Microsoft.UI.Xaml.Input.ICommand GetCommand(Microsoft.UI.Xaml.Controls.ListViewBase obj);
 
         static void SetCommand(Microsoft.UI.Xaml.Controls.ListViewBase obj, Microsoft.UI.Xaml.Input.ICommand value);
+
+		static Windows.Foundation.IReference<ItemContainerStretchDirection> GetItemContainerStretchDirection(Microsoft.UI.Xaml.Controls.ListViewBase obj);
+
+		static void SetItemContainerStretchDirection(Microsoft.UI.Xaml.Controls.ListViewBase obj, Windows.Foundation.IReference<ItemContainerStretchDirection> value);
 
         static void DeselectAll(Microsoft.UI.Xaml.Controls.ListViewBase list);
 

@@ -14,22 +14,22 @@ namespace winrt::XamlToolkit::WinUI::implementation
 		if (auto listViewBase = sender.try_as<ListViewBase>())
 		{
 			auto items = listViewBase.Items().try_as<IObservableVector<IInspectable>>();
-			if (const auto& iter = _itemsForList.find(items); iter != _itemsForList.end())
+			if (const auto& iter = _trackedListViews.find(items); iter != _trackedListViews.end())
 			{
-				_itemsForList.erase(iter);
+				_trackedListViews.erase(iter);
 			}
-
-			auto ctx = std::make_unique<EventContext>();
-			ctx->_listViewBase = listViewBase;
-
-			if (AlternateColorProperty != nullptr)
+		
+			if (GetAlternateColor(listViewBase))
 			{
+				auto ctx = std::make_unique<EventContext>();
+				ctx->_listViewBase = listViewBase;
+
 				ctx->_colorContentChangingRevoker = listViewBase.ContainerContentChanging(winrt::auto_revoke, { &ListViewExtensions::ColorContainerContentChanging });
 				ctx->_itemsVectorChangedRevoker = listViewBase.Items().VectorChanged(winrt::auto_revoke, &ListViewExtensions::ColorItemsVectorChanged);
-				ctx->_unloadedRevoker = listViewBase.Unloaded(winrt::auto_revoke, &ListViewExtensions::OnListViewBaseUnloaded);
-			}
+				ctx->_unloadedRevoker = listViewBase.Unloaded(winrt::auto_revoke, &ListViewExtensions::OnListViewBaseUnloaded_AltRow);
 
-			_itemsForList.try_emplace(items, std::move(ctx));
+				_trackedListViews.try_emplace(items, std::move(ctx));
+			}
 		}
 	}
 
@@ -43,21 +43,19 @@ namespace winrt::XamlToolkit::WinUI::implementation
 	{
 		if (auto listViewBase = sender.try_as<ListViewBase>())
 		{
-			for (const auto& [_, ctx] : _itemsForList)
+			auto iter = _listViewEventContexts.find(listViewBase);
+			
+			if (iter != _listViewEventContexts.end())
 			{
-				if (ctx->_listViewBase == listViewBase)
-				{
-					ctx->_itemTemplateContentChangingRevoker.revoke();
-					ctx->_unloadedRevoker.revoke();
+				iter->second->_itemTemplateContentChangingRevoker.revoke();
+			}
 
-					if (AlternateItemTemplateProperty != nullptr)
-					{
-						ctx->_itemTemplateContentChangingRevoker = listViewBase.ContainerContentChanging(winrt::auto_revoke, &ListViewExtensions::ItemTemplateContainerContentChanging);
-						ctx->_unloadedRevoker = listViewBase.Unloaded(winrt::auto_revoke, &ListViewExtensions::OnListViewBaseUnloaded);
-					}
-
-					break;
-				}
+			if (GetAlternateItemTemplate(listViewBase))
+			{
+				EventContext* ctx = iter != _listViewEventContexts.end() ? iter->second.get()
+					: _listViewEventContexts.emplace(listViewBase, new EventContext()).first->second.get();
+				ctx->_itemTemplateContentChangingRevoker = listViewBase.ContainerContentChanging(winrt::auto_revoke, &ListViewExtensions::ItemTemplateContainerContentChanging);
+				ctx->_unloadedRevoker = listViewBase.Unloaded(winrt::auto_revoke, &ListViewExtensions::OnListViewBaseUnloaded);
 			}
 		}
 	}
@@ -78,20 +76,18 @@ namespace winrt::XamlToolkit::WinUI::implementation
 	{
 		if (auto listViewBase = sender.try_as<ListViewBase>())
 		{
-			for (const auto& [_, ctx] : _itemsForList) {
-				if (ctx->_listViewBase == listViewBase)
-				{
-					ctx->_stretchDirectionContentChangingRevoker.revoke();
-					ctx->_unloadedRevoker.revoke();
+			auto iter = _listViewEventContexts.find(listViewBase);
+			if (iter != _listViewEventContexts.end())
+			{
+				iter->second->_stretchDirectionContentChangingRevoker.revoke();
+			}
 
-					if (ItemContainerStretchDirectionProperty != nullptr)
-					{
-						ctx->_stretchDirectionContentChangingRevoker = listViewBase.ContainerContentChanging(winrt::auto_revoke, &ListViewExtensions::ItemContainerStretchDirectionChanging);
-						ctx->_unloadedRevoker = listViewBase.Unloaded(winrt::auto_revoke, &ListViewExtensions::OnListViewBaseUnloaded);
-					}
-
-					break;
-				}
+			if (GetAlternateItemTemplate(listViewBase))
+			{
+				EventContext* ctx = iter != _listViewEventContexts.end() ? iter->second.get()
+					: _listViewEventContexts.emplace(listViewBase, new EventContext()).first->second.get();
+				ctx->_stretchDirectionContentChangingRevoker = listViewBase.ContainerContentChanging(winrt::auto_revoke, &ListViewExtensions::ItemContainerStretchDirectionChanging);
+				ctx->_unloadedRevoker = listViewBase.Unloaded(winrt::auto_revoke, &ListViewExtensions::OnListViewBaseUnloaded);
 			}
 		}
 	}
@@ -115,7 +111,15 @@ namespace winrt::XamlToolkit::WinUI::implementation
 	{
 		if (auto listViewBase = sender.try_as<ListViewBase>())
 		{
-			_itemsForList.erase(listViewBase.Items());
+			_listViewEventContexts.erase(listViewBase);
+		}
+	}
+
+	void ListViewExtensions::OnListViewBaseUnloaded_AltRow(IInspectable const& sender, [[maybe_unused]] RoutedEventArgs const& e)
+	{
+		if (auto listViewBase = sender.try_as<ListViewBase>())
+		{
+			_trackedListViews.erase(listViewBase.Items());
 		}
 	}
 
@@ -131,8 +135,8 @@ namespace winrt::XamlToolkit::WinUI::implementation
 		// ColorContainerContentChanging method
 		if ((args.CollectionChange() == CollectionChange::ItemInserted) || (args.CollectionChange() == CollectionChange::ItemRemoved))
 		{
-			auto iter = _itemsForList.find(sender);
-			if (iter == _itemsForList.end())
+			auto iter = _trackedListViews.find(sender);
+			if (iter == _trackedListViews.end())
 			{
 				return;
 			}
