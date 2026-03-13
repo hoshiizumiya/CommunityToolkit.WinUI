@@ -4,7 +4,7 @@
 
 namespace winrt::XamlToolkit::Labs::WinUI::implementation
 {
-    struct DoubleVector : DoubleVectorT<DoubleVector>, winrt::vector_base<DoubleVector, double>
+    struct DoubleVector : DoubleVectorT<DoubleVector, winrt::Windows::Foundation::Collections::IVectorView<double>>, winrt::vector_base<DoubleVector, double>
     {
         DoubleVector() = default;
 

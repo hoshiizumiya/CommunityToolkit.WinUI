@@ -62,7 +62,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 
 	void RibbonCollapsibleGroup::OnFlyoutOpened([[maybe_unused]] IInspectable const& sender, [[maybe_unused]] IInspectable const& e)
 	{
-		if (_collapsedContentContainer)  _collapsedContentContainer.Focus(FocusState::Programmatic);
+		if (_collapsedContentContainer) _collapsedContentContainer.Focus(FocusState::Programmatic);
 	}
 
 	void RibbonCollapsibleGroup::OnFlyoutPointerReleased([[maybe_unused]] IInspectable const& sender, PointerRoutedEventArgs const& e)
