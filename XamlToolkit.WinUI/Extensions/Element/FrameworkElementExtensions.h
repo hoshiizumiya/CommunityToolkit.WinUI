@@ -1,11 +1,11 @@
-﻿#pragma once
+#pragma once
 
 #include "FrameworkElementExtensions.g.h"
-
 #include <wil/wistd_type_traits.h>
 #include <wil/cppwinrt_authoring.h>
 #include <winrt/Microsoft.UI.Xaml.h>
 #include <winrt/Windows.UI.Xaml.Interop.h>
+#include <unordered_map>
 
 namespace winrt::XamlToolkit::WinUI::implementation
 {
@@ -14,9 +14,26 @@ namespace winrt::XamlToolkit::WinUI::implementation
 
     struct FrameworkElementExtensions : FrameworkElementExtensionsT<FrameworkElementExtensions>
     {
-        static inline FrameworkElement::Unloaded_revoker _elementUnloadRevoker;
-        static inline FrameworkElement::Loaded_revoker _ancestorLoadRevoker;
+    private:
+        struct HandlerState
+        {
+			winrt::event_token _loadedToken;
+            winrt::event_token _unloadedToken;
+        };
 
+        struct WeakFrameworkElementHash
+        {
+            size_t operator()(winrt::weak_ref<FrameworkElement> const& element) const noexcept
+            {
+                return std::hash<void*>{}(winrt::get_abi(element).get());
+            }
+        };
+
+        static void RemoveHandlers() noexcept;
+
+        static thread_local inline std::unordered_map<winrt::weak_ref<FrameworkElement>, HandlerState, WeakFrameworkElementHash> _handlerStates;
+
+    public:
         static void AncestorType_PropertyChanged(DependencyObject const& obj, DependencyPropertyChangedEventArgs const& args);
 
         static DependencyObject FindAscendant(DependencyObject element, TypeName const& name);

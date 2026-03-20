@@ -1,23 +1,45 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "FrameworkElementExtensions.h"
 #if __has_include("FrameworkElementExtensions.g.cpp")
 #include "FrameworkElementExtensions.g.cpp"
 #endif
 
-using namespace winrt;
-using namespace Microsoft::UI::Xaml;
-
 namespace winrt::XamlToolkit::WinUI::implementation
 {
+    void FrameworkElementExtensions::RemoveHandlers() noexcept
+    {
+        for (auto it = _handlerStates.begin(); it != _handlerStates.end();)
+        {
+            if (!it->first.get())
+            {
+                it = _handlerStates.erase(it);
+            }
+            else
+            {
+                ++it;
+            }
+        }
+    }
+
     void FrameworkElementExtensions::AncestorType_PropertyChanged(DependencyObject const& obj, DependencyPropertyChangedEventArgs const& args)
     {
         if (auto fe = obj.try_as<FrameworkElement>())
         {
-            _ancestorLoadRevoker.revoke();
-            if (args.NewValue() != nullptr)
+            RemoveHandlers();
+
+            if (args.NewValue())
             {
-                _ancestorLoadRevoker = fe.Loaded(winrt::auto_revoke, FrameworkElement_Loaded);
-                if (fe.Parent() != nullptr)
+                auto [it, inserted] = _handlerStates.try_emplace(fe);
+                auto& handlerState = it->second;
+
+                if (!inserted)
+                {
+                    fe.Loaded(handlerState._loadedToken);
+                }
+
+                handlerState._loadedToken = fe.Loaded(&FrameworkElementExtensions::FrameworkElement_Loaded);
+
+                if (fe.Parent())
                 {
                     FrameworkElement_Loaded(fe, nullptr);
                 }
@@ -29,14 +51,9 @@ namespace winrt::XamlToolkit::WinUI::implementation
     {
         while (true)
         {
-            DependencyObject parent = winrt::Microsoft::UI::Xaml::Media::VisualTreeHelper::GetParent(element);
+            auto parent = winrt::Microsoft::UI::Xaml::Media::VisualTreeHelper::GetParent(element);
 
-            if (!parent)
-            {
-                return { nullptr };
-            }
-
-            if (auto result = winrt::get_class_name(parent); result == name.Name)
+            if (!parent || winrt::get_class_name(parent) == name.Name)
             {
                 return parent;
             }
@@ -50,8 +67,11 @@ namespace winrt::XamlToolkit::WinUI::implementation
         if (auto fe = sender.try_as<FrameworkElement>())
         {
             SetAncestor(fe, FindAscendant(fe, GetAncestorType(fe)));
-
-            _elementUnloadRevoker = fe.Unloaded(winrt::auto_revoke, FrameworkElement_Unloaded);
+            if (const auto it = _handlerStates.find(fe); it != _handlerStates.end())
+            {
+                fe.Unloaded(it->second._unloadedToken);
+                it->second._unloadedToken = fe.Unloaded(&FrameworkElementExtensions::FrameworkElement_Unloaded);
+            }
         }
     }
 
@@ -59,7 +79,11 @@ namespace winrt::XamlToolkit::WinUI::implementation
     {
         if (auto fe = sender.try_as<FrameworkElement>())
         {
-            _elementUnloadRevoker.revoke();
+            if (const auto it = _handlerStates.find(fe); it != _handlerStates.end()) 
+            {
+                fe.Unloaded(it->second._unloadedToken);
+            }
+           
             SetAncestor(fe, nullptr);
         }
     }
