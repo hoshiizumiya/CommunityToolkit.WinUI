@@ -56,6 +56,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::TextElements
 			border.CornerRadius(_config.Themes().CodeBlockCornerRadius());
 
 			_richTextBlock.IsTextSelectionEnabled(true);
+			_richTextBlock.FlowDirection(FlowDirection::LeftToRight);
 			_richTextBlock.FontFamily(_config.Themes().CodeBlockFontFamily());
 			_richTextBlock.Foreground(_config.Themes().CodeBlockForeground());
 			_richTextBlock.TextWrapping(TextWrapping::Wrap);

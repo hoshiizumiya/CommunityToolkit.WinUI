@@ -5,6 +5,7 @@
 
 #include "IAddChild.h"
 #include "WinUIRenderer.h"
+#include "MdTaskListCheckBox.h"
 #include <winrt/Microsoft.UI.Xaml.Controls.h>
 #include <winrt/Windows.Foundation.Collections.h>
 
@@ -29,34 +30,42 @@ namespace winrt::XamlToolkit::Labs::WinUI::TextElements
         MdListItem(WinUIRenderer* renderer)
         {
             _renderer = renderer;
+        }
+
+        void SetBullet([[maybe_unused]] size_t bulletCount, std::wstring_view bullet) {
 
             // Lists are plain Paragraph_s, one per item.
             // This is so that you can select across list items.
-            auto themes = renderer->Config().Themes();
+            auto themes = _renderer->Config().Themes();
+            Thickness margin = themes.ParagraphMargin();
+
+            margin.Left += themes.ListGutterWidth() * bulletCount;
+            _paragraph.Margin(margin);
 
             if (themes.ParagraphLineHeight() > 0)
             {
                 _paragraph.LineHeight(themes.ParagraphLineHeight());
             }
+
+            if (bulletCount != 0)
+            {
+                // Use spaces to create spacing between bullet and text based on ListBulletSpacing
+                winrt::hstring spacing(std::wstring(themes.ListBulletSpacing(), L' '));
+                Run bulletRun;
+                bulletRun.Text(bullet + spacing);
+                _paragraph.Inlines().Append(bulletRun);
+                _paragraph.TextIndent(-themes.ListGutterWidth());
+            }
         }
 
-        void SetBullet([[maybe_unused]] size_t bulletCount, std::wstring_view bullet) {
-
-            auto themes = _renderer->Config().Themes();
-            Thickness margin = themes.ParagraphMargin();
-            margin.Left += themes.ListGutterWidth(); // * bulletCount;
-            _paragraph.Margin(margin);
-            Run bulletRun;
-            bulletRun.Text(bullet + L"\t");
-            _paragraph.Inlines().Append(bulletRun);
-            _paragraph.TextIndent(-themes.ListGutterWidth());
-        }
-
-        void SetTaskListMask(winrt::hstring const& mask)
+        void SetTaskListMask(wchar_t mask)
         {
-            Run run;
-			run.Text(mask);
-            _paragraph.Inlines().Append(run);
+            auto themes = _renderer->Config().Themes();
+			MdTaskListCheckBox checkBox(mask);
+            _paragraph.Inlines().Append(checkBox.TextElement().as<InlineUIContainer>());
+            Run spacingRun;
+            spacingRun.Text(L" ");
+            _paragraph.Inlines().Append(spacingRun);
         }
 
         void Enter() 

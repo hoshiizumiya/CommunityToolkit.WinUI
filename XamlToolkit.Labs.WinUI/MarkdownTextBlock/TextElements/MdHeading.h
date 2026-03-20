@@ -139,22 +139,34 @@ namespace winrt::XamlToolkit::Labs::WinUI::TextElements
                 {
                 case 1:
                     return config.Themes().H1FontWeight();
-                    break;
                 case 2:
                     return config.Themes().H2FontWeight();
-                    break;
                 case 3:
                     return config.Themes().H3FontWeight();
-                    break;
                 case 4:
                     return config.Themes().H4FontWeight();
-                    break;
                 case 5:
                     return config.Themes().H5FontWeight();
-                    break;
                 default:
                     return config.Themes().H6FontWeight();
+                }
+                }(level, _config));
+            _paragraph.Margin([](int level, const auto& config) {
+                switch (level)
+                {
+                case 1:
+                    return config.Themes().H1Margin();
+                case 2:
+                    return config.Themes().H2Margin();
+                case 3:
+                    return config.Themes().H3Margin();
+                case 4:
+                    return config.Themes().H4Margin();
                     break;
+                case 5:
+                    return config.Themes().H5Margin();
+                default:
+                    return config.Themes().H6Margin();
                 }
                 }(level, _config));
         }

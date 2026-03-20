@@ -40,9 +40,8 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 			if (_renderer == nullptr)
 			{
 				_renderer = std::make_unique<WinUIRenderer>(_document, config, *this);
+				ApplyText(Text(), false);
 			}
-
-			ApplyText(Text(), false);
 		}
 	}
 

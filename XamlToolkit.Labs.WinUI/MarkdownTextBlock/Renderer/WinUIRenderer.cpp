@@ -181,13 +181,14 @@ namespace winrt::XamlToolkit::Labs::WinUI
 			auto item = std::make_shared<TextElements::MdListItem>(renderer);
 
 			auto bullet = renderer->CurrentListBullet();
-			if (!bullet.empty()) {
+			if (!bullet.empty())
+			{
 				item->SetBullet(renderer->_listContextStack.size(), bullet);
 			}
 
-			if (liDetail->is_task) {
-				auto mask = winrt::format(L"[{}] ", static_cast<wchar_t>(liDetail->task_mark));
-				item->SetTaskListMask(mask);
+			if (liDetail->is_task) 
+			{
+				item->SetTaskListMask(liDetail->task_mark);
 			}
 
 			renderer->BeginBlock(item);
@@ -239,20 +240,20 @@ namespace winrt::XamlToolkit::Labs::WinUI
 		case MD_BLOCK_TD:
 		{
 			auto tdDetail = static_cast<const MD_BLOCK_TD_DETAIL*>(detail);
-			Microsoft::UI::Xaml::TextAlignment align;
+			TextAlignment align;
 			switch (tdDetail->align) {
 			case MD_ALIGN_LEFT:
-				align = Microsoft::UI::Xaml::TextAlignment::Left;
+				align = TextAlignment::Left;
 				break;
 			case MD_ALIGN_RIGHT:
-				align = Microsoft::UI::Xaml::TextAlignment::Right;
+				align = TextAlignment::Right;
 				break;
 			case MD_ALIGN_CENTER:
-				align = Microsoft::UI::Xaml::TextAlignment::Center;
+				align = TextAlignment::Center;
 				break;
 			case MD_ALIGN_DEFAULT:
 			default:
-				align = Microsoft::UI::Xaml::TextAlignment::Left;
+				align = renderer->FlowDocument->RichTextBlock().FlowDirection() == FlowDirection::RightToLeft ? TextAlignment::Right : TextAlignment::Left;
 				break;
 			}
 
@@ -509,7 +510,7 @@ namespace winrt::XamlToolkit::Labs::WinUI
 
 	static void DebugLogCallback([[maybe_unused]] const char* msg, [[maybe_unused]] void* userdata)
 	{
-		// fprintf(stderr, "MD4C: %s\n", msg);
+		
 	}
 
 	void WinUIRenderer::Render(std::wstring_view text)
