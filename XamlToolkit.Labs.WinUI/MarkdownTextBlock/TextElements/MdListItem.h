@@ -32,7 +32,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::TextElements
             _renderer = renderer;
         }
 
-        void SetBullet([[maybe_unused]] size_t bulletCount, std::wstring_view bullet) {
+        void SetBullet(size_t bulletCount, std::wstring_view bullet) {
 
             // Lists are plain Paragraph_s, one per item.
             // This is so that you can select across list items.
@@ -49,8 +49,13 @@ namespace winrt::XamlToolkit::Labs::WinUI::TextElements
 
             if (bulletCount != 0)
             {
+                double bulletSpacing = themes.ListBulletSpacing();
+                if (bulletSpacing < 0) 
+                {
+                    throw winrt::hresult_invalid_argument(L"ListBulletSpacing cannot be negative");
+                }
                 // Use spaces to create spacing between bullet and text based on ListBulletSpacing
-                winrt::hstring spacing(std::wstring(themes.ListBulletSpacing(), L' '));
+                winrt::hstring spacing(std::wstring(static_cast<size_t>(bulletSpacing), L' '));
                 Run bulletRun;
                 bulletRun.Text(bullet + spacing);
                 _paragraph.Inlines().Append(bulletRun);
