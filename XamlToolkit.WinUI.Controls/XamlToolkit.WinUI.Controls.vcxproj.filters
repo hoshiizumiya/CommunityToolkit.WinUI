@@ -545,8 +545,4 @@
       <Filter>Sizers\Strings\en-US</Filter>
     </PRIResource>
   </ItemGroup>
-  <ItemGroup>
-    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
-    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natstepfilter" />
-  </ItemGroup>
 </Project>

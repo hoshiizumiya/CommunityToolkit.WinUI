@@ -23,7 +23,8 @@
 #include <winrt/Microsoft.UI.Xaml.Navigation.h>
 #include <winrt/Microsoft.UI.Xaml.Shapes.h>
 #include <winrt/Microsoft.UI.Dispatching.h>
+#include <wil/cppwinrt.h>
 #include <wil/cppwinrt_helpers.h>
 #include "Extensions\Element\FrameworkElementExtensions.h"
-#include "Triggers/IsEqualStateTrigger.h"
-#include "Triggers/ControlSizeTrigger.h"
+#include "Triggers\IsEqualStateTrigger.h"
+#include "Triggers\ControlSizeTrigger.h"
