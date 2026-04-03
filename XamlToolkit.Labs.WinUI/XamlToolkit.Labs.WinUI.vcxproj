@@ -374,6 +374,10 @@
       <DependentUpon>TokenView\TokenView.cpp</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="WrapPanel2\WrapPanel2.h">
+      <DependentUpon>WrapPanel2\WrapPanel2.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Adorners\Adorner.cpp">
@@ -616,6 +620,10 @@
     <ClCompile Include="TokenView\TokenView.Events.cpp" />
     <ClCompile Include="TokenView\TokenView.ItemsSource.cpp" />
     <ClCompile Include="TokenView\TokenView.Selection.cpp" />
+    <ClCompile Include="WrapPanel2\WrapPanel2.cpp">
+      <DependentUpon>WrapPanel2\WrapPanel2.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Adorners\Helpers\FrameworkElementExtensions.WaitUntilLoaded.h" />
@@ -743,6 +751,9 @@
     <Midl Include="TokenView\TokenView.idl">
       <DependentUpon>TokenView\TokenView.cpp</DependentUpon>
       <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="WrapPanel2\WrapPanel2.idl">
+      <SubType>Designer</SubType>
     </Midl>
   </ItemGroup>
   <ItemGroup>

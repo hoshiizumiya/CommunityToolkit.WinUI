@@ -1,0 +1,53 @@
+namespace XamlToolkit.Labs.WinUI
+{
+    enum WrapPanelItemsStretch
+    {
+        None,
+        First,
+        Last,
+        Equal,
+        Proportional,
+    };
+
+    enum WrapPanelItemsJustification
+    {
+        Automatic,
+        Start,
+        Center,
+        End,
+        SpaceAround,
+        SpaceBetween,
+        SpaceEvenly,
+    };
+
+    runtimeclass WrapPanel2 : Microsoft.UI.Xaml.Controls.Panel
+    {
+        WrapPanel2();
+
+        Microsoft.UI.Xaml.Controls.Orientation Orientation;
+
+        Double ItemSpacing;
+
+        Double LineSpacing;
+
+        WrapPanelItemsJustification ItemsJustification;
+
+        WrapPanelItemsStretch ItemsStretch;
+
+        static Microsoft.UI.Xaml.DependencyProperty OrientationProperty{ get; };
+
+        static Microsoft.UI.Xaml.DependencyProperty ItemSpacingProperty{ get; };
+
+        static Microsoft.UI.Xaml.DependencyProperty LineSpacingProperty{ get; };
+
+        static Microsoft.UI.Xaml.DependencyProperty ItemsJustificationProperty{ get; };
+
+        static Microsoft.UI.Xaml.DependencyProperty ItemsStretchProperty{ get; };
+
+        static Microsoft.UI.Xaml.DependencyProperty LayoutLengthProperty{ get; };
+
+        static Microsoft.UI.Xaml.GridLength GetLayoutLength(Microsoft.UI.Xaml.DependencyObject obj);
+
+        static void SetLayoutLength(Microsoft.UI.Xaml.DependencyObject obj, Microsoft.UI.Xaml.GridLength value);
+    }
+}

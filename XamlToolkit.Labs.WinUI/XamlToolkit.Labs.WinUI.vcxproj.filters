@@ -99,6 +99,9 @@
     <Filter Include="Controls\ColorAnalyzer\PaletteSelectors">
       <UniqueIdentifier>{a9ff7377-7a2f-46bd-a233-6ca5a5327dee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Controls\WrapPanel2">
+      <UniqueIdentifier>{ceabdae7-8da1-478e-a4e2-6333679f0be3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -429,6 +432,9 @@
     <Midl Include="ColorAnalyzer\PaletteSelectors\AccentColorPaletteSelector.idl">
       <Filter>Controls\ColorAnalyzer\PaletteSelectors</Filter>
     </Midl>
+    <Midl Include="WrapPanel2\WrapPanel2.idl">
+      <Filter>Controls\WrapPanel2</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <None Include="XamlToolkit.Labs.WinUI.def" />
@@ -498,5 +504,9 @@
     <Page Include="DataTable\DataColumn.xaml">
       <Filter>Controls\DataTable</Filter>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natstepfilter" />
   </ItemGroup>
 </Project>
