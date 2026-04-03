@@ -1,0 +1,58 @@
+import "Xaml/ImplicitAnimationSet.idl";
+
+namespace XamlToolkit.WinUI.Animations
+{
+    /// <summary>
+    /// Attached properties to support implicitly triggered animations for UIElement instances.
+    /// </summary>
+    [default_interface]
+    runtimeclass Implicit
+    {
+        Implicit();
+
+        /// <summary>
+        /// Gets the value of the ShowAnimationsProperty property.
+        /// </summary>
+        static ImplicitAnimationSet GetShowAnimations(Microsoft.UI.Xaml.UIElement element);
+
+        /// <summary>
+        /// Sets the value of the ShowAnimationsProperty property.
+        /// </summary>
+        static void SetShowAnimations(Microsoft.UI.Xaml.UIElement element, ImplicitAnimationSet value);
+
+        /// <summary>
+        /// Gets the value of the HideAnimationsProperty property.
+        /// </summary>
+        static ImplicitAnimationSet GetHideAnimations(Microsoft.UI.Xaml.UIElement element);
+
+        /// <summary>
+        /// Sets the value of the HideAnimationsProperty property.
+        /// </summary>
+        static void SetHideAnimations(Microsoft.UI.Xaml.UIElement element, ImplicitAnimationSet value);
+
+        /// <summary>
+        /// Gets the value of the AnimationsProperty property.
+        /// </summary>
+        static ImplicitAnimationSet GetAnimations(Microsoft.UI.Xaml.UIElement element);
+
+        /// <summary>
+        /// Sets the value of the AnimationsProperty property.
+        /// </summary>
+        static void SetAnimations(Microsoft.UI.Xaml.UIElement element, ImplicitAnimationSet value);
+
+        /// <summary>
+        /// Identifies the ShowAnimationsProperty dependency property.
+        /// </summary>
+        static Microsoft.UI.Xaml.DependencyProperty ShowAnimationsProperty{ get; };
+
+        /// <summary>
+        /// Identifies the HideAnimationsProperty dependency property.
+        /// </summary>
+        static Microsoft.UI.Xaml.DependencyProperty HideAnimationsProperty{ get; };
+
+        /// <summary>
+        /// Identifies the AnimationsProperty dependency property.
+        /// </summary>
+        static Microsoft.UI.Xaml.DependencyProperty AnimationsProperty{ get; };
+    }
+}

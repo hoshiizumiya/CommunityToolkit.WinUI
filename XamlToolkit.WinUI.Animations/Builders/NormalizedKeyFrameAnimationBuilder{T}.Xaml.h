@@ -1,0 +1,54 @@
+#pragma once
+
+#include "NormalizedKeyFrameAnimationBuilder{T}.h"
+#include "TimedKeyFrameAnimationBuilder{T}.Xaml.h"
+#include <winrt/Microsoft.UI.Xaml.h>
+
+namespace winrt::XamlToolkit::WinUI::Animations
+{
+    using namespace winrt::Microsoft::UI::Xaml;
+    using namespace winrt::Microsoft::UI::Xaml::Media::Animation;
+
+    /// <summary>
+    /// A custom <see cref="NormalizedKeyFrameAnimationBuilder{T}"/> class targeting the XAML layer.
+    /// </summary>
+    template<typename T>
+    class NormalizedKeyFrameAnimationBuilderXaml : public NormalizedKeyFrameAnimationBuilder<T>, public IXamlAnimationFactory
+    {
+    public:
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NormalizedKeyFrameAnimationBuilderXaml"/> class.
+        /// </summary>
+        NormalizedKeyFrameAnimationBuilderXaml(
+            winrt::hstring const& property,
+            std::optional<TimeSpan> delay,
+            TimeSpan duration,
+            RepeatOption repeat)
+            : NormalizedKeyFrameAnimationBuilder<T>(property, delay, duration, repeat)
+        {
+        }
+
+        /// <inheritdoc/>
+        INormalizedKeyFrameAnimationBuilder<T>& ExpressionKeyFrame(
+            [[maybe_unused]] double progress,
+            [[maybe_unused]] winrt::hstring const& expression,
+            [[maybe_unused]] EasingType easingType = AnimationExtensions::DefaultEasingType(),
+            [[maybe_unused]] EasingMode easingMode = AnimationExtensions::DefaultEasingMode()) override
+        {
+            throw winrt::hresult_error(E_FAIL, L"Expression keyframes can only be used on the composition layer");
+        }
+
+        /// <inheritdoc/>
+        Timeline GetAnimation(DependencyObject const& targetHint) override
+        {
+            // Use the TimedKeyFrameAnimationBuilder implementation for XAML
+            return BuildXamlKeyFrameAnimation<T, typename NormalizedKeyFrameAnimationBuilder<T>::KeyFrameInfo>(
+                targetHint,
+                this->property,
+                this->delay,
+                this->duration,
+                this->repeat,
+                this->keyFrames);
+        }
+    };
+}

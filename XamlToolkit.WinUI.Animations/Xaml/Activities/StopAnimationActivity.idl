@@ -1,0 +1,28 @@
+import "Xaml/Activities/Activity.idl";
+import "Xaml/AnimationSet.idl";
+
+namespace XamlToolkit.WinUI.Animations
+{
+    /// <summary>
+    /// An IActivity which stops the provided AnimationSet when invoked.
+    /// </summary>
+    runtimeclass StopAnimationActivity : Activity
+    {
+        StopAnimationActivity();
+
+        /// <summary>
+        /// Gets or sets the linked AnimationSet instance to stop.
+        /// </summary>
+        AnimationSet Animation;
+
+		static Microsoft.UI.Xaml.DependencyProperty AnimationProperty{ get; };
+
+        /// <summary>
+        /// Gets or sets the object to stop the specified animation for.
+        /// If not specified, will use the current object the parent animation is running on.
+        /// </summary>
+        Microsoft.UI.Xaml.UIElement TargetObject;
+
+		static Microsoft.UI.Xaml.DependencyProperty TargetObjectProperty{ get; };
+    }
+}

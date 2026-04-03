@@ -1,0 +1,733 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Windows.CppWinRT.2.0.250303.1\build\native\Microsoft.Windows.CppWinRT.props" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.250303.1\build\native\Microsoft.Windows.CppWinRT.props')" />
+  <Import Project="..\packages\Microsoft.Windows.SDK.BuildTools.10.0.26100.7705\build\Microsoft.Windows.SDK.BuildTools.props" Condition="Exists('..\packages\Microsoft.Windows.SDK.BuildTools.10.0.26100.7705\build\Microsoft.Windows.SDK.BuildTools.props')" />
+  <Import Project="..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.260316102\build\Microsoft.Windows.SDK.BuildTools.MSIX.props" Condition="Exists('..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.260316102\build\Microsoft.Windows.SDK.BuildTools.MSIX.props')" />
+  <Import Project="..\packages\Microsoft.WindowsAppSDK.WinUI.1.8.260224000\build\native\Microsoft.WindowsAppSDK.WinUI.props" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.WinUI.1.8.260224000\build\native\Microsoft.WindowsAppSDK.WinUI.props')" />
+  <Import Project="..\packages\Microsoft.WindowsAppSDK.Foundation.1.8.260222000\build\native\Microsoft.WindowsAppSDK.Foundation.props" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.Foundation.1.8.260222000\build\native\Microsoft.WindowsAppSDK.Foundation.props')" />
+  <Import Project="..\packages\Microsoft.WindowsAppSDK.InteractiveExperiences.1.8.260125001\build\native\Microsoft.WindowsAppSDK.InteractiveExperiences.props" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.InteractiveExperiences.1.8.260125001\build\native\Microsoft.WindowsAppSDK.InteractiveExperiences.props')" />
+  <Import Project="..\packages\Microsoft.WindowsAppSDK.Base.1.8.251216001\build\native\Microsoft.WindowsAppSDK.Base.props" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.Base.1.8.251216001\build\native\Microsoft.WindowsAppSDK.Base.props')" />
+  <PropertyGroup Label="Globals">
+    <CppWinRTOptimized>true</CppWinRTOptimized>
+    <CppWinRTRootNamespaceAutoMerge>true</CppWinRTRootNamespaceAutoMerge>
+    <MinimalCoreWin>true</MinimalCoreWin>
+    <ProjectGuid>{37cd7b40-3e54-41ce-af73-43c6746ef315}</ProjectGuid>
+    <ProjectName>XamlToolkit.WinUI.Animations</ProjectName>
+    <RootNamespace>XamlToolkit.WinUI.Animations</RootNamespace>
+    <DefaultLanguage>zh-CN</DefaultLanguage>
+    <MinimumVisualStudioVersion>16.0</MinimumVisualStudioVersion>
+    <AppContainerApplication>false</AppContainerApplication>
+    <ApplicationType>Windows Store</ApplicationType>
+    <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
+    <WindowsTargetPlatformVersion Condition=" '$(WindowsTargetPlatformVersion)' == '' ">10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.17763.0</WindowsTargetPlatformMinVersion>
+    <DesktopCompatible>true</DesktopCompatible>
+    <UseWinUI>true</UseWinUI>
+    <WinUISDKReferences>false</WinUISDKReferences>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|ARM64">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM64">
+      <Configuration>Release</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v145</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '17.0'">v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <GenerateManifest>false</GenerateManifest>
+    <DesktopCompatible>true</DesktopCompatible>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
+      <WarningLevel>Level4</WarningLevel>
+      <AdditionalOptions>%(AdditionalOptions) /bigobj</AdditionalOptions>
+      <PreprocessorDefinitions>_WINRT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateWindowsMetadata>true</GenerateWindowsMetadata>
+      <ModuleDefinitionFile>XamlToolkit.WinUI.Animations.def</ModuleDefinitionFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
+    <ClCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdcpplatest</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">stdcpplatest</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdcpplatest</LanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
+    <ClCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdcpplatest</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">stdcpplatest</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdcpplatest</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="Builders\AnimationBuilder.h" />
+    <ClInclude Include="Builders\AnimationBuilder.KeyFrames.h" />
+    <ClInclude Include="Builders\AnimationBuilder.PropertyBuilders.h" />
+    <ClInclude Include="Builders\AnimationBuilder.Default.h" />
+    <ClInclude Include="Builders\Interfaces\IKeyFrameInfo.h" />
+    <ClInclude Include="Builders\Interfaces\INormalizedKeyFrameAnimationBuilder{T}.h" />
+    <ClInclude Include="Builders\Interfaces\IPropertyAnimationBuilder{T}.h" />
+    <ClInclude Include="Builders\Interfaces\ITimedKeyFrameAnimationBuilder{T}.h" />
+    <ClInclude Include="Builders\NormalizedKeyFrameAnimationBuilder{T}.h" />
+    <ClInclude Include="Builders\NormalizedKeyFrameAnimationBuilder{T}.Composition.h" />
+    <ClInclude Include="Builders\NormalizedKeyFrameAnimationBuilder{T}.Xaml.h" />
+    <ClInclude Include="Builders\TimedKeyFrameAnimationBuilder{T}.h" />
+    <ClInclude Include="Builders\TimedKeyFrameAnimationBuilder{T}.Composition.h" />
+    <ClInclude Include="Builders\TimedKeyFrameAnimationBuilder{T}.Xaml.h" />
+    <ClInclude Include="Enums\Axis.h" />
+    <ClInclude Include="Enums\Side.h" />
+    <ClInclude Include="Enums\VisualProperty.h" />
+    <ClInclude Include="Extensions\AnimationExtensions.h" />
+    <ClInclude Include="Extensions\CompositorExtensions.h" />
+    <ClInclude Include="Extensions\DependencyObjectExtensions.h" />
+    <ClInclude Include="Extensions\EasingTypeExtensions.h" />
+    <ClInclude Include="Extensions\ITimedKeyFrameAnimationBuilderExtensions.h" />
+    <ClInclude Include="Extensions\ScrollViewerExtensions.h" />
+    <ClInclude Include="Extensions\StoryboardAnimations.h" />
+    <ClInclude Include="Extensions\System\FloatExtensions.h" />
+    <ClInclude Include="Extensions\System\GuidExtensions.h" />
+    <ClInclude Include="Options\RepeatOptionHelper.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="Xaml\Abstract\Animation.h">
+      <DependentUpon>Xaml\Abstract\Animation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\Abstract\Animation{TValue,TKeyFrame}.h" />
+    <ClInclude Include="Xaml\Abstract\CustomAnimation{TValue,TKeyFrame}.h" />
+    <ClInclude Include="Xaml\Abstract\ImplicitAnimation{TValue,TKeyFrame}.h" />
+    <ClInclude Include="Xaml\Abstract\KeyFrame.h">
+      <DependentUpon>Xaml\Abstract\KeyFrame.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\Abstract\KeyFrame{TValue,TKeyFrame}.h" />
+    <ClInclude Include="Xaml\Abstract\ShadowAnimation{TValue,TKeyFrame}.h" />
+    <ClInclude Include="Xaml\Custom\ScalarAnimation.h">
+      <DependentUpon>Xaml\Custom\ScalarAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\Custom\ColorAnimation.h">
+      <DependentUpon>Xaml\Custom\ColorAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\Custom\QuaternionAnimation.h">
+      <DependentUpon>Xaml\Custom\QuaternionAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\Default\OpacityAnimation.h">
+      <DependentUpon>Xaml\Default\OpacityAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\Default\ScaleAnimation.h">
+      <DependentUpon>Xaml\Default\ScaleAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\Default\OffsetAnimation.h">
+      <DependentUpon>Xaml\Default\OffsetAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\Default\TranslationAnimation.h">
+      <DependentUpon>Xaml\Default\TranslationAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\Default\RotationAnimation.h">
+      <DependentUpon>Xaml\Default\RotationAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\Default\CenterPointAnimation.h">
+      <DependentUpon>Xaml\Default\CenterPointAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\KeyFrames\ScalarKeyFrame.h">
+      <DependentUpon>Xaml\KeyFrames\ScalarKeyFrame.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\KeyFrames\ThicknessKeyFrame.h">
+      <DependentUpon>Xaml\KeyFrames\ThicknessKeyFrame.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\KeyFrames\Vector3KeyFrame.h">
+      <DependentUpon>Xaml\KeyFrames\Vector3KeyFrame.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\Activities\Activity.h">
+      <DependentUpon>Xaml\Activities\Activity.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\Activities\StartAnimationActivity.h">
+      <DependentUpon>Xaml\Activities\StartAnimationActivity.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\Activities\StopAnimationActivity.h">
+      <DependentUpon>Xaml\Activities\StopAnimationActivity.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\Default\AnchorPointAnimation.h">
+      <DependentUpon>Xaml\Default\AnchorPointAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\Default\SizeAnimation.h">
+      <DependentUpon>Xaml\Default\SizeAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\Default\RotationAxisAnimation.h">
+      <DependentUpon>Xaml\Default\RotationAxisAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\Default\OrientationAnimation.h">
+      <DependentUpon>Xaml\Default\OrientationAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\Default\RotationInDegreesAnimation.h">
+      <DependentUpon>Xaml\Default\RotationInDegreesAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\Custom\Vector2Animation.h">
+      <DependentUpon>Xaml\Custom\Vector2Animation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\Custom\Vector3Animation.h">
+      <DependentUpon>Xaml\Custom\Vector3Animation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\Custom\Vector4Animation.h">
+      <DependentUpon>Xaml\Custom\Vector4Animation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\KeyFrames\ColorKeyFrame.h">
+      <DependentUpon>Xaml\KeyFrames\ColorKeyFrame.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\KeyFrames\Vector2KeyFrame.h">
+      <DependentUpon>Xaml\KeyFrames\Vector2KeyFrame.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\KeyFrames\Vector4KeyFrame.h">
+      <DependentUpon>Xaml\KeyFrames\Vector4KeyFrame.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\KeyFrames\QuaternionKeyFrame.h">
+      <DependentUpon>Xaml\KeyFrames\QuaternionKeyFrame.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\Shadows\BlurRadiusDropShadowAnimation.h">
+      <DependentUpon>Xaml\Shadows\BlurRadiusDropShadowAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\Shadows\ColorDropShadowAnimation.h">
+      <DependentUpon>Xaml\Shadows\ColorDropShadowAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\Shadows\OffsetDropShadowAnimation.h">
+      <DependentUpon>Xaml\Shadows\OffsetDropShadowAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\Shadows\OpacityDropShadowAnimation.h">
+      <DependentUpon>Xaml\Shadows\OpacityDropShadowAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\AnimationScope.h">
+      <DependentUpon>Xaml\AnimationScope.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\AnimationDictionary.h">
+      <DependentUpon>Xaml\AnimationDictionary.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\ImplicitAnimationSet.h">
+      <DependentUpon>Xaml\ImplicitAnimationSet.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Explicit.h">
+      <DependentUpon>Explicit.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Implicit.h">
+      <DependentUpon>Implicit.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="ItemsReorderAnimation.h">
+      <DependentUpon>ItemsReorderAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="ConnectedAnimations\ConnectedAnimationListProperty.h" />
+    <ClInclude Include="ConnectedAnimations\ConnectedAnimationProperties.h" />
+    <ClInclude Include="ConnectedAnimations\ConnectedAnimationHelper.h" />
+    <ClInclude Include="ConnectedAnimations\Connected.h">
+      <DependentUpon>ConnectedAnimations\Connected.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\AnimationSet.h">
+      <DependentUpon>Xaml\AnimationSet.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Xaml\Interfaces\IAttachedTimeline.h" />
+    <ClInclude Include="Xaml\Interfaces\IImplicitTimeline.h" />
+    <ClInclude Include="Xaml\Interfaces\IKeyFrame{T}.h" />
+    <ClInclude Include="Xaml\Interfaces\ITimeline.h" />
+    <ClInclude Include="Xaml\Default\ClipAnimation.h">
+      <DependentUpon>Xaml\Default\ClipAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Builders\AnimationBuilder.cpp" />
+    <ClCompile Include="Builders\AnimationBuilder.Factories.cpp" />
+    <ClCompile Include="Builders\AnimationBuilder.Setup.cpp" />
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="Xaml\Abstract\Animation.cpp">
+      <DependentUpon>Xaml\Abstract\Animation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\Abstract\KeyFrame.cpp">
+      <DependentUpon>Xaml\Abstract\KeyFrame.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\Custom\ScalarAnimation.cpp">
+      <DependentUpon>Xaml\Custom\ScalarAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\Custom\ColorAnimation.cpp">
+      <DependentUpon>Xaml\Custom\ColorAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\Custom\QuaternionAnimation.cpp">
+      <DependentUpon>Xaml\Custom\QuaternionAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\Default\OpacityAnimation.cpp">
+      <DependentUpon>Xaml\Default\OpacityAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\Default\ScaleAnimation.cpp">
+      <DependentUpon>Xaml\Default\ScaleAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\Default\OffsetAnimation.cpp">
+      <DependentUpon>Xaml\Default\OffsetAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\Default\TranslationAnimation.cpp">
+      <DependentUpon>Xaml\Default\TranslationAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\Default\RotationAnimation.cpp">
+      <DependentUpon>Xaml\Default\RotationAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\Default\CenterPointAnimation.cpp">
+      <DependentUpon>Xaml\Default\CenterPointAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\KeyFrames\ScalarKeyFrame.cpp">
+      <DependentUpon>Xaml\KeyFrames\ScalarKeyFrame.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\KeyFrames\ThicknessKeyFrame.cpp">
+      <DependentUpon>Xaml\KeyFrames\ThicknessKeyFrame.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\KeyFrames\Vector3KeyFrame.cpp">
+      <DependentUpon>Xaml\KeyFrames\Vector3KeyFrame.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\Activities\Activity.cpp">
+      <DependentUpon>Xaml\Activities\Activity.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\Activities\StartAnimationActivity.cpp">
+      <DependentUpon>Xaml\Activities\StartAnimationActivity.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\Activities\StopAnimationActivity.cpp">
+      <DependentUpon>Xaml\Activities\StopAnimationActivity.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\Default\AnchorPointAnimation.cpp">
+      <DependentUpon>Xaml\Default\AnchorPointAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\Default\SizeAnimation.cpp">
+      <DependentUpon>Xaml\Default\SizeAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\Default\RotationAxisAnimation.cpp">
+      <DependentUpon>Xaml\Default\RotationAxisAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\Default\OrientationAnimation.cpp">
+      <DependentUpon>Xaml\Default\OrientationAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\Default\RotationInDegreesAnimation.cpp">
+      <DependentUpon>Xaml\Default\RotationInDegreesAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\Custom\Vector2Animation.cpp">
+      <DependentUpon>Xaml\Custom\Vector2Animation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\Custom\Vector3Animation.cpp">
+      <DependentUpon>Xaml\Custom\Vector3Animation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\Custom\Vector4Animation.cpp">
+      <DependentUpon>Xaml\Custom\Vector4Animation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\KeyFrames\ColorKeyFrame.cpp">
+      <DependentUpon>Xaml\KeyFrames\ColorKeyFrame.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\KeyFrames\Vector2KeyFrame.cpp">
+      <DependentUpon>Xaml\KeyFrames\Vector2KeyFrame.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\KeyFrames\Vector4KeyFrame.cpp">
+      <DependentUpon>Xaml\KeyFrames\Vector4KeyFrame.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\KeyFrames\QuaternionKeyFrame.cpp">
+      <DependentUpon>Xaml\KeyFrames\QuaternionKeyFrame.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\Shadows\BlurRadiusDropShadowAnimation.cpp">
+      <DependentUpon>Xaml\Shadows\BlurRadiusDropShadowAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\Shadows\ColorDropShadowAnimation.cpp">
+      <DependentUpon>Xaml\Shadows\ColorDropShadowAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\Shadows\OffsetDropShadowAnimation.cpp">
+      <DependentUpon>Xaml\Shadows\OffsetDropShadowAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\Shadows\OpacityDropShadowAnimation.cpp">
+      <DependentUpon>Xaml\Shadows\OpacityDropShadowAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\AnimationScope.cpp">
+      <DependentUpon>Xaml\AnimationScope.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\AnimationDictionary.cpp">
+      <DependentUpon>Xaml\AnimationDictionary.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\ImplicitAnimationSet.cpp">
+      <DependentUpon>Xaml\ImplicitAnimationSet.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Explicit.cpp">
+      <DependentUpon>Explicit.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Implicit.cpp">
+      <DependentUpon>Implicit.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ItemsReorderAnimation.cpp">
+      <DependentUpon>ItemsReorderAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ConnectedAnimations\ConnectedAnimationHelper.cpp" />
+    <ClCompile Include="ConnectedAnimations\Connected.cpp">
+      <DependentUpon>ConnectedAnimations\Connected.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\AnimationSet.cpp">
+      <DependentUpon>Xaml\AnimationSet.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\Default\ClipAnimation.cpp">
+      <DependentUpon>Xaml\Default\ClipAnimation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="XamlToolkit.WinUI.Animations.def" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="Enums\EasingType.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Enums\FrameworkLayer.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Options\RepeatOption.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\Interfaces\IActivity.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\Abstract\Animation.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\Abstract\KeyFrame.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\Custom\ScalarAnimation.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\Custom\ColorAnimation.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\Custom\QuaternionAnimation.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\Default\OpacityAnimation.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\Default\ScaleAnimation.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\Default\OffsetAnimation.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\Default\TranslationAnimation.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\Default\RotationAnimation.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\Default\CenterPointAnimation.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\KeyFrames\ScalarKeyFrame.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\KeyFrames\ThicknessKeyFrame.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\KeyFrames\Vector3KeyFrame.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\Activities\Activity.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\Activities\StartAnimationActivity.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\Activities\StopAnimationActivity.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\Default\AnchorPointAnimation.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\Default\SizeAnimation.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\Default\RotationAxisAnimation.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\Default\OrientationAnimation.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\Default\RotationInDegreesAnimation.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\Custom\Vector2Animation.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\Custom\Vector3Animation.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\Custom\Vector4Animation.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\KeyFrames\ColorKeyFrame.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\KeyFrames\Vector2KeyFrame.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\KeyFrames\Vector4KeyFrame.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\KeyFrames\QuaternionKeyFrame.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\Shadows\BlurRadiusDropShadowAnimation.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\Shadows\ColorDropShadowAnimation.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\Shadows\OffsetDropShadowAnimation.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\Shadows\OpacityDropShadowAnimation.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\AnimationScope.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\AnimationDictionary.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\ImplicitAnimationSet.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ItemsReorderAnimation.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ConnectedAnimations\Connected.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Explicit.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Implicit.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\AnimationSet.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Xaml\Default\ClipAnimation.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Expressions\CompositionExtensions.h" />
+    <ClInclude Include="Expressions\ExpressionForward.h" />
+    <ClInclude Include="Expressions\ExpressionFunctions.h" />
+    <ClInclude Include="Expressions\ExpressionValues.h" />
+    <ClInclude Include="Expressions\OperationType.h" />
+    <ClInclude Include="Expressions\ExpressionNodes\BooleanNode.h" />
+    <ClInclude Include="Expressions\ExpressionNodes\ColorNode.h" />
+    <ClInclude Include="Expressions\ExpressionNodes\ExpressionNode.h" />
+    <ClInclude Include="Expressions\ExpressionNodes\ExpressionNodeHelper.h" />
+    <ClInclude Include="Expressions\ExpressionNodes\ExpressionNodeType.h" />
+    <ClInclude Include="Expressions\ExpressionNodes\ExpressionOperators.h" />
+    <ClInclude Include="Expressions\ExpressionNodes\Matrix3x2Node.h" />
+    <ClInclude Include="Expressions\ExpressionNodes\Matrix4x4Node.h" />
+    <ClInclude Include="Expressions\ExpressionNodes\QuaternionNode.h" />
+    <ClInclude Include="Expressions\ExpressionNodes\ScalarNode.h" />
+    <ClInclude Include="Expressions\ExpressionNodes\ValueKeywordKind.h" />
+    <ClInclude Include="Expressions\ExpressionNodes\Vector2Node.h" />
+    <ClInclude Include="Expressions\ExpressionNodes\Vector3Node.h" />
+    <ClInclude Include="Expressions\ExpressionNodes\Vector4Node.h" />
+    <ClInclude Include="Expressions\ReferenceNodes\AmbientLightReferenceNode.h" />
+    <ClInclude Include="Expressions\ReferenceNodes\ColorBrushReferenceNode.h" />
+    <ClInclude Include="Expressions\ReferenceNodes\DistantLightReferenceNode.h" />
+    <ClInclude Include="Expressions\ReferenceNodes\DropShadowReferenceNode.h" />
+    <ClInclude Include="Expressions\ReferenceNodes\InsetClipReferenceNode.h" />
+    <ClInclude Include="Expressions\ReferenceNodes\InteractionTrackerReferenceNode.h" />
+    <ClInclude Include="Expressions\ReferenceNodes\ManipulationPropertySetReferenceNode.h" />
+    <ClInclude Include="Expressions\ReferenceNodes\NineGridBrushReferenceNode.h" />
+    <ClInclude Include="Expressions\ReferenceNodes\PointerPositionPropertySetReferenceNode.h" />
+    <ClInclude Include="Expressions\ReferenceNodes\PointLightReferenceNode.h" />
+    <ClInclude Include="Expressions\ReferenceNodes\PropertySetReferenceNode.h" />
+    <ClInclude Include="Expressions\ReferenceNodes\ReferenceNode.h" />
+    <ClInclude Include="Expressions\ReferenceNodes\SpotLightReferenceNode.h" />
+    <ClInclude Include="Expressions\ReferenceNodes\SurfaceBrushReferenceNode.h" />
+    <ClInclude Include="Expressions\ReferenceNodes\VisualReferenceNode.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Expressions\CompositionExtensions.cpp" />
+    <ClCompile Include="Expressions\ExpressionFunctions.cpp" />
+    <ClCompile Include="Expressions\ExpressionNodes\ExpressionNode.cpp" />
+    <ClCompile Include="Expressions\ExpressionNodes\ValueNodes.cpp" />
+    <ClCompile Include="Expressions\ReferenceNodes\ReferenceNode.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XamlToolkit.WinUI\XamlToolkit.WinUI.vcxproj">
+      <Project>{17c20e50-8d62-4fc3-8feb-b64b03a893be}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\Microsoft.WindowsAppSDK.Base.1.8.251216001\build\native\Microsoft.WindowsAppSDK.Base.targets" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.Base.1.8.251216001\build\native\Microsoft.WindowsAppSDK.Base.targets')" />
+    <Import Project="..\packages\Microsoft.WindowsAppSDK.InteractiveExperiences.1.8.260125001\build\native\Microsoft.WindowsAppSDK.InteractiveExperiences.targets" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.InteractiveExperiences.1.8.260125001\build\native\Microsoft.WindowsAppSDK.InteractiveExperiences.targets')" />
+    <Import Project="..\packages\Microsoft.WindowsAppSDK.Foundation.1.8.260222000\build\native\Microsoft.WindowsAppSDK.Foundation.targets" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.Foundation.1.8.260222000\build\native\Microsoft.WindowsAppSDK.Foundation.targets')" />
+    <Import Project="..\packages\Microsoft.WindowsAppSDK.WinUI.1.8.260224000\build\native\Microsoft.WindowsAppSDK.WinUI.targets" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.WinUI.1.8.260224000\build\native\Microsoft.WindowsAppSDK.WinUI.targets')" />
+    <Import Project="..\packages\Microsoft.Graphics.Win2D.1.4.0\build\native\Microsoft.Graphics.Win2D.targets" Condition="Exists('..\packages\Microsoft.Graphics.Win2D.1.4.0\build\native\Microsoft.Graphics.Win2D.targets')" />
+    <Import Project="..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.260316102\build\Microsoft.Windows.SDK.BuildTools.MSIX.targets" Condition="Exists('..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.260316102\build\Microsoft.Windows.SDK.BuildTools.MSIX.targets')" />
+    <Import Project="..\packages\Microsoft.Web.WebView2.1.0.3856.49\build\native\Microsoft.Web.WebView2.targets" Condition="Exists('..\packages\Microsoft.Web.WebView2.1.0.3856.49\build\native\Microsoft.Web.WebView2.targets')" />
+    <Import Project="..\packages\Microsoft.Windows.SDK.BuildTools.10.0.26100.7705\build\Microsoft.Windows.SDK.BuildTools.targets" Condition="Exists('..\packages\Microsoft.Windows.SDK.BuildTools.10.0.26100.7705\build\Microsoft.Windows.SDK.BuildTools.targets')" />
+    <Import Project="..\packages\Microsoft.Windows.CppWinRT.2.0.250303.1\build\native\Microsoft.Windows.CppWinRT.targets" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.250303.1\build\native\Microsoft.Windows.CppWinRT.targets')" />
+    <Import Project="..\packages\Microsoft.Windows.ImplementationLibrary.1.0.260126.7\build\native\Microsoft.Windows.ImplementationLibrary.targets" Condition="Exists('..\packages\Microsoft.Windows.ImplementationLibrary.1.0.260126.7\build\native\Microsoft.Windows.ImplementationLibrary.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.WindowsAppSDK.Base.1.8.251216001\build\native\Microsoft.WindowsAppSDK.Base.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.WindowsAppSDK.Base.1.8.251216001\build\native\Microsoft.WindowsAppSDK.Base.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.WindowsAppSDK.Base.1.8.251216001\build\native\Microsoft.WindowsAppSDK.Base.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.WindowsAppSDK.Base.1.8.251216001\build\native\Microsoft.WindowsAppSDK.Base.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.WindowsAppSDK.InteractiveExperiences.1.8.260125001\build\native\Microsoft.WindowsAppSDK.InteractiveExperiences.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.WindowsAppSDK.InteractiveExperiences.1.8.260125001\build\native\Microsoft.WindowsAppSDK.InteractiveExperiences.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.WindowsAppSDK.InteractiveExperiences.1.8.260125001\build\native\Microsoft.WindowsAppSDK.InteractiveExperiences.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.WindowsAppSDK.InteractiveExperiences.1.8.260125001\build\native\Microsoft.WindowsAppSDK.InteractiveExperiences.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.WindowsAppSDK.Foundation.1.8.260222000\build\native\Microsoft.WindowsAppSDK.Foundation.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.WindowsAppSDK.Foundation.1.8.260222000\build\native\Microsoft.WindowsAppSDK.Foundation.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.WindowsAppSDK.Foundation.1.8.260222000\build\native\Microsoft.WindowsAppSDK.Foundation.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.WindowsAppSDK.Foundation.1.8.260222000\build\native\Microsoft.WindowsAppSDK.Foundation.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.WindowsAppSDK.WinUI.1.8.260224000\build\native\Microsoft.WindowsAppSDK.WinUI.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.WindowsAppSDK.WinUI.1.8.260224000\build\native\Microsoft.WindowsAppSDK.WinUI.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.WindowsAppSDK.WinUI.1.8.260224000\build\native\Microsoft.WindowsAppSDK.WinUI.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.WindowsAppSDK.WinUI.1.8.260224000\build\native\Microsoft.WindowsAppSDK.WinUI.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Graphics.Win2D.1.4.0\build\native\Microsoft.Graphics.Win2D.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Graphics.Win2D.1.4.0\build\native\Microsoft.Graphics.Win2D.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.260316102\build\Microsoft.Windows.SDK.BuildTools.MSIX.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.260316102\build\Microsoft.Windows.SDK.BuildTools.MSIX.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.260316102\build\Microsoft.Windows.SDK.BuildTools.MSIX.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.260316102\build\Microsoft.Windows.SDK.BuildTools.MSIX.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Web.WebView2.1.0.3856.49\build\native\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Web.WebView2.1.0.3856.49\build\native\Microsoft.Web.WebView2.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Windows.SDK.BuildTools.10.0.26100.7705\build\Microsoft.Windows.SDK.BuildTools.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.SDK.BuildTools.10.0.26100.7705\build\Microsoft.Windows.SDK.BuildTools.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Windows.SDK.BuildTools.10.0.26100.7705\build\Microsoft.Windows.SDK.BuildTools.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.SDK.BuildTools.10.0.26100.7705\build\Microsoft.Windows.SDK.BuildTools.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.250303.1\build\native\Microsoft.Windows.CppWinRT.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.CppWinRT.2.0.250303.1\build\native\Microsoft.Windows.CppWinRT.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.250303.1\build\native\Microsoft.Windows.CppWinRT.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.CppWinRT.2.0.250303.1\build\native\Microsoft.Windows.CppWinRT.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Windows.ImplementationLibrary.1.0.260126.7\build\native\Microsoft.Windows.ImplementationLibrary.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.ImplementationLibrary.1.0.260126.7\build\native\Microsoft.Windows.ImplementationLibrary.targets'))" />
+  </Target>
+</Project>

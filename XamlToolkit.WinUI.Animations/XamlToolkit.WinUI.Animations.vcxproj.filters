@@ -1,0 +1,699 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Builders">
+      <UniqueIdentifier>{478d16ff-1e74-4948-9c84-1f926340d299}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Builders\Interfaces">
+      <UniqueIdentifier>{e2b1a4a5-147b-48f1-a319-dc180f18d0aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ConnectedAnimations">
+      <UniqueIdentifier>{5a4a0dea-7cb1-4d8c-9351-693e30680f17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enums">
+      <UniqueIdentifier>{1dde399f-df5d-4942-abb5-b71a54192f7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Extensions">
+      <UniqueIdentifier>{63206c30-f8d3-45d0-8e1e-3f9aab77bc18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Extensions\System">
+      <UniqueIdentifier>{65a4e29a-06d9-4690-846b-3f15c285c287}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{926ab91d-31b4-48c3-b9a4-e681349f27f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Options">
+      <UniqueIdentifier>{2c265b9b-0d56-402e-8344-5f9b2aa2f13d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Xaml">
+      <UniqueIdentifier>{16373dd3-2626-47d3-beb9-e719ccf1a3ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Xaml\Abstract">
+      <UniqueIdentifier>{b220d0d2-5779-48c6-a492-59087559c2f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Xaml\Activities">
+      <UniqueIdentifier>{1062d4b6-8c0d-4a52-a4ad-da8ff4656a51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Xaml\Custom">
+      <UniqueIdentifier>{9dcefdbc-f68c-42ec-83d4-f23cd7627a83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Xaml\Default">
+      <UniqueIdentifier>{5e8dd043-2b2a-407f-886f-a0a67c5def73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Xaml\Interfaces">
+      <UniqueIdentifier>{457e90b5-dc0f-4dd6-9c3d-e8114e229de5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Xaml\KeyFrames">
+      <UniqueIdentifier>{127c4121-c0d3-49a0-a5f7-68a74a6ba3b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Xaml\Shadows">
+      <UniqueIdentifier>{557bbcb3-825f-4c9c-a9b1-c7fc1bd00b77}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Builders\AnimationBuilder.h">
+      <Filter>Builders</Filter>
+    </ClInclude>
+    <ClInclude Include="Builders\AnimationBuilder.KeyFrames.h">
+      <Filter>Builders</Filter>
+    </ClInclude>
+    <ClInclude Include="Builders\AnimationBuilder.PropertyBuilders.h">
+      <Filter>Builders</Filter>
+    </ClInclude>
+    <ClInclude Include="Builders\AnimationBuilder.Default.h">
+      <Filter>Builders</Filter>
+    </ClInclude>
+    <ClInclude Include="Builders\Interfaces\IKeyFrameInfo.h">
+      <Filter>Builders\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Builders\Interfaces\INormalizedKeyFrameAnimationBuilder{T}.h">
+      <Filter>Builders\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Builders\Interfaces\IPropertyAnimationBuilder{T}.h">
+      <Filter>Builders\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Builders\Interfaces\ITimedKeyFrameAnimationBuilder{T}.h">
+      <Filter>Builders\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Builders\NormalizedKeyFrameAnimationBuilder{T}.h">
+      <Filter>Builders</Filter>
+    </ClInclude>
+    <ClInclude Include="Builders\NormalizedKeyFrameAnimationBuilder{T}.Composition.h">
+      <Filter>Builders</Filter>
+    </ClInclude>
+    <ClInclude Include="Builders\NormalizedKeyFrameAnimationBuilder{T}.Xaml.h">
+      <Filter>Builders</Filter>
+    </ClInclude>
+    <ClInclude Include="Builders\TimedKeyFrameAnimationBuilder{T}.h">
+      <Filter>Builders</Filter>
+    </ClInclude>
+    <ClInclude Include="Builders\TimedKeyFrameAnimationBuilder{T}.Composition.h">
+      <Filter>Builders</Filter>
+    </ClInclude>
+    <ClInclude Include="Builders\TimedKeyFrameAnimationBuilder{T}.Xaml.h">
+      <Filter>Builders</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\Axis.h">
+      <Filter>Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\Side.h">
+      <Filter>Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\VisualProperty.h">
+      <Filter>Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Extensions\AnimationExtensions.h">
+      <Filter>Extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="Extensions\CompositorExtensions.h">
+      <Filter>Extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="Extensions\DependencyObjectExtensions.h">
+      <Filter>Extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="Extensions\EasingTypeExtensions.h">
+      <Filter>Extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="Extensions\ITimedKeyFrameAnimationBuilderExtensions.h">
+      <Filter>Extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="Extensions\ScrollViewerExtensions.h">
+      <Filter>Extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="Extensions\StoryboardAnimations.h">
+      <Filter>Extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="Extensions\System\FloatExtensions.h">
+      <Filter>Extensions\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Extensions\System\GuidExtensions.h">
+      <Filter>Extensions\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Options\RepeatOptionHelper.h">
+      <Filter>Options</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="Xaml\Abstract\Animation.h">
+      <Filter>Xaml\Abstract</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Abstract\KeyFrame.h">
+      <Filter>Xaml\Abstract</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Custom\ScalarAnimation.h">
+      <Filter>Xaml\Custom</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Custom\ColorAnimation.h">
+      <Filter>Xaml\Custom</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Custom\QuaternionAnimation.h">
+      <Filter>Xaml\Custom</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Default\OpacityAnimation.h">
+      <Filter>Xaml\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Default\ScaleAnimation.h">
+      <Filter>Xaml\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Default\OffsetAnimation.h">
+      <Filter>Xaml\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Default\TranslationAnimation.h">
+      <Filter>Xaml\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Default\RotationAnimation.h">
+      <Filter>Xaml\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Default\CenterPointAnimation.h">
+      <Filter>Xaml\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\KeyFrames\ScalarKeyFrame.h">
+      <Filter>Xaml\KeyFrames</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\KeyFrames\Vector3KeyFrame.h">
+      <Filter>Xaml\KeyFrames</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Activities\Activity.h">
+      <Filter>Xaml\Activities</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Activities\StartAnimationActivity.h">
+      <Filter>Xaml\Activities</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Activities\StopAnimationActivity.h">
+      <Filter>Xaml\Activities</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Default\AnchorPointAnimation.h">
+      <Filter>Xaml\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Default\SizeAnimation.h">
+      <Filter>Xaml\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Default\RotationAxisAnimation.h">
+      <Filter>Xaml\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Default\OrientationAnimation.h">
+      <Filter>Xaml\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Default\RotationInDegreesAnimation.h">
+      <Filter>Xaml\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Custom\Vector2Animation.h">
+      <Filter>Xaml\Custom</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Custom\Vector3Animation.h">
+      <Filter>Xaml\Custom</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Custom\Vector4Animation.h">
+      <Filter>Xaml\Custom</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\KeyFrames\ColorKeyFrame.h">
+      <Filter>Xaml\KeyFrames</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\KeyFrames\Vector2KeyFrame.h">
+      <Filter>Xaml\KeyFrames</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\KeyFrames\Vector4KeyFrame.h">
+      <Filter>Xaml\KeyFrames</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\KeyFrames\QuaternionKeyFrame.h">
+      <Filter>Xaml\KeyFrames</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Shadows\BlurRadiusDropShadowAnimation.h">
+      <Filter>Xaml\Shadows</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Shadows\ColorDropShadowAnimation.h">
+      <Filter>Xaml\Shadows</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Shadows\OffsetDropShadowAnimation.h">
+      <Filter>Xaml\Shadows</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Shadows\OpacityDropShadowAnimation.h">
+      <Filter>Xaml\Shadows</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\AnimationScope.h">
+      <Filter>Xaml</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\AnimationDictionary.h">
+      <Filter>Xaml</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\ImplicitAnimationSet.h">
+      <Filter>Xaml</Filter>
+    </ClInclude>
+    <ClInclude Include="Explicit.h" />
+    <ClInclude Include="Implicit.h" />
+    <ClInclude Include="ItemsReorderAnimation.h" />
+    <ClInclude Include="ConnectedAnimations\ConnectedAnimationListProperty.h">
+      <Filter>ConnectedAnimations</Filter>
+    </ClInclude>
+    <ClInclude Include="ConnectedAnimations\ConnectedAnimationProperties.h">
+      <Filter>ConnectedAnimations</Filter>
+    </ClInclude>
+    <ClInclude Include="ConnectedAnimations\ConnectedAnimationHelper.h">
+      <Filter>ConnectedAnimations</Filter>
+    </ClInclude>
+    <ClInclude Include="ConnectedAnimations\Connected.h">
+      <Filter>ConnectedAnimations</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\AnimationSet.h">
+      <Filter>Xaml</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Interfaces\IAttachedTimeline.h">
+      <Filter>Xaml\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Interfaces\IImplicitTimeline.h">
+      <Filter>Xaml\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Interfaces\IKeyFrame{T}.h">
+      <Filter>Xaml\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Interfaces\ITimeline.h">
+      <Filter>Xaml\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Default\ClipAnimation.h">
+      <Filter>Xaml\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Abstract\Animation{TValue,TKeyFrame}.h">
+      <Filter>Xaml\Abstract</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Abstract\CustomAnimation{TValue,TKeyFrame}.h">
+      <Filter>Xaml\Abstract</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Abstract\ImplicitAnimation{TValue,TKeyFrame}.h">
+      <Filter>Xaml\Abstract</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Abstract\KeyFrame{TValue,TKeyFrame}.h">
+      <Filter>Xaml\Abstract</Filter>
+    </ClInclude>
+    <ClInclude Include="Xaml\Abstract\ShadowAnimation{TValue,TKeyFrame}.h">
+      <Filter>Xaml\Abstract</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Builders\AnimationBuilder.cpp">
+      <Filter>Builders</Filter>
+    </ClCompile>
+    <ClCompile Include="Builders\AnimationBuilder.Factories.cpp">
+      <Filter>Builders</Filter>
+    </ClCompile>
+    <ClCompile Include="Builders\AnimationBuilder.Setup.cpp">
+      <Filter>Builders</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="$(GeneratedFilesDir)module.g.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\Abstract\Animation.cpp">
+      <Filter>Xaml\Abstract</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\Abstract\KeyFrame.cpp">
+      <Filter>Xaml\Abstract</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\Custom\ScalarAnimation.cpp">
+      <Filter>Xaml\Custom</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\Custom\ColorAnimation.cpp">
+      <Filter>Xaml\Custom</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\Custom\QuaternionAnimation.cpp">
+      <Filter>Xaml\Custom</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\Default\OpacityAnimation.cpp">
+      <Filter>Xaml\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\Default\ScaleAnimation.cpp">
+      <Filter>Xaml\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\Default\OffsetAnimation.cpp">
+      <Filter>Xaml\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\Default\TranslationAnimation.cpp">
+      <Filter>Xaml\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\Default\RotationAnimation.cpp">
+      <Filter>Xaml\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\Default\CenterPointAnimation.cpp">
+      <Filter>Xaml\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\KeyFrames\ScalarKeyFrame.cpp">
+      <Filter>Xaml\KeyFrames</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\KeyFrames\Vector3KeyFrame.cpp">
+      <Filter>Xaml\KeyFrames</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\Activities\Activity.cpp">
+      <Filter>Xaml\Activities</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\Activities\StartAnimationActivity.cpp">
+      <Filter>Xaml\Activities</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\Activities\StopAnimationActivity.cpp">
+      <Filter>Xaml\Activities</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\Default\AnchorPointAnimation.cpp">
+      <Filter>Xaml\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\Default\SizeAnimation.cpp">
+      <Filter>Xaml\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\Default\RotationAxisAnimation.cpp">
+      <Filter>Xaml\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\Default\OrientationAnimation.cpp">
+      <Filter>Xaml\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\Default\RotationInDegreesAnimation.cpp">
+      <Filter>Xaml\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\Custom\Vector2Animation.cpp">
+      <Filter>Xaml\Custom</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\Custom\Vector3Animation.cpp">
+      <Filter>Xaml\Custom</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\Custom\Vector4Animation.cpp">
+      <Filter>Xaml\Custom</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\KeyFrames\ColorKeyFrame.cpp">
+      <Filter>Xaml\KeyFrames</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\KeyFrames\Vector2KeyFrame.cpp">
+      <Filter>Xaml\KeyFrames</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\KeyFrames\Vector4KeyFrame.cpp">
+      <Filter>Xaml\KeyFrames</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\KeyFrames\QuaternionKeyFrame.cpp">
+      <Filter>Xaml\KeyFrames</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\Shadows\BlurRadiusDropShadowAnimation.cpp">
+      <Filter>Xaml\Shadows</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\Shadows\ColorDropShadowAnimation.cpp">
+      <Filter>Xaml\Shadows</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\Shadows\OffsetDropShadowAnimation.cpp">
+      <Filter>Xaml\Shadows</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\Shadows\OpacityDropShadowAnimation.cpp">
+      <Filter>Xaml\Shadows</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\AnimationScope.cpp">
+      <Filter>Xaml</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\AnimationDictionary.cpp">
+      <Filter>Xaml</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\ImplicitAnimationSet.cpp">
+      <Filter>Xaml</Filter>
+    </ClCompile>
+    <ClCompile Include="Explicit.cpp" />
+    <ClCompile Include="Implicit.cpp" />
+    <ClCompile Include="ItemsReorderAnimation.cpp" />
+    <ClCompile Include="ConnectedAnimations\ConnectedAnimationHelper.cpp">
+      <Filter>ConnectedAnimations</Filter>
+    </ClCompile>
+    <ClCompile Include="ConnectedAnimations\Connected.cpp">
+      <Filter>ConnectedAnimations</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\AnimationSet.cpp">
+      <Filter>Xaml</Filter>
+    </ClCompile>
+    <ClCompile Include="Xaml\Default\ClipAnimation.cpp">
+      <Filter>Xaml\Default</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="Enums\EasingType.idl">
+      <Filter>Enums</Filter>
+    </Midl>
+    <Midl Include="Enums\FrameworkLayer.idl">
+      <Filter>Enums</Filter>
+    </Midl>
+    <Midl Include="Options\RepeatOption.idl">
+      <Filter>Options</Filter>
+    </Midl>
+    <Midl Include="Xaml\Interfaces\IActivity.idl">
+      <Filter>Xaml\Interfaces</Filter>
+    </Midl>
+    <Midl Include="Xaml\Abstract\Animation.idl">
+      <Filter>Xaml\Abstract</Filter>
+    </Midl>
+    <Midl Include="Xaml\Abstract\KeyFrame.idl">
+      <Filter>Xaml\Abstract</Filter>
+    </Midl>
+    <Midl Include="Xaml\Custom\ScalarAnimation.idl">
+      <Filter>Xaml\Custom</Filter>
+    </Midl>
+    <Midl Include="Xaml\Custom\ColorAnimation.idl">
+      <Filter>Xaml\Custom</Filter>
+    </Midl>
+    <Midl Include="Xaml\Custom\QuaternionAnimation.idl">
+      <Filter>Xaml\Custom</Filter>
+    </Midl>
+    <Midl Include="Xaml\Default\OpacityAnimation.idl">
+      <Filter>Xaml\Default</Filter>
+    </Midl>
+    <Midl Include="Xaml\Default\ScaleAnimation.idl">
+      <Filter>Xaml\Default</Filter>
+    </Midl>
+    <Midl Include="Xaml\Default\OffsetAnimation.idl">
+      <Filter>Xaml\Default</Filter>
+    </Midl>
+    <Midl Include="Xaml\Default\TranslationAnimation.idl">
+      <Filter>Xaml\Default</Filter>
+    </Midl>
+    <Midl Include="Xaml\Default\RotationAnimation.idl">
+      <Filter>Xaml\Default</Filter>
+    </Midl>
+    <Midl Include="Xaml\Default\CenterPointAnimation.idl">
+      <Filter>Xaml\Default</Filter>
+    </Midl>
+    <Midl Include="Xaml\KeyFrames\ScalarKeyFrame.idl">
+      <Filter>Xaml\KeyFrames</Filter>
+    </Midl>
+    <Midl Include="Xaml\KeyFrames\Vector3KeyFrame.idl">
+      <Filter>Xaml\KeyFrames</Filter>
+    </Midl>
+    <Midl Include="Xaml\Activities\Activity.idl">
+      <Filter>Xaml\Activities</Filter>
+    </Midl>
+    <Midl Include="Xaml\Activities\StartAnimationActivity.idl">
+      <Filter>Xaml\Activities</Filter>
+    </Midl>
+    <Midl Include="Xaml\Activities\StopAnimationActivity.idl">
+      <Filter>Xaml\Activities</Filter>
+    </Midl>
+    <Midl Include="Xaml\Default\AnchorPointAnimation.idl">
+      <Filter>Xaml\Default</Filter>
+    </Midl>
+    <Midl Include="Xaml\Default\SizeAnimation.idl">
+      <Filter>Xaml\Default</Filter>
+    </Midl>
+    <Midl Include="Xaml\Default\RotationAxisAnimation.idl">
+      <Filter>Xaml\Default</Filter>
+    </Midl>
+    <Midl Include="Xaml\Default\OrientationAnimation.idl">
+      <Filter>Xaml\Default</Filter>
+    </Midl>
+    <Midl Include="Xaml\Default\RotationInDegreesAnimation.idl">
+      <Filter>Xaml\Default</Filter>
+    </Midl>
+    <Midl Include="Xaml\Custom\Vector2Animation.idl">
+      <Filter>Xaml\Custom</Filter>
+    </Midl>
+    <Midl Include="Xaml\Custom\Vector3Animation.idl">
+      <Filter>Xaml\Custom</Filter>
+    </Midl>
+    <Midl Include="Xaml\Custom\Vector4Animation.idl">
+      <Filter>Xaml\Custom</Filter>
+    </Midl>
+    <Midl Include="Xaml\KeyFrames\ColorKeyFrame.idl">
+      <Filter>Xaml\KeyFrames</Filter>
+    </Midl>
+    <Midl Include="Xaml\KeyFrames\Vector2KeyFrame.idl">
+      <Filter>Xaml\KeyFrames</Filter>
+    </Midl>
+    <Midl Include="Xaml\KeyFrames\Vector4KeyFrame.idl">
+      <Filter>Xaml\KeyFrames</Filter>
+    </Midl>
+    <Midl Include="Xaml\KeyFrames\QuaternionKeyFrame.idl">
+      <Filter>Xaml\KeyFrames</Filter>
+    </Midl>
+    <Midl Include="Xaml\Shadows\BlurRadiusDropShadowAnimation.idl">
+      <Filter>Xaml\Shadows</Filter>
+    </Midl>
+    <Midl Include="Xaml\Shadows\ColorDropShadowAnimation.idl">
+      <Filter>Xaml\Shadows</Filter>
+    </Midl>
+    <Midl Include="Xaml\Shadows\OffsetDropShadowAnimation.idl">
+      <Filter>Xaml\Shadows</Filter>
+    </Midl>
+    <Midl Include="Xaml\Shadows\OpacityDropShadowAnimation.idl">
+      <Filter>Xaml\Shadows</Filter>
+    </Midl>
+    <Midl Include="Xaml\AnimationScope.idl">
+      <Filter>Xaml</Filter>
+    </Midl>
+    <Midl Include="Xaml\AnimationDictionary.idl">
+      <Filter>Xaml</Filter>
+    </Midl>
+    <Midl Include="Xaml\ImplicitAnimationSet.idl">
+      <Filter>Xaml</Filter>
+    </Midl>
+    <Midl Include="ItemsReorderAnimation.idl" />
+    <Midl Include="ConnectedAnimations\Connected.idl">
+      <Filter>ConnectedAnimations</Filter>
+    </Midl>
+    <Midl Include="Explicit.idl" />
+    <Midl Include="Implicit.idl" />
+    <Midl Include="Xaml\AnimationSet.idl">
+      <Filter>Xaml</Filter>
+    </Midl>
+    <Midl Include="Xaml\Default\ClipAnimation.idl">
+      <Filter>Xaml\Default</Filter>
+    </Midl>
+    <Midl Include="Xaml\KeyFrames\ThicknessKeyFrame.idl">
+      <Filter>Xaml\KeyFrames</Filter>
+    </Midl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="XamlToolkit.WinUI.Animations.def" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Expressions">
+      <UniqueIdentifier>{f0d3104e-1f7d-4d14-a839-34aa93e768e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Expressions\ExpressionNodes">
+      <UniqueIdentifier>{67004c9d-38bf-4d5b-b498-c4eec687f2f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Expressions\ReferenceNodes">
+      <UniqueIdentifier>{c88dbcfe-f437-4ff8-b0b4-d95653295d85}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Expressions\CompositionExtensions.h">
+      <Filter>Expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ExpressionForward.h">
+      <Filter>Expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ExpressionFunctions.h">
+      <Filter>Expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ExpressionValues.h">
+      <Filter>Expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\OperationType.h">
+      <Filter>Expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ExpressionNodes\BooleanNode.h">
+      <Filter>Expressions\ExpressionNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ExpressionNodes\ColorNode.h">
+      <Filter>Expressions\ExpressionNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ExpressionNodes\ExpressionNode.h">
+      <Filter>Expressions\ExpressionNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ExpressionNodes\ExpressionNodeHelper.h">
+      <Filter>Expressions\ExpressionNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ExpressionNodes\ExpressionNodeType.h">
+      <Filter>Expressions\ExpressionNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ExpressionNodes\ExpressionOperators.h">
+      <Filter>Expressions\ExpressionNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ExpressionNodes\Matrix3x2Node.h">
+      <Filter>Expressions\ExpressionNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ExpressionNodes\Matrix4x4Node.h">
+      <Filter>Expressions\ExpressionNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ExpressionNodes\QuaternionNode.h">
+      <Filter>Expressions\ExpressionNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ExpressionNodes\ScalarNode.h">
+      <Filter>Expressions\ExpressionNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ExpressionNodes\ValueKeywordKind.h">
+      <Filter>Expressions\ExpressionNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ExpressionNodes\Vector2Node.h">
+      <Filter>Expressions\ExpressionNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ExpressionNodes\Vector3Node.h">
+      <Filter>Expressions\ExpressionNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ExpressionNodes\Vector4Node.h">
+      <Filter>Expressions\ExpressionNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ReferenceNodes\AmbientLightReferenceNode.h">
+      <Filter>Expressions\ReferenceNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ReferenceNodes\ColorBrushReferenceNode.h">
+      <Filter>Expressions\ReferenceNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ReferenceNodes\DistantLightReferenceNode.h">
+      <Filter>Expressions\ReferenceNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ReferenceNodes\DropShadowReferenceNode.h">
+      <Filter>Expressions\ReferenceNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ReferenceNodes\InsetClipReferenceNode.h">
+      <Filter>Expressions\ReferenceNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ReferenceNodes\InteractionTrackerReferenceNode.h">
+      <Filter>Expressions\ReferenceNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ReferenceNodes\ManipulationPropertySetReferenceNode.h">
+      <Filter>Expressions\ReferenceNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ReferenceNodes\NineGridBrushReferenceNode.h">
+      <Filter>Expressions\ReferenceNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ReferenceNodes\PointerPositionPropertySetReferenceNode.h">
+      <Filter>Expressions\ReferenceNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ReferenceNodes\PointLightReferenceNode.h">
+      <Filter>Expressions\ReferenceNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ReferenceNodes\PropertySetReferenceNode.h">
+      <Filter>Expressions\ReferenceNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ReferenceNodes\ReferenceNode.h">
+      <Filter>Expressions\ReferenceNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ReferenceNodes\SpotLightReferenceNode.h">
+      <Filter>Expressions\ReferenceNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ReferenceNodes\SurfaceBrushReferenceNode.h">
+      <Filter>Expressions\ReferenceNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Expressions\ReferenceNodes\VisualReferenceNode.h">
+      <Filter>Expressions\ReferenceNodes</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Expressions\CompositionExtensions.cpp">
+      <Filter>Expressions</Filter>
+    </ClCompile>
+    <ClCompile Include="Expressions\ExpressionFunctions.cpp">
+      <Filter>Expressions</Filter>
+    </ClCompile>
+    <ClCompile Include="Expressions\ExpressionNodes\ExpressionNode.cpp">
+      <Filter>Expressions\ExpressionNodes</Filter>
+    </ClCompile>
+    <ClCompile Include="Expressions\ExpressionNodes\ValueNodes.cpp">
+      <Filter>Expressions\ExpressionNodes</Filter>
+    </ClCompile>
+    <ClCompile Include="Expressions\ReferenceNodes\ReferenceNode.cpp">
+      <Filter>Expressions\ReferenceNodes</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natstepfilter" />
+  </ItemGroup>
+</Project>

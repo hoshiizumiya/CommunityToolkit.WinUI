@@ -1,0 +1,59 @@
+import "Enums/EasingType.idl";
+import "Options/RepeatOption.idl";
+
+namespace XamlToolkit.WinUI.Animations
+{
+    /// <summary>
+    /// A base model representing an animation that can be used in XAML.
+    /// Note: ITimeline is implemented as a C++ interface, not a WinRT interface.
+    /// </summary>
+    unsealed runtimeclass Animation : Microsoft.UI.Xaml.DependencyObject
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Animation"/> class.
+        /// </summary>
+        Animation();
+
+        /// <summary>
+        /// Gets or sets the optional initial delay for the animation.
+        /// </summary>
+        Windows.Foundation.IReference<Windows.Foundation.TimeSpan> Delay;
+
+		static Microsoft.UI.Xaml.DependencyProperty DelayProperty{ get; };
+
+        /// <summary>
+        /// Gets or sets the animation duration.
+        /// </summary>
+        Windows.Foundation.IReference<Windows.Foundation.TimeSpan> Duration;
+
+		static Microsoft.UI.Xaml.DependencyProperty DurationProperty{ get; };
+
+        /// <summary>
+        /// Gets or sets the optional easing function type for the animation.
+        /// </summary>
+        Windows.Foundation.IReference<EasingType> EasingType;
+
+		static Microsoft.UI.Xaml.DependencyProperty EasingTypeProperty{ get; };
+
+        /// <summary>
+        /// Gets or sets the optional easing function mode for the animation.
+        /// </summary>
+        Windows.Foundation.IReference<Microsoft.UI.Xaml.Media.Animation.EasingMode> EasingMode;
+
+		static Microsoft.UI.Xaml.DependencyProperty EasingModeProperty{ get; };
+
+        /// <summary>
+        /// Gets or sets the repeat option for the animation.
+        /// </summary>
+        RepeatOption Repeat;
+
+		static Microsoft.UI.Xaml.DependencyProperty RepeatProperty{ get; };
+
+        /// <summary>
+        /// Gets or sets the delay behavior for the animation.
+        /// </summary>
+        Microsoft.UI.Composition.AnimationDelayBehavior DelayBehavior;
+
+		static Microsoft.UI.Xaml.DependencyProperty DelayBehaviorProperty{ get; };
+    }
+}

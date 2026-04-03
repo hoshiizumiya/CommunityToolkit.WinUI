@@ -1,0 +1,50 @@
+import "Xaml/KeyFrames/Vector2KeyFrame.idl";
+import "Xaml/Abstract/Animation.idl";
+import "Enums/FrameworkLayer.idl";
+
+namespace XamlToolkit.WinUI.Animations
+{
+    /// <summary>
+    /// A custom Vector2 animation.
+    /// </summary>
+    runtimeclass Vector2Animation : Animation
+    {
+        Vector2Animation();
+
+        /// <summary>
+        /// Gets or sets the implicit trigger target property name.
+        /// </summary>
+        String ImplicitTarget;
+
+        /// <summary>
+        /// Gets or sets the final value for the animation.
+        /// </summary>
+        String To;
+
+		static Microsoft.UI.Xaml.DependencyProperty ToProperty{ get; };
+
+        /// <summary>
+        /// Gets or sets the optional starting value for the animation.
+        /// </summary>
+        String From;
+
+		static Microsoft.UI.Xaml.DependencyProperty FromProperty{ get; };
+
+        /// <summary>
+        /// Gets or sets the target property for the animation.
+        /// </summary>
+        String Target;
+
+        /// <summary>
+        /// Gets or sets the target framework layer for the animation.
+        /// </summary>
+        FrameworkLayer Layer;
+
+        /// <summary>
+        /// Gets or sets the optional keyframe collection for the current animation.
+        /// </summary>
+        Windows.Foundation.Collections.IVector<Vector2KeyFrame> KeyFrames;
+
+		static Microsoft.UI.Xaml.DependencyProperty KeyFramesProperty{ get; };
+    }
+}

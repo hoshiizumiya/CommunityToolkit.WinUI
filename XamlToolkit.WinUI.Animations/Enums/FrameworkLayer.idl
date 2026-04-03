@@ -1,0 +1,18 @@
+namespace XamlToolkit.WinUI.Animations
+{
+    /// <summary>
+    /// An enum that indicates the framework layer to target in a specific animation.
+    /// </summary>
+    enum FrameworkLayer
+    {
+        /// <summary>
+        /// Indicates the Composition APIs.
+        /// </summary>
+        Composition = 0,
+
+        /// <summary>
+        /// Indicates the Animation APIs.
+        /// </summary>
+        Xaml = 1
+    };
+}

@@ -1,0 +1,46 @@
+import "Enums/EasingType.idl";
+
+namespace XamlToolkit.WinUI.Animations
+{
+    /// <summary>
+    /// A container of ITimeline elements that can be used to conceptually group animations
+    /// together and to assign shared properties to be applied to all the contained items automatically.
+    /// Note: ITimeline is implemented as a C++ interface, not a WinRT interface.
+    /// </summary>
+    runtimeclass AnimationScope : Microsoft.UI.Xaml.DependencyObjectCollection
+    {
+        /// <summary>
+        /// Initializes a new instance of the AnimationScope class.
+        /// </summary>
+        AnimationScope();
+
+        /// <summary>
+        /// Gets or sets the optional initial delay for the animation.
+        /// </summary>
+        Windows.Foundation.IReference<Windows.Foundation.TimeSpan> Delay;
+
+		static Microsoft.UI.Xaml.DependencyProperty DelayProperty{ get; };
+
+        /// <summary>
+        /// Gets or sets the animation duration.
+        /// </summary>
+        Windows.Foundation.IReference<Windows.Foundation.TimeSpan> Duration;
+
+		static Microsoft.UI.Xaml.DependencyProperty DurationProperty{ get; };
+
+        /// <summary>
+        /// Gets or sets the optional easing function type for the animation.
+        /// </summary>
+        Windows.Foundation.IReference<EasingType> EasingType;
+
+		static Microsoft.UI.Xaml.DependencyProperty EasingTypeProperty{ get; };
+
+        /// <summary>
+        /// Gets or sets the optional easing function mode for the animation.
+        /// </summary>
+        Windows.Foundation.IReference<Microsoft.UI.Xaml.Media.Animation.EasingMode> EasingMode;
+
+        static Microsoft.UI.Xaml.DependencyProperty EasingModeProperty{ get; };
+    }
+}
+

@@ -1,0 +1,29 @@
+import "Xaml/Abstract/Animation.idl";
+import "Xaml/KeyFrames/Vector3KeyFrame.idl";
+
+namespace XamlToolkit.WinUI.Animations
+{
+    /// <summary>
+    /// An offset animation working on a DropShadow.
+    /// </summary>
+    runtimeclass OffsetDropShadowAnimation : Animation
+    {
+        OffsetDropShadowAnimation();
+
+        XamlToolkit.WinUI.IAttachedShadow Target;
+
+        static Microsoft.UI.Xaml.DependencyProperty TargetProperty{ get; };
+
+        String To;
+
+		static Microsoft.UI.Xaml.DependencyProperty ToProperty{ get; };
+
+        String From;
+
+		static Microsoft.UI.Xaml.DependencyProperty FromProperty{ get; };
+
+        Windows.Foundation.Collections.IVector<Vector3KeyFrame> KeyFrames;
+
+		static Microsoft.UI.Xaml.DependencyProperty KeyFramesProperty{ get; };
+    }
+}

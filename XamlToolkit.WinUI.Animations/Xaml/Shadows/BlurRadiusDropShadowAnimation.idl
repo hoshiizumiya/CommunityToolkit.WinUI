@@ -1,0 +1,29 @@
+import "Xaml/Abstract/Animation.idl";
+import "Xaml/KeyFrames/ScalarKeyFrame.idl";
+
+namespace XamlToolkit.WinUI.Animations
+{
+    /// <summary>
+    /// A blur radius animation working on the composition layer.
+    /// </summary>
+    runtimeclass BlurRadiusDropShadowAnimation : Animation
+    {
+        BlurRadiusDropShadowAnimation();
+
+        XamlToolkit.WinUI.IAttachedShadow Target;
+
+		static Microsoft.UI.Xaml.DependencyProperty TargetProperty{ get; };
+
+        Windows.Foundation.IReference<Double> To;
+
+		static Microsoft.UI.Xaml.DependencyProperty ToProperty{ get; };
+
+        Windows.Foundation.IReference<Double> From;
+
+		static Microsoft.UI.Xaml.DependencyProperty FromProperty{ get; };
+
+        Windows.Foundation.Collections.IVector<ScalarKeyFrame> KeyFrames;
+
+		static Microsoft.UI.Xaml.DependencyProperty KeyFramesProperty{ get; };
+    }
+}

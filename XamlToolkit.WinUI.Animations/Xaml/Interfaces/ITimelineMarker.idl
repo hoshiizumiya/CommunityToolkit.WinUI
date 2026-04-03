@@ -1,0 +1,10 @@
+namespace XamlToolkit.WinUI.Animations
+{
+    /// <summary>
+    /// A marker interface indicating that an object is a timeline animation.
+    /// This is used for type detection since ITimeline is a C++ interface only.
+    /// </summary>
+    interface ITimelineMarker
+    {
+    };
+}

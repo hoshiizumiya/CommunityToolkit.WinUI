@@ -1,0 +1,25 @@
+import "Xaml/Abstract/Animation.idl";
+
+namespace XamlToolkit.WinUI.Animations
+{
+    /// <summary>
+    /// A rotation animation working on the composition layer.
+    /// </summary>
+    runtimeclass RotationAnimation : Animation
+    {
+        RotationAnimation();
+
+        /// <summary>
+        /// Gets or sets the implicit trigger target property name.
+        /// </summary>
+        String ImplicitTarget;
+
+        Windows.Foundation.IReference<Double> To;
+
+		static Microsoft.UI.Xaml.DependencyProperty ToProperty{ get; };
+
+        Windows.Foundation.IReference<Double> From;
+        
+		static Microsoft.UI.Xaml.DependencyProperty FromProperty{ get; };
+    }
+}

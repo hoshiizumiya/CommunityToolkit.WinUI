@@ -1,0 +1,42 @@
+import "Xaml/Abstract/Animation.idl";
+import "Xaml/KeyFrames/ScalarKeyFrame.idl";
+
+namespace XamlToolkit.WinUI.Animations
+{
+    /// <summary>
+    /// An opacity animation working on the composition or layer.
+    /// </summary>
+    runtimeclass OpacityAnimation : Animation
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OpacityAnimation"/> class.
+        /// </summary>
+        OpacityAnimation();
+
+        /// <summary>
+        /// Gets or sets the implicit trigger target property name.
+        /// </summary>
+        String ImplicitTarget;
+
+        /// <summary>
+        /// Gets or sets the final value for the animation.
+        /// </summary>
+        Windows.Foundation.IReference<Double> To;
+
+		static Microsoft.UI.Xaml.DependencyProperty ToProperty{ get; };
+
+        /// <summary>
+        /// Gets or sets the optional starting value for the animation.
+        /// </summary>
+        Windows.Foundation.IReference<Double> From;
+
+		static Microsoft.UI.Xaml.DependencyProperty FromProperty{ get; };
+
+        /// <summary>
+        /// Gets or sets the optional keyframe collection for the current animation.
+        /// </summary>
+        Windows.Foundation.Collections.IVector<ScalarKeyFrame> KeyFrames;
+
+		static Microsoft.UI.Xaml.DependencyProperty KeyFramesProperty{ get; };
+    }
+}

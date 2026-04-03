@@ -1,0 +1,16 @@
+import "Xaml/AnimationSet.idl";
+
+namespace XamlToolkit.WinUI.Animations
+{
+    /// <summary>
+    /// A collection of animations that can be defined from XAML.
+    /// </summary>
+    [default_interface]
+    runtimeclass AnimationDictionary : Microsoft.UI.Xaml.DependencyObject, Windows.Foundation.Collections.IVector<AnimationSet>
+    {
+        /// <summary>
+        /// Initializes a new instance of the AnimationDictionary class.
+        /// </summary>
+        AnimationDictionary();
+    }
+}

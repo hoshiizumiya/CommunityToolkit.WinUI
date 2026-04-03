@@ -1,0 +1,195 @@
+#include "pch.h"
+#include "AnimationSet.h"
+#if __has_include("AnimationSet.g.cpp")
+#include "AnimationSet.g.cpp"
+#endif
+#include "Abstract/Animation.h"
+#include "AnimationScope.h"
+#include "Interfaces/IAttachedTimeline.h"
+
+namespace
+{
+    bool TryAppendTimelineNode(
+        winrt::Windows::Foundation::IInspectable const& node,
+        winrt::XamlToolkit::WinUI::Animations::AnimationBuilder& builder,
+        winrt::Microsoft::UI::Xaml::UIElement const& element)
+    {
+        if (auto animation = node.try_as<winrt::XamlToolkit::WinUI::Animations::Animation>())
+        {
+            auto impl = winrt::get_self<winrt::XamlToolkit::WinUI::Animations::implementation::Animation>(animation);
+
+            if (auto attachedTimeline = dynamic_cast<winrt::XamlToolkit::WinUI::Animations::implementation::IAttachedTimeline*>(impl))
+            {
+                attachedTimeline->AppendToBuilder(builder, element);
+            }
+            else
+            {
+                impl->AppendToBuilder(builder);
+            }
+
+            return true;
+        }
+
+        if (auto scope = node.try_as<winrt::XamlToolkit::WinUI::Animations::AnimationScope>())
+        {
+            auto impl = winrt::get_self<winrt::XamlToolkit::WinUI::Animations::implementation::AnimationScope>(scope);
+            impl->AppendToBuilder(builder);
+            return true;
+        }
+
+        return false;
+    }
+}
+
+namespace winrt::XamlToolkit::WinUI::Animations::implementation
+{
+    bool AnimationSet::IsSequential() const noexcept
+    {
+        return isSequential;
+    }
+
+    void AnimationSet::IsSequential(bool value)
+    {
+        isSequential = value;
+    }
+
+    winrt::fire_and_forget AnimationSet::Start()
+    {
+        co_await StartAsync();
+    }
+
+    winrt::fire_and_forget AnimationSet::Start(UIElement const& element)
+    {
+        co_await StartAsync(element);
+    }
+
+    winrt::Windows::Foundation::IAsyncAction AnimationSet::StartAsync()
+    {
+        return StartAsync(GetParent());
+    }
+
+    winrt::Windows::Foundation::IAsyncAction AnimationSet::StartAsync(UIElement const& element)
+    {
+        Stop(element);
+
+        auto cancellationState = std::make_shared<std::atomic<bool>>(false);
+
+        {
+            std::scoped_lock lock(cancellationStateMapMutex);
+            cancellationStateMap[reinterpret_cast<uintptr_t>(winrt::get_abi(element))] = cancellationState;
+        }
+
+        return StartAsync(element, cancellationState);
+    }
+
+    winrt::Windows::Foundation::IAsyncAction AnimationSet::StartAsync(
+        UIElement const& element,
+        std::shared_ptr<std::atomic<bool>> cancellationState)
+    {
+        auto strongThis = get_strong();
+
+		Started.invoke(*this, nullptr);
+
+        if (strongThis->IsSequential())
+        {
+            uint32_t count = strongThis->Size();
+
+            for (uint32_t i = 0; i < count; ++i)
+            {
+                if (cancellationState->load(std::memory_order_acquire))
+                {
+                    break;
+                }
+
+                auto node = strongThis->GetAt(i);
+                AnimationBuilder builder = AnimationBuilder::Create();
+
+                if (TryAppendTimelineNode(node, builder, element))
+                {
+                    co_await builder.StartAsync(element);
+                }
+                else if (auto activity = node.try_as<IActivity>())
+                {
+                    try
+                    {
+                        co_await activity.InvokeAsync(element);
+                    }
+                    catch (winrt::hresult_canceled)
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    ThrowArgumentException();
+                }
+
+                if (cancellationState->load(std::memory_order_acquire))
+                {
+                    break;
+                }
+            }
+        }
+        else
+        {
+            AnimationBuilder builder = AnimationBuilder::Create();
+            uint32_t count = strongThis->Size();
+
+            for (uint32_t i = 0; i < count; ++i)
+            {
+                auto node = strongThis->GetAt(i);
+
+                if (TryAppendTimelineNode(node, builder, element))
+                {
+                    continue;
+                }
+
+                if (auto activity = node.try_as<IActivity>())
+                {
+                    activity.InvokeAsync(element);
+                }
+                else
+                {
+                    ThrowArgumentException();
+                }
+            }
+
+            co_await builder.StartAsync(element);
+        }
+
+		Completed.invoke(*this, nullptr);
+
+        {
+            std::scoped_lock lock(strongThis->cancellationStateMapMutex);
+            auto it = strongThis->cancellationStateMap.find(reinterpret_cast<uintptr_t>(winrt::get_abi(element)));
+            if (it != strongThis->cancellationStateMap.end() && it->second == cancellationState)
+            {
+                strongThis->cancellationStateMap.erase(it);
+            }
+        }
+    }
+
+    void AnimationSet::Stop()
+    {
+        Stop(GetParent());
+    }
+
+    void AnimationSet::Stop(UIElement const& element)
+    {
+        std::shared_ptr<std::atomic<bool>> cancellationState;
+
+        {
+            std::scoped_lock lock(cancellationStateMapMutex);
+            auto it = cancellationStateMap.find(reinterpret_cast<uintptr_t>(winrt::get_abi(element)));
+            if (it != cancellationStateMap.end())
+            {
+                cancellationState = it->second;
+            }
+        }
+
+        if (cancellationState)
+        {
+            cancellationState->store(true, std::memory_order_release);
+        }
+    }
+}

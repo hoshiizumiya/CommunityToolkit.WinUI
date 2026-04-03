@@ -1,0 +1,16 @@
+import "Xaml/Abstract/KeyFrame.idl";
+
+namespace XamlToolkit.WinUI.Animations
+{
+    /// <summary>
+    /// A scalar keyframe.
+    /// </summary>
+    runtimeclass ScalarKeyFrame : KeyFrame
+    {
+        ScalarKeyFrame();
+
+        Windows.Foundation.IReference<Double> Value;
+
+		static Microsoft.UI.Xaml.DependencyProperty ValueProperty{ get; };
+    }
+}

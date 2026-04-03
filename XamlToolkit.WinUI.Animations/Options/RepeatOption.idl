@@ -1,0 +1,13 @@
+namespace XamlToolkit.WinUI.Animations
+{
+    /// <summary>
+    /// A struct representing a repeat option for animations.
+    /// </summary>
+    struct RepeatOption
+    {
+        /// <summary>
+        /// The number of iterations for the animation. -1 means forever.
+        /// </summary>
+        Int32 Value;
+    };
+}

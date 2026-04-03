@@ -1,0 +1,17 @@
+import "Xaml/Activities/Activity.idl";
+import "Xaml/AnimationSet.idl";
+
+namespace XamlToolkit.WinUI.Animations
+{
+    /// <summary>
+    /// An activity that starts a specified animation.
+    /// </summary>
+    runtimeclass StartAnimationActivity : Activity
+    {
+        StartAnimationActivity();
+
+        AnimationSet Animation;
+
+		static Microsoft.UI.Xaml.DependencyProperty AnimationProperty{ get; };
+    }
+}

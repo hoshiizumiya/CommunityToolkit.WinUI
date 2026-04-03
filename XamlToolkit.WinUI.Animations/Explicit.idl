@@ -1,0 +1,28 @@
+import "Xaml/AnimationDictionary.idl";
+
+namespace XamlToolkit.WinUI.Animations
+{
+    /// <summary>
+    /// Attached properties to support explicitly triggered animations for UIElement instances.
+    /// </summary>
+    [default_interface]
+    runtimeclass Explicit
+    {
+        Explicit();
+
+        /// <summary>
+        /// Gets the value of the AnimationsProperty property.
+        /// </summary>
+        static AnimationDictionary GetAnimations(Microsoft.UI.Xaml.UIElement element);
+
+        /// <summary>
+        /// Sets the value of the AnimationsProperty property.
+        /// </summary>
+        static void SetAnimations(Microsoft.UI.Xaml.UIElement element, AnimationDictionary value);
+
+        /// <summary>
+        /// Identifies the AnimationsProperty dependency property.
+        /// </summary>
+        static Microsoft.UI.Xaml.DependencyProperty AnimationsProperty{ get; };
+    }
+}

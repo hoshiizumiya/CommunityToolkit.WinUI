@@ -1,0 +1,19 @@
+import "Xaml/Abstract/KeyFrame.idl";
+
+namespace XamlToolkit.WinUI.Animations
+{
+    /// <summary>
+    /// A KeyFrame type for Vector2 animations.
+    /// </summary>
+    runtimeclass Vector2KeyFrame : KeyFrame
+    {
+        Vector2KeyFrame();
+
+        /// <summary>
+        /// Gets or sets the value for the keyframe.
+        /// </summary>
+        String Value;
+
+		static Microsoft.UI.Xaml.DependencyProperty ValueProperty{ get; };
+    }
+}

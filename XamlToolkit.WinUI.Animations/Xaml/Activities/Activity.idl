@@ -1,0 +1,12 @@
+import "Xaml/Interfaces/IActivity.idl";
+
+namespace XamlToolkit.WinUI.Animations
+{
+    /// <summary>
+    /// A base activity that can be added to an AnimationSet.
+    /// </summary>
+    unsealed runtimeclass Activity : Microsoft.UI.Xaml.DependencyObject, IActivity
+    {
+        Activity();
+    }
+}

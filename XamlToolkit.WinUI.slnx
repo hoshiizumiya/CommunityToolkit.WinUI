@@ -37,6 +37,7 @@
   </Folder>
   <Folder Name="/DotNet/">
     <Project Path="dotnet/XamlToolkit.Labs.WinUI/XamlToolkit.Labs.WinUI.Interop.csproj" />
+    <Project Path="dotnet/XamlToolkit.WinUI.Animations/XamlToolkit.WinUI.Animations.Interop.csproj" />
     <Project Path="dotnet/XamlToolkit.WinUI.Controls/XamlToolkit.WinUI.Controls.Interop.csproj" />
     <Project Path="dotnet/XamlToolkit.WinUI.Converters/XamlToolkit.WinUI.Converters.Interop.csproj" />
     <Project Path="dotnet/XamlToolkit.WinUI.Helpers/XamlToolkit.WinUI.Helpers.Interop.csproj" />
@@ -65,6 +66,7 @@
     <File Path="nuget/XamlToolkit.WinUI.nuspec" />
   </Folder>
   <Project Path="XamlToolkit.Labs.WinUI/XamlToolkit.Labs.WinUI.vcxproj" Id="8dbdb115-b325-4d42-aecf-50cbf8b7ab3e" />
+  <Project Path="XamlToolkit.WinUI.Animations/XamlToolkit.WinUI.Animations.vcxproj" Id="37cd7b40-3e54-41ce-af73-43c6746ef315" />
   <Project Path="XamlToolkit.WinUI.Controls/XamlToolkit.WinUI.Controls.vcxproj" Id="ef5f53e1-2ddb-4936-a78f-517fc8be74ff" />
   <Project Path="XamlToolkit.WinUI.Converters/XamlToolkit.WinUI.Converters.vcxproj" Id="5f5234f5-2630-47bf-94c7-b2c14301e00e" />
   <Project Path="XamlToolkit.WinUI.Helpers/XamlToolkit.WinUI.Helpers.vcxproj" Id="f8087280-d16f-4d9d-9e17-58aac733d56d" />

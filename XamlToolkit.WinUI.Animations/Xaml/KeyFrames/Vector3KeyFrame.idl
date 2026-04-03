@@ -1,0 +1,16 @@
+import "Xaml/Abstract/KeyFrame.idl";
+
+namespace XamlToolkit.WinUI.Animations
+{
+    /// <summary>
+    /// A vector3 keyframe.
+    /// </summary>
+    runtimeclass Vector3KeyFrame : KeyFrame
+    {
+        Vector3KeyFrame();
+
+        String Value;
+
+		static Microsoft.UI.Xaml.DependencyProperty ValueProperty{ get; };
+    }
+}

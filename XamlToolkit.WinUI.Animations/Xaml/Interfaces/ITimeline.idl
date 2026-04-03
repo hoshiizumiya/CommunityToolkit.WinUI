@@ -1,0 +1,11 @@
+namespace XamlToolkit.WinUI.Animations
+{
+    /// <summary>
+    /// Marker interface for timeline nodes discoverable through WinRT.
+    /// The AnimationBuilder-based API remains C++-only.
+    /// </summary>
+    interface ITimeline
+    {
+    };
+}
+

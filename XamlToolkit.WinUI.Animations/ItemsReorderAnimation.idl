@@ -1,0 +1,26 @@
+namespace XamlToolkit.WinUI.Animations
+{
+    /// <summary>
+    /// Provides the ability to assign a reorder animation to a ListViewBase.
+    /// </summary>
+	[default_interface]
+    runtimeclass ItemsReorderAnimation
+    {
+        ItemsReorderAnimation();
+
+        /// <summary>
+        /// Gets the duration of the reorder animation.
+        /// </summary>
+        static Windows.Foundation.TimeSpan GetDuration(Microsoft.UI.Xaml.Controls.ListViewBase listView);
+
+        /// <summary>
+        /// Sets the duration of the reorder animation.
+        /// </summary>
+        static void SetDuration(Microsoft.UI.Xaml.Controls.ListViewBase listView, Windows.Foundation.TimeSpan value);
+
+        /// <summary>
+        /// Identifies the DurationProperty dependency property.
+        /// </summary>
+        static Microsoft.UI.Xaml.DependencyProperty DurationProperty{ get; };
+    }
+}

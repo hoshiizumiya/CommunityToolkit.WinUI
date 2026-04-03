@@ -1,0 +1,45 @@
+import "Enums/EasingType.idl";
+
+namespace XamlToolkit.WinUI.Animations
+{
+    /// <summary>
+    /// A base model representing a keyframe that can be used in XAML.
+    /// </summary>
+    unsealed runtimeclass KeyFrame : Microsoft.UI.Xaml.DependencyObject
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="KeyFrame"/> class.
+        /// </summary>
+        KeyFrame();
+
+        /// <summary>
+        /// Gets or sets the key time for the current keyframe. This is a normalized
+        /// value in the [0, 1] range, relative to the total animation duration.
+        /// </summary>
+        Double Key;
+
+		static Microsoft.UI.Xaml.DependencyProperty KeyProperty{ get; };
+
+        /// <summary>
+        /// Gets or sets the optional expression for the current keyframe.
+        /// If this is set, Value will be ignored.
+        /// </summary>
+        String Expression;
+
+		static Microsoft.UI.Xaml.DependencyProperty ExpressionProperty{ get; };
+
+        /// <summary>
+        /// Gets or sets the optional easing function type for the keyframe.
+        /// </summary>
+        Windows.Foundation.IReference<EasingType> EasingType;
+
+		static Microsoft.UI.Xaml.DependencyProperty EasingTypeProperty{ get; };
+
+        /// <summary>
+        /// Gets or sets the optional easing function mode for the keyframe.
+        /// </summary>
+        Windows.Foundation.IReference<Microsoft.UI.Xaml.Media.Animation.EasingMode> EasingMode;
+
+		static Microsoft.UI.Xaml.DependencyProperty EasingModeProperty{ get; };
+    }
+}

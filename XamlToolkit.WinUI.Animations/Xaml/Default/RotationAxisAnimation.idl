@@ -1,0 +1,39 @@
+import "Xaml/Abstract/Animation.idl";
+import "Xaml/KeyFrames/Vector3KeyFrame.idl";
+
+namespace XamlToolkit.WinUI.Animations
+{
+    /// <summary>
+    /// A rotation axis animation working on the composition layer.
+    /// </summary>
+    runtimeclass RotationAxisAnimation : Animation
+    {
+        RotationAxisAnimation();
+
+        /// <summary>
+        /// Gets or sets the implicit trigger target property name.
+        /// </summary>
+        String ImplicitTarget;
+
+        /// <summary>
+        /// Gets or sets the final value for the animation.
+        /// </summary>
+        String To;
+
+		static Microsoft.UI.Xaml.DependencyProperty ToProperty{ get; };
+
+        /// <summary>
+        /// Gets or sets the optional starting value for the animation.
+        /// </summary>
+        String From;
+
+		static Microsoft.UI.Xaml.DependencyProperty FromProperty{ get; };
+
+        /// <summary>
+        /// Gets or sets the optional keyframe collection for the current animation.
+        /// </summary>
+        Windows.Foundation.Collections.IVector<Vector3KeyFrame> KeyFrames;
+
+		static Microsoft.UI.Xaml.DependencyProperty KeyFramesProperty{ get; };
+    }
+}

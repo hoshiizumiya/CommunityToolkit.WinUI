@@ -1,0 +1,19 @@
+import "Xaml/Abstract/KeyFrame.idl";
+
+namespace XamlToolkit.WinUI.Animations
+{
+    /// <summary>
+    /// A KeyFrame type for color animations.
+    /// </summary>
+    runtimeclass ColorKeyFrame : KeyFrame
+    {
+        ColorKeyFrame();
+
+        /// <summary>
+        /// Gets or sets the value for the keyframe.
+        /// </summary>
+        Windows.Foundation.IReference<Windows.UI.Color> Value;
+
+		static Microsoft.UI.Xaml.DependencyProperty ValueProperty{ get; };
+    }
+}

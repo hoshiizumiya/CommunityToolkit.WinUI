@@ -1,0 +1,19 @@
+import "Xaml/Abstract/KeyFrame.idl";
+
+namespace XamlToolkit.WinUI.Animations
+{
+    /// <summary>
+    /// A KeyFrame type for Quaternion animations.
+    /// </summary>
+    runtimeclass QuaternionKeyFrame : KeyFrame
+    {
+        QuaternionKeyFrame();
+
+        /// <summary>
+        /// Gets or sets the value for the keyframe.
+        /// </summary>
+        String Value;
+
+		static Microsoft.UI.Xaml.DependencyProperty ValueProperty{ get; };
+    }
+}

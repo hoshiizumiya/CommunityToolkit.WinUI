@@ -1,0 +1,58 @@
+import "Xaml/Interfaces/IActivity.idl";
+
+namespace XamlToolkit.WinUI.Animations
+{
+    /// <summary>
+    /// A collection of animations that can be grouped together.
+    /// </summary>
+    [default_interface]
+    unsealed runtimeclass AnimationSet : Microsoft.UI.Xaml.DependencyObjectCollection
+    {
+        AnimationSet();
+
+        /// <summary>
+        /// Starts the animation set.
+        /// </summary>
+        void Start();
+
+        /// <summary>
+        /// Starts the animation set on the specified element.
+        /// </summary>
+        void Start(Microsoft.UI.Xaml.UIElement element);
+
+        /// <summary>
+        /// Starts the animation set asynchronously.
+        /// </summary>
+        Windows.Foundation.IAsyncAction StartAsync();
+
+        /// <summary>
+        /// Starts the animation set asynchronously on the specified element.
+        /// </summary>
+        Windows.Foundation.IAsyncAction StartAsync(Microsoft.UI.Xaml.UIElement element);
+
+        /// <summary>
+        /// Stops the animation set.
+        /// </summary>
+        void Stop();
+
+        /// <summary>
+        /// Stops the animation set on the specified element.
+        /// </summary>
+        void Stop(Microsoft.UI.Xaml.UIElement element);
+
+        /// <summary>
+        /// Gets or sets whether animations are sequential.
+        /// </summary>
+        Boolean IsSequential;
+
+        /// <summary>
+        /// Raised when the animation starts.
+        /// </summary>
+        event Windows.Foundation.EventHandler<Object> Started;
+
+        /// <summary>
+        /// Raised when the animation completes.
+        /// </summary>
+        event Windows.Foundation.EventHandler<Object> Completed;
+    }
+}

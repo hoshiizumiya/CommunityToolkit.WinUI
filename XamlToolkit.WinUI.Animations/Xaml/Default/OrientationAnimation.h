@@ -1,0 +1,47 @@
+#pragma once
+
+#include "OrientationAnimation.g.h"
+#include "../Abstract/ImplicitAnimation{TValue,TKeyFrame}.h"
+#include "../KeyFrames/QuaternionKeyFrame.h"
+#include "../Extensions/AnimationExtensions.h"
+#include <winrt/Windows.Foundation.Collections.h>
+#include <winrt/Windows.Foundation.Numerics.h>
+#include <wil/wistd_type_traits.h>
+#include <wil/cppwinrt_authoring.h>
+
+namespace winrt::XamlToolkit::WinUI::Animations::implementation
+{
+    struct OrientationAnimation;
+
+    struct OrientationAnimationTraits
+    {
+        using owner_type = OrientationAnimation;
+        using class_type = Animations::OrientationAnimation;
+        using public_value_type = winrt::hstring;
+        using parsed_value_type = winrt::Windows::Foundation::Numerics::quaternion;
+        using keyframe_impl_type = implementation::QuaternionKeyFrame;
+        using keyframe_type = Animations::QuaternionKeyFrame;
+        static std::optional<parsed_value_type> Parse(winrt::hstring const& value)
+        {
+            if (value.empty())
+            {
+                return std::nullopt;
+            }
+
+            return Animations::AnimationExtensions::ToQuaternion(value);
+        }
+    };
+
+    struct OrientationAnimation : OrientationAnimationT<OrientationAnimation, ImplicitAnimationBase<OrientationAnimationTraits>>
+    {
+        winrt::hstring ExplicitTarget() const noexcept
+        {
+            return L"Orientation";
+        }
+    };
+}
+
+namespace winrt::XamlToolkit::WinUI::Animations::factory_implementation
+{
+    struct OrientationAnimation : OrientationAnimationT<OrientationAnimation, implementation::OrientationAnimation> {};
+}
