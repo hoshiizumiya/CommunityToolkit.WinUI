@@ -24,6 +24,5 @@
 #include <winrt/Microsoft.UI.Xaml.Shapes.h>
 #include <winrt/Microsoft.UI.Dispatching.h>
 #include <winrt/XamlToolkit.WinUI.h>
-#include <winrt/XamlToolkit.WinUI.Media.h>
 #include <wil/cppwinrt_helpers.h>
 #include <wil/result_macros.h>
