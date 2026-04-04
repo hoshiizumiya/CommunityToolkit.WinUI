@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+	<metadata>
+		<id>XamlToolkit.WinUI.Animations.Native</id>
+		<version>0.4.0-alpha</version>
+		<title>XamlToolkit.WinUI.Animations.Native</title>
+		<authors>lgztx96</authors>
+		<owners>lgztx96</owners>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<license type="expression">MIT</license>
+		<projectUrl>https://github.com/lgztx96/CommunityToolkit.WinUI</projectUrl>
+		<repository type="git" url="https://github.com/lgztx96/CommunityToolkit.WinUI.git"/>
+		<description>WinUI Community Toolkit (C++ Port).</description>
+		<releaseNotes>Updated features.</releaseNotes>
+		<tags>Windows Community Toolkit WCT WinUI WinRT WindowsAppSDK WASDK WinAppSDK Xaml CPP Native</tags>
+		<readme>Readme.md</readme>
+		<dependencies>
+			<dependency id="Microsoft.WindowsAppSDK.WinUI" version="1.8.260224000" />
+			<dependency id="XamlToolkit.WinUI.Native" version="0.4.0-alpha" />
+		</dependencies>
+	</metadata>
+
+	<files>
+		<file src="README.md" target="Readme.md" />
+
+		<file target="build\native\XamlToolkit.WinUI.Animations.Native.targets"                          src="XamlToolkit.WinUI.Animations.Native.targets" />
+		<file target="build\net8.0-windows10.0.26100.0\XamlToolkit.WinUI.Animations.Native.targets"      src="XamlToolkit.WinUI.Animations.Managed.targets" />
+
+		<file target="lib\native\XamlToolkit.WinUI.Animations.winmd"                              src="..\x64\Release\XamlToolkit.WinUI.Animations\XamlToolkit.WinUI.Animations.winmd" />
+
+		<file target="runtimes\win-x86\native\XamlToolkit.WinUI.Animations.dll"                   src="..\Release\XamlToolkit.WinUI.Animations\XamlToolkit.WinUI.Animations.dll" />
+		<file target="runtimes\win-x64\native\XamlToolkit.WinUI.Animations.dll"                   src="..\x64\Release\XamlToolkit.WinUI.Animations\XamlToolkit.WinUI.Animations.dll" />
+		<file target="runtimes\win-arm64\native\XamlToolkit.WinUI.Animations.dll"                 src="..\arm64\Release\XamlToolkit.WinUI.Animations\XamlToolkit.WinUI.Animations.dll" />
+
+		<file target="lib\net8.0-windows10.0.26100.0\XamlToolkit.WinUI.Animations.Interop.dll" src="..\dotnet\XamlToolkit.WinUI.Animations\bin\Release\net8.0-windows10.0.26100.0\XamlToolkit.WinUI.Animations.Interop.dll" />
+	</files>
+</package>

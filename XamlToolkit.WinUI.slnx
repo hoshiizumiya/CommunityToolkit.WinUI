@@ -49,6 +49,9 @@
     <File Path="nuget/XamlToolkit.Labs.WinUI.Managed.targets" />
     <File Path="nuget/XamlToolkit.Labs.WinUI.Native.targets" />
     <File Path="nuget/XamlToolkit.Labs.WinUI.nuspec" />
+    <File Path="nuget/XamlToolkit.WinUI.Animations.Managed.targets" />
+    <File Path="nuget/XamlToolkit.WinUI.Animations.Native.targets" />
+    <File Path="nuget/XamlToolkit.WinUI.Animations.nuspec" />
     <File Path="nuget/XamlToolkit.WinUI.Controls.Managed.targets" />
     <File Path="nuget/XamlToolkit.WinUI.Controls.Native.targets" />
     <File Path="nuget/XamlToolkit.WinUI.Controls.nuspec" />
