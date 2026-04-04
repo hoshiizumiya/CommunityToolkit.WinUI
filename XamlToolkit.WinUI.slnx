@@ -10,6 +10,7 @@
     <File Path="README.md" />
   </Folder>
   <Folder Name="/Docs/Images/">
+    <File Path="docs/images/Animations.gif" />
     <File Path="docs/images/AttachedCardShadow.png" />
     <File Path="docs/images/ColorPicker.png" />
     <File Path="docs/images/ConstrainedBox.png" />

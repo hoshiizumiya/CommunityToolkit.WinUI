@@ -130,7 +130,7 @@ Rive support is available via [`XamlToolkit.WinUI.Rive`](https://github.com/lgzt
 
 ## Animations
 ### ImplicitAnimations / ExplicitAnimations / ShadowAnimations
-![Animations](docs/images/Animations.mp4)
+![Animations](docs/images/Animations.gif)
 
 ---
 
