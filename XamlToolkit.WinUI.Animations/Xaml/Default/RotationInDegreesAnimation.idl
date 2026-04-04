@@ -1,10 +1,12 @@
 import "Xaml/Abstract/Animation.idl";
+import "Xaml/KeyFrames/ScalarKeyFrame.idl";
 
 namespace XamlToolkit.WinUI.Animations
 {
     /// <summary>
     /// A rotation in degrees animation working on the composition layer.
     /// </summary>
+    [contentproperty("KeyFrames")]
     runtimeclass RotationInDegreesAnimation : Animation
     {
         RotationInDegreesAnimation();
@@ -27,5 +29,12 @@ namespace XamlToolkit.WinUI.Animations
         Windows.Foundation.IReference<Double> From;
 
 		static Microsoft.UI.Xaml.DependencyProperty FromProperty{ get; };
+
+        /// <summary>
+        /// Gets or sets the optional keyframe collection for the current animation.
+        /// </summary>
+        Windows.Foundation.Collections.IVector<ScalarKeyFrame> KeyFrames;
+
+        static Microsoft.UI.Xaml.DependencyProperty KeyFramesProperty{ get; };
     }
 }

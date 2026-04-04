@@ -5,6 +5,7 @@ namespace XamlToolkit.WinUI.Animations
     /// <summary>
     /// A rotation animation working on the composition layer.
     /// </summary>
+    [contentproperty("KeyFrames")]
     runtimeclass RotationAnimation : Animation
     {
         RotationAnimation();
