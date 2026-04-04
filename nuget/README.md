@@ -14,13 +14,16 @@ enabling seamless use of these components in **WinUI 3 / C++ projects**.
 
 ---
 
-## 🧩 Included Controls
+### 🎬 Animations
+- **XamlToolkit.WinUI.Animations** — Animation components for WinUI
 
-- **MarkdownTextBlock** — syntax highlighting for *C#, C++, XML, JSON, Shell*  
+### 🧱 Controls & Layout
+
+- **MarkdownTextBlock** — syntax highlighting for *C#, C++, XML, JSON, Shell, Rust*  
 - **Marquee**, **OpacityMaskView**, **Shimmer**, **Adorner**  
 - **AttachedDropShadow**, **AttachedCardShadow**  
 - **ColorPicker**, **ColorPickerButton**, **ColorAnalyzer**  
-- **DockPanel**, **UniformGrid**, **WrapPanel**, **StaggeredPanel**, **StaggeredLayout**, **GridSplitter**  
+- **DockPanel**, **UniformGrid**, **WrapPanel**, **WrapPanel2**, **StaggeredPanel**, **StaggeredLayout**, **GridSplitter**  
 - **LayoutTransformControl**, **ContentSizer**, **PropertySizer**, **ConstrainedBox**  
 - **HeaderedContentControl**, **HeaderedItemsControl**, **HeaderedTreeView**  
 - **TokenView**, **TokenizingTextBox**, **RichSuggestBox**  
