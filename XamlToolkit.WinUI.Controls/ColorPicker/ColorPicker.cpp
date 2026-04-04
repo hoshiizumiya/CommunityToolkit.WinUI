@@ -792,6 +792,18 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 				}
 			}
 
+			if (PaletteColorsView != nullptr)
+			{
+				bool contains = false;
+				if (auto colors = CustomPaletteColors())
+				{
+					uint32_t index;
+					contains = colors.IndexOf(rgbColor, index);
+				}
+
+				PaletteColorsView.SelectedItem(contains ? winrt::box_value(rgbColor) : nullptr);
+			}
+
 			if (eventsDisconnectedByMethod)
 			{
 				ConnectEvents(true);
