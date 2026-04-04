@@ -76,12 +76,12 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 			SetValue(ItemsStretchProperty(), winrt::box_value(value));
 		}
 
-		static GridLength GetLayoutLength(DependencyObject const& obj)
+		static GridLength GetLayoutLength(FrameworkElement const& obj)
 		{
 			return winrt::unbox_value<GridLength>(obj.GetValue(LayoutLengthProperty()));
 		}
 
-		static void SetLayoutLength(DependencyObject const& obj, GridLength const& value)
+		static void SetLayoutLength(FrameworkElement const& obj, GridLength const& value)
 		{
 			obj.SetValue(LayoutLengthProperty(), winrt::box_value(value));
 		}
@@ -245,11 +245,11 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 			Stretch
 		};
 
-		void ArrangeRow(UVCoord& pos, RowSpec const& row, UVCoord const& uvFinalSize, std::vector<UIElement> const& childQueue, size_t& cursor);
+		void ArrangeRow(UVCoord& pos, RowSpec const& row, UVCoord const& uvFinalSize, std::vector<FrameworkElement> const& childQueue, size_t& cursor);
 
-		double GetChildSize(winrt::Microsoft::UI::Xaml::UIElement const& child);
+		double GetChildSize(winrt::Microsoft::UI::Xaml::FrameworkElement const& child);
 
-		UVCoord GetChildSize(UIElement const& child, int indexInRow, RowSpec const& row, double portionSize, bool forceStretch);
+		UVCoord GetChildSize(FrameworkElement const& child, int indexInRow, RowSpec const& row, double portionSize, bool forceStretch);
 
 		double GetStartByAlignment(Alignment alignment, double size, double availableSize);
 
@@ -272,6 +272,5 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 
 namespace winrt::XamlToolkit::Labs::WinUI::factory_implementation
 {
-	struct WrapPanel2 : WrapPanel2T<WrapPanel2, implementation::WrapPanel2>
-	{};
+	struct WrapPanel2 : WrapPanel2T<WrapPanel2, implementation::WrapPanel2>{ };
 }

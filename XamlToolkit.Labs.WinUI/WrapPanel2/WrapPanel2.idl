@@ -46,8 +46,8 @@ namespace XamlToolkit.Labs.WinUI
 
         static Microsoft.UI.Xaml.DependencyProperty LayoutLengthProperty{ get; };
 
-        static Microsoft.UI.Xaml.GridLength GetLayoutLength(Microsoft.UI.Xaml.DependencyObject obj);
+        static Microsoft.UI.Xaml.GridLength GetLayoutLength(Microsoft.UI.Xaml.FrameworkElement obj);
 
-        static void SetLayoutLength(Microsoft.UI.Xaml.DependencyObject obj, Microsoft.UI.Xaml.GridLength value);
+        static void SetLayoutLength(Microsoft.UI.Xaml.FrameworkElement obj, Microsoft.UI.Xaml.GridLength value);
     }
 }

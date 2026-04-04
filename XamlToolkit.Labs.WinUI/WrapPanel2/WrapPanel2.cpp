@@ -82,10 +82,15 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 
 		auto children = Children();
 
-        auto elements = children | std::views::filter([](const auto& e)
-        {
-             return e.Visibility() == winrt::Microsoft::UI::Xaml::Visibility::Visible;
-        });
+        auto elements = children
+            | std::views::filter([](const auto& e)
+            {
+                return e.Visibility() == winrt::Microsoft::UI::Xaml::Visibility::Visible;
+            })
+            | std::views::transform([](const auto& item)
+            {
+                return item.template as<FrameworkElement>();
+            });
 
         // Do nothing if the panel is empty
         if (elements.empty())
@@ -169,9 +174,14 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
         pos.V(GetStartByAlignment(GetOffAlignment(), contentHeight, uvFinalSize.V()));
 
 		auto children = Children();
-        auto childQueue = children | std::views::filter([](const auto& e)
+        auto childQueue = children 
+        | std::views::filter([](const auto& e)
         {
             return e.Visibility() == winrt::Microsoft::UI::Xaml::Visibility::Visible;
+        })
+        | std::views::transform([](const auto& item)
+        {
+            return item.template as<FrameworkElement>();
         })
         | std::ranges::to<std::vector>();
 
@@ -183,7 +193,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
         }
 
         // "Arrange" remaning children by rendering them with zero size
-        for (const auto& child : childQueue)
+        for (const auto& child : std::span(childQueue).subspan(cursor))
         {
             // Arrange with zero size
             child.Arrange(winrt::Windows::Foundation::Rect{ 0, 0, 0, 0 });
@@ -192,7 +202,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
         return finalSize;
     }
 
-    void WrapPanel2::ArrangeRow(UVCoord& pos, RowSpec const& row, UVCoord const& uvFinalSize, std::vector<UIElement> const& childQueue, size_t& cursor)
+    void WrapPanel2::ArrangeRow(UVCoord& pos, RowSpec const& row, UVCoord const& uvFinalSize, std::vector<FrameworkElement> const& childQueue, size_t& cursor)
     {
 		auto itemSpacing = ItemSpacing();
 		auto realJustification = RealJustification();
@@ -338,7 +348,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
         pos.V(pos.V() + row.MaxOffAxisSize + LineSpacing());
     }
 
-    WrapPanel2::UVCoord WrapPanel2::GetChildSize(UIElement const& child, int indexInRow, RowSpec const& row, double portionSize, bool forceStretch)
+    WrapPanel2::UVCoord WrapPanel2::GetChildSize(FrameworkElement const& child, int indexInRow, RowSpec const& row, double portionSize, bool forceStretch)
     {
         // Get layout and desired size
         auto layoutLength = GetLayoutLength(child);
@@ -612,7 +622,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
         }
     }
 
-    double WrapPanel2::GetChildSize(winrt::Microsoft::UI::Xaml::UIElement const& child)
+    double WrapPanel2::GetChildSize(winrt::Microsoft::UI::Xaml::FrameworkElement const& child)
     {
         auto childLayout = GetLayoutLength(child);
 
