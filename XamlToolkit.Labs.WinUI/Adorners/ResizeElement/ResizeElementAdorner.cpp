@@ -60,7 +60,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
                     BottomRightThumbPart
             };
 
-        for (int i = 0; i < parts.size(); i++)
+        for (size_t i = 0; i < parts.size(); i++)
         {
             if (const auto& part = parts[i])
             {
@@ -89,7 +89,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
                 BottomRightThumbPart
         };
 
-        for (int i = 0; i < parts.size(); i++)
+        for (size_t i = 0; i < parts.size(); i++)
         {
             if (const auto& part = parts[i])
             {

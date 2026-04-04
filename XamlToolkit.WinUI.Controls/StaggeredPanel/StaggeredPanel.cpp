@@ -149,7 +149,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 	{
 		int columnIndex = 0;
 		double height = columnHeights[0];
-		for (int j = 1; j < columnHeights.size(); j++)
+		for (int j = 1; j < static_cast<int>(columnHeights.size()); j++)
 		{
 			if (columnHeights[j] < height)
 			{

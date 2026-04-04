@@ -28,7 +28,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
             CalculateCentroidsAndPrune(centroidView, counts, points, clusterIds);
 
             // Move each point's clusterId to the nearest cluster centroid
-            for (int i = 0; i < points.size(); i++)
+            for (size_t i = 0; i < points.size(); i++)
             {
                 auto nearestIndex = FindNearestClusterIndex(points[i], centroidView);
 
@@ -53,21 +53,21 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
         int offset = dist(rng);
 
         // Assign each clusters id
-        for (int i = 0; i < clusterIds.size(); i++)
+        for (size_t i = 0; i < clusterIds.size(); i++)
             clusterIds[i] = (i + offset) % k;
     }
 
     void ColorPaletteSampler::CalculateCentroidsAndPrune(std::span<float3>& centroids, std::vector<int>& counts, std::span<float3> points, const std::vector<int>& clusterIds)
     {
         // Clear centroids and counts before recalculation
-        for (int i = 0; i < centroids.size(); i++)
+        for (size_t i = 0; i < centroids.size(); i++)
         {
             centroids[i] = float3::zero();
             counts[i] = 0;
         }
 
         // Accumulate step in centroid calculation
-        for (int i = 0; i < clusterIds.size(); i++)
+        for (size_t i = 0; i < clusterIds.size(); i++)
         {
             int id = clusterIds[i];
             centroids[id] += points[i];

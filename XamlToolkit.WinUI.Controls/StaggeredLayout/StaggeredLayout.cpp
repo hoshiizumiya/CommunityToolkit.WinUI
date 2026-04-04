@@ -74,7 +74,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 	{
 		int columnIndex = 0;
 		double height = columnHeights[0];
-		for (int j = 1; j < columnHeights.size(); j++)
+		for (int j = 1; j < static_cast<int>(columnHeights.size()); j++)
 		{
 			if (columnHeights[j] < height)
 			{
@@ -247,7 +247,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 				}
 			}
 
-			if (deadColumns.size() == numColumns)
+			if (static_cast<int>(deadColumns.size()) == numColumns)
 			{
 				break;
 			}
@@ -272,7 +272,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		for (int columnIndex = 0; columnIndex < state->NumberOfColumns(); columnIndex++)
 		{
 			const auto& layout = state->GetColumnLayout(columnIndex);
-			for (int i = 0; i < layout.size(); i++)
+			for (size_t i = 0; i < layout.size(); i++)
 			{
 				const StaggeredItem* item = layout[i];
 				double bottom = item->Top() + item->Height();

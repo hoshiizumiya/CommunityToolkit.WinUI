@@ -22,7 +22,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
     void StaggeredLayoutState::RemoveFromIndex(int index)
     {
-        if (index >= _items.size())
+        if (index >= static_cast<int>(_items.size()))
         {
             // Item was added/removed but we haven't realized that far yet
             return;
@@ -41,11 +41,11 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
         for (auto& [_, layout] : _columnLayout)
         {
-            for (int i = 0; i < layout.size(); i++)
+            for (size_t i = 0; i < layout.size(); i++)
             {
                 if (layout[i]->Index() >= index)
                 {
-                    numToRemove = (int)layout.size() - i;
+                    numToRemove = static_cast<int>(layout.size() - i);
                     layout.erase(layout.begin() + i, layout.begin() + i + numToRemove);
                     break;
                 }
@@ -91,7 +91,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
     StaggeredItem* StaggeredLayoutState::GetItemAt(int index)
     {
-        if (index <= ((int)_items.size() - 1))
+        if (index <= (static_cast<int>(_items.size()) - 1))
         {
             return _items[index];
         }
@@ -113,7 +113,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
     {
         for (int i = startIndex; i <= endIndex; i++)
         {
-            if (i > _items.size())
+            if (i > static_cast<int>(_items.size()))
             {
                 break;
             }
@@ -128,11 +128,11 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 
         for (auto& [_, layout] : _columnLayout)
         {
-            for (int i = 0; i < layout.size(); i++)
+            for (size_t i = 0; i < layout.size(); i++)
             {
                 if ((startIndex <= layout[i]->Index()) && (layout[i]->Index() <= endIndex))
                 {
-                    int numToRemove = (int)layout.size() - i;
+                    int numToRemove = static_cast<int>(layout.size() - i);
                     layout.erase(layout.begin() + i, layout.begin() + i + numToRemove);
                     break;
                 }

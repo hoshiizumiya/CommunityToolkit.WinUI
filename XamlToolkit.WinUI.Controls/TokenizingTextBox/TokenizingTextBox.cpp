@@ -283,7 +283,7 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 						auto lastSelf = winrt::get_self<TokenizingTextBoxItem>(last)->get_strong();
 						std::wstring text{ lastSelf->_autoSuggestTextBox.Text() };
 						auto selectionStart = lastSelf->_autoSuggestTextBox.SelectionStart();
-						auto position = selectionStart > text.size() ? text.size() : selectionStart;
+						auto position = selectionStart > static_cast<int>(text.size()) ? text.size() : selectionStart;
 						textToken.Text(text.substr(0, position) + static_cast<wchar_t>(character) +
 							text.substr(position));
 
