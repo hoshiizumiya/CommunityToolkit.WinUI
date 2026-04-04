@@ -82,7 +82,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 
 		auto children = Children();
 
-        auto elements = children | std::views::filter([](auto const& e)
+        auto elements = children | std::views::filter([](const auto& e)
         {
              return e.Visibility() == winrt::Microsoft::UI::Xaml::Visibility::Visible;
         });
@@ -155,7 +155,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 
         // Adjust the starting position based on off-axis alignment
         double contentHeight = 0.0;
-        for (auto const& row : _rowSpecs)
+        for (const auto& row : _rowSpecs)
         {
             contentHeight += row.MaxOffAxisSize;
         }
@@ -169,7 +169,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
         pos.V(GetStartByAlignment(GetOffAlignment(), contentHeight, uvFinalSize.V()));
 
 		auto children = Children();
-        auto childQueue = children | std::views::filter([](auto const& e)
+        auto childQueue = children | std::views::filter([](const auto& e)
         {
             return e.Visibility() == winrt::Microsoft::UI::Xaml::Visibility::Visible;
         })
@@ -183,12 +183,11 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
         }
 
         // "Arrange" remaning children by rendering them with zero size
-        for (auto const& child : childQueue)
+        for (const auto& child : childQueue)
         {
             // Arrange with zero size
             child.Arrange(winrt::Windows::Foundation::Rect{ 0, 0, 0, 0 });
         }
-        childQueue.clear();
 
         return finalSize;
     }
