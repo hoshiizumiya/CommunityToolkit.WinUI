@@ -32,7 +32,6 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		DefaultStyleKey(winrt::box_value(winrt::xaml_typename<class_type>()));
 
 		RegisterPropertyChangedCallback(Selector::SelectedIndexProperty(), { this, &Segmented::OnSelectedIndexChanged });
-		RegisterPropertyChangedCallback(OrientationProperty(), { this, &Segmented::OnSelectedIndexChanged });
 	}
 
 	void Segmented::PrepareContainerForItemOverride(DependencyObject const& element, IInspectable const& item)
