@@ -2,6 +2,12 @@ import "Xaml/Interfaces/IActivity.idl";
 
 namespace XamlToolkit.WinUI.Animations
 {
+    [exclusiveto(AnimationSet)]
+    interface IAnimationSetOwner
+    {
+        Microsoft.UI.Xaml.UIElement Parent{ get; };
+    }
+
     /// <summary>
     /// A collection of animations that can be grouped together.
     /// </summary>

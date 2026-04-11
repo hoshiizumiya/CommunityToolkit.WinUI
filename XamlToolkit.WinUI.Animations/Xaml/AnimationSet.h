@@ -24,7 +24,7 @@ namespace winrt::XamlToolkit::WinUI::Animations::implementation
     /// <summary>
     /// A collection of animations that can be grouped together.
     /// </summary>
-    struct AnimationSet : AnimationSetT<AnimationSet>
+    struct AnimationSet : AnimationSetT<AnimationSet, winrt::XamlToolkit::WinUI::Animations::IAnimationSetOwner>
     {
     private:
         std::unordered_map<uintptr_t, std::shared_ptr<std::atomic<bool>>> cancellationStateMap;
@@ -55,6 +55,16 @@ namespace winrt::XamlToolkit::WinUI::Animations::implementation
 
         winrt::weak_ref<UIElement> ParentReference() { return parentReference; }
         void ParentReference(winrt::weak_ref<UIElement> const& value) { parentReference = value; }
+
+        UIElement Parent() const noexcept
+        {
+            if (auto strongParent = parentReference.get())
+            {
+                return strongParent;
+            }
+
+            return nullptr;
+        }
 
         wil::untyped_event<winrt::Windows::Foundation::IInspectable> Started;
 
