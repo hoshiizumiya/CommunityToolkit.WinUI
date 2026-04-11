@@ -252,7 +252,8 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
 				phaseIndex = static_cast<int>(std::distance(phases.begin(), it));
 			}
 
-			if (phaseIndex < elementCacheRecord->Phases().size())
+			auto recordSize = elementCacheRecord->Phases().size();
+			if (phaseIndex < static_cast<int>(recordSize))
 			{
 				e.RegisterUpdateCallback((uint32_t)elementCacheRecord->Phases()[phaseIndex], { this, &IncrementalUpdater::OnContainerContentChangingCallback });
 			}
@@ -322,7 +323,7 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
 			std::vector<PhasedElementRecord>& phasedElementRecords = elementCacheRecord->ElementsByPhase()[phaseIndex];
 
 			// first see if the element is already there
-			for (int i = 0; i < phasedElementRecords.size(); i++)
+			for (size_t i = 0; i < phasedElementRecords.size(); i++)
 			{
 				if (phasedElementRecords[i].FrameworkElement() == phaseElement)
 				{
@@ -363,7 +364,7 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
 					// remove the element: the linear search here is not spectacular but the list should be very short
 					std::vector<PhasedElementRecord>& phasedElementRecords = elementCacheRecord->ElementsByPhase()[phaseIndex];
 
-					for (int i = 0; i < phasedElementRecords.size(); i++)
+					for (size_t i = 0; i < phasedElementRecords.size(); i++)
 					{
 						if (phasedElementRecords[i].FrameworkElement() == phaseElement)
 						{
