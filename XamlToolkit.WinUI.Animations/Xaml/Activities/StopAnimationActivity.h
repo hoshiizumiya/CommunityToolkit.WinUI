@@ -12,11 +12,11 @@ namespace winrt::XamlToolkit::WinUI::Animations::implementation
     public:
         StopAnimationActivity() = default;
 
-        Animations::AnimationSet Animation() const
+        winrt::XamlToolkit::WinUI::Animations::AnimationSet Animation() const
         {
-            return GetValue(AnimationProperty).try_as<Animations::AnimationSet>();
+            return GetValue(AnimationProperty).try_as<winrt::XamlToolkit::WinUI::Animations::AnimationSet>();
         }
-        void Animation(Animations::AnimationSet const& value)
+        void Animation(winrt::XamlToolkit::WinUI::Animations::AnimationSet const& value)
         {
             SetValue(AnimationProperty, winrt::box_value(value));
         }

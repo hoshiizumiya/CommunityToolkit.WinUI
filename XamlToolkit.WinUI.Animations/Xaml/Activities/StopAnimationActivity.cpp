@@ -3,6 +3,7 @@
 #if __has_include("StopAnimationActivity.g.cpp")
 #include "StopAnimationActivity.g.cpp"
 #endif
+#include "../AnimationSet.h"
 
 namespace winrt::XamlToolkit::WinUI::Animations::implementation
 {
@@ -11,7 +12,7 @@ namespace winrt::XamlToolkit::WinUI::Animations::implementation
     const wil::single_threaded_property<DependencyProperty> StopAnimationActivity::AnimationProperty =
         DependencyProperty::Register(
             L"Animation",
-            winrt::xaml_typename<Animations::AnimationSet>(),
+            winrt::xaml_typename<winrt::XamlToolkit::WinUI::Animations::AnimationSet>(),
             winrt::xaml_typename<class_type>(),
             nullptr);
 
@@ -25,20 +26,27 @@ namespace winrt::XamlToolkit::WinUI::Animations::implementation
     winrt::Windows::Foundation::IAsyncAction StopAnimationActivity::InvokeAsync(UIElement const& element)
     {
         auto animation = Animation();
+
         if (!animation)
         {
-            throw winrt::hresult_error(E_INVALIDARG, L"Animation cannot be null.");
+            throw winrt::hresult_invalid_argument(L"Animation");
         }
 
-        co_await Activity::InvokeAsync(element);
+        co_await base_type::InvokeAsync(element);
 
-        if (const auto targetObject = TargetObject())
+		auto animationImpl = winrt::get_self<AnimationSet>(animation);
+
+        if (auto target = TargetObject())
         {
-            animation.Stop(targetObject);
+            animation.Stop(target);
+        }
+        else if (!animationImpl->ParentReference())
+        {
+            animation.Stop(element);
         }
         else
         {
-            animation.Stop(element);
+            animation.Stop();
         }
     }
 }

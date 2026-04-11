@@ -12,18 +12,29 @@ namespace winrt::XamlToolkit::WinUI::Animations::implementation
     public:
         StartAnimationActivity() = default;
 
-        Animations::AnimationSet Animation() const
+        winrt::XamlToolkit::WinUI::Animations::AnimationSet Animation() const
         {
-            return GetValue(AnimationProperty).try_as<Animations::AnimationSet>();
+            return GetValue(AnimationProperty).try_as<winrt::XamlToolkit::WinUI::Animations::AnimationSet>();
         }
-        void Animation(Animations::AnimationSet const& value)
+        void Animation(winrt::XamlToolkit::WinUI::Animations::AnimationSet const& value)
         {
             SetValue(AnimationProperty, winrt::box_value(value));
         }
 
+        winrt::Microsoft::UI::Xaml::UIElement TargetObject() const
+        {
+            return GetValue(TargetObjectProperty).try_as<winrt::Microsoft::UI::Xaml::UIElement>();
+		}
+
+        void TargetObject(winrt::Microsoft::UI::Xaml::UIElement const& value)
+        {
+            SetValue(TargetObjectProperty, winrt::box_value(value));
+		}
+
         winrt::Windows::Foundation::IAsyncAction InvokeAsync(Microsoft::UI::Xaml::UIElement const& element) override;
 
         static const wil::single_threaded_property<Microsoft::UI::Xaml::DependencyProperty> AnimationProperty;
+        static const wil::single_threaded_property<Microsoft::UI::Xaml::DependencyProperty> TargetObjectProperty;
     };
 }
 

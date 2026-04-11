@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Activity.g.h"
+#include <wil/wistd_type_traits.h>
+#include <wil/cppwinrt_authoring.h>
 
 namespace winrt::XamlToolkit::WinUI::Animations::implementation
 {
@@ -9,10 +11,12 @@ namespace winrt::XamlToolkit::WinUI::Animations::implementation
     public:
         Activity() = default;
 
-        virtual winrt::Windows::Foundation::IAsyncAction InvokeAsync(Microsoft::UI::Xaml::UIElement const& element)
-        {
-            co_return;
-        }
+        winrt::Windows::Foundation::IReference<winrt::Windows::Foundation::TimeSpan> Delay();
+        void Delay(winrt::Windows::Foundation::IReference<winrt::Windows::Foundation::TimeSpan> const& value);
+
+        static const wil::single_threaded_property<winrt::Microsoft::UI::Xaml::DependencyProperty> DelayProperty;
+
+        virtual winrt::Windows::Foundation::IAsyncAction InvokeAsync(Microsoft::UI::Xaml::UIElement const& element);
     };
 }
 

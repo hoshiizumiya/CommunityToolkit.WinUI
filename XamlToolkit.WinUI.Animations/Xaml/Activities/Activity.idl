@@ -8,5 +8,12 @@ namespace XamlToolkit.WinUI.Animations
     unsealed runtimeclass Activity : Microsoft.UI.Xaml.DependencyObject, IActivity
     {
         Activity();
+
+        /// <summary>
+        /// Gets or sets the <see cref="TimeSpan"/> to wait before running the activity.
+        /// </summary>
+        Windows.Foundation.IReference<Windows.Foundation.TimeSpan> Delay;
+
+		static Microsoft.UI.Xaml.DependencyProperty DelayProperty{ get; };
     }
 }
