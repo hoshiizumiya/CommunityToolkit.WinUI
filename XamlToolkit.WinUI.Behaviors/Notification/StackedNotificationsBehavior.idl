@@ -5,7 +5,7 @@ namespace XamlToolkit.WinUI.Behaviors
     /// <summary>
     /// A behavior to add the stacked notification support to InfoBar.
     /// </summary>
-    runtimeclass StackedNotificationsBehavior : XamlToolkit.WinUI.Interactivity.IBehavior
+    runtimeclass StackedNotificationsBehavior : Microsoft.UI.Xaml.DependencyObject, XamlToolkit.WinUI.Interactivity.IBehavior
     {
         StackedNotificationsBehavior();
 

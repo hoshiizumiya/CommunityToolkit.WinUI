@@ -7,7 +7,9 @@ namespace XamlToolkit.WinUI.Interactivity
         EventTriggerBehavior();
 
 		static Microsoft.UI.Xaml.DependencyProperty EventNameProperty{ get; };
+		static Microsoft.UI.Xaml.DependencyProperty SourceObjectProperty{ get; };
 
 		String EventName;
+		Object SourceObject;
     }
 }
