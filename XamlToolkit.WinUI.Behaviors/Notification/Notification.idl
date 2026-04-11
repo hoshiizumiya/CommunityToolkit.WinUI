@@ -1,0 +1,74 @@
+namespace XamlToolkit.WinUI.Behaviors
+{
+    /// <summary>
+    /// The content of a notification to display in StackedNotificationsBehavior.
+    /// </summary>
+    runtimeclass Notification : Microsoft.UI.Xaml.DependencyObject
+    {
+        Notification();
+
+        /// <summary>
+        /// Gets or sets the notification title.
+        /// </summary>
+        String Title;
+
+        static Microsoft.UI.Xaml.DependencyProperty TitleProperty { get; };
+
+        /// <summary>
+        /// Gets or sets the notification message.
+        /// </summary>
+        String Message;
+
+        static Microsoft.UI.Xaml.DependencyProperty MessageProperty { get; };
+
+        /// <summary>
+        /// Gets or sets the duration of the notification.
+        /// Set to null for persistent notification (default).
+        /// </summary>
+        Windows.Foundation.IReference<Windows.Foundation.TimeSpan> Duration;
+
+        static Microsoft.UI.Xaml.DependencyProperty DurationProperty { get; };
+
+        /// <summary>
+        /// Gets or sets the type of the InfoBar.Severity.
+        /// </summary>
+        Windows.Foundation.IReference<Microsoft.UI.Xaml.Controls.InfoBarSeverity> Severity;
+
+        static Microsoft.UI.Xaml.DependencyProperty SeverityProperty { get; };
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the icon is visible or not.
+        /// </summary>
+        Boolean IsIconVisible;
+
+        static Microsoft.UI.Xaml.DependencyProperty IsIconVisibleProperty { get; };
+
+        /// <summary>
+        /// Gets or sets a value for an IconSource.
+        /// </summary>
+        Microsoft.UI.Xaml.Controls.IconSource IconSource;
+
+        static Microsoft.UI.Xaml.DependencyProperty IconSourceProperty { get; };
+
+        /// <summary>
+        /// Gets or sets the XAML Content.
+        /// </summary>
+        Object Content;
+
+        static Microsoft.UI.Xaml.DependencyProperty ContentProperty { get; };
+
+        /// <summary>
+        /// Gets or sets the data template for the Content.
+        /// </summary>
+        Microsoft.UI.Xaml.DataTemplate ContentTemplate;
+
+        static Microsoft.UI.Xaml.DependencyProperty ContentTemplateProperty { get; };
+
+        /// <summary>
+        /// Gets or sets the action button of the InfoBar.
+        /// </summary>
+        Microsoft.UI.Xaml.Controls.Primitives.ButtonBase ActionButton;
+
+        static Microsoft.UI.Xaml.DependencyProperty ActionButtonProperty { get; };
+    }
+}

@@ -1,0 +1,37 @@
+import "Notification/Notification.idl";
+
+namespace XamlToolkit.WinUI.Behaviors
+{
+    /// <summary>
+    /// A behavior to add the stacked notification support to InfoBar.
+    /// </summary>
+    runtimeclass StackedNotificationsBehavior : XamlToolkit.WinUI.Interactivity.IBehavior
+    {
+        StackedNotificationsBehavior();
+
+        /// <summary>
+        /// Show notification using text as the Message of the notification.
+        /// </summary>
+        Notification Show(String message, Int32 duration, String title);
+
+        /// <summary>
+        /// Show notification using object or UIElement as the Content of the notification.
+        /// </summary>
+        Notification Show(Object content, Int32 duration, String title, String message);
+
+        /// <summary>
+        /// Show the specified notification.
+        /// </summary>
+        Notification Show(Notification notification);
+
+        /// <summary>
+        /// Remove the notification.
+        /// </summary>
+        void Remove(Notification notification);
+
+        /// <summary>
+        /// Clears all notifications and closes any open notification.
+        /// </summary>
+        void Clear();
+    }
+}

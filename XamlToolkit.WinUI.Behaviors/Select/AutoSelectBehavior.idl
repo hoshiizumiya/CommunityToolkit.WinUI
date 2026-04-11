@@ -1,0 +1,11 @@
+namespace XamlToolkit.WinUI.Behaviors
+{
+    /// <summary>
+    /// This behavior automatically selects the entire content of the associated TextBox when it is loaded.
+    /// </summary>
+    [default_interface]
+    runtimeclass AutoSelectBehavior : XamlToolkit.WinUI.Interactivity.IBehavior
+    {
+        AutoSelectBehavior();
+    }
+}

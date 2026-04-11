@@ -1,0 +1,12 @@
+namespace XamlToolkit.WinUI.Behaviors
+{
+    [contentproperty("Actions")]
+    runtimeclass InvokeActionsActivity : Microsoft.UI.Xaml.DependencyObject, XamlToolkit.WinUI.Animations.IActivity
+    {
+        InvokeActionsActivity();
+
+        static Microsoft.UI.Xaml.DependencyProperty ActionsProperty{ get; };
+
+        XamlToolkit.WinUI.Interactivity.ActionCollection Actions{ get; };
+    }
+}

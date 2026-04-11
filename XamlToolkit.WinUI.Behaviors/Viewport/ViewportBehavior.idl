@@ -1,0 +1,51 @@
+namespace XamlToolkit.WinUI.Behaviors
+{
+    /// <summary>
+    /// A class for listening to an element enter or exit the ScrollViewer viewport
+    /// </summary>
+    runtimeclass ViewportBehavior : Microsoft.UI.Xaml.DependencyObject, XamlToolkit.WinUI.Interactivity.IBehavior
+    {
+        ViewportBehavior();
+
+        /// <summary>
+        /// Gets a value indicating whether associated element is in the ScrollViewer viewport
+        /// </summary>
+        Boolean IsInViewport;
+
+        static Microsoft.UI.Xaml.DependencyProperty IsInViewportProperty { get; };
+
+        /// <summary>
+        /// Gets a value indicating whether associated element is fully in the ScrollViewer viewport
+        /// </summary>
+        Boolean IsFullyInViewport;
+
+        static Microsoft.UI.Xaml.DependencyProperty IsFullyInViewportProperty { get; };
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this behavior will remain attached after the associated element enters the viewport.
+        /// </summary>
+        Boolean IsAlwaysOn;
+
+        static Microsoft.UI.Xaml.DependencyProperty IsAlwaysOnProperty { get; };
+
+        /// <summary>
+        /// Associated element enter the ScrollViewer viewport event
+        /// </summary>
+        event Windows.Foundation.EventHandler<Object> EnteringViewport;
+
+        /// <summary>
+        /// Associated element exit the ScrollViewer viewport event
+        /// </summary>
+        event Windows.Foundation.EventHandler<Object> ExitingViewport;
+
+        /// <summary>
+        /// Associated element fully enter the ScrollViewer viewport event
+        /// </summary>
+        event Windows.Foundation.EventHandler<Object> EnteredViewport;
+
+        /// <summary>
+        /// Associated element fully exit the ScrollViewer viewport event
+        /// </summary>
+        event Windows.Foundation.EventHandler<Object> ExitedViewport;
+    }
+}

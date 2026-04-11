@@ -1,0 +1,19 @@
+
+namespace XamlToolkit.WinUI.Behaviors
+{
+    /// <summary>
+    /// NavigateToUriAction represents an action that allows navigate to a specified URL defined in XAML, similar to a Hyperlink and HyperlinkButton.
+    /// </summary>
+    [default_interface]
+    runtimeclass NavigateToUriAction : Microsoft.UI.Xaml.DependencyObject, XamlToolkit.WinUI.Interactivity.IAction
+    {
+        NavigateToUriAction();
+
+        /// <summary>
+        /// Gets or sets the Uniform Resource Identifier (URI) to navigate to when the object is clicked.
+        /// </summary>
+        Windows.Foundation.Uri NavigateUri;
+
+        static Microsoft.UI.Xaml.DependencyProperty NavigateUriProperty { get; };
+    }
+}

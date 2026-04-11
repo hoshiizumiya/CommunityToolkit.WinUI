@@ -1,0 +1,29 @@
+import "Focus/FocusTargetList.idl";
+
+namespace XamlToolkit.WinUI.Behaviors
+{
+    /// <summary>
+    /// This behavior sets the focus on the first control of Targets which accepts it.
+    /// The focus will be set following the Targets order. The first control being ready
+    /// and accepting the focus will receive it.
+    /// </summary>
+    [contentproperty("Targets")]
+    runtimeclass FocusBehavior : Microsoft.UI.Xaml.DependencyObject, XamlToolkit.WinUI.Interactivity.IBehavior
+    {
+        FocusBehavior();
+
+        /// <summary>
+        /// Gets or sets the ordered list of controls which should receive the focus when the associated object is loaded.
+        /// </summary>
+        FocusTargetList Targets;
+
+        static Microsoft.UI.Xaml.DependencyProperty TargetsProperty { get; };
+
+        /// <summary>
+        /// Gets or sets the timeout before the FocusBehavior stops trying to set the focus to a control with a higher priority.
+        /// </summary>
+        Windows.Foundation.TimeSpan FocusEngagementTimeout;
+
+        static Microsoft.UI.Xaml.DependencyProperty FocusEngagementTimeoutProperty { get; };
+    }
+}

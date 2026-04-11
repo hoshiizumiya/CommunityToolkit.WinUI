@@ -1,0 +1,18 @@
+
+namespace XamlToolkit.WinUI.Behaviors
+{
+    /// <summary>
+    /// This behavior listens to a key down event on the associated UIElement when it is loaded and executes an action.
+    /// </summary>
+	runtimeclass KeyDownTriggerBehavior : XamlToolkit.WinUI.Interactivity.Trigger
+    {
+        KeyDownTriggerBehavior();
+
+        /// <summary>
+        /// Gets or sets the key to listen when the associated object is loaded.
+        /// </summary>
+        Windows.System.VirtualKey Key;
+
+        static Microsoft.UI.Xaml.DependencyProperty KeyProperty { get; };
+    }
+}

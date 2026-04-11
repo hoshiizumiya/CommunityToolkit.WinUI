@@ -1,0 +1,22 @@
+namespace XamlToolkit.WinUI.Behaviors
+{
+    /// <summary>
+    /// A target for the FocusBehavior.
+    /// </summary>
+    runtimeclass FocusTarget : Microsoft.UI.Xaml.DependencyObject
+    {
+        FocusTarget();
+
+        /// <summary>
+        /// Gets or sets the control that will receive the focus.
+        /// </summary>
+        Microsoft.UI.Xaml.Controls.Control Control;
+
+        static Microsoft.UI.Xaml.DependencyProperty ControlProperty { get; };
+
+        /// <summary>
+        /// Raised when Control property changed.
+        /// </summary>
+        event Windows.Foundation.EventHandler<Object> ControlChanged;
+    }
+}
