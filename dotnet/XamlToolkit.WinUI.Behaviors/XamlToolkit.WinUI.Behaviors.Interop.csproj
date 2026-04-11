@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net8.0-windows10.0.26100.0</TargetFramework>
+		<TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
+		<UseWinUI>true</UseWinUI>
+		<ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<CsWinRTIncludes>XamlToolkit.WinUI.Behaviors</CsWinRTIncludes>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.2.0" />
+		<PackageReference Include="Microsoft.WindowsAppSDK.WinUI" Version="1.8.260224000" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\XamlToolkit.WinUI.Behaviors\XamlToolkit.WinUI.Behaviors.vcxproj" />
+		<ProjectReference Include="..\XamlToolkit.WinUI\XamlToolkit.WinUI.Interop.csproj" />
+		<ProjectReference Include="..\XamlToolkit.WinUI.Interactivity\XamlToolkit.WinUI.Interactivity.Interop.csproj" />
+		<ProjectReference Include="..\XamlToolkit.WinUI.Animations\XamlToolkit.WinUI.Animations.Interop.csproj" />
+	</ItemGroup>
+</Project>

@@ -39,9 +39,11 @@
   <Folder Name="/DotNet/">
     <Project Path="dotnet/XamlToolkit.Labs.WinUI/XamlToolkit.Labs.WinUI.Interop.csproj" />
     <Project Path="dotnet/XamlToolkit.WinUI.Animations/XamlToolkit.WinUI.Animations.Interop.csproj" />
+    <Project Path="dotnet/XamlToolkit.WinUI.Behaviors/XamlToolkit.WinUI.Behaviors.Interop.csproj" />
     <Project Path="dotnet/XamlToolkit.WinUI.Controls/XamlToolkit.WinUI.Controls.Interop.csproj" />
     <Project Path="dotnet/XamlToolkit.WinUI.Converters/XamlToolkit.WinUI.Converters.Interop.csproj" />
     <Project Path="dotnet/XamlToolkit.WinUI.Helpers/XamlToolkit.WinUI.Helpers.Interop.csproj" />
+    <Project Path="dotnet/XamlToolkit.WinUI.Interactivity/XamlToolkit.WinUI.Interactivity.Interop.csproj" />
     <Project Path="dotnet/XamlToolkit.WinUI.Media/XamlToolkit.WinUI.Media.Interop.csproj" />
     <Project Path="dotnet/XamlToolkit.WinUI/XamlToolkit.WinUI.Interop.csproj" />
   </Folder>
