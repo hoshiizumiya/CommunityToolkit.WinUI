@@ -243,6 +243,8 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 #pragma endregion
 
 #pragma region Key Events
+		double GetKeyDelta(winrt::Windows::System::VirtualKey key) const;
+
 		void MinThumb_KeyDown(IInspectable const& sender, KeyRoutedEventArgs const& e);
 
 		void MaxThumb_KeyDown(IInspectable const& sender, KeyRoutedEventArgs const& e);

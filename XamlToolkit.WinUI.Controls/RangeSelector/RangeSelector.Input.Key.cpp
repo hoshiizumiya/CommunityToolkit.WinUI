@@ -30,62 +30,62 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
         keyDebounceTimer.Start();
     }
 
-    void RangeSelector::MinThumb_KeyDown([[maybe_unused]] IInspectable const& sender, KeyRoutedEventArgs const& e)
+    double RangeSelector::GetKeyDelta(winrt::Windows::System::VirtualKey key) const
     {
-        switch (e.Key())
+        const bool isRtl = FlowDirection() == FlowDirection::RightToLeft;
+        const double step = StepFrequency();
+
+        switch (key)
         {
         case VirtualKey::Left:
-        case VirtualKey::Down:
-            RangeStart(RangeStart() - StepFrequency());
-            SyncThumbs(true);
-            if (_toolTip != nullptr)
-            {
-                _toolTip.IsOpen(false);
-            }
+            return isRtl ? +step : -step;
 
-            e.Handled(true);
-            break;
         case VirtualKey::Right:
-        case VirtualKey::Up:
-            RangeStart(RangeStart() + StepFrequency());
-            SyncThumbs(true);
-            if (_toolTip != nullptr)
-            {
-                _toolTip.IsOpen(false);
-            }
+            return isRtl ? -step : +step;
 
-            e.Handled(true);
-            break;
+        case VirtualKey::Down:
+            return -step;
+
+        case VirtualKey::Up:
+            return +step;
+
+        default:
+            return 0;
         }
+    }
+
+    void RangeSelector::MinThumb_KeyDown([[maybe_unused]] IInspectable const& sender, KeyRoutedEventArgs const& e)
+    {
+        double delta = GetKeyDelta(e.Key());
+        if (delta == 0)
+            return;
+
+        RangeStart(RangeStart() + delta);
+        SyncThumbs(true);
+
+        if (_toolTip != nullptr)
+        {
+            _toolTip.IsOpen(false);
+        }
+
+        e.Handled(true);
     }
 
     void RangeSelector::MaxThumb_KeyDown([[maybe_unused]] IInspectable const& sender, KeyRoutedEventArgs const& e)
     {
-        switch (e.Key())
+        double delta = GetKeyDelta(e.Key());
+        if (delta == 0)
+            return;
+
+        RangeEnd(RangeEnd() + delta);
+        SyncThumbs(true);
+
+        if (_toolTip != nullptr)
         {
-        case VirtualKey::Left:
-        case VirtualKey::Down:
-            RangeEnd(RangeEnd() - StepFrequency());
-            SyncThumbs(true);
-            if (_toolTip != nullptr)
-            {
-                _toolTip.IsOpen(false);
-            }
-
-            e.Handled(true);
-            break;
-        case VirtualKey::Right:
-        case VirtualKey::Up:
-            RangeEnd(RangeEnd() + StepFrequency());
-            SyncThumbs(true);
-            if (_toolTip != nullptr)
-            {
-                _toolTip.IsOpen(false);
-            }
-
-            e.Handled(true);
-            break;
+            _toolTip.IsOpen(false);
         }
+
+        e.Handled(true);
     }
 
     void RangeSelector::Thumb_KeyUp([[maybe_unused]] IInspectable const& sender, KeyRoutedEventArgs const& e)
