@@ -1,0 +1,15 @@
+import "IAction.idl";
+
+namespace XamlToolkit.WinUI.Interactivity
+{
+    runtimeclass PlaySoundAction : Microsoft.UI.Xaml.DependencyObject, XamlToolkit.WinUI.Interactivity.IAction
+    {
+        PlaySoundAction();
+
+        static Microsoft.UI.Xaml.DependencyProperty SourceProperty{ get; };
+        static Microsoft.UI.Xaml.DependencyProperty VolumeProperty{ get; };
+
+        String Source;
+        Double Volume;
+    }
+}

@@ -74,6 +74,7 @@
   <Project Path="XamlToolkit.WinUI.Controls/XamlToolkit.WinUI.Controls.vcxproj" Id="ef5f53e1-2ddb-4936-a78f-517fc8be74ff" />
   <Project Path="XamlToolkit.WinUI.Converters/XamlToolkit.WinUI.Converters.vcxproj" Id="5f5234f5-2630-47bf-94c7-b2c14301e00e" />
   <Project Path="XamlToolkit.WinUI.Helpers/XamlToolkit.WinUI.Helpers.vcxproj" Id="f8087280-d16f-4d9d-9e17-58aac733d56d" />
+  <Project Path="XamlToolkit.WinUI.Interactivity/XamlToolkit.WinUI.Interactivity.vcxproj" Id="70bc2fd9-1f86-48e5-b3d2-abd12a9e40dc" />
   <Project Path="XamlToolkit.WinUI.Media/XamlToolkit.WinUI.Media.vcxproj" Id="a8fa1b9a-b83c-408a-8132-c1576b9fcbd5" />
   <Project Path="XamlToolkit.WinUI/XamlToolkit.WinUI.vcxproj" Id="17c20e50-8d62-4fc3-8feb-b64b03a893be" />
 </Solution>

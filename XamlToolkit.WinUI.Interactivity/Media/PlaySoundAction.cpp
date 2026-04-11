@@ -1,0 +1,155 @@
+#include "pch.h"
+#include "PlaySoundAction.h"
+#if __has_include("PlaySoundAction.g.cpp")
+#include "PlaySoundAction.g.cpp"
+#endif
+
+namespace
+{
+	constexpr std::wstring_view MsAppxPrefix = L"ms-appx:///";
+
+	winrt::Windows::Foundation::Uri TryCreateUri(winrt::hstring const& source)
+	{
+		using namespace winrt;
+		using namespace Windows::Foundation;
+
+		try
+		{
+			return Uri(source);
+		}
+		catch (winrt::hresult_error const&)
+		{
+		}
+
+		std::wstring absoluteSource{ MsAppxPrefix };
+		absoluteSource.append(source.c_str());
+
+		try
+		{
+			return Uri(absoluteSource);
+		}
+		catch (winrt::hresult_error const&)
+		{
+		}
+
+		return nullptr;
+	}
+}
+
+namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
+{
+	PlaySoundAction::PlaySoundAction()
+		: _queue(winrt::DispatcherQueue::GetForCurrentThread())
+	{}
+
+	const wil::single_threaded_property<winrt::DependencyProperty> PlaySoundAction::SourceProperty = winrt::DependencyProperty::Register(
+		L"Source",
+		winrt::xaml_typename<winrt::hstring>(),
+		winrt::xaml_typename<class_type>(),
+		winrt::PropertyMetadata(nullptr));
+
+	const wil::single_threaded_property<winrt::DependencyProperty> PlaySoundAction::VolumeProperty = winrt::DependencyProperty::Register(
+		L"Volume",
+		winrt::xaml_typename<double>(),
+		winrt::xaml_typename<class_type>(),
+		winrt::PropertyMetadata(winrt::box_value(0.5)));
+
+	winrt::hstring PlaySoundAction::Source() const
+	{
+		auto value = GetValue(SourceProperty());
+		return winrt::unbox_value_or<winrt::hstring>(value, L"");
+	}
+
+	void PlaySoundAction::Source(winrt::hstring const& value)
+	{
+		SetValue(SourceProperty(), winrt::box_value(value));
+	}
+
+	double PlaySoundAction::Volume() const
+	{
+		auto value = GetValue(VolumeProperty());
+		return winrt::unbox_value_or<double>(value, 0.5);
+	}
+
+	void PlaySoundAction::Volume(double value)
+	{
+		SetValue(VolumeProperty(), winrt::box_value(value));
+	}
+
+	winrt::IInspectable PlaySoundAction::Execute(winrt::IInspectable const& sender, [[maybe_unused]] winrt::IInspectable const& parameter)
+	{
+		if (Source().empty())
+		{
+			return winrt::box_value(false);
+		}
+
+		auto sourceUri = TryCreateUri(Source());
+		if (sourceUri == nullptr)
+		{
+			return winrt::box_value(false);
+		}
+
+		_popup = winrt::Popup{};
+		if (auto element = sender.try_as<winrt::UIElement>())
+		{
+			if (auto xamlRoot = element.XamlRoot())
+			{
+				_popup.XamlRoot(xamlRoot);
+			}
+		}
+
+		auto mediaElement = winrt::MediaPlayerElement{};
+		_popup.Child(mediaElement);
+
+		mediaElement.Visibility(winrt::Visibility::Collapsed);
+		mediaElement.Source(winrt::MediaSource::CreateFromUri(sourceUri));
+		mediaElement.AutoPlay(true);
+		mediaElement.MediaPlayer().Volume(Volume());
+		mediaElement.MediaPlayer().MediaEnded({ get_weak(), &PlaySoundAction::MediaElement_MediaEnded });
+		mediaElement.MediaPlayer().MediaFailed({ get_weak(), &PlaySoundAction::MediaPlayer_MediaFailed });
+
+		_popup.IsOpen(true);
+		return winrt::box_value(true);
+	}
+
+	void PlaySoundAction::MediaPlayer_MediaFailed([[maybe_unused]] winrt::MediaPlayer const& sender, [[maybe_unused]] winrt::MediaPlayerFailedEventArgs const& args)
+	{
+		ClosePopup();
+	}
+
+	void PlaySoundAction::MediaElement_MediaEnded([[maybe_unused]] winrt::MediaPlayer const& sender, [[maybe_unused]] winrt::IInspectable const& args)
+	{
+		ClosePopup();
+	}
+
+	void PlaySoundAction::ClosePopup()
+	{
+		auto weak = get_weak();
+		auto closePopupImpl = [weak]()
+		{
+			if (auto strong = weak.get()) 
+			{
+				if (strong->_popup != nullptr)
+				{
+					strong->_popup.IsOpen(false);
+					strong->_popup.Child(nullptr);
+					strong->_popup = nullptr;
+				}
+			}
+		};
+
+		if (_queue != nullptr && _queue.HasThreadAccess())
+		{
+			closePopupImpl();
+		}
+		else if (_queue != nullptr)
+		{
+			_queue.TryEnqueue(winrt::DispatcherQueuePriority::Normal, closePopupImpl);
+		}
+		else
+		{
+			closePopupImpl();
+		}
+	}
+}
+

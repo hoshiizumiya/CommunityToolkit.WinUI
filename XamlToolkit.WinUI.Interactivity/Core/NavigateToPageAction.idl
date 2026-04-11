@@ -1,0 +1,15 @@
+import "IAction.idl";
+
+namespace XamlToolkit.WinUI.Interactivity
+{
+    runtimeclass NavigateToPageAction : Microsoft.UI.Xaml.DependencyObject, XamlToolkit.WinUI.Interactivity.IAction
+    {
+        NavigateToPageAction();
+
+        static Microsoft.UI.Xaml.DependencyProperty TargetPageProperty{ get; };
+        static Microsoft.UI.Xaml.DependencyProperty ParameterProperty{ get; };
+
+        String TargetPage;
+        Object Parameter;
+    }
+}

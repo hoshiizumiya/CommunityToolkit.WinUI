@@ -1,0 +1,16 @@
+import "IAction.idl";
+import "Media/ControlStoryboardOption.idl";
+
+namespace XamlToolkit.WinUI.Interactivity
+{
+    runtimeclass ControlStoryboardAction : Microsoft.UI.Xaml.DependencyObject, XamlToolkit.WinUI.Interactivity.IAction
+    {
+        ControlStoryboardAction();
+
+        static Microsoft.UI.Xaml.DependencyProperty ControlStoryboardOptionProperty{ get; };
+        static Microsoft.UI.Xaml.DependencyProperty StoryboardProperty{ get; };
+
+        XamlToolkit.WinUI.Interactivity.ControlStoryboardOption ControlStoryboardOption;
+        Microsoft.UI.Xaml.Media.Animation.Storyboard Storyboard;
+    }
+}

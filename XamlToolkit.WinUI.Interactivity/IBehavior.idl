@@ -1,0 +1,24 @@
+namespace XamlToolkit.WinUI.Interactivity
+{
+    /// <summary>
+    /// Interface implemented by all custom behaviors.
+    /// </summary>
+    interface IBehavior
+    {
+        /// <summary>
+        /// Gets the DependencyObject to which the IBehavior is attached.
+        /// </summary>
+        Microsoft.UI.Xaml.DependencyObject AssociatedObject { get; };
+
+        /// <summary>
+        /// Attaches to the specified object.
+        /// </summary>
+        /// <param name="associatedObject">The DependencyObject to which the IBehavior will be attached.</param>
+        void Attach(Microsoft.UI.Xaml.DependencyObject associatedObject);
+
+        /// <summary>
+        /// Detaches this instance from its associated object.
+        /// </summary>
+        void Detach();
+    }
+}

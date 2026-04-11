@@ -1,0 +1,18 @@
+import "Trigger.idl";
+import "Core\ComparisonConditionType.idl";
+
+namespace XamlToolkit.WinUI.Interactivity
+{
+    runtimeclass DataTriggerBehavior : Trigger
+    {
+        DataTriggerBehavior();
+
+        static Microsoft.UI.Xaml.DependencyProperty BindingProperty{ get; };
+        static Microsoft.UI.Xaml.DependencyProperty ComparisonConditionProperty{ get; };
+        static Microsoft.UI.Xaml.DependencyProperty ValueProperty{ get; };
+
+        Object Binding;
+        XamlToolkit.WinUI.Interactivity.ComparisonConditionType ComparisonCondition;
+        Object Value;
+    }
+}

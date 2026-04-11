@@ -1,0 +1,13 @@
+import "Trigger.idl";
+
+namespace XamlToolkit.WinUI.Interactivity
+{
+	runtimeclass EventTriggerBehavior : Trigger
+    {
+        EventTriggerBehavior();
+
+		static Microsoft.UI.Xaml.DependencyProperty EventNameProperty{ get; };
+
+		String EventName;
+    }
+}

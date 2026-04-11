@@ -1,0 +1,21 @@
+import "IAction.idl";
+
+namespace XamlToolkit.WinUI.Interactivity
+{
+    runtimeclass InvokeCommandAction : Microsoft.UI.Xaml.DependencyObject, XamlToolkit.WinUI.Interactivity.IAction
+    {
+        InvokeCommandAction();
+
+        static Microsoft.UI.Xaml.DependencyProperty CommandProperty{ get; };
+        static Microsoft.UI.Xaml.DependencyProperty CommandParameterProperty{ get; };
+        static Microsoft.UI.Xaml.DependencyProperty InputConverterProperty{ get; };
+        static Microsoft.UI.Xaml.DependencyProperty InputConverterParameterProperty{ get; };
+        static Microsoft.UI.Xaml.DependencyProperty InputConverterLanguageProperty{ get; };
+
+        Microsoft.UI.Xaml.Input.ICommand Command;
+        Object CommandParameter;
+        Microsoft.UI.Xaml.Data.IValueConverter InputConverter;
+        Object InputConverterParameter;
+        String InputConverterLanguage;
+    }
+}

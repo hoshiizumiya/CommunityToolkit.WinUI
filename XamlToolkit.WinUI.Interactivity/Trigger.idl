@@ -1,0 +1,13 @@
+import "Behavior.idl";
+import "ITrigger.idl";
+
+namespace XamlToolkit.WinUI.Interactivity
+{
+    [contentproperty("Actions")]
+    unsealed runtimeclass Trigger : Behavior, ITrigger
+    {
+        Trigger();
+
+        static Microsoft.UI.Xaml.DependencyProperty ActionsProperty{ get; };
+    }
+}

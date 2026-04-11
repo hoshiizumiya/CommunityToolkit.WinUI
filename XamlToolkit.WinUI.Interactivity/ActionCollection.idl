@@ -1,0 +1,8 @@
+namespace XamlToolkit.WinUI.Interactivity
+{
+    [default_interface]
+    runtimeclass ActionCollection : Microsoft.UI.Xaml.DependencyObjectCollection
+    {
+        ActionCollection();
+    }
+}

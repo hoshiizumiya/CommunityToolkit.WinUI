@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resources">
+      <UniqueIdentifier>accd3aa8-1ba0-4223-9bbe-0c431709210b</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{926ab91d-31b4-48c3-b9a4-e681349f27f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{d0db4d87-51b4-45a6-acaf-2a342781f175}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{6318a6dc-52b1-4f88-aead-71a56d88e0a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Media">
+      <UniqueIdentifier>{6ea9e421-979f-4aa2-88a2-63de5f6bf9fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MultilingualResources">
+      <UniqueIdentifier>{bb0a38a6-aafb-4f8f-870e-ed64e2859dce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\de-DE">
+      <UniqueIdentifier>{af1c714d-4532-4104-b6b9-5b6a889ba9e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\en-us">
+      <UniqueIdentifier>{68e78ece-7e4a-4555-bb58-3ebe0ce7d374}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\es-ES">
+      <UniqueIdentifier>{fbdb20be-228c-4df9-b20f-ed9b311bf049}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\fr-FR">
+      <UniqueIdentifier>{2e5c6807-b92b-4db5-ae95-ad8d0ef93515}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\it-IT">
+      <UniqueIdentifier>{f33f6592-8de7-4a02-86c0-90652f72353b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\ja-JP">
+      <UniqueIdentifier>{e79cdc48-41f2-4afc-9599-1d529db00f49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\ko-KR">
+      <UniqueIdentifier>{1b3e4366-9ee8-4d07-b5e1-8f8b35c64268}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\pt-BR">
+      <UniqueIdentifier>{59267ab1-f889-4f5f-8300-7b174ea0ea26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\ru-RU">
+      <UniqueIdentifier>{775f4397-86a6-4857-9b67-adbc4874485c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\uk-UA">
+      <UniqueIdentifier>{5f473ac3-1223-4caa-9d0e-879fb1f66dbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\zh-CN">
+      <UniqueIdentifier>{39b2d974-ec39-4463-a2d8-ee9bcb146df8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\zh-TW">
+      <UniqueIdentifier>{997cbd32-52a6-4a74-bf23-2474ce2450e1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="ActionCollection.cpp" />
+    <ClCompile Include="BehaviorCollection.cpp" />
+    <ClCompile Include="Interaction.cpp" />
+    <ClCompile Include="Trigger.cpp" />
+    <ClCompile Include="VisualStateUtilities.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\EventManager.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\EventTriggerBehavior.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\GoToStateAction.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\IncrementalUpdateBehavior.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\InvokeCommandAction.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\ChangeCustomPropertyAction.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\DataBindingHelper.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\DataTriggerBehavior.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\NavigateToPageAction.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Media\ControlStoryboardAction.cpp">
+      <Filter>Media</Filter>
+    </ClCompile>
+    <ClCompile Include="Media\PlaySoundAction.cpp">
+      <Filter>Media</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\ResourceHelper.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\TypeConverterHelper.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\WinUIVisualTreeHelper.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="Behavior.h" />
+    <ClInclude Include="ActionCollection.h" />
+    <ClInclude Include="BehaviorCollection.h" />
+    <ClInclude Include="Interaction.h" />
+    <ClInclude Include="Trigger.h" />
+    <ClInclude Include="VisualStateUtilities.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\EventManager.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\EventTriggerBehavior.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\GoToStateAction.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\IncrementalUpdateBehavior.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\InvokeCommandAction.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ChangeCustomPropertyAction.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\DataBindingHelper.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\DataTriggerBehavior.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\NavigateToPageAction.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Media\ControlStoryboardAction.h">
+      <Filter>Media</Filter>
+    </ClInclude>
+    <ClInclude Include="Media\PlaySoundAction.h">
+      <Filter>Media</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ResourceHelper.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\TypeConverterHelper.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\IVisualTreeHelper.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\WinUIVisualTreeHelper.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="IAction.idl" />
+    <Midl Include="IBehavior.idl" />
+    <Midl Include="ITrigger.idl" />
+    <Midl Include="ActionCollection.idl" />
+    <Midl Include="BehaviorCollection.idl" />
+    <Midl Include="Interaction.idl" />
+    <Midl Include="Core\EventManager.idl">
+      <Filter>Core</Filter>
+    </Midl>
+    <Midl Include="Core\EventTriggerBehavior.idl">
+      <Filter>Core</Filter>
+    </Midl>
+    <Midl Include="Core\GoToStateAction.idl">
+      <Filter>Core</Filter>
+    </Midl>
+    <Midl Include="Core\IncrementalUpdateBehavior.idl">
+      <Filter>Core</Filter>
+    </Midl>
+    <Midl Include="Core\InvokeCommandAction.idl">
+      <Filter>Core</Filter>
+    </Midl>
+    <Midl Include="Trigger.idl" />
+    <Midl Include="Core\ChangeCustomPropertyAction.idl">
+      <Filter>Core</Filter>
+    </Midl>
+    <Midl Include="Core\ComparisonConditionType.idl">
+      <Filter>Core</Filter>
+    </Midl>
+    <Midl Include="Core\DataTriggerBehavior.idl">
+      <Filter>Core</Filter>
+    </Midl>
+    <Midl Include="Core\NavigateToPageAction.idl">
+      <Filter>Core</Filter>
+    </Midl>
+    <Midl Include="Media\ControlStoryboardAction.idl">
+      <Filter>Media</Filter>
+    </Midl>
+    <Midl Include="Media\ControlStoryboardOption.idl">
+      <Filter>Media</Filter>
+    </Midl>
+    <Midl Include="Media\PlaySoundAction.idl">
+      <Filter>Media</Filter>
+    </Midl>
+    <Midl Include="VisualStateUtilities.idl">
+      <Filter>Utility</Filter>
+    </Midl>
+    <Midl Include="Behavior.idl" />
+    <Midl Include="Core\ChangeDependencyPropertyAction.idl">
+      <Filter>Core</Filter>
+    </Midl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="XamlToolkit.WinUI.Interactivity.def" />
+    <None Include="packages.config" />
+    <None Include="MultilingualResources\Microsoft.Xaml.Interactivity.de-DE.xlf">
+      <Filter>MultilingualResources</Filter>
+    </None>
+    <None Include="MultilingualResources\Microsoft.Xaml.Interactivity.es-ES.xlf">
+      <Filter>MultilingualResources</Filter>
+    </None>
+    <None Include="MultilingualResources\Microsoft.Xaml.Interactivity.fr-FR.xlf">
+      <Filter>MultilingualResources</Filter>
+    </None>
+    <None Include="MultilingualResources\Microsoft.Xaml.Interactivity.it-IT.xlf">
+      <Filter>MultilingualResources</Filter>
+    </None>
+    <None Include="MultilingualResources\Microsoft.Xaml.Interactivity.ja-JP.xlf">
+      <Filter>MultilingualResources</Filter>
+    </None>
+    <None Include="MultilingualResources\Microsoft.Xaml.Interactivity.ko-KR.xlf">
+      <Filter>MultilingualResources</Filter>
+    </None>
+    <None Include="MultilingualResources\Microsoft.Xaml.Interactivity.pt-BR.xlf">
+      <Filter>MultilingualResources</Filter>
+    </None>
+    <None Include="MultilingualResources\Microsoft.Xaml.Interactivity.ru-RU.xlf">
+      <Filter>MultilingualResources</Filter>
+    </None>
+    <None Include="MultilingualResources\Microsoft.Xaml.Interactivity.uk-UA.xlf">
+      <Filter>MultilingualResources</Filter>
+    </None>
+    <None Include="MultilingualResources\Microsoft.Xaml.Interactivity.zh-TW.xlf">
+      <Filter>MultilingualResources</Filter>
+    </None>
+    <None Include="MultilingualResources\Microsoft.Xaml.Interactivity.zh-CN.xlf">
+      <Filter>MultilingualResources</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Resources\de-DE\Strings.resw">
+      <Filter>Resources\de-DE</Filter>
+    </PRIResource>
+    <PRIResource Include="Resources\en-us\Strings.resw">
+      <Filter>Resources\en-us</Filter>
+    </PRIResource>
+    <PRIResource Include="Resources\es-ES\Strings.resw">
+      <Filter>Resources\es-ES</Filter>
+    </PRIResource>
+    <PRIResource Include="Resources\fr-FR\Strings.resw">
+      <Filter>Resources\fr-FR</Filter>
+    </PRIResource>
+    <PRIResource Include="Resources\it-IT\Strings.resw">
+      <Filter>Resources\it-IT</Filter>
+    </PRIResource>
+    <PRIResource Include="Resources\ja-JP\Strings.resw">
+      <Filter>Resources\ja-JP</Filter>
+    </PRIResource>
+    <PRIResource Include="Resources\ko-KR\Strings.resw">
+      <Filter>Resources\ko-KR</Filter>
+    </PRIResource>
+    <PRIResource Include="Resources\zh-TW\Strings.resw">
+      <Filter>Resources\zh-TW</Filter>
+    </PRIResource>
+    <PRIResource Include="Resources\zh-CN\Strings.resw">
+      <Filter>Resources\zh-CN</Filter>
+    </PRIResource>
+    <PRIResource Include="Resources\uk-UA\Strings.resw">
+      <Filter>Resources\uk-UA</Filter>
+    </PRIResource>
+    <PRIResource Include="Resources\ru-RU\Strings.resw">
+      <Filter>Resources\ru-RU</Filter>
+    </PRIResource>
+    <PRIResource Include="Resources\pt-BR\Strings.resw">
+      <Filter>Resources\pt-BR</Filter>
+    </PRIResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natstepfilter" />
+  </ItemGroup>
+</Project>

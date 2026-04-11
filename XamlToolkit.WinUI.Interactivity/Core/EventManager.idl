@@ -1,0 +1,17 @@
+namespace XamlToolkit.WinUI.Interactivity
+{
+    delegate void EventAction(Object eventArgs);
+
+    static runtimeclass EventManager 
+    {
+        static Windows.Foundation.EventRegistrationToken Register(
+            String eventName,
+            Object sender,
+            EventAction action);
+
+        static void Unregister(
+            String eventName,
+            Object sender,
+            Windows.Foundation.EventRegistrationToken token);
+    }
+}

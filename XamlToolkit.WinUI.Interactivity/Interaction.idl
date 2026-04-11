@@ -1,0 +1,16 @@
+import "ActionCollection.idl";
+import "BehaviorCollection.idl";
+
+namespace XamlToolkit.WinUI.Interactivity
+{
+    static runtimeclass Interaction
+    {
+        static Microsoft.UI.Xaml.DependencyProperty BehaviorsProperty{ get; };
+
+        static BehaviorCollection GetBehaviors(Microsoft.UI.Xaml.DependencyObject obj);
+
+        static void SetBehaviors(Microsoft.UI.Xaml.DependencyObject obj, BehaviorCollection value);
+
+        static Windows.Foundation.Collections.IIterable<Object> ExecuteActions(Object sender, ActionCollection actions, Object parameter);
+    }
+}

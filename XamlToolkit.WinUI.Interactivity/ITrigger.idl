@@ -1,0 +1,16 @@
+import "IBehavior.idl";
+import "ActionCollection.idl";
+
+namespace XamlToolkit.WinUI.Interactivity
+{
+    /// <summary>
+    /// Interface implemented by all custom triggers.
+    /// </summary>
+	interface ITrigger requires IBehavior
+    {
+        /// <summary>
+        /// Gets the collection of actions associated with the behavior.
+        /// </summary>
+        ActionCollection Actions { get; };
+    }
+}

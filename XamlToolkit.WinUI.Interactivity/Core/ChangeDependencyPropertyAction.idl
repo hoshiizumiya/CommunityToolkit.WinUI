@@ -1,0 +1,16 @@
+import "IAction.idl";
+
+namespace XamlToolkit.WinUI.Interactivity
+{
+    runtimeclass ChangeDependencyPropertyAction : Microsoft.UI.Xaml.DependencyObject, XamlToolkit.WinUI.Interactivity.IAction
+    {
+        ChangeDependencyPropertyAction();
+
+        static Microsoft.UI.Xaml.DependencyProperty TargetObjectProperty{ get; };
+        static Microsoft.UI.Xaml.DependencyProperty ValueProperty{ get; };
+
+        Microsoft.UI.Xaml.DependencyProperty Property;
+        Microsoft.UI.Xaml.DependencyObject TargetObject;
+        Object Value;
+    }
+}

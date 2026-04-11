@@ -1,0 +1,12 @@
+namespace XamlToolkit.WinUI.Interactivity
+{
+    enum ControlStoryboardOption
+    {
+        Play,
+        Stop,
+        TogglePlayPause,
+        Pause,
+        Resume,
+        SkipToFill
+    };
+}

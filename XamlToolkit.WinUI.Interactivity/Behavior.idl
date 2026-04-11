@@ -1,0 +1,13 @@
+import "IBehavior.idl";
+
+namespace XamlToolkit.WinUI.Interactivity
+{
+	unsealed runtimeclass Behavior : Microsoft.UI.Xaml.DependencyObject, [default] IBehavior
+    {
+        Behavior();
+
+        overridable void OnAttached();
+
+        overridable void OnDetaching();
+    }
+}
