@@ -82,9 +82,7 @@ namespace winrt::XamlToolkit::WinUI::Animations::implementation
         return StartAsync(element, cancellationState);
     }
 
-    winrt::Windows::Foundation::IAsyncAction AnimationSet::StartAsync(
-        UIElement const& element,
-        std::shared_ptr<std::atomic<bool>> cancellationState)
+    winrt::Windows::Foundation::IAsyncAction AnimationSet::StartAsync(UIElement element, std::shared_ptr<std::atomic<bool>> cancellationState)
     {
         auto strongThis = get_strong();
 

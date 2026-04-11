@@ -47,7 +47,7 @@ namespace winrt::XamlToolkit::WinUI::Animations::implementation
             throw winrt::hresult_invalid_argument(L"An animation set can only contain timeline nodes or IActivity nodes");
         }
 
-        winrt::Windows::Foundation::IAsyncAction StartAsync(UIElement const& element, std::shared_ptr<std::atomic<bool>> cancellationState);
+        winrt::Windows::Foundation::IAsyncAction StartAsync(UIElement element, std::shared_ptr<std::atomic<bool>> cancellationState);
 
     public:
         bool IsSequential() const noexcept;
