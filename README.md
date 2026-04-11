@@ -134,6 +134,13 @@ Rive support is available via [`XamlToolkit.WinUI.Rive`](https://github.com/lgzt
 
 ---
 
+---
+
+## Behaviors
+![Behaviors](docs/images/Behaviors.gif)
+
+---
+
 ## Features
 
 - Native C++/WinRT implementation for WinUI 3.
