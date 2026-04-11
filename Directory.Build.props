@@ -3,7 +3,15 @@
     <Import Project="$(MSBuildThisFileDirectory)HybridCRT.props" />
     
     <PropertyGroup>
-        <UseCrtSDKReference>false</UseCrtSDKReference>
+		<PlatformToolset>v145</PlatformToolset>
+		<PlatformToolset Condition="'$(VisualStudioVersion)' == '17.0'">v143</PlatformToolset>	  
+		<UseCrtSDKReference>false</UseCrtSDKReference>
         <UseCrtSDKReferenceStaticWarning>false</UseCrtSDKReferenceStaticWarning>
     </PropertyGroup>
+
+	<ItemDefinitionGroup>
+		<ClCompile>
+			<LanguageStandard>stdcpp23</LanguageStandard>
+		</ClCompile>
+	</ItemDefinitionGroup>
 </Project>
