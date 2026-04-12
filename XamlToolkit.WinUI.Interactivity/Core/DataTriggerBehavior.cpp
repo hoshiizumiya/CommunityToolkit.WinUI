@@ -271,6 +271,9 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
             return;
         }
 
+        // TODO: Consider introducing an internal interface (e.g. IBindingRefreshable)
+        // to allow actions to explicitly refresh their bindings, since C++/WinRT
+        // does not support reflection-based binding updates like C#.
         winrt::XamlToolkit::WinUI::Interactivity::DataBindingHelper::RefreshDataBindingsOnActions(dataTriggerBehavior->Actions());
 
         if (DataTriggerBehavior::Compare(dataTriggerBehavior->Binding(), dataTriggerBehavior->ComparisonCondition(), dataTriggerBehavior->Value()))

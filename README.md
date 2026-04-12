@@ -128,7 +128,7 @@ Rive support is available via [`XamlToolkit.WinUI.Rive`](https://github.com/lgzt
 
 ---
 
-## Animations
+## XamlToolkit.WinUI.Animations
 ### ImplicitAnimations / ExplicitAnimations / ShadowAnimations
 ![Animations](docs/images/Animations.gif)
 
@@ -139,19 +139,18 @@ Rive support is available via [`XamlToolkit.WinUI.Rive`](https://github.com/lgzt
 A C++/WinRT port of [XamlBehaviors](https://github.com/microsoft/XamlBehaviors), providing a lightweight behavior and trigger system for WinUI 3 applications.
 
 This module ports the original C# WinUI XamlBehaviors implementation to C++/WinRT, while keeping full API compatibility for seamless migration.
+
 ### Notes
 
-- `ChangePropertyAction` is not implemented (due to lack of reflection support in C++/WinRT)
-- Instead, property mutation is split into:
+- `ChangePropertyAction` and `CallMethodAction` are not implemented (due to lack of reflection support in C++/WinRT); instead, property mutation is split into:
   - `ChangeCustomPropertyAction`
   - `ChangeDependencyPropertyAction`
- 
-- `DataTriggerBehavior`  may not work with certain types
-- `EventTriggerBehavior` includes default event mappings; missing events must be manually registered via `EventManager`
-
+  
+- `DataTriggerBehavior` may not work with certain types.
+- `EventTriggerBehavior` includes default event mappings; missing events must be manually registered via `EventManager`.
 ---
 
-## Behaviors
+## XamlToolkit.WinUI.Behaviors
 ![Behaviors](docs/images/Behaviors.gif)
 
 ---
