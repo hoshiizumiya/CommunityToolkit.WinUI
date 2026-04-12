@@ -17,6 +17,9 @@ enabling seamless use of these components in **WinUI 3 / C++ projects**.
 ### 🎬 Animations
 - **XamlToolkit.WinUI.Animations** — Animation components for WinUI
 
+### 🧩 Behaviors 
+- **XamlToolkit.WinUI.Behaviors** — Behavior components for WinUI
+
 ### 🧱 Controls & Layout
 
 - **MarkdownTextBlock** — syntax highlighting for *C#, C++, XML, JSON, Shell, Rust*  

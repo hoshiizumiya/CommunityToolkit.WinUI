@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+	<metadata>
+		<id>XamlToolkit.WinUI.Behaviors.Native</id>
+		<version>0.5.0-alpha</version>
+		<title>XamlToolkit.WinUI.Behaviors.Native</title>
+		<authors>lgztx96</authors>
+		<owners>lgztx96</owners>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<license type="expression">MIT</license>
+		<projectUrl>https://github.com/lgztx96/CommunityToolkit.WinUI</projectUrl>
+		<repository type="git" url="https://github.com/lgztx96/CommunityToolkit.WinUI.git"/>
+		<description>WinUI Community Toolkit (C++ Port).</description>
+		<releaseNotes>Updated features.</releaseNotes>
+		<tags>Windows Community Toolkit WCT WinUI WinRT WindowsAppSDK WASDK WinAppSDK Xaml CPP Native</tags>
+		<readme>Readme.md</readme>
+		<dependencies>
+			<dependency id="Microsoft.WindowsAppSDK.WinUI" version="1.8.260224000" />
+			<dependency id="XamlToolkit.WinUI.Animations.Native" version="0.5.0-alpha" />
+			<dependency id="XamlToolkit.WinUI.Interactivity.Native" version="0.5.0-alpha" />
+		</dependencies>
+	</metadata>
+
+	<files>
+		<file src="README.md" target="Readme.md" />
+
+		<file target="build\native\XamlToolkit.WinUI.Behaviors.Native.targets"                          src="XamlToolkit.WinUI.Behaviors.Native.targets" />
+		<file target="build\net8.0-windows10.0.26100.0\XamlToolkit.WinUI.Behaviors.Native.targets"      src="XamlToolkit.WinUI.Behaviors.Managed.targets" />
+
+		<file target="lib\native\XamlToolkit.WinUI.Behaviors.winmd"                              src="..\x64\Release\XamlToolkit.WinUI.Behaviors\XamlToolkit.WinUI.Behaviors.winmd" />
+
+		<file target="runtimes\win-x86\native\XamlToolkit.WinUI.Behaviors.dll"                   src="..\Release\XamlToolkit.WinUI.Behaviors\XamlToolkit.WinUI.Behaviors.dll" />
+		<file target="runtimes\win-x64\native\XamlToolkit.WinUI.Behaviors.dll"                   src="..\x64\Release\XamlToolkit.WinUI.Behaviors\XamlToolkit.WinUI.Behaviors.dll" />
+		<file target="runtimes\win-arm64\native\XamlToolkit.WinUI.Behaviors.dll"                 src="..\arm64\Release\XamlToolkit.WinUI.Behaviors\XamlToolkit.WinUI.Behaviors.dll" />
+
+		<file target="lib\net8.0-windows10.0.26100.0\XamlToolkit.WinUI.Behaviors.Interop.dll" src="..\dotnet\XamlToolkit.WinUI.Behaviors\bin\Release\net8.0-windows10.0.26100.0\XamlToolkit.WinUI.Behaviors.Interop.dll" />
+	</files>
+</package>
