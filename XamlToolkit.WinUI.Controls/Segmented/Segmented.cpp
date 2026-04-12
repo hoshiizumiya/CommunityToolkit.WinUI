@@ -57,13 +57,19 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 	void Segmented::OnApplyTemplate()
 	{
 		base_type::OnApplyTemplate();
+
 		if (!_hasLoaded)
 		{
-			SelectedIndex(-1);
-			SelectedIndex(_internalSelectedIndex);
+			// https://github.com/CommunityToolkit/Windows/issues/698
+			// https://github.com/CommunityToolkit/Windows/issues/843
+			if (auto items = Items(); _internalSelectedIndex != -1 && _internalSelectedIndex < static_cast<int>(items.Size()))
+			{
+				SelectedItem(items.GetAt(_internalSelectedIndex));
+			}
+
 			_hasLoaded = true;
 		}
-
+		
 		_previewKeyDownRevoker = PreviewKeyDown(winrt::auto_revoke, { this, &Segmented::Segmented_PreviewKeyDown });
 	}
 
@@ -151,10 +157,11 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 	void Segmented::OnSelectedIndexChanged([[maybe_unused]] DependencyObject const& sender, [[maybe_unused]] DependencyProperty const& dp)
 	{
 		// This is a workaround for https://github.com/microsoft/microsoft-ui-xaml/issues/8257
-		if (_internalSelectedIndex == -1 && SelectedIndex() > -1)
+		auto selectedIndex = SelectedIndex();
+		if (_internalSelectedIndex == -1 && selectedIndex > -1)
 		{
 			// We catch the correct SelectedIndex and save it.
-			_internalSelectedIndex = SelectedIndex();
+			_internalSelectedIndex = selectedIndex;
 		}
 	}
 
