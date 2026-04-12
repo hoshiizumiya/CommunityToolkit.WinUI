@@ -23,15 +23,15 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
         class PhasedElementRecord
         {
         private:
-            FrameworkElement _frameworkElement;
-            IInspectable _localOpacity;
-            IInspectable _localDataContext;
+            winrt::FrameworkElement _frameworkElement;
+            winrt::IInspectable _localOpacity;
+            winrt::IInspectable _localDataContext;
             bool _isFrozen;
 
         public:
-            PhasedElementRecord(FrameworkElement const& frameworkElement) : _frameworkElement(frameworkElement), _isFrozen(false) { }
+            PhasedElementRecord(winrt::FrameworkElement const& frameworkElement) : _frameworkElement(frameworkElement), _isFrozen(false) { }
 
-            FrameworkElement FrameworkElement() const noexcept { return _frameworkElement; }
+            winrt::FrameworkElement FrameworkElement() const noexcept { return _frameworkElement; }
 
             void FreezeAndHide();
 
@@ -51,11 +51,11 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
         };
 
     private:
-        void OnContainerContentChanging(ListViewBase const& sender, ContainerContentChangingEventArgs const& e);
+        void OnContainerContentChanging(winrt::ListViewBase const& sender, winrt::ContainerContentChangingEventArgs const& e);
 
-        void OnContainerContentChangingCallback(ListViewBase const& sender, ContainerContentChangingEventArgs const& e);
+        void OnContainerContentChangingCallback(winrt::ListViewBase const& sender, winrt::ContainerContentChangingEventArgs const& e);
 
-        static UIElement FindContentTemplateRoot(FrameworkElement const& phaseElement);
+        static winrt::UIElement FindContentTemplateRoot(winrt::FrameworkElement const& phaseElement);
 
     public:
         void CachePhaseElement(FrameworkElement const& phaseElement, int phase);
@@ -67,9 +67,9 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
         void Detach();
 
     private:
-        ListViewBase _associatedListViewBase{ nullptr };
-        std::unordered_map<UIElement, std::unique_ptr<ElementCacheRecord>> _elementCache;
-        ListViewBase::ContainerContentChanging_revoker _containerContentChangingRevoker;
+        winrt::ListViewBase _associatedListViewBase{ nullptr };
+        std::unordered_map<winrt::UIElement, std::unique_ptr<ElementCacheRecord>> _elementCache;
+        winrt::ListViewBase::ContainerContentChanging_revoker _containerContentChangingRevoker;
     };
 
     /// <summary>
@@ -93,26 +93,26 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
         int Phase() const;
         void Phase(int value);
 
-        static void OnPhaseChanged(DependencyObject const& sender, DependencyPropertyChangedEventArgs const& args);
+        static void OnPhaseChanged(winrt::DependencyObject const& sender, winrt::DependencyPropertyChangedEventArgs const& args);
 
-        static winrt::com_ptr<IncrementalUpdater> GetIncrementalUpdater(DependencyObject const& dependencyObject);
+        static winrt::com_ptr<IncrementalUpdater> GetIncrementalUpdater(winrt::DependencyObject const& dependencyObject);
 
-        static void SetIncrementalUpdater(DependencyObject const& dependencyObject, winrt::com_ptr<IncrementalUpdater> const& value);
+        static void SetIncrementalUpdater(winrt::DependencyObject const& dependencyObject, winrt::com_ptr<IncrementalUpdater> const& value);
 
-        static void OnIncrementalUpdaterChanged(DependencyObject const& sender, DependencyPropertyChangedEventArgs const& args);
+        static void OnIncrementalUpdaterChanged(winrt::DependencyObject const& sender, winrt::DependencyPropertyChangedEventArgs const& args);
 
-        void OnAssociatedObjectLoaded(winrt::IInspectable const& sender, RoutedEventArgs const& e);
+        void OnAssociatedObjectLoaded(winrt::IInspectable const& sender, winrt::RoutedEventArgs const& e);
 
-        void OnAssociatedObjectUnloaded(winrt::IInspectable const& sender, RoutedEventArgs const& e);
+        void OnAssociatedObjectUnloaded(winrt::IInspectable const& sender, winrt::RoutedEventArgs const& e);
 
         winrt::com_ptr<IncrementalUpdater> FindUpdater();
 
         /// <summary>
         /// Gets the object to which this behavior is attached.
         /// </summary>
-        FrameworkElement AssociatedObject()
+        winrt::FrameworkElement AssociatedObject()
         {
-            return Behavior::AssociatedObject().try_as<FrameworkElement>();
+            return Behavior::AssociatedObject().try_as<winrt::FrameworkElement>();
         }
 
         /// <summary>

@@ -10,13 +10,13 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
 		L"Phase",
 		winrt::xaml_typename<int>(),
 		winrt::xaml_typename<class_type>(),
-		PropertyMetadata(winrt::box_value(1), PropertyChangedCallback(&IncrementalUpdateBehavior::OnPhaseChanged)));
+		winrt::PropertyMetadata(winrt::box_value(1), &IncrementalUpdateBehavior::OnPhaseChanged));
 
-	const wil::single_threaded_property<winrt::DependencyProperty> IncrementalUpdateBehavior::IncrementalUpdaterProperty = DependencyProperty::RegisterAttached(
+	const wil::single_threaded_property<winrt::DependencyProperty> IncrementalUpdateBehavior::IncrementalUpdaterProperty = winrt::DependencyProperty::RegisterAttached(
 		L"IncrementalUpdater",
 		winrt::xaml_typename<winrt::IInspectable>(),
 		winrt::xaml_typename<class_type>(),
-		PropertyMetadata(nullptr, PropertyChangedCallback(&IncrementalUpdateBehavior::OnIncrementalUpdaterChanged)));
+		winrt::PropertyMetadata(nullptr, &IncrementalUpdateBehavior::OnIncrementalUpdaterChanged));
 
 	int IncrementalUpdateBehavior::Phase() const
 	{
@@ -28,12 +28,12 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
 		SetValue(PhaseProperty(), winrt::box_value(value));
 	}
 
-	void IncrementalUpdateBehavior::OnPhaseChanged(DependencyObject const& sender, DependencyPropertyChangedEventArgs const& args)
+	void IncrementalUpdateBehavior::OnPhaseChanged(winrt::DependencyObject const& sender, winrt::DependencyPropertyChangedEventArgs const& args)
 	{
 		auto behavior = winrt::get_self<IncrementalUpdateBehavior>(sender.as<class_type>())->get_strong();
 
 		winrt::com_ptr<IncrementalUpdater> incrementalUpdater = behavior->FindUpdater();
-		FrameworkElement frameworkElement = behavior->AssociatedObject();
+		winrt::FrameworkElement frameworkElement = behavior->AssociatedObject();
 
 		if (incrementalUpdater != nullptr && frameworkElement != nullptr)
 		{
@@ -42,17 +42,17 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
 		}
 	}
 
-	winrt::com_ptr<IncrementalUpdater> IncrementalUpdateBehavior::GetIncrementalUpdater(DependencyObject const& dependencyObject)
+	winrt::com_ptr<IncrementalUpdater> IncrementalUpdateBehavior::GetIncrementalUpdater(winrt::DependencyObject const& dependencyObject)
 	{
 		return dependencyObject.GetValue(IncrementalUpdateBehavior::IncrementalUpdaterProperty()).try_as<IncrementalUpdater>();
 	}
 
-	void IncrementalUpdateBehavior::SetIncrementalUpdater(DependencyObject const& dependencyObject, winrt::com_ptr<IncrementalUpdater> const& value)
+	void IncrementalUpdateBehavior::SetIncrementalUpdater(winrt::DependencyObject const& dependencyObject, winrt::com_ptr<IncrementalUpdater> const& value)
 	{
 		dependencyObject.SetValue(IncrementalUpdateBehavior::IncrementalUpdaterProperty(), *value);
 	}
 
-	void IncrementalUpdateBehavior::OnIncrementalUpdaterChanged(DependencyObject const& sender, DependencyPropertyChangedEventArgs const& args)
+	void IncrementalUpdateBehavior::OnIncrementalUpdaterChanged(winrt::DependencyObject const& sender, winrt::DependencyPropertyChangedEventArgs const& args)
 	{
 		if (args.OldValue() != nullptr)
 		{
@@ -66,7 +66,7 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
 		}
 	}
 
-	void IncrementalUpdateBehavior::OnAssociatedObjectLoaded([[maybe_unused]] winrt::IInspectable const& sender, [[maybe_unused]] RoutedEventArgs const& e)
+	void IncrementalUpdateBehavior::OnAssociatedObjectLoaded([[maybe_unused]] winrt::IInspectable const& sender, [[maybe_unused]] winrt::RoutedEventArgs const& e)
 	{
 		winrt::com_ptr<IncrementalUpdater> incrementalUpdater = FindUpdater();
 
@@ -76,7 +76,7 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
 		}
 	}
 
-	void IncrementalUpdateBehavior::OnAssociatedObjectUnloaded([[maybe_unused]] winrt::IInspectable const& sender, [[maybe_unused]] RoutedEventArgs const& e)
+	void IncrementalUpdateBehavior::OnAssociatedObjectUnloaded([[maybe_unused]] winrt::IInspectable const& sender, [[maybe_unused]] winrt::RoutedEventArgs const& e)
 	{
 		if (_updater != nullptr)
 		{
@@ -93,12 +93,12 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
 			return _updater;
 		}
 
-		DependencyObject ancestor = AssociatedObject();
+		winrt::DependencyObject ancestor = AssociatedObject();
 		while (ancestor != nullptr)
 		{
-			DependencyObject parent = VisualTreeHelper::GetParent(ancestor);
+			winrt::DependencyObject parent = winrt::VisualTreeHelper::GetParent(ancestor);
 
-			if (ListViewBase listView = parent.try_as<ListViewBase>())
+			if (winrt::ListViewBase listView = parent.try_as<winrt::ListViewBase>())
 			{
 				winrt::com_ptr<IncrementalUpdater> currentUpdater = IncrementalUpdateBehavior::GetIncrementalUpdater(listView);
 				if (currentUpdater == nullptr)
@@ -122,7 +122,7 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
 		if (object == nullptr)
 		{
 			auto actualType = winrt::get_class_name(object);
-			std::wstring_view expectedType = winrt::name_of<FrameworkElement>();
+			std::wstring_view expectedType = winrt::name_of<winrt::FrameworkElement>();
 			auto message = ResourceHelper::Format(winrt::XamlToolkit::WinUI::Interactivity::ResourceHelper::InvalidAssociatedObjectExceptionMessage(), actualType, expectedType);
 			throw winrt::hresult_error(E_FAIL, message);
 		}
@@ -147,8 +147,8 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
 		}
 
 		_isFrozen = true;
-		_localOpacity = _frameworkElement.ReadLocalValue(UIElement::OpacityProperty());
-		_localDataContext = _frameworkElement.ReadLocalValue(FrameworkElement::DataContextProperty());
+		_localOpacity = _frameworkElement.ReadLocalValue(winrt::UIElement::OpacityProperty());
+		_localDataContext = _frameworkElement.ReadLocalValue(winrt::FrameworkElement::DataContextProperty());
 		_frameworkElement.Opacity(0.0);
 		_frameworkElement.DataContext(_frameworkElement.DataContext());
 	}
@@ -160,30 +160,30 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
 			return;
 		}
 
-		if (_localOpacity != DependencyProperty::UnsetValue())
+		if (_localOpacity != winrt::DependencyProperty::UnsetValue())
 		{
-			_frameworkElement.SetValue(UIElement::OpacityProperty(), _localOpacity);
+			_frameworkElement.SetValue(winrt::UIElement::OpacityProperty(), _localOpacity);
 		}
 		else
 		{
-			_frameworkElement.ClearValue(UIElement::OpacityProperty());
+			_frameworkElement.ClearValue(winrt::UIElement::OpacityProperty());
 		}
 
 		if (_localDataContext != DependencyProperty::UnsetValue())
 		{
-			_frameworkElement.SetValue(FrameworkElement::DataContextProperty(), _localDataContext);
+			_frameworkElement.SetValue(winrt::FrameworkElement::DataContextProperty(), _localDataContext);
 		}
 		else
 		{
-			_frameworkElement.ClearValue(FrameworkElement::DataContextProperty());
+			_frameworkElement.ClearValue(winrt::FrameworkElement::DataContextProperty());
 		}
 
 		_isFrozen = false;
 	}
 
-	void IncrementalUpdater::OnContainerContentChanging([[maybe_unused]] ListViewBase const& sender, ContainerContentChangingEventArgs const& e)
+	void IncrementalUpdater::OnContainerContentChanging([[maybe_unused]] winrt::ListViewBase const& sender, winrt::ContainerContentChangingEventArgs const& e)
 	{
-		UIElement contentTemplateRoot = e.ItemContainer().ContentTemplateRoot();
+		winrt::UIElement contentTemplateRoot = e.ItemContainer().ContentTemplateRoot();
 
 		if (auto iter = _elementCache.find(contentTemplateRoot); iter != _elementCache.end())
 		{
@@ -200,16 +200,16 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
 
 				if (elementCacheRecord->Phases().size() > 0)
 				{
-					e.RegisterUpdateCallback((uint32_t)elementCacheRecord->Phases()[0], { this, &IncrementalUpdater::OnContainerContentChangingCallback });
+					e.RegisterUpdateCallback(static_cast<uint32_t>(elementCacheRecord->Phases()[0]), { this, &IncrementalUpdater::OnContainerContentChangingCallback });
 				}
 
 				// set the DataContext manually since we inhibit default operation by setting e.Handled=true	
-				contentTemplateRoot.as<FrameworkElement>().DataContext(e.Item());
+				contentTemplateRoot.as<winrt::FrameworkElement>().DataContext(e.Item());
 			}
 			else
 			{
 				// clear the DataContext manually since we inhibit default operation by setting e.Handled=true
-				contentTemplateRoot.ClearValue(FrameworkElement::DataContextProperty());
+				contentTemplateRoot.ClearValue(winrt::FrameworkElement::DataContextProperty());
 
 				for (auto& phaseRecord : elementCacheRecord->ElementsByPhase())
 				{
@@ -222,9 +222,9 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
 		}
 	}
 
-	void IncrementalUpdater::OnContainerContentChangingCallback([[maybe_unused]] ListViewBase const& sender, ContainerContentChangingEventArgs const& e)
+	void IncrementalUpdater::OnContainerContentChangingCallback([[maybe_unused]] winrt::ListViewBase const& sender, winrt::ContainerContentChangingEventArgs const& e)
 	{
-		UIElement contentTemplateRoot = e.ItemContainer().ContentTemplateRoot();
+		winrt::UIElement contentTemplateRoot = e.ItemContainer().ContentTemplateRoot();
 
 		if (auto iter = _elementCache.find(contentTemplateRoot); iter != _elementCache.end())
 		{
@@ -255,19 +255,19 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
 			auto recordSize = elementCacheRecord->Phases().size();
 			if (phaseIndex < static_cast<int>(recordSize))
 			{
-				e.RegisterUpdateCallback((uint32_t)elementCacheRecord->Phases()[phaseIndex], { this, &IncrementalUpdater::OnContainerContentChangingCallback });
+				e.RegisterUpdateCallback(static_cast<uint32_t>(elementCacheRecord->Phases()[phaseIndex]), { this, &IncrementalUpdater::OnContainerContentChangingCallback });
 			}
 		}
 	}
 
-	UIElement IncrementalUpdater::FindContentTemplateRoot(FrameworkElement const& phaseElement)
+	winrt::UIElement IncrementalUpdater::FindContentTemplateRoot(winrt::FrameworkElement const& phaseElement)
 	{
-		DependencyObject ancestor = phaseElement;
+		winrt::DependencyObject ancestor = phaseElement;
 		while (ancestor != nullptr)
 		{
-			DependencyObject parent = VisualTreeHelper::GetParent(ancestor);
+			winrt::DependencyObject parent = winrt::VisualTreeHelper::GetParent(ancestor);
 			
-			if (auto item = parent.try_as<SelectorItem>())
+			if (auto item = parent.try_as<winrt::SelectorItem>())
 			{
 				return item.ContentTemplateRoot();
 			}
@@ -277,7 +277,7 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
 		return nullptr;
 	}
 
-	void IncrementalUpdater::CachePhaseElement(FrameworkElement const& phaseElement, int phase)
+	void IncrementalUpdater::CachePhaseElement(winrt::FrameworkElement const& phaseElement, int phase)
 	{
 		if (phase < 0)
 		{
@@ -289,7 +289,7 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
 			return;
 		}
 
-		UIElement contentTemplateRoot = IncrementalUpdater::FindContentTemplateRoot(phaseElement);
+		winrt::UIElement contentTemplateRoot = IncrementalUpdater::FindContentTemplateRoot(phaseElement);
 		if (contentTemplateRoot != nullptr)
 		{
 			// get the cache for this element
@@ -336,14 +336,14 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
 		}
 	}
 
-	void IncrementalUpdater::UncachePhaseElement(FrameworkElement const& phaseElement, int phase)
+	void IncrementalUpdater::UncachePhaseElement(winrt::FrameworkElement const& phaseElement, int phase)
 	{
 		if (phase <= 0)
 		{
 			return;
 		}
 
-		UIElement contentTemplateRoot = IncrementalUpdater::FindContentTemplateRoot(phaseElement);
+		winrt::UIElement contentTemplateRoot = IncrementalUpdater::FindContentTemplateRoot(phaseElement);
 		if (contentTemplateRoot != nullptr)
 		{
 			// get the cache for this element
@@ -384,14 +384,13 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
 		}
 	}
 
-	void IncrementalUpdater::Attach(DependencyObject const& dependencyObject)
+	void IncrementalUpdater::Attach(winrt::DependencyObject const& dependencyObject)
 	{
-		_associatedListViewBase = dependencyObject.try_as<ListViewBase>();
+		_associatedListViewBase = dependencyObject.try_as<winrt::ListViewBase>();
 
 		if (_associatedListViewBase != nullptr)
 		{
-			_containerContentChangingRevoker = _associatedListViewBase.ContainerContentChanging(winrt::auto_revoke,
-				{ this, &IncrementalUpdater::OnContainerContentChanging });
+			_containerContentChangingRevoker = _associatedListViewBase.ContainerContentChanging(winrt::auto_revoke, { this, &IncrementalUpdater::OnContainerContentChanging });
 		}
 	}
 
