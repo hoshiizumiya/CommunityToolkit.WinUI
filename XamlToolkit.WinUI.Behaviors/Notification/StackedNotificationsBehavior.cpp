@@ -121,7 +121,7 @@ namespace winrt::XamlToolkit::WinUI::Behaviors::implementation
             return;
         }
 
-        const auto& notificationToDisplay = _stackedNotifications.front();
+        auto notificationToDisplay = _stackedNotifications.front();
         _stackedNotifications.pop_front();
 
         _currentNotification = notificationToDisplay;
@@ -145,7 +145,7 @@ namespace winrt::XamlToolkit::WinUI::Behaviors::implementation
             infoBar.Title(notification.Title());
         }
 
-        infoBar.Message(notification.Message().empty() ? L"" : notification.Message());
+        infoBar.Message(notification.Message());
 
         if (overrides & static_cast<uint32_t>(NotificationOverrides::Severity))
         {
@@ -260,7 +260,7 @@ namespace winrt::XamlToolkit::WinUI::Behaviors::implementation
         }
     }
 
-    void StackedNotificationsBehavior::OnTimerTick([[maybe_unused]] winrt::IInspectable const& sender, winrt::IInspectable const& /*e*/)
+    void StackedNotificationsBehavior::OnTimerTick([[maybe_unused]] winrt::IInspectable const& sender, [[maybe_unused]] winrt::IInspectable const& e)
     {
         BehaviorBase::AssociatedObject().IsOpen(false);
     }
