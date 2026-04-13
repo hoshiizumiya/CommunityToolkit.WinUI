@@ -20,14 +20,27 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 	{
 		croppedRect.X = std::max<float>(croppedRect.X, 0);
 		croppedRect.Y = std::max<float>(croppedRect.Y, 0);
-		auto x = (uint32_t)std::floor(croppedRect.X);
-		auto y = (uint32_t)std::floor(croppedRect.Y);
-		auto width = (uint32_t)std::floor(croppedRect.Width);
-		auto height = (uint32_t)std::floor(croppedRect.Height);
+
+		auto left = static_cast<uint32_t>(std::floor(croppedRect.X));
+		auto top = static_cast<uint32_t>(std::floor(croppedRect.Y));
+		auto right = static_cast<uint32_t>(std::ceil(croppedRect.X + croppedRect.Width));
+		auto bottom = static_cast<uint32_t>(std::ceil(croppedRect.Y + croppedRect.Height));
+
+		auto imgWidth = static_cast<uint32_t>(writeableBitmap.PixelWidth());
+		auto imgHeight = static_cast<uint32_t>(writeableBitmap.PixelHeight());
+
+		right = std::min<uint32_t>(right, imgWidth);
+		bottom = std::min<uint32_t>(bottom, imgHeight);
+
+		auto x = left;
+		auto y = top;
+		auto width = right - left;
+		auto height = bottom - top;
+
 		auto buffer = writeableBitmap.PixelBuffer();
 
 		const auto& bitmapEncoder = co_await BitmapEncoder::CreateAsync(GetEncoderId(bitmapFileFormat), stream);
-		bitmapEncoder.SetPixelData(BitmapPixelFormat::Bgra8, BitmapAlphaMode::Premultiplied, (uint32_t)writeableBitmap.PixelWidth(), (uint32_t)writeableBitmap.PixelHeight(), 96.0, 96.0, { buffer.data(), buffer.Length() });
+		bitmapEncoder.SetPixelData(BitmapPixelFormat::Bgra8, BitmapAlphaMode::Premultiplied, imgWidth, imgHeight, 96.0, 96.0, { buffer.data(), buffer.Length() });
 		bitmapEncoder.BitmapTransform().Bounds(BitmapBounds
 			{
 				.X = x,
