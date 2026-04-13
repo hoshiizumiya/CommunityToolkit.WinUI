@@ -13,13 +13,13 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
         L"EventName",
         winrt::xaml_typename<winrt::hstring>(),
         winrt::xaml_typename<class_type>(),
-        PropertyMetadata(winrt::box_value(L"Loaded"), &EventTriggerBehavior::OnEventNameChanged));
+        winrt::PropertyMetadata(winrt::box_value(L"Loaded"), &EventTriggerBehavior::OnEventNameChanged));
 
     const wil::single_threaded_property<winrt::DependencyProperty> EventTriggerBehavior::SourceObjectProperty = winrt::DependencyProperty::Register(
         L"SourceObject",
         winrt::xaml_typename<winrt::IInspectable>(),
         winrt::xaml_typename<class_type>(),
-        PropertyMetadata(nullptr, &EventTriggerBehavior::OnSourceObjectChanged));
+        winrt::PropertyMetadata(nullptr, &EventTriggerBehavior::OnSourceObjectChanged));
 
     winrt::hstring EventTriggerBehavior::EventName() const
     {
@@ -73,7 +73,9 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
 
     winrt::IInspectable EventTriggerBehavior::ComputeResolvedSource()
     {
-        if (ReadLocalValue(EventTriggerBehavior::SourceObjectProperty()) != DependencyProperty::UnsetValue())
+        // If the SourceObject property is set at all, we want to use it. It is possible that it is data
+        // bound and bindings haven't been evaluated yet. Plus, this makes the API more predictable.
+        if (ReadLocalValue(EventTriggerBehavior::SourceObjectProperty()) != winrt::DependencyProperty::UnsetValue())
         {
             return SourceObject();
         }
@@ -83,50 +85,49 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
 
     void EventTriggerBehavior::RegisterEvent(winrt::hstring const& eventName)
     {
-        if (eventName.empty() || _resolvedSource == nullptr)
+        if (eventName.empty())
         {
             return;
         }
 
-        if (eventName == L"Loaded")
+        if (eventName != L"Loaded")
         {
-            if (auto element = _resolvedSource.try_as<FrameworkElement>())
+            _registeredToken = EventManager::Register(eventName, _resolvedSource, [this](winrt::IInspectable const& eventArgs) { OnEvent(_resolvedSource, eventArgs); });
+        }
+        else if (!_isLoadedEventRegistered)
+        {
+            auto element = _resolvedSource.try_as<winrt::FrameworkElement>();
+            if (element != nullptr && !IsElementLoaded(element))
             {
-                if (!IsElementLoaded(element))
-                {
-                    _eventToken = element.Loaded({ this, &EventTriggerBehavior::OnEvent });
-                    _isRegistered = true;
-                }
+                _isLoadedEventRegistered = true;
+                _loadedToken = element.Loaded({ this, &EventTriggerBehavior::OnEvent });
             }
-
-            return;
         }
-
-        _eventToken = EventManager::Register(eventName, _resolvedSource, [this](winrt::IInspectable const& eventArgs) { OnEvent(_resolvedSource, eventArgs); });
-        _isRegistered = true;
     }
 
     void EventTriggerBehavior::UnregisterEvent(winrt::hstring const& eventName)
     {
-        if (!_isRegistered || eventName.empty() || _resolvedSource == nullptr)
+        if (eventName.empty())
         {
             return;
         }
 
-        if (eventName == L"Loaded")
+        if (eventName != L"Loaded")
         {
-            if (auto element = _resolvedSource.try_as<FrameworkElement>())
+            if (_registeredToken)
             {
-                element.Loaded(_eventToken);
+                EventManager::Unregister(eventName, _resolvedSource, _registeredToken);
+                _registeredToken = {};
             }
         }
-        else
+		else if (_isLoadedEventRegistered)
         {
-            EventManager::Unregister(eventName, _resolvedSource, _eventToken);
+            _isLoadedEventRegistered = false;
+            if (auto element = _resolvedSource.try_as<winrt::FrameworkElement>())
+            {
+                element.Loaded(_loadedToken);
+            }
         }
-
-        _eventToken = {};
-        _isRegistered = false;
     }
 
     void EventTriggerBehavior::OnEvent([[maybe_unused]] winrt::IInspectable const& sender, winrt::IInspectable const& eventArgs)
@@ -135,13 +136,13 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
         Interaction::ExecuteActions(_resolvedSource, actions, eventArgs);
     }
 
-    void EventTriggerBehavior::OnSourceObjectChanged(DependencyObject const& dependencyObject, [[maybe_unused]] DependencyPropertyChangedEventArgs const& args)
+    void EventTriggerBehavior::OnSourceObjectChanged(winrt::DependencyObject const& dependencyObject, [[maybe_unused]] winrt::DependencyPropertyChangedEventArgs const& args)
     {
         auto behavior = winrt::get_self<EventTriggerBehavior>(dependencyObject.as<class_type>());
         behavior->SetResolvedSource(behavior->ComputeResolvedSource());
     }
 
-    void EventTriggerBehavior::OnEventNameChanged(DependencyObject const& dependencyObject, DependencyPropertyChangedEventArgs const& args)
+    void EventTriggerBehavior::OnEventNameChanged(winrt::DependencyObject const& dependencyObject, winrt::DependencyPropertyChangedEventArgs const& args)
     {
         auto behavior = winrt::get_self<EventTriggerBehavior>(dependencyObject.as<class_type>());
         if (behavior->AssociatedObject() == nullptr || behavior->_resolvedSource == nullptr)
@@ -156,23 +157,25 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
         behavior->RegisterEvent(newEventName);
     }
 
-    bool EventTriggerBehavior::IsElementLoaded(FrameworkElement const& element)
+    bool EventTriggerBehavior::IsElementLoaded(winrt::FrameworkElement const& element)
     {
         if (element == nullptr)
         {
             return false;
         }
 
-        UIElement rootVisual{ nullptr };
+        winrt::UIElement rootVisual{ nullptr };
         if (auto xamlRoot = element.XamlRoot())
         {
             rootVisual = xamlRoot.Content();
         }
 
-        DependencyObject parent = element.Parent();
+        winrt::DependencyObject parent = element.Parent();
         if (parent == nullptr)
         {
-            parent = VisualTreeHelper::GetParent(element);
+            // If the element is the child of a ControlTemplate it will have a null parent even when it is loaded.
+            // To catch that scenario, also check its parent in the visual tree.
+            parent = winrt::VisualTreeHelper::GetParent(element);
         }
 
         return (parent != nullptr || (rootVisual != nullptr && element == rootVisual));

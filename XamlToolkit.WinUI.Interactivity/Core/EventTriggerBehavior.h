@@ -68,8 +68,9 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
         static void OnEventNameChanged(DependencyObject const& dependencyObject, DependencyPropertyChangedEventArgs const& args);
 
         winrt::IInspectable _resolvedSource{ nullptr };
-        winrt::event_token _eventToken{};
-        bool _isRegistered{ false };
+        winrt::event_token _registeredToken{};
+        winrt::event_token _loadedToken{};
+        bool _isLoadedEventRegistered{ false };
     };
 }
 
