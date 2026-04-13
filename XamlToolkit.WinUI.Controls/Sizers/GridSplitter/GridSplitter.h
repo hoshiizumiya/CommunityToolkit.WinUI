@@ -27,10 +27,10 @@ namespace winrt::XamlToolkit::WinUI::Controls::implementation
 		void ResizeDirection(GridResizeDirection value) { SetValue(ResizeDirectionProperty, winrt::box_value(value)); }
 
 		static inline const wil::single_threaded_property<DependencyProperty> ResizeDirectionProperty =
-			DependencyProperty::Register(L"GridResizeDirection", winrt::xaml_typename<GridResizeDirection>(), winrt::xaml_typename<class_type>(), PropertyMetadata(winrt::box_value(GridResizeDirection::Auto)));
+			DependencyProperty::Register(L"GridResizeDirection", winrt::xaml_typename<GridResizeDirection>(), winrt::xaml_typename<class_type>(), PropertyMetadata(winrt::box_value(GridResizeDirection::Auto), &GridSplitter::OnResizeDirectionPropertyChanged));
 
 		GridResizeBehavior ResizeBehavior() { return winrt::unbox_value<GridResizeBehavior>(GetValue(ResizeBehaviorProperty)); }
-		void ResizeBehavior(GridResizeBehavior  value) { SetValue(ResizeBehaviorProperty, winrt::box_value(value)); }
+		void ResizeBehavior(GridResizeBehavior value) { SetValue(ResizeBehaviorProperty, winrt::box_value(value)); }
 
 		static inline const wil::single_threaded_property<DependencyProperty> ResizeBehaviorProperty =
 			DependencyProperty::Register(L"GridResizeBehavior", winrt::xaml_typename<GridResizeBehavior>(), winrt::xaml_typename<class_type>(), PropertyMetadata(winrt::box_value(GridResizeBehavior::BasedOnAlignment)));
