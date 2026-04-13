@@ -15,17 +15,26 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
 [](winrt::Windows::Foundation::IInspectable const& sender, winrt::event_token token) { sender.as<type>().event_name(token); }
 
 #define ADD_DESCRIPTION(event_name, type, args_type) \
-EventManager::AddDecription(L#event_name, [](winrt::Windows::Foundation::IInspectable const& sender, Action const& action) \
+EventManager::AddDescription(L#event_name, [](winrt::Windows::Foundation::IInspectable const& sender, Action const& action) \
 { return sender.as<type>().event_name([action](auto&&, args_type const& e) { action(e); }); }, \
 UNREGISTER_EVENT(event_name, type))
 
 #define ADD_DESCRIPTION_NOARGS(event_name, type) \
-EventManager::AddDecription(L#event_name, [](winrt::Windows::Foundation::IInspectable const& sender, Action const& action) \
+EventManager::AddDescription(L#event_name, [](winrt::Windows::Foundation::IInspectable const& sender, Action const& action) \
 { return sender.as<type>().event_name([action](auto&&, auto&&) { action(nullptr); }); }, \
 UNREGISTER_EVENT(event_name, type))
 
-    using EventNameToRegisterHandlerMap = std::unordered_map<std::wstring_view, RegisterHandler>;
-    using EventNameToUnregisterHandlerMap = std::unordered_map<std::wstring_view, UnregisterHandler>;
+    struct wstring_hash 
+    {
+        using is_transparent = void;
+        size_t operator()(const wchar_t* str) const { return std::hash<std::wstring_view>{}(str); }
+        size_t operator()(std::wstring_view str) const { return std::hash<std::wstring_view>{}(str); }
+        size_t operator()(const std::wstring& str) const { return std::hash<std::wstring_view>{}(str); }
+        size_t operator()(const winrt::hstring& str) const { return std::hash<std::wstring_view>{}(str); }
+    };
+
+    using EventNameToRegisterHandlerMap = std::unordered_map<std::wstring, RegisterHandler, wstring_hash, std::equal_to<>>;
+    using EventNameToUnregisterHandlerMap = std::unordered_map<std::wstring, UnregisterHandler, wstring_hash, std::equal_to<>>;
 
     namespace Global
     {
@@ -35,7 +44,7 @@ UNREGISTER_EVENT(event_name, type))
 
     namespace
     {
-        [[noreturn]] void ThrowCannotFindEvent(winrt::hstring const& eventName, winrt::Windows::Foundation::IInspectable const& sender)
+        [[noreturn]] void ThrowCannotFindEvent(std::wstring_view eventName, winrt::Windows::Foundation::IInspectable const& sender)
         {
             auto typeName = winrt::get_class_name(sender);
             auto message = ResourceHelper::Format(
@@ -46,10 +55,10 @@ UNREGISTER_EVENT(event_name, type))
         }
     }
 
-    void EventManager::AddDecription(std::wstring_view eventName, RegisterHandler registerHandler, UnregisterHandler unregisterHandler)
+    void EventManager::AddDescription(std::wstring_view eventName, RegisterHandler registerHandler, UnregisterHandler unregisterHandler)
     {
-        Global::RegisterHandlers.insert({ eventName, registerHandler });
-        Global::UnregisterHandlers.insert({ eventName, unregisterHandler });
+        Global::RegisterHandlers.emplace(eventName, registerHandler);
+        Global::UnregisterHandlers.emplace(eventName, unregisterHandler);
     }
 
     winrt::event_token EventManager::Register(
@@ -62,7 +71,7 @@ UNREGISTER_EVENT(event_name, type))
             EventManager::AddDefaultEvents();
         }
 
-        if (auto iterator = Global::RegisterHandlers.find(eventName.c_str()); iterator != Global::RegisterHandlers.end())
+        if (auto iterator = Global::RegisterHandlers.find(eventName); iterator != Global::RegisterHandlers.end())
         {
             try
             {
@@ -87,7 +96,7 @@ UNREGISTER_EVENT(event_name, type))
             EventManager::AddDefaultEvents();
         }
 
-        if (auto iterator = Global::UnregisterHandlers.find(eventName.c_str()); iterator != Global::UnregisterHandlers.end())
+        if (auto iterator = Global::UnregisterHandlers.find(eventName); iterator != Global::UnregisterHandlers.end())
         {
             try
             {

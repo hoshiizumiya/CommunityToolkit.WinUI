@@ -23,7 +23,7 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
         /// <param name="eventName">The name of the event.</param>
         /// <param name="handler">The handler to register the event.</param>
         /// <param name="unregisterHandler">The handler to unregister the event.</param>
-        static void AddDecription(
+        static void AddDescription(
             std::wstring_view eventName,
             RegisterHandler handler,
             UnregisterHandler unregisterHandler);
