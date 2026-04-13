@@ -22,6 +22,11 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
         BehaviorCollection();
 
         /// <summary>
+        /// Cleans up the <see cref="BehaviorCollection"/> and detaches all behaviors.
+        /// </summary>
+        ~BehaviorCollection();
+
+        /// <summary>
         /// Gets the <see cref="DependencyObject"/> to which the <see cref="BehaviorCollection"/> is attached.
         /// </summary>
         winrt::DependencyObject AssociatedObject() const noexcept;
@@ -38,7 +43,7 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
         void Detach();
 
     private:
-        void BehaviorCollection_VectorChanged(
+        void OnVectorChanged(
             winrt::IObservableVector<winrt::DependencyObject> const& sender,
             winrt::IVectorChangedEventArgs const& eventArgs);
 
@@ -49,7 +54,7 @@ namespace winrt::XamlToolkit::WinUI::Interactivity::implementation
 #endif
 
         std::vector<winrt::XamlToolkit::WinUI::Interactivity::IBehavior> _oldCollection;
-        winrt::DependencyObject _associatedObject{ nullptr };
+        winrt::weak_ref<winrt::DependencyObject> _associatedObject{ nullptr };
     };
 }
 
