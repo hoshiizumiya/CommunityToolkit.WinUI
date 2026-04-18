@@ -111,7 +111,7 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 				return true;
 			}
 
-			if (auto buttonSource = source.try_as<Button>(); buttonSource.Flyout())
+			if (auto buttonSource = source.try_as<Button>(); buttonSource && buttonSource.Flyout())
 			{
 				return true;
 			}
