@@ -1,4 +1,4 @@
-namespace XamlToolkit.Labs.WinUI
+﻿namespace XamlToolkit.Labs.WinUI
 {
     [webhosthidden]
     runtimeclass DataColumn : Microsoft.UI.Xaml.Controls.ContentControl
@@ -14,5 +14,7 @@ namespace XamlToolkit.Labs.WinUI
 
         [noexcept]
         static Microsoft.UI.Xaml.DependencyProperty DesiredWidthProperty{ get; };
+
+        Double ActualColumnWidth{ get; };
     }
 }
