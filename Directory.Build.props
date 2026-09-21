@@ -1,16 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project>
     <Import Project="$(MSBuildThisFileDirectory)HybridCRT.props" />
-    
+
     <PropertyGroup>
-		<PlatformToolset>v145</PlatformToolset>
-		<UseCrtSDKReference>false</UseCrtSDKReference>
+        <PlatformToolset>v145</PlatformToolset>
+        <UseCrtSDKReference>false</UseCrtSDKReference>
         <UseCrtSDKReferenceStaticWarning>false</UseCrtSDKReferenceStaticWarning>
+
+        <!-- Source consumers build the Toolkit as independent MSBuild projects.
+             Give every project in this repository the same vcpkg manifest context. -->
+        <VcpkgEnableManifest>true</VcpkgEnableManifest>
+        <VcpkgManifestInstall>true</VcpkgManifestInstall>
+        <VcpkgManifestRoot>$(MSBuildThisFileDirectory)</VcpkgManifestRoot>
+        <VcpkgUseStatic>true</VcpkgUseStatic>
+        <VcpkgApplocalDeps>false</VcpkgApplocalDeps>
+        <VcpkgTriplet Condition="'$(Platform)'=='x64'">x64-windows-static</VcpkgTriplet>
+        <VcpkgTriplet Condition="'$(Platform)'=='ARM64'">arm64-windows-static</VcpkgTriplet>
+        <VcpkgTriplet Condition="'$(Platform)'=='Win32'">x86-windows-static</VcpkgTriplet>
     </PropertyGroup>
 
-	<ItemDefinitionGroup>
-		<ClCompile>
-			<LanguageStandard>stdcpp23</LanguageStandard>
-		</ClCompile>
-	</ItemDefinitionGroup>
+    <ItemDefinitionGroup>
+        <ClCompile>
+            <LanguageStandard>stdcpp23</LanguageStandard>
+        </ClCompile>
+    </ItemDefinitionGroup>
 </Project>
