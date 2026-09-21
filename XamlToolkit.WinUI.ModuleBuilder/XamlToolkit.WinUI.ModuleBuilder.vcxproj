@@ -96,6 +96,13 @@
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <PropertyGroup>
+    <!-- WindowsAppSDK.Base recognizes OutputType=Library, but not the C++
+         staticlibrary value. Otherwise it defaults this projection library to
+         self-contained and leaks framework DLLs through ProjectReference into
+         packaged consumers. ConfigurationType still selects the .lib build. -->
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
   <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
