@@ -12,6 +12,8 @@
         <Setter Property="CanDragItems" Value="True" />
         <Setter Property="CanReorderItems" Value="True" />
         <Setter Property="AllowDrop" Value="True" />
+        <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Enabled" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
         <Setter Property="ItemContainerTransitions">
             <Setter.Value>
                 <TransitionCollection>
@@ -37,7 +39,9 @@
                                        ItemContainerStyleSelector="{TemplateBinding ItemContainerStyleSelector}"
                                        ItemContainerTransitions="{TemplateBinding ItemContainerTransitions}"
                                        ItemTemplate="{TemplateBinding ItemTemplate}"
-                                       ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}" />
+                                       ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                       ScrollViewer.HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
+                                       ScrollViewer.HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
