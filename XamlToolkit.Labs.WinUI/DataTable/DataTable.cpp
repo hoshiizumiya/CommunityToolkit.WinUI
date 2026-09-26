@@ -275,7 +275,24 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 
 		UpdateColumnWidths(availableSize.Width);
 
-		return Size(availableSize.Width, static_cast<float>(maxHeight));
+		// Horizontal scrolling requires the panel to report the resolved table width,
+		// not merely the viewport width. Keep the table at least as wide as the
+		// viewport, but allow the desired width to exceed it when columns overflow.
+		double desiredWidth = 0;
+		for (const auto& column : elements)
+		{
+			desiredWidth += winrt::get_self<winrt::XamlToolkit::Labs::WinUI::implementation::DataColumn>(column)->ActualColumnWidth();
+		}
+		if (elements.size() > 1)
+		{
+			desiredWidth += (elements.size() - 1) * ColumnSpacing();
+		}
+		if (std::isfinite(availableSize.Width))
+		{
+			desiredWidth = std::max<double>(desiredWidth, availableSize.Width);
+		}
+
+		return Size(static_cast<float>(desiredWidth), static_cast<float>(maxHeight));
 	}
 
 	Size DataTable::ArrangeOverride(Size finalSize)

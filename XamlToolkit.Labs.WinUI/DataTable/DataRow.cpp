@@ -234,17 +234,21 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 			// TODO: What do we want to do if there's unequal children in the DataTable vs. DataRow?
 		}
 
-		// Fill the width offered by the item container. Returning the header's desired
-		// width makes the entire row move when resized columns no longer fill the table.
-		auto desiredWidth = availableSize.Width;
+		// Keep the row at least as wide as the item container so shrinking columns
+		// never shifts the whole row. If the header/table needs more room, propagate
+		// that larger desired width so the owning ScrollViewer can expose a horizontal
+		// extent instead of clipping the cells.
+		double desiredWidth = availableSize.Width;
+		if (_parentPanel != nullptr)
+		{
+			desiredWidth = std::max<double>(desiredWidth, _parentPanel.DesiredSize().Width);
+		}
 		if (!std::isfinite(desiredWidth))
 		{
-			desiredWidth = _parentPanel
-				? _parentPanel.DesiredSize().Width
-				: 0;
+			desiredWidth = _parentPanel != nullptr ? _parentPanel.DesiredSize().Width : 0;
 		}
 
-		return winrt::Size(desiredWidth, static_cast<float>(maxHeight));
+		return Size(static_cast<float>(desiredWidth), static_cast<float>(maxHeight));
 	}
 
 	winrt::Size DataRow::ArrangeOverride(winrt::Size finalSize)
