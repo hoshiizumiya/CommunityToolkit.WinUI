@@ -207,8 +207,6 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 
 		double fixedWidth = 0;
 		double proportionalUnits = 0;
-		double autoSized = 0;
-
 		double maxHeight = 0;
 
 		auto elements = Children()
@@ -216,60 +214,47 @@ namespace winrt::XamlToolkit::Labs::WinUI::implementation
 			| std::ranges::views::transform([](auto&& e) { return e.template as<winrt::XamlToolkit::Labs::WinUI::DataColumn>(); })
 			| std::ranges::to<std::vector>();
 
-		// We only need to measure elements that are visible
+		// Resolve intrinsic Auto widths before allocating Star space. A later
+		// header must not be measured against what is left of the viewport:
+		// horizontal scrolling is allowed to make the table wider than it.
 		for (const auto& column : elements)
 		{
 			auto columnImpl = winrt::get_self<winrt::XamlToolkit::Labs::WinUI::implementation::DataColumn>(column);
-			if (GridLengthHelper::GetIsStar(columnImpl->CurrentWidth()))
+			const auto currentWidth = columnImpl->CurrentWidth();
+			if (GridLengthHelper::GetIsAuto(currentWidth))
 			{
-				proportionalUnits += columnImpl->CurrentWidth().Value;
+				column.Measure(Size(std::numeric_limits<float>::infinity(), availableSize.Height));
+				fixedWidth += std::max<double>(column.DesiredSize().Width, columnImpl->MaxChildDesiredWidth);
+				maxHeight = std::max<double>(maxHeight, column.DesiredSize().Height);
 			}
-			else if (GridLengthHelper::GetIsAbsolute(columnImpl->CurrentWidth()))
+			else if (GridLengthHelper::GetIsAbsolute(currentWidth))
 			{
-				fixedWidth += columnImpl->CurrentWidth().Value;
+				fixedWidth += currentWidth.Value;
+			}
+			else
+			{
+				proportionalUnits += currentWidth.Value;
 			}
 		}
 
-		// Add in spacing between columns to our fixed size allotment
 		if (elements.size() > 1)
 		{
 			fixedWidth += (elements.size() - 1) * ColumnSpacing();
 		}
 
-		// TODO: Handle infinite width?
-		const auto proportionalAmount = proportionalUnits > 0
+		const auto proportionalAmount = proportionalUnits > 0 && std::isfinite(availableSize.Width)
 			? std::max<double>((availableSize.Width - fixedWidth) / proportionalUnits, 0)
 			: 0;
 
 		for (const auto& column : elements)
 		{
 			auto columnImpl = winrt::get_self<winrt::XamlToolkit::Labs::WinUI::implementation::DataColumn>(column);
-			if (GridLengthHelper::GetIsStar(columnImpl->CurrentWidth()))
-			{
-				column.Measure(Size(static_cast<float>(proportionalAmount * columnImpl->CurrentWidth().Value), availableSize.Height));
-			}
-			else if (GridLengthHelper::GetIsAbsolute(columnImpl->CurrentWidth()))
-			{
-				column.Measure(Size(static_cast<float>(columnImpl->CurrentWidth().Value), availableSize.Height));
-			}
-			else
-			{
-				// TODO: Technically this is using 'Auto' on the Header content
-				// What the developer probably intends is it to be adjusted based on the contents of the rows...
-				// To enable this scenario, we'll need to actually measure the contents of the rows for that column
-				// in DataRow and figure out the maximum size to report back and adjust here in some sort of hand-shake
-				// for the layout process... (i.e. get the data in the measure step, use it in the arrange step here,
-				// then invalidate the child arranges [don't re-measure and cause loop]...)
-
-				// For now, we'll just use the header content as a guideline to see if things work.
-
-				// Avoid negative values when columns don't fit `availableSize`. Otherwise the `Size` constructor will throw.
-				column.Measure(Size(std::max<float>(static_cast<float>(availableSize.Width - fixedWidth - autoSized), 0), availableSize.Height));
-
-				// Keep track of already 'allotted' space, use either the maximum child size (if we know it) or the header content
-				autoSized += std::max<double>(column.DesiredSize().Width, columnImpl->MaxChildDesiredWidth);
-			}
-
+			const auto currentWidth = columnImpl->CurrentWidth();
+			if (GridLengthHelper::GetIsAuto(currentWidth)) continue;
+			const auto width = GridLengthHelper::GetIsStar(currentWidth)
+				? proportionalAmount * currentWidth.Value
+				: currentWidth.Value;
+			column.Measure(Size(static_cast<float>(width), availableSize.Height));
 			maxHeight = std::max<double>(maxHeight, column.DesiredSize().Height);
 		}
 

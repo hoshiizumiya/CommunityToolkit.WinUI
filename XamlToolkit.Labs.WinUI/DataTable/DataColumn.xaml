@@ -30,6 +30,10 @@
     <Style x:Key="DefaultDataColumnStyle"
            TargetType="labs:DataColumn">
         <Style.Setters>
+            <!-- TextBlock rounds its intrinsic width upwards only when layout
+                 rounding is enabled. Keep that guarantee when Auto widths are
+                 frozen to pixels, even inside a host that disables rounding. -->
+            <Setter Property="UseLayoutRounding" Value="True" />
             <!--  TODO: This is going to be different between ListView and HeaderedItemsControl, how do we want to handle?  -->
             <Setter Property="Padding" Value="4,0" />
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
