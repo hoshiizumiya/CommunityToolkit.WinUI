@@ -384,7 +384,6 @@
   <!-- None -->
   <ItemGroup>
     <None Include="XamlToolkit.WinUI.Media.def" />
-    <None Include="packages.config" />
   </ItemGroup>
   <!-- Midl -->
   <ItemGroup>

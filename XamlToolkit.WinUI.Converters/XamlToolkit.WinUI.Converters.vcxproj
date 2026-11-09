@@ -323,9 +323,6 @@
   	<PackageReference Include="Microsoft.Windows.ImplementationLibrary" />
   	<PackageReference Include="Microsoft.Windows.SDK.BuildTools" />
   	<PackageReference Include="Microsoft.Windows.SDK.BuildTools.MSIX" />
-  	<PackageReference Include="Microsoft.WindowsAppSDK.Base" />
-  	<PackageReference Include="Microsoft.WindowsAppSDK.Foundation" />
-  	<PackageReference Include="Microsoft.WindowsAppSDK.InteractiveExperiences" />
-  	<PackageReference Include="Microsoft.WindowsAppSDK.WinUI" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" />
   </ItemGroup>
 </Project>
